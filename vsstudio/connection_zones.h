@@ -1,12 +1,22 @@
 #pragma once
 
 #include "compas.h"
-#include "CGAL_XFormUtil.h"
+
 #include "CGAL_VectorUtil.h"
+
+
+#include "joint.h"
+#include "joint_library.h"
+#include "element.h"
+
+#include "CGAL_XFormUtil.h"
 #include "CGAL_PolylineUtil.h"
 #include "CGAL_BoxUtil.h"
 #include "CGAL_PlaneUtil.h"
+
 #include "CGAL_Print.h"
+
+
 #include "RTree.h"
 #include "AxisPlane.h"
 #include "clipper.h"
@@ -18,9 +28,7 @@
 #include <vector>
 #include <execution>
 
-#include "element.h"
-#include "joint.h"
-#include "joint_library.h"
+
 
 inline void get_elements(std::vector<CGAL_Polyline>& pp, std::vector<element>& elements) {
 

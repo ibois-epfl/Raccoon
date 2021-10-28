@@ -42,7 +42,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
     std::vector<CGAL_Polyline> plines;
     plines.reserve(elements.size()*4);
     for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
-            elements[i].get_joints_geometry(joints, plines);//push joint geometry from joint to element
+           elements[i].get_joints_geometry(joints, plines);//push joint geometry from joint to element
     }
 
     //////////////////////////////////////////////////////////////////////////////

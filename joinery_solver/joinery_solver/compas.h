@@ -33,37 +33,15 @@ static double GlobalExtend[5] = {0,0,0,0,0};
 
 
 using IK = CGAL::Exact_predicates_inexact_constructions_kernel;
-//using EK = CGAL::Exact_predicates_exact_constructions_kernel;
-//typedef CGAL::Simple_cartesian<double>                           IK;
+using EK = CGAL::Exact_predicates_exact_constructions_kernel;
 
-//using To_exact = CGAL::Cartesian_converter<IK, EK>;
-//using Back_from_exact = CGAL::Cartesian_converter<EK, IK>;
-//using EK_Plane = EK::Plane_3;
-//using EK_Point = IK::Point_3;
+typedef CGAL::Cartesian_converter<IK, EK>                         IK_to_EK;
+typedef CGAL::Cartesian_converter<EK, IK>                         EK_to_IK;
 
-//using CGAL_Kernel = CGAL::Exact_predicates_exact_constructions_kernel;
-//using IK::Direction_3 = IK::Direction_3;
-//using IK::Vector_3 = IK::Vector_3;
-//using IK::Vector_2 = IK::Vector_2;
-//using IK::Plane_3 = IK::Plane_3;
-//using CGAL::Bbox_3 = CGAL::Bbox_3;
-//using CGAL_Mesh = CGAL::Surface_mesh<CGAL_Kernel::Point_3>;
 using CGAL_Polyline = std::vector<IK::Point_3>;
 using CGAL_Polylines = std::list<CGAL_Polyline>;
-//using CGAL::Aff_transformation_3<IK> = CGAL::Aff_transformation_3<IK>;
-//using IK::Line_3 = IK::Line_3;
-//using IK::Segment_3 = IK::Segment_3;
 
-////////////////////////////For Intersections/////////////////////////////////
 
-//#include <CGAL/Simple_cartesian.h>
-//#include <CGAL/Quotient.h>
-//#include <CGAL/MP_Float.h>
-//#include <CGAL/Cartesian_converter.h>
-//typedef CGAL::Simple_cartesian<CGAL::Quotient<CGAL::MP_Float> >  EK;
-////using EK = CGAL::Exact_predicates_exact_constructions_kernel;
-//typedef CGAL::Cartesian_converter<IK, EK>                         IK_to_EK;
-//typedef CGAL::Cartesian_converter<EK, IK>                         EK_to_IK;
 
 namespace compas
 {

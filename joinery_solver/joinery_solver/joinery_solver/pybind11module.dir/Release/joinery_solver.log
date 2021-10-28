@@ -1,6 +1,4 @@
 ﻿  connection_zones.cpp
-  element.cpp
-  joint.cpp
   clipper.cpp
   compas.cpp
   compas_cgal.cpp
