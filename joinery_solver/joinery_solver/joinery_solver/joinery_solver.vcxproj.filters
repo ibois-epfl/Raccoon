@@ -30,9 +30,6 @@
     <ClInclude Include="..\CGAL_IntersectionUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_MathUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\CGAL_PlaneAxis.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -43,9 +40,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\CGAL_Print.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CGAL_VectorUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\CGAL_XFormUtil.h">
@@ -60,28 +54,10 @@
     <ClInclude Include="..\..\..\vsstudio\connection_zones.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_IntersectionUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\vsstudio\CGAL_MathUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_PlaneUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_PolylineUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_Print.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\vsstudio\CGAL_VectorUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_XFormUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_BoxUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\vsstudio\element.h">
@@ -90,7 +66,7 @@
     <ClInclude Include="..\..\..\vsstudio\joint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\RTree.h">
+    <ClInclude Include="..\joint_library.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
