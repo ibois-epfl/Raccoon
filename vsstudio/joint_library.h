@@ -1,5 +1,5 @@
 #pragma once
-//#include "compas.h"
+#include "compas.h"
 #include "joint.h"
 
 namespace joint_library {

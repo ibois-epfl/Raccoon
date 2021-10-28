@@ -1,6 +1,11 @@
 #pragma once
 #include <math.h>
-//#include "compas.h"
+#include "compas.h"
+#include "AxisPlane.h"
+//#include "CGAL_PolylineUtil.h"
+
+
+
 
 namespace CGAL_VectorUtil {
 

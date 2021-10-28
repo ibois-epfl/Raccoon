@@ -1,5 +1,5 @@
 #pragma once
-//#include "compas.h"
+#include "compas.h"
 #include "CGAL_VectorUtil.h"
 #include <math.h> 
 

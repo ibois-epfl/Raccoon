@@ -68,12 +68,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\vsstudio\CGAL_BoxUtil.h" />
+    <ClInclude Include="..\..\..\vsstudio\CGAL_IntersectionUtil.h" />
+    <ClInclude Include="..\..\..\vsstudio\CGAL_MathUtil.h" />
+    <ClInclude Include="..\..\..\vsstudio\CGAL_PlaneUtil.h" />
+    <ClInclude Include="..\..\..\vsstudio\CGAL_PolylineUtil.h" />
+    <ClInclude Include="..\..\..\vsstudio\CGAL_Print.h" />
+    <ClInclude Include="..\..\..\vsstudio\CGAL_VectorUtil.h" />
+    <ClInclude Include="..\..\..\vsstudio\CGAL_XFormUtil.h" />
     <ClInclude Include="..\..\..\vsstudio\connection_zones.h" />
     <ClInclude Include="..\..\..\vsstudio\element.h" />
     <ClInclude Include="..\..\..\vsstudio\joint.h" />
+    <ClInclude Include="..\..\..\vsstudio\RTree.h" />
     <ClInclude Include="..\CGAL_BoxUtil.h" />
     <ClInclude Include="..\CGAL_IntersectionUtil.h" />
     <ClInclude Include="..\CGAL_MathUtil.h" />
+    <ClInclude Include="..\CGAL_PlaneAxis.h" />
     <ClInclude Include="..\CGAL_PlaneUtil.h" />
     <ClInclude Include="..\CGAL_PolylineUtil.h" />
     <ClInclude Include="..\CGAL_Print.h" />
@@ -87,6 +97,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\vsstudio\connection_zones.cpp" />
+    <ClCompile Include="..\..\..\vsstudio\element.cpp" />
+    <ClCompile Include="..\..\..\vsstudio\joint.cpp" />
     <ClCompile Include="..\clipper.cpp" />
     <ClCompile Include="..\compas.cpp" />
     <ClCompile Include="..\compas_cgal.cpp" />
