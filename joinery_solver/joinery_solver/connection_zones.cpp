@@ -1,3 +1,4 @@
+#include "compas.h"
 #include "connection_zones.h"
 
 std::vector<compas::RowMatrixXd> get_connection_zones(
@@ -5,7 +6,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
     Eigen::Ref<const compas::RowMatrixXi>& F
 ) {
 
-    
+
 
     //////////////////////////////////////////////////////////////////////////////
     //Convert Raw data to list of Polyline
@@ -20,17 +21,17 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
     //////////////////////////////////////////////////////////////////////////////
     std::vector<element> elements;
     get_elements(polyline_pairs, elements);
-    
+
     //////////////////////////////////////////////////////////////////////////////
     //Create joints, Perform Joint Area Search
     //////////////////////////////////////////////////////////////////////////////
     auto joints = std::vector<joint>();
     rtree_search(elements, search_type, joints);
-   
+
     //////////////////////////////////////////////////////////////////////////////
     //Create and Align Joints
     //////////////////////////////////////////////////////////////////////////////
-   
+
     for (int i = 0; i < joints.size(); i++) {
         //Cross_Simple(joints[i]);
         joint_library::ss_e_ip_0(joints[i]);
@@ -40,9 +41,9 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
     //Iterate joint address
     //////////////////////////////////////////////////////////////////////////////
     std::vector<CGAL_Polyline> plines;
-    plines.reserve(elements.size()*4);
+    plines.reserve(elements.size() * 4);
     for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
-            elements[i].get_joints_geometry(joints, plines);//push joint geometry from joint to element
+        elements[i].get_joints_geometry(joints, plines);//push joint geometry from joint to element
     }
 
     //////////////////////////////////////////////////////////////////////////////
@@ -56,13 +57,15 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
                //plines.push_back(planeDisplay);
             }
         }
-    } 
+    }
     //////////////////////////////////////////////////////////////////////////////
     //Convert Output to Raw Data
     //////////////////////////////////////////////////////////////////////////////
     return compas::result_from_polylinesVector(plines);
-   
+
 }
+
+
 
 
 void init_connectionzones(pybind11::module& m) {
@@ -75,5 +78,3 @@ void init_connectionzones(pybind11::module& m) {
         pybind11::arg("F").noconvert()
     );
 }
-
-

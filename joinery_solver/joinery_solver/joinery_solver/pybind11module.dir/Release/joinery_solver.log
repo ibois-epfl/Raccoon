@@ -1,10 +1,5 @@
-﻿  connection_zones.cpp
-  element.cpp
-  joint.cpp
-  clipper.cpp
-  compas.cpp
-  compas_cgal.cpp
-  slicer.cpp
+﻿  clipper.cpp
+  connection_zones.cpp
      Creating library C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/Release/pybind11module.lib and object C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/Release/pybind11module.exp
   Generating code
   Finished generating code

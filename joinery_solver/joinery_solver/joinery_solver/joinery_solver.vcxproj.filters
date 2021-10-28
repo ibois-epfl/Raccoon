@@ -30,9 +30,6 @@
     <ClInclude Include="..\CGAL_IntersectionUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_PlaneAxis.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\CGAL_PlaneUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,51 +42,30 @@
     <ClInclude Include="..\CGAL_XFormUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\clipperUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\RTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\connection_zones.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_MathUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_VectorUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\element.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\vsstudio\joint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\joint_library.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\CGAL_VectorUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\connection_zones.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\element.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\joint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\compas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\slicer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\clipper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\compas_cgal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\vsstudio\connection_zones.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\vsstudio\element.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\vsstudio\joint.cpp">
+    <ClCompile Include="..\connection_zones.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

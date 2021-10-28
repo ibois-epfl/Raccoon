@@ -2,12 +2,253 @@
 
 #include "compas.h"
 
+//
+
 //PlanePlanePlane
 //PlanePlane
 //LinePlane
 // LineLine not implemented
 //https://github.com/mcneel/opennurbs/blob/c20e599d1ff8f08a55d3dddf5b39e37e8b5cac06/opennurbs_intersect.cpp
 namespace CGAL_IntersectionUtil {
+
+
+
+    //bool ON_Matrix::SwapCols(int col0, int col1)
+    //{
+    //    bool b = false;
+    //    int i;
+    //    double t;
+    //    double** this_m = ThisM();
+    //    col0 -= m_col_offset;
+    //    col1 -= m_col_offset;
+    //    if (this_m && 0 <= col0 && col0 < m_col_count && 0 <= col1 && col1 < m_col_count)
+    //    {
+    //        if (col0 != col1)
+    //        {
+    //            for (i = 0; i < m_row_count; i++)
+    //            {
+    //                t = this_m[i][col0]; this_m[i][col0] = this_m[i][col1]; this_m[i][col1] = t;
+    //            }
+    //        }
+    //        b = true;
+    //    }
+    //    return b;
+    //}
+
+    inline IK::Point_3 PointAt(IK::Segment_3& l, double t)
+    {
+
+        //s[0].z()
+        // 26 Feb 2003 Dale Lear
+        //     Changed 
+        //          return (1-t)*from + t*to;
+        //     to the following so that axis aligned lines will
+        //     return exact answers for large values of t.  
+        //     See RR 9683.
+
+        const double s = 1.0 - t;
+
+        return  IK::Point_3(
+            (l[0].x() == l[1].x()) ? l[0].x() : s * l[0].x() + t * l[1].x(),
+            (l[0].y() == l[1].y()) ? l[0].y() : s * l[0].y() + t * l[1].y(),
+            (l[0].z() == l[1].z()) ? l[0].z() : s * l[0].z() + t * l[1].z()
+        );
+    }
+    inline bool ClosestPointTo(const IK::Point_3& point, IK::Segment_3& s, double& t)
+    {
+        bool rc = false;
+        //if (t) {
+        const IK::Vector_3 D = s.to_vector();
+
+        const double DoD = D.squared_length();
+        //CGAL_Debug(DoD);
+
+        if (DoD > 0.0) {
+
+            if ((point - s[0]).squared_length() <= (point - s[1]).squared_length()) {
+                t = ((point - s[0]) * D) / DoD;
+            }
+            else {
+                t = 1.0 + ((point - s[1]) * D) / DoD;
+            }
+
+            rc = true;
+
+        }
+        else {
+            t = 0.0;
+            rc = true;			// (GBA) Closest point to a degenerate line works as well
+        }
+        // }
+        return rc;
+    }
+
+    inline void line_line_line(IK::Segment_3& l0, IK::Segment_3& middle, IK::Segment_3& l1, IK::Point_3& p0, IK::Point_3& p1, double& middle_t_0, double& middle_t_1 ) {
+
+
+        IK_to_EK ie; EK_to_IK ei;
+        auto result0 = CGAL::intersection(ie(l0), ie(middle));
+        auto result1 = CGAL::intersection(ie(l1), ie(middle));
+        p0 = ei(*boost::get<EK::Point_3>(&*result0));
+        p1 = ei(*boost::get<EK::Point_3>(&*result1));
+
+
+        ClosestPointTo(p0, middle, middle_t_0);
+        ClosestPointTo(p1, middle, middle_t_1);
+
+
+    }
+
+    //bool Intersect( IK::Segment_3& lineA,  IK::Segment_3& lineB,
+    //    double* lineA_parameter,
+    //    double* lineB_parameter
+    //)
+    //{
+    //    // If you are looking at this code because you don't like an
+    //    // answer you are getting, then the first thing to try is
+    //    // to read the header file comments and try calling 
+    //    // ON_IntersectLineLine.
+    //    bool rc = false;
+    //    double M_zero_tol = 0.0;
+    //    int i, rank;
+    //    double pr_tolerance, pivot, X[2], Y[2];
+
+    //    IK::Vector_3 A = lineA.to_vector();
+    //    IK::Vector_3 B = lineB.to_vector();
+    //    IK::Vector_3 C = lineB[0] - lineA[0];
+
+    //    Matrix::Matrix M(2, 2);
+    //    M[0][0] = CGAL::scalar_product(A, A);
+    //    M[1][1] = CGAL::scalar_product(B, B);
+    //    M[0][1] = M[1][0] = -CGAL::scalar_product(A, B);
+
+    //    // this swap done to get row+col pivot accuracy
+    //    if (M[0][0] < M[1][1]) {
+    //        M.SwapCols(0, 1);
+    //        i = 1;
+    //    }
+    //    else {
+    //        i = 0;
+    //    }
+    //    pr_tolerance = fabs(M[1][1]) * ON_SQRT_EPSILON;
+    //    M_zero_tol = fabs(M[1][1]) * ON_EPSILON;
+
+    //    Y[0] = CGAL::scalar_product(A, C);
+    //    Y[1] = -CGAL::scalar_product(B, C);
+
+    //    rank = M.RowReduce(M_zero_tol, Y, &pivot);
+    //    if (rank == 2)
+    //    {
+    //        // 19 November 2003 Dale Lear and Chuck
+    //        //   Added lineA.from/to == lineB.from/to tests
+    //        //   so exact answer gets returned when people
+    //        //   expect it.
+    //        rc = true;
+    //        if (lineA[0] == lineB[0])
+    //        {
+    //            if (lineA_parameter)
+    //                *lineA_parameter = 0.0;
+    //            if (lineB_parameter)
+    //                *lineB_parameter = 0.0;
+    //        }
+    //        else if (lineA[0] == lineB[1])
+    //        {
+    //            if (lineA_parameter)
+    //                *lineA_parameter = 0.0;
+    //            if (lineB_parameter)
+    //                *lineB_parameter = 1.0;
+    //        }
+    //        else if (lineA[1] == lineB[0])
+    //        {
+    //            if (lineA_parameter)
+    //                *lineA_parameter = 1.0;
+    //            if (lineB_parameter)
+    //                *lineB_parameter = 0.0;
+    //        }
+    //        else if (lineA[1] == lineB[1])
+    //        {
+    //            if (lineA_parameter)
+    //                *lineA_parameter = 1.0;
+    //            if (lineB_parameter)
+    //                *lineB_parameter = 1.0;
+    //        }
+    //        else
+    //        {
+    //            rc = M.BackSolve(0.0, 2, Y, X);
+    //            if (rc)
+    //            {
+    //                if (lineA_parameter)
+    //                    *lineA_parameter = X[i];
+    //                if (lineB_parameter)
+    //                    *lineB_parameter = X[1 - i];
+    //                if (fabs(pivot) <= pr_tolerance)
+    //                {
+    //                    // test answer because matrix was close to singular
+    //                    // (This test is slow but it is rarely used.)
+    //                    IK::Point_3 pA = PointAt(lineA,X[i]);
+    //                    IK::Point_3 pB = PointAt(lineB, X[1 - i]); 
+    //                    double d = std::sqrt(CGAL::squared_distance(pA, pB));
+    //                    if (d > pr_tolerance && d > ON_ZERO_TOLERANCE) {
+    //                        double t0, t1;
+    //                        ClosestPointTo(pB, lineA, t0);
+    //                        ClosestPointTo(pA, lineB, t1);
+    //                        IK::Point_3 qA = PointAt(lineA, t0); //lineA.ClosestPointTo(pB);
+    //                        IK::Point_3 qB = PointAt(lineB, t1); // lineB.ClosestPointTo(pA);
+    //                        double dA = std::sqrt(CGAL::squared_distance(pA,qB));
+    //                        double dB = std::sqrt(CGAL::squared_distance(pB, qA));  
+    //                        if (1.1 * dA < d) {
+    //                            rc = false;
+    //                        }
+    //                        else if (1.1 * dB < d) {
+    //                            rc = false;
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+
+    //    return rc;
+    //}
+
+
+
+
+
+    //bool LineLine(
+    //    const IK::Line_3& lineA,
+    //    const IK::Line_3& lineB,
+    //    double* a,
+    //    double* b,
+    //    //double tolerance,
+    //    bool bIntersectSegments
+    //)
+    //{
+    //    bool rc = Intersect(lineA, lineB, a, b) ? true : false;
+    //    if (rc)
+    //    {
+    //        if (bIntersectSegments)
+    //        {
+    //            if (*a < 0.0)
+    //                *a = 0.0;
+    //            else if (*a > 1.0)
+    //                *a = 1.0;
+    //            if (*b < 0.0)
+    //                *b = 0.0;
+    //            else if (*b > 1.0)
+    //                *b = 1.0;
+    //        }
+    //        //Do not check the tolerance
+    //        //if (tolerance > 0.0)
+    //        //{
+    //        //    rc = (lineA.PointAt(*a).DistanceTo(lineB.PointAt(*b)) <= tolerance);
+    //        //}
+    //    }
+    //    return rc;
+    //}
+
+
+
 
 
 
@@ -261,6 +502,165 @@ namespace CGAL_IntersectionUtil {
     }
 
 
+    inline bool QuadFromLineAndTopBottomPlanes(IK::Plane_3& collision_face, IK::Segment_3& l, IK::Plane_3& pl0, IK::Plane_3& pl1, CGAL_Polyline& quad) {
+
+        IK::Vector_3 dir = l.to_vector();
+        IK::Plane_3 line_pl0_EK(l[0], dir);
+        IK::Plane_3 line_pl1_EK(l[1], dir);
 
 
+
+        //IK_to_EK ie; EK_to_IK ei;
+        //auto result0 = CGAL::intersection(ie(line_pl0_EK), ie(pl0), ie(collision_face));
+        //auto result1 = CGAL::intersection(ie(line_pl0_EK), ie(pl1), ie(collision_face));
+        //auto result2 = CGAL::intersection(ie(line_pl1_EK), ie(pl1), ie(collision_face));
+        //auto result3 = CGAL::intersection(ie(line_pl1_EK), ie(pl0), ie(collision_face));
+        //IK::Point_3 p0 = ei(*boost::get<EK::Point_3>(&*result0));
+        //IK::Point_3 p1 = ei(*boost::get<EK::Point_3>(&*result1));
+        //IK::Point_3 p2 = ei(*boost::get<EK::Point_3>(&*result2));
+        //IK::Point_3 p3 = ei(*boost::get<EK::Point_3>(&*result3));
+
+        IK::Point_3 p0; CGAL_IntersectionUtil::Intersect(line_pl0_EK, pl0, collision_face, p0);
+        IK::Point_3 p1; CGAL_IntersectionUtil::Intersect(line_pl0_EK, pl1, collision_face, p1);
+        IK::Point_3 p2; CGAL_IntersectionUtil::Intersect(line_pl1_EK, pl1, collision_face, p2);
+        IK::Point_3 p3; CGAL_IntersectionUtil::Intersect(line_pl1_EK, pl0, collision_face, p3);
+        quad = { p0 ,p1,p2,p3,p0 };
+
+
+        return true;
+
+    }
+
+    inline void vector_two_planes(IK::Vector_3& v, IK::Plane_3& plane0, IK::Plane_3& plane1, IK::Vector_3& output) {
+        //printf("vector_two_planes \n");
+        //IK::Line_3 line(IK::Point_3(0, 0, 0), v);
+
+        //auto result0 = CGAL::intersection(plane0, line);
+        //auto result1 = CGAL::intersection(plane1, line);
+
+        //auto p0 = *boost::get<IK::Point_3>(&*result0);
+        //auto p1 = *boost::get<IK::Point_3>(&*result1);
+
+        //return p1 - p0;
+
+
+
+        IK::Segment_3 line(IK::Point_3(0, 0, 0), IK::Point_3(v.hx(), v.hy(), v.hz()));
+        IK::Point_3 p0;
+        IK::Point_3 p1;
+        CGAL_IntersectionUtil::Intersect(line, plane0, p0);
+        CGAL_IntersectionUtil::Intersect(line, plane1, p1);
+        output = p1 - p0;
+    }
+
+    inline void orthogonal_vector_between_two_plane_pairs(IK::Plane_3& plane_pair0_0, IK::Plane_3& plane_pair1_0, IK::Plane_3& plane_pair1_1, IK::Vector_3& output) {
+
+
+
+        IK::Line_3 l0;
+        IK::Line_3 l1;
+        CGAL_IntersectionUtil::Intersect(plane_pair0_0, plane_pair1_0, l0);
+        CGAL_IntersectionUtil::Intersect(plane_pair0_0, plane_pair1_1, l1);
+
+        output = l1.point() - l0.projection(l1.point());
+
+    }
+
+    inline void plane_4_planes(IK::Plane_3& mainPlane, IK::Plane_3(&sequence_of_planes)[4],  CGAL_Polyline& quad) {
+
+        //auto result0 = CGAL::intersection(sequence_of_planes[0], sequence_of_planes[1], mainPlane);
+        //auto result1 = CGAL::intersection(sequence_of_planes[1], sequence_of_planes[2], mainPlane);
+        //auto result2 = CGAL::intersection(sequence_of_planes[2], sequence_of_planes[3], mainPlane);
+        //auto result3 = CGAL::intersection(sequence_of_planes[3], sequence_of_planes[0], mainPlane);
+
+        //return {
+        // *boost::get<IK::Point_3>(&*result0),
+        //*boost::get<IK::Point_3>(&*result1),
+        //*boost::get<IK::Point_3>(&*result2),
+        //*boost::get<IK::Point_3>(&*result3),
+        //*boost::get<IK::Point_3>(&*result0)
+        //};
+
+        IK::Point_3 p0; CGAL_IntersectionUtil::Intersect(sequence_of_planes[0], sequence_of_planes[1], mainPlane, p0);
+        IK::Point_3 p1; CGAL_IntersectionUtil::Intersect(sequence_of_planes[1], sequence_of_planes[2], mainPlane, p1);
+        IK::Point_3 p2; CGAL_IntersectionUtil::Intersect(sequence_of_planes[2], sequence_of_planes[3], mainPlane, p2);
+        IK::Point_3 p3; CGAL_IntersectionUtil::Intersect(sequence_of_planes[3], sequence_of_planes[0], mainPlane, p3);
+        quad = { p0 ,p1,p2,p3,p0 };
+
+    }
+
+
+
+    inline void LinePlane(IK::Line_3& line, IK::Plane_3& plane, IK::Point_3& output) {
+
+       CGAL_IntersectionUtil::Intersect(IK::Segment_3(line.point(), line.point() + line.to_vector()), plane, output);
+
+        //auto result = CGAL::intersection(line, plane);
+        ///*    if (!result)
+        //        CGAL_Debug(0);*/
+        //auto point = *boost::get<IK::Point_3>(&*result);
+       // return point;
+
+    }
+
+    inline void SegmentPlane(IK::Segment_3& segment, IK::Plane_3& plane, IK::Point_3& output) {
+
+      CGAL_IntersectionUtil::Intersect(segment, plane, output);
+        /* if (!result)
+             CGAL_Debug(0);*/
+             //auto point = *boost::get<IK::Point_3>(&*result);
+       
+
+    }
+
+
+    inline bool Plane4LinesIntersection(IK::Plane_3& plane, IK::Segment_3& l0, IK::Segment_3& l1, IK::Segment_3& l2, IK::Segment_3& l3, CGAL_Polyline& output) {
+
+        //printf("CPP %f \n", l0.squared_length());
+        //printf("CPP %f  %f %f %f \n", plane.a(), plane.b(), plane.c(), plane.d() );
+
+        IK::Point_3 p0; CGAL_IntersectionUtil::Intersect(l0, plane, p0);
+        IK::Point_3 p1; CGAL_IntersectionUtil::Intersect(l1, plane, p1);
+        IK::Point_3 p2; CGAL_IntersectionUtil::Intersect(l2, plane, p2);
+        IK::Point_3 p3; CGAL_IntersectionUtil::Intersect(l3, plane, p3);
+        output = { p0,p1,p2,p3,p0 };
+        //auto result0 = CGAL::intersection(l0.supporting_line(), plane);
+        ////if (!result0) printf("CPP result0");
+
+        //auto result1 = CGAL::intersection(l1.supporting_line(), plane);
+        ////if (!result1)printf("CPP result1");
+
+
+        //auto result2 = CGAL::intersection(l2.supporting_line(), plane);
+        ////if (!result2) printf("CPP result2");
+
+
+        //auto result3 = CGAL::intersection(l3.supporting_line(), plane);
+        ////if (!result3)  printf("CPP result3");
+
+
+
+        //output = {
+        //*boost::get<IK::Point_3>(&*result0),
+        //*boost::get<IK::Point_3>(&*result1),
+        //*boost::get<IK::Point_3>(&*result2),
+        //*boost::get<IK::Point_3>(&*result3),
+        //*boost::get<IK::Point_3>(&*result0)
+        //};
+
+
+
+
+        return true;
+
+    }
+
+    inline bool PlaneLineIntersection(IK::Plane_3& plane, IK::Segment_3& l0, IK::Point_3& output) {
+
+        return CGAL_IntersectionUtil::Intersect(l0, plane, output);
+        //auto result0 = CGAL::intersection(l0, plane);
+        //output = *boost::get<IK::Point_3>(&*result0);
+        //return true;
+
+    }
 }

@@ -1,28 +1,28 @@
 #pragma once
-#ifndef COMPAS_H
-#define COMPAS_H
-
 #include <pybind11/eigen.h>
 #include <pybind11/stl.h>
-
 #include <Eigen/StdVector>
-
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Intersections.h>
-//#include <CGAL/Surface_mesh.h>
-
-//#include <CGAL/Simple_cartesian.h>
 #include <CGAL/Bbox_2.h>
 #include <CGAL/Bbox_3.h>
 #include <CGAL/Plane_3.h>
-#include "clipper.h"
+
+
+
+using IK = CGAL::Exact_predicates_inexact_constructions_kernel;
+using EK = CGAL::Exact_predicates_exact_constructions_kernel;
+typedef CGAL::Cartesian_converter<IK, EK> IK_to_EK;
+typedef CGAL::Cartesian_converter<EK, IK> EK_to_IK;
+using CGAL_Polyline = std::vector<IK::Point_3>;
+using CGAL_Polylines = std::list<CGAL_Polyline>;
 
 static double GlobalTolerance = 0.01;
 static double GlobalToleranceSquare = 0.0001;
 static double GlobalClipperScale = 1000000.0;
 static double GlobalClipperAreaTolerance = 0.0001;
-static double GlobalExtend[5] = {0,0,0,0,0};
+static double GlobalExtend[5] = { 0,0,0,0,0 };
 
 #define ON_IS_FINITE(x) (0x7FF0 != (*((unsigned short*)(&x) + 3) & 0x7FF0))
 #define ON_DBL_MIN 2.22507385850720200e-308
@@ -31,39 +31,6 @@ static double GlobalExtend[5] = {0,0,0,0,0};
 #define ON_ZERO_TOLERANCE 2.3283064365386962890625e-10
 #define ON_DBL_MAX 1.7976931348623158e+308
 
-
-using IK = CGAL::Exact_predicates_inexact_constructions_kernel;
-//using EK = CGAL::Exact_predicates_exact_constructions_kernel;
-//typedef CGAL::Simple_cartesian<double>                           IK;
-
-//using To_exact = CGAL::Cartesian_converter<IK, EK>;
-//using Back_from_exact = CGAL::Cartesian_converter<EK, IK>;
-//using EK_Plane = EK::Plane_3;
-//using EK_Point = IK::Point_3;
-
-//using CGAL_Kernel = CGAL::Exact_predicates_exact_constructions_kernel;
-//using IK::Direction_3 = IK::Direction_3;
-//using IK::Vector_3 = IK::Vector_3;
-//using IK::Vector_2 = IK::Vector_2;
-//using IK::Plane_3 = IK::Plane_3;
-//using CGAL::Bbox_3 = CGAL::Bbox_3;
-//using CGAL_Mesh = CGAL::Surface_mesh<CGAL_Kernel::Point_3>;
-using CGAL_Polyline = std::vector<IK::Point_3>;
-using CGAL_Polylines = std::list<CGAL_Polyline>;
-//using CGAL::Aff_transformation_3<IK> = CGAL::Aff_transformation_3<IK>;
-//using IK::Line_3 = IK::Line_3;
-//using IK::Segment_3 = IK::Segment_3;
-
-////////////////////////////For Intersections/////////////////////////////////
-
-//#include <CGAL/Simple_cartesian.h>
-//#include <CGAL/Quotient.h>
-//#include <CGAL/MP_Float.h>
-//#include <CGAL/Cartesian_converter.h>
-//typedef CGAL::Simple_cartesian<CGAL::Quotient<CGAL::MP_Float> >  EK;
-////using EK = CGAL::Exact_predicates_exact_constructions_kernel;
-//typedef CGAL::Cartesian_converter<IK, EK>                         IK_to_EK;
-//typedef CGAL::Cartesian_converter<EK, IK>                         EK_to_IK;
 
 namespace compas
 {
@@ -98,4 +65,192 @@ namespace compas
     std::vector<compas::RowMatrixXd> result_from_polylinesVector(std::vector < CGAL_Polyline> polylines);
 }
 
-#endif /* COMPAS_H */
+
+inline std::vector<compas::RowMatrixXd> compas::result_from_polylines(CGAL_Polylines polylines) {
+
+    std::vector<compas::RowMatrixXd> pointsets;
+
+    for (auto i = polylines.begin(); i != polylines.end(); i++) {
+
+        const CGAL_Polyline& poly = *i;
+        int n = poly.size();
+        compas::RowMatrixXd points(n, 3);
+
+        for (int j = 0; j < n; j++) {
+            points(j, 0) = (double)poly[j].x();
+            points(j, 1) = (double)poly[j].y();
+            points(j, 2) = (double)poly[j].z();
+        }
+
+        pointsets.push_back(points);
+    }
+
+    return pointsets;
+}
+
+
+inline std::vector<compas::RowMatrixXd> compas::result_from_vector(IK::Vector_3* v)
+{
+    std::vector<compas::RowMatrixXd> pointsets;
+
+    //for (auto i = 0; i < AABBs.size(); i++) {
+
+
+    int n = 2;
+    compas::RowMatrixXd points(4, 3);
+
+    points(0, 0) = (double)v[0].x();
+    points(0, 1) = (double)v[0].y();
+    points(0, 2) = (double)v[0].z();
+    points(1, 0) = (double)v[1].x();
+    points(1, 1) = (double)v[1].y();
+    points(1, 2) = (double)v[1].z();
+    points(2, 0) = (double)v[2].x();
+    points(2, 1) = (double)v[2].y();
+    points(2, 2) = (double)v[2].z();
+    points(3, 0) = (double)v[3].x();
+    points(3, 1) = (double)v[3].y();
+    points(3, 2) = (double)v[3].z();
+
+    pointsets.push_back(points);
+    // }
+    return pointsets;
+}
+
+
+inline std::vector<compas::RowMatrixXd> compas::result_from_bbox(std::vector<CGAL::Bbox_3> AABBs)
+{
+    std::vector<compas::RowMatrixXd> pointsets;
+
+    for (auto i = 0; i < AABBs.size(); i++) {
+
+
+        int n = 2;
+        compas::RowMatrixXd points(n, 3);
+
+        points(0, 0) = (double)AABBs[i].xmin();
+        points(0, 1) = (double)AABBs[i].ymin();
+        points(0, 2) = (double)AABBs[i].zmin();
+        points(1, 0) = (double)AABBs[i].xmax();
+        points(1, 1) = (double)AABBs[i].ymax();
+        points(1, 2) = (double)AABBs[i].zmax();
+
+        pointsets.push_back(points);
+    }
+    return pointsets;
+}
+
+inline std::vector<CGAL_Polyline> compas::polylines_from_vertices_and_faces(const compas::RowMatrixXd& V, const compas::RowMatrixXi& F) {
+    //////////////////////////////////////////////////////////////////////////////
+    //Convert Raw data to list of Polyline
+    //////////////////////////////////////////////////////////////////////////////
+    std::vector<CGAL_Polyline> polylinePairs(F.size());
+    CGAL_Polyline pline;
+
+    int counter = 0;
+    int lastCount = F(counter, 0);
+    for (int i = 0; i < V.size() / 3; i++) {
+
+        CGAL::Epick::Point_3 p(V(i, 0), V(i, 1), V(i, 2));
+        pline.push_back(p);
+
+        if (pline.size() == lastCount) {
+            polylinePairs[counter] = pline;
+            pline.clear();//Clear points from the polyline
+            lastCount = F(++counter, 0); //Take next polyline Count
+        }
+
+    }
+    return polylinePairs;
+}
+
+
+inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVectorVector(std::vector < std::vector < CGAL_Polyline>> polylines) {
+
+    std::vector<compas::RowMatrixXd> pointsets;
+
+    for (auto i = polylines.begin(); i != polylines.end(); i++) {
+
+        for (auto j = i->begin(); j != i->end(); j++) {
+
+            const CGAL_Polyline& poly = *j;
+            int n = poly.size();
+            compas::RowMatrixXd points(n, 3);
+
+            for (int k = 0; k < n; k++) {
+                points(k, 0) = (double)poly[k].x();
+                points(k, 1) = (double)poly[k].y();
+                points(k, 2) = (double)poly[k].z();
+            }
+
+            pointsets.push_back(points);
+        }
+    }
+
+    //printf("CPP number of points: %i ", pointsets.size());
+
+    return pointsets;
+}
+
+
+inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVector(std::vector < CGAL_Polyline> polylines) {
+
+    std::vector<compas::RowMatrixXd> pointsets;
+
+    for (auto i = polylines.begin(); i != polylines.end(); i++) {
+
+
+
+        const CGAL_Polyline& poly = *i;
+        int n = poly.size();
+        compas::RowMatrixXd points(n, 3);
+
+        for (int k = 0; k < n; k++) {
+            points(k, 0) = (double)poly[k].x();
+            points(k, 1) = (double)poly[k].y();
+            points(k, 2) = (double)poly[k].z();
+        }
+
+        pointsets.push_back(points);
+
+    }
+
+    //  printf("CPP number of points: %i ", pointsets.size());
+
+    return pointsets;
+}
+
+
+//void init_meshing(py::module&);
+//void init_booleans(py::module&);
+//void init_slicer(py::module&);
+//void init_intersections(py::module&);
+//void init_measure(py::module&);
+void init_connectionzones(pybind11::module&);
+
+
+void say_hello() {
+    printf("CPP SHello World \n");
+}
+
+
+
+
+//pybind11module, module
+PYBIND11_MODULE(pybind11module, m) {
+
+    m.doc() = "";
+    //m.doc() = "pybind11module";//Module name
+    m.def("say_hello", &say_hello);//Function reference
+
+    pybind11::class_<compas::Result>(m, "Result")
+        .def_readonly("vertices", &compas::Result::vertices)
+        .def_readonly("faces", &compas::Result::faces);
+
+    //init_meshing(m);
+    //init_booleans(m);
+    //init_slicer(m);
+    //init_intersections(m);
+    //init_measure(m);
+    init_connectionzones(m);
+}

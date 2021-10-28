@@ -68,33 +68,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\vsstudio\CGAL_MathUtil.h" />
-    <ClInclude Include="..\..\..\vsstudio\CGAL_VectorUtil.h" />
-    <ClInclude Include="..\..\..\vsstudio\connection_zones.h" />
-    <ClInclude Include="..\..\..\vsstudio\element.h" />
-    <ClInclude Include="..\..\..\vsstudio\joint.h" />
     <ClInclude Include="..\CGAL_BoxUtil.h" />
     <ClInclude Include="..\CGAL_IntersectionUtil.h" />
-    <ClInclude Include="..\CGAL_PlaneAxis.h" />
     <ClInclude Include="..\CGAL_PlaneUtil.h" />
     <ClInclude Include="..\CGAL_PolylineUtil.h" />
     <ClInclude Include="..\CGAL_Print.h" />
+    <ClInclude Include="..\CGAL_VectorUtil.h" />
     <ClInclude Include="..\CGAL_XFormUtil.h" />
     <ClInclude Include="..\clipper.h" />
-    <ClInclude Include="..\clipperUtil.h" />
     <ClInclude Include="..\compas.h" />
+    <ClInclude Include="..\connection_zones.h" />
+    <ClInclude Include="..\element.h" />
+    <ClInclude Include="..\joint.h" />
     <ClInclude Include="..\joint_library.h" />
     <ClInclude Include="..\RTree.h" />
     <ClInclude Include="..\slicer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\vsstudio\connection_zones.cpp" />
-    <ClCompile Include="..\..\..\vsstudio\element.cpp" />
-    <ClCompile Include="..\..\..\vsstudio\joint.cpp" />
     <ClCompile Include="..\clipper.cpp" />
-    <ClCompile Include="..\compas.cpp" />
-    <ClCompile Include="..\compas_cgal.cpp" />
-    <ClCompile Include="..\slicer.cpp" />
+    <ClCompile Include="..\connection_zones.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

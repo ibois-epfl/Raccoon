@@ -1,9 +1,9 @@
 #pragma once
-
 #include "compas.h"
 #include "CGAL_XFormUtil.h"
 #include "CGAL_VectorUtil.h"
 #include "CGAL_PolylineUtil.h"
+#include "CGAL_IntersectionUtil.h"
 #include "CGAL_BoxUtil.h"
 #include "CGAL_PlaneUtil.h"
 #include "CGAL_Print.h"
@@ -409,7 +409,7 @@ inline bool plane_to_face(std::vector<
 
 	//Intersection lMax with midPlane
 	IK::Point_3 midPlane_lMax;
-	CGAL_PlaneUtil::PlaneLineIntersection(midPlane, lMax, midPlane_lMax);
+	CGAL_IntersectionUtil::PlaneLineIntersection(midPlane, lMax, midPlane_lMax);
 
 
 	//Get max distance from middle point of min line
@@ -420,7 +420,7 @@ inline bool plane_to_face(std::vector<
 
 	//intersection mid plane with four lines and move it in both directions
 	CGAL_Polyline rm;
-	CGAL_PlaneUtil::Plane4LinesIntersection(midPlane, cx0_py0__cy0_px0, cx0_py1__cy1_px0, cx1_py1__cy1_px1, cx1_py0__cy0_px1, rm);
+	CGAL_IntersectionUtil::Plane4LinesIntersection(midPlane, cx0_py0__cy0_px0, cx0_py1__cy1_px0, cx1_py1__cy1_px1, cx1_py0__cy0_px1, rm);
 	joint_volumes_pairA_pairB[0] = { IK::Point_3(rm[0]) + v, IK::Point_3(rm[1]) + v, IK::Point_3(rm[2]) + v, IK::Point_3(rm[3]) + v, IK::Point_3(rm[4]) + v };
 	joint_volumes_pairA_pairB[1] = { IK::Point_3(rm[0]) - v, IK::Point_3(rm[1]) - v, IK::Point_3(rm[2]) - v, IK::Point_3(rm[3]) - v, IK::Point_3(rm[4]) - v };
 
@@ -517,7 +517,7 @@ inline bool face_to_face(
 
 						//Planes to get a quad
 						if (isLine) {
-							bool isQuad = CGAL_PlaneUtil::QuadFromLineAndTopBottomPlanes(Plane0[i], joint_line0, Plane0[0], Plane0[1], joint_quads0);
+							bool isQuad = CGAL_IntersectionUtil::QuadFromLineAndTopBottomPlanes(Plane0[i], joint_line0, Plane0[0], Plane0[1], joint_quads0);
 							//joint_quads0.push_back(Polyline0[0][0]);
 							//joint_quads0.push_back(Polyline0[1][0]);
 							//joint_quads0.push_back(Plane0[i].point());
@@ -542,7 +542,7 @@ inline bool face_to_face(
 
 						//Planes to get a quad
 						if (isLine) {
-							bool isQuad = CGAL_PlaneUtil::QuadFromLineAndTopBottomPlanes(Plane1[j], joint_line1, Plane1[0], Plane1[1],  joint_quads1);
+							bool isQuad = CGAL_IntersectionUtil::QuadFromLineAndTopBottomPlanes(Plane1[j], joint_line1, Plane1[0], Plane1[1],  joint_quads1);
 	  					    //joint_volumes_pairA_pairB[0] = joint_quads1;
 							//joint_volumes_pairA_pairB[1] = joint_quads1;
 						} else {
@@ -706,9 +706,12 @@ inline bool face_to_face(
 								IK::Vector_3 lJ_v_90 = CGAL::cross_product(lJ_normal, connectionNormal) * 0.5;
 								IK::Line_3 lj_l_90(lJ[0], lJ_v_90);
 
-								IK::Point_3 pl0_0_p = CGAL_PlaneUtil::LinePlane(lj_l_90, Plane0[0]);
-								IK::Point_3 pl1_0_p = CGAL_PlaneUtil::LinePlane(lj_l_90, Plane1[0]);
-								IK::Point_3 pl1_1_p = CGAL_PlaneUtil::LinePlane(lj_l_90, Plane1[1]);
+								IK::Point_3 pl0_0_p;
+								CGAL_IntersectionUtil::LinePlane(lj_l_90, Plane0[0], pl0_0_p);
+								IK::Point_3  pl1_0_p; 
+								CGAL_IntersectionUtil::LinePlane(lj_l_90, Plane1[0], pl1_0_p);
+								IK::Point_3 pl1_1_p; 
+								CGAL_IntersectionUtil::LinePlane(lj_l_90, Plane1[1], pl1_1_p);
 
 								IK::Plane_3 planes[4];
 								planes[1] = Plane0[0];
@@ -727,8 +730,8 @@ inline bool face_to_face(
 								////////////////////////////////////////////////////////////////////////////////
 								//Intersect End plane |-----------------------| with top and bottom planes
 								////////////////////////////////////////////////////////////////////////////////
-								joint_volumes_pairA_pairB[0] = CGAL_PlaneUtil::plane_4_planes(plEnd0, planes);
-								joint_volumes_pairA_pairB[1] = CGAL_PlaneUtil::plane_4_planes(plEnd1, planes);
+								CGAL_IntersectionUtil::plane_4_planes(plEnd0, planes, joint_volumes_pairA_pairB[0]);
+								CGAL_IntersectionUtil::plane_4_planes(plEnd1, planes, joint_volumes_pairA_pairB[1]);
 								//joint_volumes_pairA_pairB[2] = { joint_volumes_pairA_pairB[0][3],joint_volumes_pairA_pairB[0][0],joint_volumes_pairA_pairB[0][1],joint_volumes_pairA_pairB[0][2] };
 								//joint_volumes_pairA_pairB[3] = { joint_volumes_pairA_pairB[1][3],joint_volumes_pairA_pairB[1][0],joint_volumes_pairA_pairB[1][1],joint_volumes_pairA_pairB[1][2] };
 
@@ -751,10 +754,10 @@ inline bool face_to_face(
 								////////////////////////////////////////////////////////////////////////////////
 								//Intersect End plane |-----------------------| with top and bottom planes
 								////////////////////////////////////////////////////////////////////////////////
-								joint_volumes_pairA_pairB[0] = CGAL_PlaneUtil::plane_4_planes(plEnd0, loopOfPlanes0);
-								joint_volumes_pairA_pairB[1] = CGAL_PlaneUtil::plane_4_planes(plEnd1, loopOfPlanes0);
-								joint_volumes_pairA_pairB[2] = CGAL_PlaneUtil::plane_4_planes(plEnd0, loopOfPlanes1);
-								joint_volumes_pairA_pairB[3] = CGAL_PlaneUtil::plane_4_planes(plEnd1, loopOfPlanes1);
+								  CGAL_IntersectionUtil::plane_4_planes(plEnd0, loopOfPlanes0, joint_volumes_pairA_pairB[0]);
+							 CGAL_IntersectionUtil::plane_4_planes(plEnd1, loopOfPlanes0, joint_volumes_pairA_pairB[1]);
+								  CGAL_IntersectionUtil::plane_4_planes(plEnd0, loopOfPlanes1, joint_volumes_pairA_pairB[2]);
+							  CGAL_IntersectionUtil::plane_4_planes(plEnd1, loopOfPlanes1, joint_volumes_pairA_pairB[3]);
 							}
 
 
@@ -788,7 +791,8 @@ inline bool face_to_face(
 						//This case will only work for top-side connection when elements are parallell
 						//For other cases you need to find a way to get opposite plane i.e. mesh intersection
 						//////////////////////////////////////////////////////////////////////////////////////
-						IK::Vector_3 offset_vector = CGAL_PlaneUtil::orthogonal_vector_between_two_plane_pairs(*plane0_0, *plane1_0, *plane1_1);
+						IK::Vector_3 offset_vector;
+						CGAL_IntersectionUtil::orthogonal_vector_between_two_plane_pairs(*plane0_0, *plane1_0, *plane1_1, offset_vector);
 					
 						//if (dirSet) {
 							//offset_vector = CGAL_PlaneUtil::vector_two_planes(dir, *plane1_0, *plane1_1);
@@ -1173,16 +1177,6 @@ inline void get_obb_and_planes(
 //    orientedTiles.push_back(tile);
 //    return true;
 //}
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,5 +1,0 @@
-C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/CMakeFiles/pybind11module.dir
-C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/CMakeFiles/pybind11app.dir
-C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/CMakeFiles/ALL_BUILD.dir
-C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/CMakeFiles/ZERO_CHECK.dir
-C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/externals/pybind11/CMakeFiles/ALL_BUILD.dir

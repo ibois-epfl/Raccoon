@@ -3,6 +3,7 @@
 #include "CGAL_VectorUtil.h"
 #include "CGAL_Print.h"
 #include "clipperUtil.h"
+#include "clipper.h"
 
 namespace CGAL_PolylineUtil {
 
