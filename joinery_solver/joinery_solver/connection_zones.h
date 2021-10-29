@@ -454,6 +454,7 @@ inline bool plane_to_face(std::vector<
 	////////////////////////////////////////////////////////////////////////////////
 	//Joint pj = new Joint(this.joints.Count, x.key, y.key, -1, -1, new List<Polyline>{ jointArea0, jointArea1 }, jointLines, new OutlineType[]{ OutlineType.Side, OutlineType.Side }, CollisionType.PlaneFace);//OutlineType
 	//this.joints.Add(pj);
+	type = 30;
 	return true;
 
 
@@ -650,7 +651,7 @@ inline bool face_to_face(
 							joint_volumes_pairA_pairB[1] = {average_rectangle[2] + offset_vector,average_rectangle[2] - offset_vector,average_rectangle[1] - offset_vector,average_rectangle[1] + offset_vector,  average_rectangle[1] + offset_vector };
 							//joint_volumes_pairA_pairB[2] = joint_volumes_pairA_pairB[0];
 							//joint_volumes_pairA_pairB[3] = joint_volumes_pairA_pairB[1];
-
+							type = 10;
 
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						//Elements are parallel
@@ -735,6 +736,7 @@ inline bool face_to_face(
 								//joint_volumes_pairA_pairB[2] = { joint_volumes_pairA_pairB[0][3],joint_volumes_pairA_pairB[0][0],joint_volumes_pairA_pairB[0][1],joint_volumes_pairA_pairB[0][2] };
 								//joint_volumes_pairA_pairB[3] = { joint_volumes_pairA_pairB[1][3],joint_volumes_pairA_pairB[1][0],joint_volumes_pairA_pairB[1][1],joint_volumes_pairA_pairB[1][2] };
 
+								type = 11;
 							}
 							else {//IN-PLANE
 
@@ -758,6 +760,7 @@ inline bool face_to_face(
 							 CGAL_IntersectionUtil::plane_4_planes(plEnd1, loopOfPlanes0, joint_volumes_pairA_pairB[1]);
 								  CGAL_IntersectionUtil::plane_4_planes(plEnd0, loopOfPlanes1, joint_volumes_pairA_pairB[2]);
 							  CGAL_IntersectionUtil::plane_4_planes(plEnd1, loopOfPlanes1, joint_volumes_pairA_pairB[3]);
+							  type = 12;
 							}
 
 
@@ -808,6 +811,7 @@ inline bool face_to_face(
 						//joint_volumes_pairA_pairB[2] = joint_volumes_pairA_pairB[0];
 						//joint_volumes_pairA_pairB[3] = joint_volumes_pairA_pairB[1];
 						
+						type = 20;
 						return true;
 					}
 					else {
@@ -992,11 +996,17 @@ inline void rtree_search(
 				e0, e1,
 				joint_area,
 				joint_lines,
-				joint_volumes_pairA_pairB
+				joint_volumes_pairA_pairB,
+				type
 			);
 
 			elements[result[i + 0]].jointID_malefemale[e0] = (std::pair<int,bool>(jointID, true));
 			elements[result[i + 1]].jointID_malefemale[e1] = (std::pair<int, bool>(jointID, false));
+
+			if (type == 12) {
+				CGAL_Debug(result[i + 0]);
+				CGAL_Debug(result[i + 1]);
+			}
 
 			jointID++;
 		}

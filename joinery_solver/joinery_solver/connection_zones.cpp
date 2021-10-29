@@ -34,7 +34,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 
     for (int i = 0; i < joints.size(); i++) {
         //Cross_Simple(joints[i]);
-        joint_library::ss_e_ip_0(joints[i]);
+        if(joints[i].type == 12)
+            joint_library::ss_e_ip_0(joints[i]);
     }
     //CGAL_Debug(joints.size());
     //////////////////////////////////////////////////////////////////////////////
@@ -43,7 +44,9 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
     std::vector<CGAL_Polyline> plines;
     plines.reserve(elements.size() * 4);
     for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
+       
         elements[i].get_joints_geometry(joints, plines);//push joint geometry from joint to element
+        elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
     }
 
     //////////////////////////////////////////////////////////////////////////////

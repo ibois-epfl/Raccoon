@@ -14,7 +14,7 @@ public:
 	/////////////////////////////////////////////////////////////////////////////////////////
 	//Parameters from Search method
 	/////////////////////////////////////////////////////////////////////////////////////////
-	int id, f0, f1, e0, e1;
+	int id, f0, f1, e0, e1, type; //10 - SS Rotate 11 - SS OUT OF PLANE 12 - SS IN Plane,  20 Top-Side, 30 - Cross
 	CGAL_Polyline joint_area;//delete
 	CGAL_Polyline joint_lines[2];//delete
 	//CGAL_Polyline joint_quads[2];//delete
@@ -27,24 +27,31 @@ public:
 	int id_of_global_joint_list = -1;//Directs which joint applies where, -1 all cases
 	std::vector<int> tile_parameters;//For rebuilding
 
-	std::vector<CGAL_Polyline> m;
+	std::vector<CGAL_Polyline> m[2];
 	std::vector<char> m_boolean_type;//-1 do not merge 0 edge 1 cut 2 hole
 
-	std::vector<CGAL_Polyline> f;
+	std::vector<CGAL_Polyline> f[2];
 	std::vector<char> f_boolean_type;//-1 do not merge 0 edge 1 cut 2 hole
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 	//Constructors
 	/////////////////////////////////////////////////////////////////////////////////////////
 	joint(int, int, int, int, int, CGAL_Polyline(&)[4]);
-	joint(int, int, int, int, int,  CGAL_Polyline(&), CGAL_Polyline(&)[2], CGAL_Polyline(&)[4] );
+	joint(int, int, int, int, int,  CGAL_Polyline(&), CGAL_Polyline(&)[2], CGAL_Polyline(&)[4],int );
 
 	//Operators
-	std::vector<CGAL_Polyline>& operator[] (bool male_or_female) {
-		if (male_or_female)
-			return m;
+   // IK::Vector_3(&input)[4]
+    std::vector<CGAL_Polyline>& operator() (bool male_or_female, bool first_or_second) {
+        if (male_or_female)
+            if (first_or_second)
+                return m[0];
+            else
+                return m[1];
 		else
-			return f;
+            if (first_or_second)
+                return f[0];
+            else
+                return f[1];
 	}
 
 
@@ -73,13 +80,14 @@ joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_
 
 }
 
-joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4]) {
+joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type) {
 
     this->id = _id;
     this->f0 = _f0;
     this->f1 = _f1;
     this->e0 = _e0;
     this->e1 = _e1;
+    this->type = _type;
 
     for (int i = 0; i < 4; i++) {
         this->joint_volumes[i].reserve(_joint_volumes[i].size());
@@ -268,13 +276,22 @@ inline void joint::transform(CGAL::Aff_transformation_3<IK>& xform0, CGAL::Aff_t
 {
 
 
-
-    for (int i = 0; i < m.size(); i++)
-        for (auto it = m[i].begin(); it != m[i].end(); ++it)
+    
+    for (int i = 0; i < m[0].size(); i++)
+        for (auto it = m[0][i].begin(); it != m[0][i].end(); ++it)
             *it = it->transform(xform0);
 
-    for (int i = 0; i < f.size(); i++)
-        for (auto it = f[i].begin(); it != f[i].end(); ++it)
+    for (int i = 0; i < m[1].size(); i++)
+        for (auto it = m[1][i].begin(); it != m[1][i].end(); ++it)
+            *it = it->transform(xform0);
+
+    for (int i = 0; i < f[0].size(); i++)
+        for (auto it = f[0][i].begin(); it != f[0][i].end(); ++it)
+            *it = it->transform(xform1);
+
+
+    for (int i = 0; i < f[1].size(); i++)
+        for (auto it = f[1][i].begin(); it != f[1][i].end(); ++it)
             *it = it->transform(xform1);
 
 }
