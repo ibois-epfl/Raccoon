@@ -124,7 +124,7 @@ inline void get_elements(std::vector<CGAL_Polyline>& pp, std::vector<element>& e
 		}
 
 		//Edge initialization
-		elements[id].jointID_malefemale = std::vector<std::pair<int, bool>>(pp[i].size() + 1, std::pair<int, bool>(-1, false));
+		elements[id].j_mf = std::vector<std::pair<int, bool>>(pp[i].size() + 1, std::pair<int, bool>(-1, false));
 
 
 	}
@@ -187,9 +187,10 @@ inline bool intersection_2D(CGAL_Polyline& p0, CGAL_Polyline& p1, IK::Plane_3& p
 		//CleanPolygon(C[0], GlobalTolerance * scale);//clean polygons
 
 		//if (C[0].size() > 3 && Area(C[0]) > GlobalClipperAreaTolerance * scale * scale) {//skip triangles and very small polygons 
-		if (C[0].size() > 3 && Area(C[0]) > (Area(pathA)) * GlobalClipperAreaTolerance) {//skip triangles and very small polygons 
+		if (C[0].size() > 3 && std::abs(Area(C[0])) > std::abs(Area(pathA) * GlobalClipperAreaTolerance) ) {//skip triangles and very small polygons 
 		
-			//CGAL_Debug(Area(C[0]));
+		/*	CGAL_Debug(Area(pathA));
+			CGAL_Debug(Area(C[0]));*/
 			c.resize(C[0].size() + 1);
 
 			for (int i = 0; i < C[0].size(); i++) {
@@ -517,7 +518,8 @@ inline bool face_to_face(
 						bool isLine = CGAL_PolylineUtil::PolylinePlane(joint_area, averagePlane0, alignmentSegment, joint_line0);
 
 						//Planes to get a quad
-						if (isLine) {
+						if (isLine && joint_line0.squared_length() > GlobalTolerance) {
+						
 							bool isQuad = CGAL_IntersectionUtil::QuadFromLineAndTopBottomPlanes(Plane0[i], joint_line0, Plane0[0], Plane0[1], joint_quads0);
 							//joint_quads0.push_back(Polyline0[0][0]);
 							//joint_quads0.push_back(Polyline0[1][0]);
@@ -542,7 +544,7 @@ inline bool face_to_face(
 					
 
 						//Planes to get a quad
-						if (isLine) {
+						if (isLine && joint_line1.squared_length() > GlobalTolerance) {
 							bool isQuad = CGAL_IntersectionUtil::QuadFromLineAndTopBottomPlanes(Plane1[j], joint_line1, Plane1[0], Plane1[1],  joint_quads1);
 	  					    //joint_volumes_pairA_pairB[0] = joint_quads1;
 							//joint_volumes_pairA_pairB[1] = joint_quads1;
@@ -999,14 +1001,16 @@ inline void rtree_search(
 				joint_volumes_pairA_pairB,
 				type
 			);
+			//CGAL_Debug();
+			//CGAL_Debug(jointID, result[i + 0],  e0);
+			//CGAL_Debug(jointID, result[i + 1], e1);
+			elements[result[i + 0]].j_mf[e0] = (std::pair<int,bool>(jointID, true));
+			elements[result[i + 1]].j_mf[e1] = (std::pair<int, bool>(jointID, false));
 
-			elements[result[i + 0]].jointID_malefemale[e0] = (std::pair<int,bool>(jointID, true));
-			elements[result[i + 1]].jointID_malefemale[e1] = (std::pair<int, bool>(jointID, false));
-
-			if (type == 12) {
-				CGAL_Debug(result[i + 0]);
-				CGAL_Debug(result[i + 1]);
-			}
+			//if (type == 12) {
+			//	CGAL_Debug(result[i + 0]);
+			//	CGAL_Debug(result[i + 1]);
+			//}
 
 			jointID++;
 		}

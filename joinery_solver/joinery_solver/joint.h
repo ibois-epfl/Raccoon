@@ -54,6 +54,19 @@ public:
                 return f[1];
 	}
 
+    void reverse(bool male_or_female) {
+     
+        if (male_or_female) 
+            std::swap(m[0],m[1]);
+        else 
+            std::swap(f[0], f[1]);
+        
+    }
+
+
+
+    
+
 
 	
 	void transform(CGAL::Aff_transformation_3<IK>& xform0, CGAL::Aff_transformation_3<IK>& xform1);//Custom user transformation
@@ -68,6 +81,7 @@ joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_
     this->f1 = _f1;
     this->e0 = _e0;
     this->e1 = _e1;
+    this->type = -1;
 
     for (int i = 0; i < 4; i++) {
         this->joint_volumes[i].reserve(_joint_volumes[i].size());

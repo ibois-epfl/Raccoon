@@ -92,60 +92,26 @@ namespace CGAL_IntersectionUtil {
         IK::Line_3 l1_(IK::Point_3(-1242.933992, -680.04568600000005, 711.26441699999998), IK::Point_3(-1242.933992, -196.286, 535.190291));
             
 
-       // IK_to_EK ie; EK_to_IK ei;
-       // auto result0 = CGAL::intersection(ie(l0_), ie(l1_));
+
 
        auto result0 = CGAL::intersection((l0.supporting_line()), (middle.supporting_line()));
       // auto result1 = CGAL::intersection(ie(l1), ie(middle));
 
        if (result0) {
            p0 = (*boost::get<IK::Point_3>(&*result0));
-           printf("Good\n");
-           CGAL_Debug(p0, true);
+           //printf("Good\n");
+           //CGAL_Debug(p0, true);
          
        }
        else {
            printf("Bad\n");
        }
 
-       //if (result1) {
-       //    p1 = ei(*boost::get<EK::Point_3>(&*result1));
-       //    CGAL_Debug(p1, true);
-       //    printf("Good\n");
-       //}
-       //else {
-       //    printf("Bad\n");
-       //}
-
-
-         //auto result0 = CGAL::intersection((IK::Line_3(l0)), (IK::Line_3(middle)));
-         //auto result1 = CGAL::intersection((IK::Line_3(l1)), (IK::Line_3(middle)));
-         //if (result0 && result1) {
-    
-
-         //    p0 = (*boost::get<IK::Point_3>(&*result0));
-         //    p1 = (*boost::get<IK::Point_3>(&*result1));
-         //    CGAL_Debug(999999);
-         //}
-      
-        
-       // 
-        //auto result0 = CGAL::intersection(ie(l0.supporting_line()), ie(middle.supporting_line()));
-        //CGAL_Debug(0);
-        //auto result1 = CGAL::intersection(ie(l1.supporting_line()), ie(middle.supporting_line()));
-        //CGAL_Debug(0);
-        //p0 = ei(*boost::get<EK::Point_3>(&*result0));
-        //CGAL_Debug(0);
-        //p1 = ei(*boost::get<EK::Point_3>(&*result1));
-        //CGAL_Debug(0);
-
-        //ClosestPointTo(p0, middle, middle_t_0);
-        //CGAL_Debug(0);
-        //ClosestPointTo(p1, middle, middle_t_1);
-        //CGAL_Debug(0);
 
     }
 
+
+ 
     //bool Intersect( IK::Segment_3& lineA,  IK::Segment_3& lineB,
     //    double* lineA_parameter,
     //    double* lineB_parameter
@@ -710,4 +676,32 @@ namespace CGAL_IntersectionUtil {
         //return true;
 
     }
+
+    inline void plane_plane_plane(IK::Plane_3& plane0, IK::Plane_3& plane1, IK::Plane_3& plane2, IK::Point_3& p0, IK::Segment_3& segment, double& t
+        /*IK::Point_3& p0, IK::Point_3& p1,
+        double& middle_t_0, double& middle_t_1*/) {
+
+
+        CGAL_IntersectionUtil::Intersect(plane0, plane1, plane2, p0);
+
+        // IK_to_EK ie; EK_to_IK ei;
+        //// auto result0 = CGAL::intersection(ie(l0_), ie(l1_));
+
+        //auto result0 = CGAL::intersection(ie(plane0), ie(plane1), ie(plane2));
+        //// auto result1 = CGAL::intersection(ie(l1), ie(middle));
+
+        //if (result0) {
+        //    p0 = ei(*boost::get<EK::Point_3>(&*result0));
+        //    //ClosestPointTo(p0, segment, t);
+        //    printf("Good\n");
+        //    //CGAL_Debug(p0, true);
+
+        //}
+        //else {
+        //    printf("Bad\n");
+        //}
+
+
+    }
+
 }

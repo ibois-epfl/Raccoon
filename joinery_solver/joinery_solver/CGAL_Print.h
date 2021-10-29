@@ -24,8 +24,17 @@ inline void CGAL_Debug(double v) {
 	printf("CPP double %.17g\n", v);
 }
 
+inline void CGAL_Debug(double x, double y) {
+	printf("CPP Vector %f %f \n", x, y);
+}
+
 inline void CGAL_Debug(double x, double y, double z) {
 	printf("CPP Vector %f %f %f \n", x, y, z);
+}
+
+
+inline void CGAL_Debug(int x, int y, int z, int k) {
+	printf("%i %i %i %i \n", x, y, z, k);
 }
 
 
