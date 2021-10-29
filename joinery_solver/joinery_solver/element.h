@@ -254,8 +254,11 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 	newPolyline1.push_back(newPolyline1[0]);
 	
 	//CGAL_Debug();
-	//for (auto ppp : newPolyline0) 
-	//	CGAL_Debug(ppp,true);
+	//for (auto ppp : newPolyline0)
+	//	CGAL_Debug(ppp, true);
+	//CGAL_Debug();
+	//for (auto ppp : newPolyline1)
+	//	CGAL_Debug(ppp, true);
 
 
 
