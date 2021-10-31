@@ -28,10 +28,10 @@ public:
 	std::vector<int> tile_parameters;//For rebuilding
 
 	std::vector<CGAL_Polyline> m[2];
-	std::vector<char> m_boolean_type;//-1 do not merge 0 edge 1 cut 2 hole
+	std::vector<char> m_boolean_type;//0 - do not merge, 1 - edge insertion, 2 - hole 3 - insert between multiple edges hole
 
 	std::vector<CGAL_Polyline> f[2];
-	std::vector<char> f_boolean_type;//-1 do not merge 0 edge 1 cut 2 hole
+	std::vector<char> f_boolean_type;//0 - do not merge, 1 - edge insertion, 2 - hole 3 - insert between multiple edges hole
 
 	/////////////////////////////////////////////////////////////////////////////////////////
 	//Constructors
@@ -47,12 +47,20 @@ public:
                 return m[0];
             else
                 return m[1];
-		else
+        else
             if (first_or_second)
                 return f[0];
             else
                 return f[1];
-	}
+    }
+
+    std::vector<char>& operator() (bool male_or_female) {
+        if (male_or_female)
+            return m_boolean_type;
+        else
+            return f_boolean_type;
+
+    }
 
     void reverse(bool male_or_female) {
      

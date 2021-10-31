@@ -47,6 +47,11 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 				joint_library::ss_e_op_0(joints[i]);
 			break;
 
+		case(20):
+			if (joints[i].type == 20)
+				joint_library::ts_e_p_0(joints[i]);
+			break;
+
 		}
 
 
@@ -60,8 +65,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	plines.reserve(elements.size() * 4);
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 
-	  //elements[i].get_joints_geometry(joints, plines,3);//push joint geometry from joint to element
-		elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
+			//elements[i].get_joints_geometry(joints, plines,3);//push joint geometry from joint to element
+			elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
 
 	}
 

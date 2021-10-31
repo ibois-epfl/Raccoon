@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 #include "compas.h"
 #include "CGAL_XFormUtil.h"
 #include "CGAL_VectorUtil.h"
@@ -124,7 +124,7 @@ inline void get_elements(std::vector<CGAL_Polyline>& pp, std::vector<element>& e
 		}
 
 		//Edge initialization
-		elements[id].j_mf = std::vector<std::pair<int, bool>>(pp[i].size() + 1, std::pair<int, bool>(-1, false));
+		elements[id].j_mf = std::vector< std::vector<std::pair<int, bool>>>(pp[i].size() + 1);//(-1, false)
 
 
 	}
@@ -991,6 +991,9 @@ inline void rtree_search(
 
 		if (joint_area.size() > 0) {
 
+			//CGAL_Debug(e0, e1);
+			//
+
 
 			joints.emplace_back(
 				jointID,
@@ -1001,11 +1004,27 @@ inline void rtree_search(
 				joint_volumes_pairA_pairB,
 				type
 			);
+
+
+
 			//CGAL_Debug();
 			//CGAL_Debug(jointID, result[i + 0],  e0);
 			//CGAL_Debug(jointID, result[i + 1], e1);
-			elements[result[i + 0]].j_mf[e0] = (std::pair<int,bool>(jointID, true));
-			elements[result[i + 1]].j_mf[e1] = (std::pair<int, bool>(jointID, false));
+			if (e1 < 2 || e0 < 2) {
+				if ((e1 < 2 && e0>1)) {
+					elements[result[i + 0]].j_mf[e0].push_back(std::pair<int, bool>(jointID, true));
+					elements[result[i + 1]].j_mf[e1].push_back(std::pair<int, bool>(jointID, false));
+				}
+				else {
+					elements[result[i + 0]].j_mf[e0]  .push_back(std::pair<int, bool>(jointID, false));
+					elements[result[i + 1]].j_mf[e1]  .push_back(std::pair<int, bool>(jointID, true));
+				}
+			}
+			else {
+				elements[result[i + 0]].j_mf[e0].push_back(std::pair<int, bool>(jointID, true));
+				elements[result[i + 1]].j_mf[e1].push_back(std::pair<int, bool>(jointID, false));
+			}
+
 
 			//if (type == 12) {
 			//	CGAL_Debug(result[i + 0]);
