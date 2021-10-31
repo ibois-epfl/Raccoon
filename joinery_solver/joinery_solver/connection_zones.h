@@ -462,6 +462,7 @@ inline bool plane_to_face(std::vector<
 }
 
 
+//ToDo: Currently one connection can be made with another object, but one multiple shared edges can be possible e.g. |_>-<_|
 inline bool face_to_face(
 	std::vector<CGAL_Polyline>& Polyline0,
 	std::vector<CGAL_Polyline>& Polyline1,
@@ -469,7 +470,6 @@ inline bool face_to_face(
 	std::vector<IK::Plane_3>& Plane1,
 	int& e0, int& e1,
 	CGAL_Polyline& joint_area,
-	//CGAL_Polyline(&joint_quads)[2],
 	CGAL_Polyline(&joint_lines)[2],
 	CGAL_Polyline(&joint_volumes_pairA_pairB)[4],
 	int& type) {
@@ -1042,6 +1042,7 @@ inline void rtree_search(
 	//CGAL_Debug(joints.size());
 
 }
+
 
 inline void get_obb_and_planes(
 	//Input

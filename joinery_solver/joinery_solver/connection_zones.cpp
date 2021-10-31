@@ -2,8 +2,11 @@
 #include "connection_zones.h"
 
 std::vector<compas::RowMatrixXd> get_connection_zones(
-	Eigen::Ref<const compas::RowMatrixXd>& V,
-	Eigen::Ref<const compas::RowMatrixXi>& F
+	Eigen::Ref<const compas::RowMatrixXd>& polylines_vertices_XYZ,
+	Eigen::Ref<const compas::RowMatrixXi>& polylines_vertices_count_int//,
+	//Eigen::Ref<const compas::RowMatrixXd>& face_vectors_XYZ,
+	//Eigen::Ref<const compas::RowMatrixXi>& face_joints_types_int,
+	//Eigen::Ref<const compas::RowMatrixXi>& three_valance_element_indices_and_instruction,
 ) {
 
 
@@ -11,7 +14,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	//////////////////////////////////////////////////////////////////////////////
 	//Convert Raw data to list of Polyline
 	//////////////////////////////////////////////////////////////////////////////
-	std::vector<CGAL_Polyline> polyline_pairs = compas::polylines_from_vertices_and_faces(V, F);
+	std::vector<CGAL_Polyline> polyline_pairs = compas::polylines_from_vertices_and_faces(polylines_vertices_XYZ, polylines_vertices_count_int);
 	const int n = polyline_pairs.size() * 0.5;
 	int search_type = 0;//Implement
 	bool show_plane_normals = true;
@@ -65,7 +68,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	plines.reserve(elements.size() * 4);
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 
-			//elements[i].get_joints_geometry(joints, plines,3);//push joint geometry from joint to element
+			//elements[i].get_joints_geometry(joints, plines,0);//push joint geometry from joint to element
 			elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
 
 	}
@@ -77,8 +80,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 		for (int i = 1; i < elements.size(); i++) {//Pls.size()
 			for (int j = 0; j < elements[i].planes.size(); j++) {//
 			   // auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(Pls[i][j].point(), Pls[i][j], 10, 10, 10);
-			   auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(CGAL_PolylineUtil::Center(elements[i].polylines[j]), elements[i].planes[j], 10, 10, 10);
-			   plines.push_back(planeDisplay);
+			   //auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(CGAL_PolylineUtil::Center(elements[i].polylines[j]), elements[i].planes[j], 10, 10, 10);
+			   //plines.push_back(planeDisplay);
 			}
 		}
 	}
