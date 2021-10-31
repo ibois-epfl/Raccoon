@@ -124,7 +124,7 @@ inline void get_elements(std::vector<CGAL_Polyline>& pp, std::vector<element>& e
 		}
 
 		//Edge initialization
-		elements[id].j_mf = std::vector< std::vector<std::pair<int, bool>>>(pp[i].size() + 1);//(-1, false)
+		elements[id].j_mf = std::vector< std::vector<std::tuple<int, bool,double>>>(pp[i].size() + 1);//(-1, false, parameter on edge)
 
 
 	}
@@ -1012,17 +1012,17 @@ inline void rtree_search(
 			//CGAL_Debug(jointID, result[i + 1], e1);
 			if (e1 < 2 || e0 < 2) {
 				if ((e1 < 2 && e0>1)) {
-					elements[result[i + 0]].j_mf[e0].push_back(std::pair<int, bool>(jointID, true));
-					elements[result[i + 1]].j_mf[e1].push_back(std::pair<int, bool>(jointID, false));
+					elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true,0));
+					elements[result[i + 1]].j_mf[e1].push_back(std::tuple<int, bool, double>(jointID, false, 0));
 				}
 				else {
-					elements[result[i + 0]].j_mf[e0]  .push_back(std::pair<int, bool>(jointID, false));
-					elements[result[i + 1]].j_mf[e1]  .push_back(std::pair<int, bool>(jointID, true));
+					elements[result[i + 0]].j_mf[e0]  .push_back(std::tuple<int, bool, double>(jointID, false, 0));
+					elements[result[i + 1]].j_mf[e1]  .push_back(std::tuple<int, bool, double>(jointID, true, 0));
 				}
 			}
 			else {
-				elements[result[i + 0]].j_mf[e0].push_back(std::pair<int, bool>(jointID, true));
-				elements[result[i + 1]].j_mf[e1].push_back(std::pair<int, bool>(jointID, false));
+				elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true, 0));
+				elements[result[i + 1]].j_mf[e1].push_back(std::tuple<int, bool, double>(jointID, false, 0));
 			}
 
 

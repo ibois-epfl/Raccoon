@@ -16,6 +16,8 @@ inline void CGAL_Debug(bool v) {
 	printf("CPP bool %i\n", v);
 }
 
+
+
 inline void CGAL_Debug(int v) {
 	printf("CPP int %i\n", v);
 }
@@ -32,6 +34,9 @@ inline void CGAL_Debug(double x, double y, double z) {
 	printf("CPP Vector %f %f %f \n", x, y, z);
 }
 
+inline void CGAL_Debug(bool x, bool y, bool z, bool k) {
+	printf("%i %i %i %i \n", x, y, z, k);
+}
 
 inline void CGAL_Debug(int x, int y, int z, int k) {
 	printf("%i %i %i %i \n", x, y, z, k);

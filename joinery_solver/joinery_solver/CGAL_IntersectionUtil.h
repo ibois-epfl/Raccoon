@@ -677,12 +677,22 @@ namespace CGAL_IntersectionUtil {
 
     }
 
-    inline void plane_plane_plane(IK::Plane_3& plane0, IK::Plane_3& plane1, IK::Plane_3& plane2, IK::Point_3& p0, IK::Segment_3& segment, double& t
+    inline bool plane_plane_plane(IK::Plane_3& plane0, IK::Plane_3& plane1, IK::Plane_3& plane2, IK::Point_3& p0, IK::Segment_3& segment, double& t
         /*IK::Point_3& p0, IK::Point_3& p1,
         double& middle_t_0, double& middle_t_1*/) {
 
+       // CGAL_Debug(CGAL_VectorUtil::IsParallelTo(plane0.orthogonal_vector(), plane1.orthogonal_vector(),0.11));
 
-        CGAL_IntersectionUtil::Intersect(plane0, plane1, plane2, p0);
+        bool flag = CGAL_VectorUtil::IsParallelTo(plane0.orthogonal_vector(), plane1.orthogonal_vector(), 0.11) == 0 &&
+            CGAL_VectorUtil::IsParallelTo(plane0.orthogonal_vector(), plane2.orthogonal_vector(), 0.11) == 0
+            &&
+            CGAL_VectorUtil::IsParallelTo(plane1.orthogonal_vector(), plane2.orthogonal_vector(), 0.11) == 0
+            ;
+
+        if(flag)
+            flag = CGAL_IntersectionUtil::Intersect(plane0, plane1, plane2, p0);
+
+        return flag;
 
         // IK_to_EK ie; EK_to_IK ei;
         //// auto result0 = CGAL::intersection(ie(l0_), ie(l1_));
