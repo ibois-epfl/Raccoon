@@ -3,8 +3,13 @@
 #include "joint.h"
 
 namespace joint_library {
+
+
+
 	//type_typeidedge_subtypeieinplane_id
 	//0 - do not merge, 1 - edge insertion, 2 - hole 3 - insert between multiple edges hole
+
+	//1
 	inline void cr_c_ip_0(joint& joint) {
 
 
@@ -30,6 +35,7 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
+	//2
 	inline void ss_e_ip_0(joint& joint) {
 
 
@@ -64,6 +70,7 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
+	//3
 	inline void ss_e_op_0(joint& joint) {
 
 
@@ -94,6 +101,7 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
+	//4
 	inline void ts_e_p_0(joint& joint) {
 
 
@@ -122,6 +130,23 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
-
+	inline void construct_joint_by_index(joint& joint, int& id_representing_joing_name) {
+		switch (id_representing_joing_name) {
+		case(0):
+			break;
+		case(1):
+			cr_c_ip_0(joint);
+			break;
+		case(2):
+			ss_e_ip_0(joint);
+			break;
+		case(3):
+			ss_e_op_0(joint);
+			break;
+		case(4):
+			ts_e_p_0(joint);
+			break;
+		}
+	}
 
 }

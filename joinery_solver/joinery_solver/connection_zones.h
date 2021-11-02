@@ -22,7 +22,11 @@
 #include "joint.h"
 #include "joint_library.h"
 
-inline void get_elements(std::vector<CGAL_Polyline>& pp, std::vector<element>& elements) {
+inline void get_elements(
+	std::vector<CGAL_Polyline>& pp, 
+	std::vector<std::vector<IK::Vector_3>>& insertion_vectors, 
+	std::vector<std::vector<int>>& joint_types,  
+	std::vector<element>& elements) {
 
 	int n = pp.size() * 0.5;
 	elements = std::vector<element>(n);
@@ -127,6 +131,16 @@ inline void get_elements(std::vector<CGAL_Polyline>& pp, std::vector<element>& e
 		elements[id].j_mf = std::vector< std::vector<std::tuple<int, bool,double>>>(pp[i].size() + 1);//(-1, false, parameter on edge)
 
 
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Other prperties such as insertion vectors or joint tapes
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//CGAL_Debug(joint_types[id].size());
+		if (insertion_vectors[id].size() > 0)
+			elements[id].edge_vectors = insertion_vectors[id];
+
+		if (joint_types[id].size() > 0)
+			elements[id].joint_types = joint_types[id];
+		
 	}
 
 
@@ -515,7 +529,7 @@ inline bool face_to_face(
 
 						//Intersect: a) clipper region, b) center plane
 
-						bool isLine = CGAL_PolylineUtil::PolylinePlane(joint_area, averagePlane0, alignmentSegment, joint_line0);
+						bool isLine = CGAL_IntersectionUtil::PolylinePlane(joint_area, averagePlane0, alignmentSegment, joint_line0);
 
 						//Planes to get a quad
 						if (isLine && joint_line0.squared_length() > GlobalTolerance) {
@@ -540,7 +554,7 @@ inline bool face_to_face(
 						//Middle line for alignment
 						IK::Segment_3 alignmentSegment(CGAL::midpoint(Polyline1[0][i - 2], Polyline1[1][i - 2]), CGAL::midpoint(Polyline1[0][i - 1], Polyline1[1][i - 1]));
 
-						bool isLine = CGAL_PolylineUtil::PolylinePlane(joint_area, averagePlane1, alignmentSegment, joint_line1);
+						bool isLine = CGAL_IntersectionUtil::PolylinePlane(joint_area, averagePlane1, alignmentSegment, joint_line1);
 					
 
 						//Planes to get a quad

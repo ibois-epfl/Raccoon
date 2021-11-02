@@ -23,6 +23,7 @@ class element
 		std::vector<IK::Plane_3> planes; //top and bottom planes + each side face
 
 		std::vector<IK::Vector_3> edge_vectors;//if set
+		std::vector<int> joint_types;//if set
 		IK::Segment_3 axis;
 
 		/////////////////////////////////////////////////////////////////////////////////////////
@@ -140,6 +141,9 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 	for (int i = 0; i < n; i++) {
 
 		for (int j = 0; j < this->j_mf[i+2].size(); j++) {
+
+			if (joints[std::get<0>(j_mf[i + 2][j])].name == "") continue;
+
 			IK::Segment_3 element_edge(polyline0[i], polyline0[i + 1]);
 			IK::Point_3 joint_point = joints[std::get<0>(j_mf[i + 2][j])](std::get<1>(j_mf[i + 2][j]), true).back()[0];
 			double t;

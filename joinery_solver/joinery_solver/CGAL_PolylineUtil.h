@@ -256,49 +256,7 @@ namespace CGAL_PolylineUtil {
 	}
 
 
-	inline bool PolylinePlane(CGAL_Polyline& polyline, IK::Plane_3& plane, IK::Segment_3& alignmentSegment, IK::Segment_3& result) {
-
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Intersect polyline segments one by one, until two points are found, if any
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		IK::Point_3 pts[2];
-		int count = 0;
-
-
-		for (int i = 0; i < polyline.size() - 1; i++) {
-
-			IK::Segment_3 segment(polyline[i], polyline[i + 1]);
-			auto result = CGAL::intersection(segment, plane);
-
-			if (result) {
-				if (const IK::Point_3* p = boost::get<IK::Point_3>(&*result)) {
-					pts[count] = *p;
-					count++;
-					if (count == 2)
-						break;
-				}//if point type
-			}//result exists
-
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Align intersection points according to an average polygon edge direction
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		if (count == 2) {
-			if (CGAL::squared_distance(alignmentSegment[0], pts[0]) < CGAL::squared_distance(alignmentSegment[0], pts[1]))
-				result = IK::Segment_3(pts[0], pts[1]);
-			else
-				result = IK::Segment_3(pts[1], pts[0]);
-
-			return true;
-		}
-		else {
-			return false;
-		}
-
-
-	}
+	
 
 	inline void PlanePolylineIntersection(CGAL_Polyline& polyline, IK::Plane_3& plane, std::vector<IK::Point_3>& points) {
 

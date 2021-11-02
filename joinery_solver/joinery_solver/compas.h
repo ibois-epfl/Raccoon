@@ -49,6 +49,8 @@ namespace compas
 
     std::vector<compas::RowMatrixXd> result_from_polylines (CGAL_Polylines polylines);
 
+
+
     //Result result_from_mesh(const CGAL_Mesh& mesh);
 
     
@@ -59,6 +61,20 @@ namespace compas
     std::vector<compas::RowMatrixXd> result_from_bbox(std::vector<CGAL::Bbox_3> boxes);
 
     std::vector<CGAL_Polyline> polylines_from_vertices_and_faces(const RowMatrixXd& V, const RowMatrixXi& F);
+
+    void polylines_from_vertices_and_faces_and_properties(
+        const compas::RowMatrixXd& polylines_vertices_XYZ,
+        const compas::RowMatrixXi& polylines_vertices_count_int,
+        const compas::RowMatrixXd& face_vectors_XYZ,
+        const compas::RowMatrixXi& face_joints_types_int,
+        const compas::RowMatrixXi& three_valence_element_indices_and_instruction,
+
+        std::vector<CGAL_Polyline>& out_polyline_pairs,
+        std::vector<std::vector<IK::Vector_3>>& out_insertion_vectors,
+        std::vector<std::vector<int>>& out_joint_types,
+        std::vector<int>& out_three_valence_element_indices_and_instruction
+);
+
 
     std::vector<compas::RowMatrixXd> result_from_polylinesVectorVector(std::vector < std::vector < CGAL_Polyline>> polylines);
 
@@ -162,6 +178,90 @@ inline std::vector<CGAL_Polyline> compas::polylines_from_vertices_and_faces(cons
 
     }
     return polylinePairs;
+}
+
+inline void compas::polylines_from_vertices_and_faces_and_properties(
+    const compas::RowMatrixXd& polylines_vertices_XYZ,
+    const compas::RowMatrixXi& polylines_vertices_count_int,
+    const compas::RowMatrixXd& face_vectors_XYZ,
+    const compas::RowMatrixXi& face_joints_types_int,
+    const compas::RowMatrixXi& three_valence_element_indices_and_instruction,
+
+    std::vector<CGAL_Polyline>& out_polyline_pairs,
+    std::vector<std::vector<IK::Vector_3>>& out_insertion_vectors,
+    std::vector<std::vector<int>>& out_joint_types,
+    std::vector<int>& out_three_valence_element_indices_and_instruction
+    ) {
+
+    //////////////////////////////////////////////////////////////////////////////
+    //Convert Raw data to list of Polyline
+    //////////////////////////////////////////////////////////////////////////////
+    //std::vector<CGAL_Polyline> out_polyline_pairs; 
+    out_polyline_pairs.reserve(polylines_vertices_count_int.size());
+
+    //std::vector< std::vector<IK::Vector_3>> insertion_vectors;
+    out_insertion_vectors.reserve(polylines_vertices_count_int.size());
+
+   // std::vector< std::vector<int>> joint_types;
+    out_joint_types.reserve(polylines_vertices_count_int.size());
+   
+    CGAL_Polyline pline;
+    int counter = 0;
+    int lastCount = polylines_vertices_count_int(counter, 0);
+    for (int i = 0; i < polylines_vertices_XYZ.size() / 3; i++) {
+
+        CGAL::Epick::Point_3 p(polylines_vertices_XYZ(i, 0), polylines_vertices_XYZ(i, 1), polylines_vertices_XYZ(i, 2));
+        pline.push_back(p);
+
+        if (pline.size() == lastCount) {
+            out_polyline_pairs.push_back(pline);
+            pline.clear();//Clear points from the polyline
+            lastCount = polylines_vertices_count_int(++counter, 0); //Take next polyline Count
+        }
+    }
+
+    if (face_vectors_XYZ.size() > 0) {
+        //printf("999");
+        std::vector<IK::Vector_3> vectors;
+        counter = 0;
+        int lastCount = polylines_vertices_count_int(counter, 0)+1;
+        for (int i = 0; i < face_vectors_XYZ.size() / 3; i++) {
+
+            CGAL::Epick::Vector_3 v(face_vectors_XYZ(i, 0), face_vectors_XYZ(i, 1), face_vectors_XYZ(i, 2));
+            vectors.push_back(v);
+
+            if (vectors.size() == (lastCount)) {
+                out_insertion_vectors.push_back(vectors);
+                vectors.clear();//Clear points from the polyline
+                lastCount = polylines_vertices_count_int(++counter, 0)+1; //Take next polyline Count
+            }
+
+        }
+
+    }
+
+    if (face_joints_types_int.size() > 0) {
+        //printf("888");
+        std::vector<int> types;
+        counter = 0;
+        int lastCount = polylines_vertices_count_int(counter, 0)+1;
+        for (int i = 0; i < face_joints_types_int.size(); i++) {
+
+            int id(face_joints_types_int(i, 0));
+            types.push_back(id);
+
+            if (types.size() == (lastCount)) {
+                out_joint_types.push_back(types);
+                types.clear();//Clear points from the polyline
+                lastCount = polylines_vertices_count_int(++counter, 0)+1; //Take next polyline Count
+            }
+
+        }
+
+    }
+
+
+   
 }
 
 
