@@ -138,6 +138,10 @@ inline void get_elements(
 		if (insertion_vectors[id].size() > 0)
 			elements[id].edge_vectors = insertion_vectors[id];
 
+		//for (int j = 0; j < elements[id].edge_vectors.size(); j++)
+		//	CGAL_Debug(elements[id].edge_vectors[j]);
+		//CGAL_Debug();
+
 		if (joint_types[id].size() > 0)
 			elements[id].joint_types = joint_types[id];
 		
@@ -203,16 +207,17 @@ inline bool intersection_2D(CGAL_Polyline& p0, CGAL_Polyline& p1, IK::Plane_3& p
 		//if (C[0].size() > 3 && Area(C[0]) > GlobalClipperAreaTolerance * scale * scale) {//skip triangles and very small polygons 
 		if (C[0].size() > 3 && std::abs(Area(C[0])) > std::abs(Area(pathA) * GlobalClipperAreaTolerance) ) {//skip triangles and very small polygons 
 		
-		/*	CGAL_Debug(Area(pathA));
-			CGAL_Debug(Area(C[0]));*/
+		/*	CGAL_Debug(Area(pathA));*/
+			//CGAL_Debug(Area(C[0])/ (scale* scale));
 			c.resize(C[0].size() + 1);
 
 			for (int i = 0; i < C[0].size(); i++) {
 				IK::Point_3 p(C[0][i].X / scale, C[0][i].Y / scale, 0);
 				p = p.transform(xform_toXY_Inv);//Rotate back to 3D
 				c[i] = p;
+				//CGAL_Debug(c[i],true);
 			}
-
+			//CGAL_Debug(999999);
 			c[C[0].size()] = c[0];//Close
 
 		}
@@ -239,23 +244,27 @@ inline bool plane_to_face(std::vector<
 	std::vector<CGAL_Polyline>& Polyline1,
 	std::vector<IK::Plane_3>& Plane0,
 	std::vector<IK::Plane_3>& Plane1,
+	std::vector<IK::Vector_3>& insertion_vectors0,
+	std::vector<IK::Vector_3>& insertion_vectors1,
 	int& e0, int& e1,
 	CGAL_Polyline& joint_area,
 	//CGAL_Polyline(&joint_quads)[2],
 	CGAL_Polyline(&joint_lines)[2],
 	CGAL_Polyline(&joint_volumes_pairA_pairB)[4],
+
 	int& type,
 
 	double angleTol = 16,
 	bool checkOverlap = false) {
 
-
+	
 
 	//////////////////////////////////////////////////////////////////////////////
 	//Check 
 	//1. Vector angles if they are not close to parallel 
 	//2. Are polylines overlapping (usually skipped within first except if stucture is planar) 3. Check overlay between center lines
 	//////////////////////////////////////////////////////////////////////////////
+
 	double angle = 90.0 - fabs(CGAL::approximate_angle(Plane0[0].orthogonal_vector(), Plane1[0].orthogonal_vector()) - 90);
 	if (angle < angleTol) return false;
 
@@ -482,6 +491,8 @@ inline bool face_to_face(
 	std::vector<CGAL_Polyline>& Polyline1,
 	std::vector<IK::Plane_3>& Plane0,
 	std::vector<IK::Plane_3>& Plane1,
+	std::vector<IK::Vector_3>& insertion_vectors0,
+	std::vector<IK::Vector_3>& insertion_vectors1,
 	int& e0, int& e1,
 	CGAL_Polyline& joint_area,
 	CGAL_Polyline(&joint_lines)[2],
@@ -519,7 +530,7 @@ inline bool face_to_face(
 					//Get Line: Option A(0) - Side-Side i>2 && i > 2, Option B(1) - Side-Top i>2, C(2) Top-Top
 
 					//jointArea1 = jointArea0;//default case (Top-top)
-					IK::Segment_3 joint_line0;
+					IK::Segment_3 joint_line0 (IK::Point_3(0, 0, 0), IK::Point_3(0, 0, 0));
 					IK::Plane_3 averagePlane0(CGAL::midpoint(Polyline0[0][0], Polyline0[1][0]), Plane0[0].orthogonal_vector());//Center Plane
 					CGAL_Polyline joint_quads0;
 					if (i > 1) {//Side-Top  or Side-Side
@@ -532,7 +543,7 @@ inline bool face_to_face(
 						bool isLine = CGAL_IntersectionUtil::PolylinePlane(joint_area, averagePlane0, alignmentSegment, joint_line0);
 
 						//Planes to get a quad
-						if (isLine && joint_line0.squared_length() > GlobalTolerance) {
+						if (isLine && joint_line0.squared_length() > GlobalTolerance) {//
 						
 							bool isQuad = CGAL_IntersectionUtil::QuadFromLineAndTopBottomPlanes(Plane0[i], joint_line0, Plane0[0], Plane0[1], joint_quads0);
 							//joint_quads0.push_back(Polyline0[0][0]);
@@ -546,9 +557,10 @@ inline bool face_to_face(
 
 					//Intersect second time for the side-side connection
 
-					IK::Segment_3 joint_line1;
+					IK::Segment_3 joint_line1(IK::Point_3(0, 0, 0), IK::Point_3(0, 0, 0));
 					IK::Plane_3 averagePlane1(CGAL::midpoint(Polyline1[0][0], Polyline1[1][0]), Plane1[0].orthogonal_vector());//Center Plane
 					CGAL_Polyline joint_quads1;
+
 					if (j > 1) {//Side-Side
 
 						//Middle line for alignment
@@ -558,7 +570,7 @@ inline bool face_to_face(
 					
 
 						//Planes to get a quad
-						if (isLine && joint_line1.squared_length() > GlobalTolerance) {
+						if (isLine && joint_line1.squared_length() > GlobalTolerance) {// 
 							bool isQuad = CGAL_IntersectionUtil::QuadFromLineAndTopBottomPlanes(Plane1[j], joint_line1, Plane1[0], Plane1[1],  joint_quads1);
 	  					    //joint_volumes_pairA_pairB[0] = joint_quads1;
 							//joint_volumes_pairA_pairB[1] = joint_quads1;
@@ -569,6 +581,10 @@ inline bool face_to_face(
 						}
 
 					}
+
+					//CGAL_Debug(type);
+					//if (type == 1)
+						//return false;
 					//Top-top
 
 					//return true;
@@ -576,20 +592,35 @@ inline bool face_to_face(
 					//ToDo set edge direction - Check Insertion angle if êdge axis is assigned
 					//Applies for both elements
 					////////////////////////////////////////////////////////////////////////////////
-					IK::Vector_3 dir;//not set
-		
-				
-			
+					IK::Vector_3 dir;
+					
+					//Take priority for male 
+					if (i > 1) 
+						if (insertion_vectors0.size() > 0) {
+							dir = insertion_vectors0[i];
+						}
+					else 
+						if (insertion_vectors1.size() > 0) {
+							dir = insertion_vectors1[j];
+						}
+
 
 					//Only one direction is taken
 					//dir = this.elements[j.f0].ev[j.e0 - 2];
+					
+					//dir = 
 					bool notSharpAngle = true;
-					bool dirSet = dir.hx() > GlobalTolerance && dir.hy() > GlobalTolerance && dir.hz() > GlobalTolerance;// == CGAL::NULL_VECTOR;
+					bool dirSet = (std::abs(dir.hx()) + std::abs(dir.hy()) + std::abs(dir.hz()))   > GlobalTolerance;// == CGAL::NULL_VECTOR;
 					//CGAL_Debug(dirSet);
 					if (dirSet) {
+						if(i>1)
 						if (CGAL_VectorUtil::GetAngle90(dir, Plane0[i].orthogonal_vector()) > 45) {
 							notSharpAngle = false;
 						}
+						else
+							if (CGAL_VectorUtil::GetAngle90(dir, Plane1[j].orthogonal_vector()) > 45) {
+								notSharpAngle = false;
+							}
 					}
 
 					//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -598,6 +629,11 @@ inline bool face_to_face(
 					//CGAL_Debug(type);
 					if (type == 0) {//side-side
 
+						joint_lines[0] = { joint_line0[0], joint_line0[1] };
+						joint_lines[1] = { joint_line1[0], joint_line1[1] };
+
+						//return true;
+
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						//Elements are rotated 
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -605,6 +641,8 @@ inline bool face_to_face(
 						//CGAL_Debug(CGAL_VectorUtil::Distance(jointLine1[0], jointLine1[1]));
 
 						if (CGAL_VectorUtil::IsParallelTo(joint_line0[0] - joint_line0[1], joint_line1[0] - joint_line1[1], GlobalTolerance) == 0) {
+
+					
 
 							//joint_lines[0] = { joint_line0[0], joint_line0[1] };
 							//joint_lines[1] = { joint_line1[0], joint_line1[1] };
@@ -674,16 +712,20 @@ inline bool face_to_face(
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						} else {
 
-							//joint_lines[0] = { joint_line0[0], joint_line0[1] };
-							//joint_lines[1] = { joint_line1[0], joint_line1[1] };
+					
+						
+	
 
 							////////////////////////////////////////////////////////////////////////////////
 							//Get Overlap-Line // scale it down ?
 							////////////////////////////////////////////////////////////////////////////////
 							IK::Segment_3 lJ;
 							CGAL_PolylineUtil::LineLineOverlapAverage(joint_line0, joint_line1, lJ);
+							//CGAL_Debug(std::sqrt(joint_line0.squared_length()), std::sqrt(joint_line1.squared_length()), std::sqrt(lJ.squared_length()));
 							joint_lines[0] = { lJ[0],lJ[1] };
 							joint_lines[1] = joint_lines[0];
+
+						
 
 							////////////////////////////////////////////////////////////////////////////////
 							//Get Plane perpedicular to overlap-axis //with or without insertion vector |-----------|
@@ -708,12 +750,13 @@ inline bool face_to_face(
 							auto dihedralAngle = std::abs(CGAL::approximate_dihedral_angle(lJ[0], lJ[1], centerPoint0, centerPoint1));
 
 							if (dihedralAngle < 20) {//160
+								//CGAL_Debug(20);
 								return false;
 
 
 							}
 							else if (dihedralAngle <= 150) {//OUT-OF-PLANE // && jointArea0.size()>0
-
+								//CGAL_Debug(150);
 							 ////////////////////////////////////////////////////////////////////////////////
 							 //Rotate line-joint 90 degrees and intersect with adjacent element top and bottom planes
 							 //This is needed to check if adjacent element top and bottom planes are in the same or opposite order
@@ -753,9 +796,10 @@ inline bool face_to_face(
 								//joint_volumes_pairA_pairB[3] = { joint_volumes_pairA_pairB[1][3],joint_volumes_pairA_pairB[1][0],joint_volumes_pairA_pairB[1][1],joint_volumes_pairA_pairB[1][2] };
 
 								type = 11;
+
 							}
 							else {//IN-PLANE
-
+								//CGAL_Debug(-150);
 							//joint_lines[0] = { joint_line0[0], joint_line0[1] };
 							//joint_lines[1] = { joint_line1[0], joint_line1[1] };
 
@@ -785,13 +829,35 @@ inline bool face_to_face(
 
 					}
 					else if (type == 1) {//top-side
-						joint_lines[0] = { joint_line0[0] ,joint_line0[1] };
-						joint_lines[1] = { joint_line1[0] ,joint_line1[1] };
+				
+				
+
+					//double len0 = 0;
+					//auto a = joint_line0[0];
+					//auto b = joint_line0[1];
+					//auto c = joint_line1[0];
+					//auto d = joint_line1[1];
+
+					//double len1 = CGAL_VectorUtil::Distance(a, b);
+					//double len2 = CGAL_VectorUtil::Distance(c, d);
+					//for (int k = 0; k < joint_area.size() - 1; k++) {
+					//	len0+=CGAL_VectorUtil::Distance(joint_area[k], joint_area[k+1]);
+					//}
+					//CGAL_Debug(len0, len1, len2);
+					////if (len1 > 0.001 && len2 > 0.001)
+					//	return false;
+					
+				
+				
+
 
 						//////////////////////////////////////////////////////////////////////////////////
 						//Which element is male or female?
 						//////////////////////////////////////////////////////////////////////////////////
 						bool male_or_female = i > j;
+
+						joint_lines[0] = male_or_female ? CGAL_Polyline({joint_line0[0], joint_line0[1]}) : CGAL_Polyline({ joint_line1[0], joint_line1[1] });
+						joint_lines[1] = joint_lines[0];
 
 						IK::Plane_3* plane0_0 = male_or_female ? &Plane0[0] : &Plane1[0];
 						//IK::Plane_3* plane0_1 = male_or_female ? &Plane0[1] : &Plane1[1];
@@ -812,10 +878,24 @@ inline bool face_to_face(
 						//////////////////////////////////////////////////////////////////////////////////////
 						IK::Vector_3 offset_vector;
 						CGAL_IntersectionUtil::orthogonal_vector_between_two_plane_pairs(*plane0_0, *plane1_0, *plane1_1, offset_vector);
+
+						
 					
-						//if (dirSet) {
-							//offset_vector = CGAL_PlaneUtil::vector_two_planes(dir, *plane1_0, *plane1_1);
-						//}
+					
+						if (dirSet) {
+
+							//Wrong angle, either input or intersection calculation
+							//Try set lines out as center + dir
+								CGAL_IntersectionUtil::vector_two_planes(dir, *plane1_0, *plane1_1, offset_vector);
+							
+							//CGAL_Debug(999);
+							//CGAL_Debug();
+						
+						}
+						else {
+							//CGAL_Debug(-999);
+						}
+					
 
 
 						//////////////////////////////////////////////////////////////////////////////////
@@ -831,12 +911,13 @@ inline bool face_to_face(
 						return true;
 					}
 					else {
-						return true;
+						return false;
+
 					}
-
-
-
 					return true;
+
+
+					
 				}//Has Intersection
 			}//Co-planar
 
@@ -848,71 +929,71 @@ inline bool face_to_face(
 }
 
 
-inline void search(
-
-	//Input
-	std::vector<CGAL::Bbox_3>& AABB,
-	std::vector<IK::Vector_3[5]>& OOBs,
-	std::vector<std::vector<CGAL_Polyline>>& P,
-	std::vector<std::vector<IK::Plane_3>>& Pl,
-	std::vector<int>& pairs,
-	int searchType,
-
-	//Output
-	std::vector<int>& outputPairs, //Contact Element ID and Local ID
-	std::vector<CGAL_Polyline>& outputContactPolylines //Contact Areas + Lines
-
-
-
-
-) {
-
-
-
-	//////////////////////////////////////////////////////////////////////////////
-	// Search Contact zones
-	//////////////////////////////////////////////////////////////////////////////
-
-	for (int i = 0; i < pairs.size(); i += 2) {
-
-		CGAL_Polyline joint_area;
-		CGAL_Polyline joint_quads[2];
-		CGAL_Polyline joint_lines[2];
-		CGAL_Polyline joint_volumes_pairA_pairB[4];
-		int e0, e1, type;
-
-		bool flag = true;
-		switch (searchType) {
-		case(0):
-			flag = face_to_face(P[pairs[i]], P[pairs[i + 1]], Pl[pairs[i]], Pl[pairs[i + 1]], e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type);
-			break;
-		case(1):
-			flag = plane_to_face(P[pairs[i]], P[pairs[i + 1]], Pl[pairs[i]], Pl[pairs[i + 1]], e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type);
-			break;
-		}
-
-		if (!flag) continue;
-
-		if (e0 != e1) {
-
-			outputPairs.push_back(pairs[i]);
-			outputPairs.push_back(pairs[i + 1]);
-			outputPairs.push_back(e0);
-			outputPairs.push_back(e1);
-
-			outputContactPolylines.push_back(joint_area);
-			outputContactPolylines.insert(outputContactPolylines.end(), std::begin(joint_quads), std::end(joint_quads));
-			outputContactPolylines.insert(outputContactPolylines.end(), std::begin(joint_lines), std::end(joint_lines));
-			outputContactPolylines.insert(outputContactPolylines.end(), std::begin(joint_volumes_pairA_pairB), std::end(joint_volumes_pairA_pairB));
-
-		}
-	}
-
-
-
-
-}
-
+//inline void search(
+//
+//	//Input
+//	std::vector<CGAL::Bbox_3>& AABB,
+//	std::vector<IK::Vector_3[5]>& OOBs,
+//	std::vector<std::vector<CGAL_Polyline>>& P,
+//	std::vector<std::vector<IK::Plane_3>>& Pl,
+//	std::vector<int>& pairs,
+//	int searchType,
+//
+//	//Output
+//	std::vector<int>& outputPairs, //Contact Element ID and Local ID
+//	std::vector<CGAL_Polyline>& outputContactPolylines //Contact Areas + Lines
+//
+//
+//
+//
+//) {
+//
+//
+//
+//	//////////////////////////////////////////////////////////////////////////////
+//	// Search Contact zones
+//	//////////////////////////////////////////////////////////////////////////////
+//
+//	for (int i = 0; i < pairs.size(); i += 2) {
+//
+//		CGAL_Polyline joint_area;
+//		CGAL_Polyline joint_quads[2];
+//		CGAL_Polyline joint_lines[2];
+//		CGAL_Polyline joint_volumes_pairA_pairB[4];
+//		int e0, e1, type;
+//
+//		bool flag = true;
+//		switch (searchType) {
+//		case(0):
+//			flag = face_to_face(P[pairs[i]], P[pairs[i + 1]], Pl[pairs[i]], Pl[pairs[i + 1]], e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type);
+//			break;
+//		case(1):
+//			flag = plane_to_face(P[pairs[i]], P[pairs[i + 1]], Pl[pairs[i]], Pl[pairs[i + 1]], e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type);
+//			break;
+//		}
+//
+//		if (!flag) continue;
+//
+//		if (e0 != e1) {
+//
+//			outputPairs.push_back(pairs[i]);
+//			outputPairs.push_back(pairs[i + 1]);
+//			outputPairs.push_back(e0);
+//			outputPairs.push_back(e1);
+//
+//			outputContactPolylines.push_back(joint_area);
+//			outputContactPolylines.insert(outputContactPolylines.end(), std::begin(joint_quads), std::end(joint_quads));
+//			outputContactPolylines.insert(outputContactPolylines.end(), std::begin(joint_lines), std::end(joint_lines));
+//			outputContactPolylines.insert(outputContactPolylines.end(), std::begin(joint_volumes_pairA_pairB), std::end(joint_volumes_pairA_pairB));
+//
+//		}
+//	}
+//
+//
+//
+//
+//}
+//
 
 
 
@@ -920,18 +1001,10 @@ inline void rtree_search(
 
 	//Input
 	std::vector<element>& elements,
-	//std::vector<CGAL::Bbox_3>& AABB,
-	//std::vector<IK::Vector_3[5]>& OOBs,
-	//std::vector<std::vector<CGAL_Polyline>>& P,
-	//std::vector<std::vector<IK::Plane_3>>& Pl,
 	int search_type,
 
 	//Output
 	std::vector<joint>& joints
-	//std::vector<std::vector<std::pair<int, int>>>& elements_joints_address
-	//std::vector<int>& outputPairs, //Contact Element ID and Local ID
-	//std::vector<CGAL_Polyline>& outputContactPolylines //Contact Areas + Lines
-
 
 ) {
 
@@ -994,14 +1067,18 @@ inline void rtree_search(
 		bool flag = true;
 		switch (search_type) {
 		case(0):
-			flag = face_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type);
+			flag = face_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, elements[result[i ]].edge_vectors, elements[result[i + 1]].edge_vectors, e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type);
+			
 			break;
 		case(1):
-			flag = plane_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type);
+			flag = plane_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, elements[result[i ]].edge_vectors, elements[result[i + 1]].edge_vectors, e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type);
+			
 			break;
 		}
 
 		if (!flag) continue;
+		
+		
 
 		if (joint_area.size() > 0) {
 

@@ -131,22 +131,23 @@ namespace joint_library {
 	}
 
 	inline void construct_joint_by_index(joint& joint, int& id_representing_joing_name) {
-		switch (id_representing_joing_name) {
-		case(0):
-			break;
-		case(1):
+
+		if (id_representing_joing_name == 0) {
 			cr_c_ip_0(joint);
-			break;
-		case(2):
+		}
+		else if (id_representing_joing_name > 0 && id_representing_joing_name < 10) {
 			ss_e_ip_0(joint);
-			break;
-		case(3):
+		}
+		else if (id_representing_joing_name > 9 && id_representing_joing_name < 20) {
 			ss_e_op_0(joint);
-			break;
-		case(4):
+		}
+		else if (id_representing_joing_name > 19 && id_representing_joing_name < 30) {
 			ts_e_p_0(joint);
-			break;
 		}
 	}
+
+
+
+
 
 }

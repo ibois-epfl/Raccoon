@@ -3,7 +3,7 @@
 #include "compas.h"
 #include "joint.h"
 #include "CGAL_IntersectionUtil.h"
-
+#include "CGAL_Print.h"
 class element
 {
 	public:
@@ -80,8 +80,16 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_area);
 				break;
 			case(1):
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[0]);
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[1]);
+				//if (joints[std::get<0>(j_mf[i][j])].joint_lines[0].size()==2) 
+					output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[0]);
+				//if (joints[std::get<0>(j_mf[i][j])].joint_lines[1].size() == 2)
+					output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[1]);
+
+				
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].joint_lines[0][0],true);
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].joint_lines[0][1], true);
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].joint_lines[1][0], true);
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].joint_lines[1][1], true);
 				break;
 			case(2):
 				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[0]);

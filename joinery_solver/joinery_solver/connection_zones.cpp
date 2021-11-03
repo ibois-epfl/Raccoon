@@ -58,34 +58,63 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	for (int i = 0; i < joints.size(); i++) {
 		//Cross_Simple(joints[i]);
 
-		//CGAL_Debug(joints[i].f0, joints[i].e0);
-		int id = elements[joints[i].f0].joint_types[joints[i].e0];
-		
-		if(id == 3)
-			if (joints[i].type == 20) {
-				joint_library::construct_joint_by_index(joints[i], id);
-				
-			}
+
+
+		switch (joints[i].type) {
+
+		case(12):
+			//if (joints[i].type == 12)
+				//joint_library::ss_e_ip_0(joints[i]);
+			break;
+
+		case(11):
+
 	
 
-		//switch (joints[i].type) {
+			//joint types are given by user
+			if (elements[joints[i].f0].joint_types.size() > 0) {
 
-		//case(12):
-		//	if (joints[i].type == 12)
-		//		joint_library::ss_e_ip_0(joints[i]);
-		//	break;
+				int id0 = elements[joints[i].f0].joint_types[joints[i].e0];
+				int id1 = elements[joints[i].f1].joint_types[joints[i].e1];
+				//CGAL_Debug(id0, id1);
 
-		//case(11):
-		//	if (joints[i].type == 11)
-		//		joint_library::ss_e_op_0(joints[i]);
-		//	break;
+				if (id0 > 9 && id0 < 20)
+					joint_library::construct_joint_by_index(joints[i], id0);
+				else if (id1 > 9 && id1 < 20)
+					joint_library::construct_joint_by_index(joints[i], id1);
 
-		//case(20):
-		//	if (joints[i].type == 20)
-		//		joint_library::ts_e_p_0(joints[i]);
-		//	break;
+			}
+			else
+				joint_library::ts_e_p_0(joints[i]);//default option
 
-		//}
+			break;
+
+		case(20):
+
+
+
+			//joint types are given by user
+			if (elements[joints[i].f0].joint_types.size() > 0) {
+
+				int id0 = elements[joints[i].f0].joint_types[joints[i].e0];
+				int id1 = elements[joints[i].f1].joint_types[joints[i].e1];
+				//CGAL_Debug(id0, id1);
+
+				if (id0 > 19 && id0 < 30) 
+					joint_library::construct_joint_by_index(joints[i], id0);
+				else if (id1 > 19 && id1 < 30) 
+					joint_library::construct_joint_by_index(joints[i], id1);
+
+			}else 
+				joint_library::ts_e_p_0(joints[i]);//default option
+			
+
+			
+	
+
+			break;
+
+		}
 
 
 
@@ -98,8 +127,10 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	plines.reserve(elements.size() * 4);
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 
-			
-		elements[i].get_joints_geometry(joints, plines,1);//push joint geometry from joint to element
+		elements[i].get_joints_geometry(joints, plines, 0);
+		//elements[i].get_joints_geometry(joints, plines,1);
+		//elements[i].get_joints_geometry(joints, plines, 2);//push joint geometry from joint to element
+		//elements[i].get_joints_geometry(joints, plines, 3);
 			elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
 
 	}
