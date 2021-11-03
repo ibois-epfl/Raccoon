@@ -592,35 +592,38 @@ inline bool face_to_face(
 					//ToDo set edge direction - Check Insertion angle if êdge axis is assigned
 					//Applies for both elements
 					////////////////////////////////////////////////////////////////////////////////
-					IK::Vector_3 dir;
+					IK::Vector_3 dir = i > j ? insertion_vectors0[i] : insertion_vectors1[j];
+				
+
 					
-					//Take priority for male 
-					if (i > 1) 
+					////Take priority for male 
+					bool dirSet = false;
+					bool male_female = true;
+					if (i > j) 
 						if (insertion_vectors0.size() > 0) {
 							dir = insertion_vectors0[i];
+							dirSet = true;
 						}
 					else 
 						if (insertion_vectors1.size() > 0) {
 							dir = insertion_vectors1[j];
+							dirSet = true;
+							male_female = false;
 						}
 
 
-					//Only one direction is taken
-					//dir = this.elements[j.f0].ev[j.e0 - 2];
-					
-					//dir = 
-					bool notSharpAngle = true;
-					bool dirSet = (std::abs(dir.hx()) + std::abs(dir.hy()) + std::abs(dir.hz()))   > GlobalTolerance;// == CGAL::NULL_VECTOR;
-					//CGAL_Debug(dirSet);
 					if (dirSet) {
-						if(i>1)
-						if (CGAL_VectorUtil::GetAngle90(dir, Plane0[i].orthogonal_vector()) > 45) {
-							notSharpAngle = false;
+				
+						bool dirSet = (std::abs(dir.hx()) + std::abs(dir.hy()) + std::abs(dir.hz()))   > GlobalTolerance;// == CGAL::NULL_VECTOR;
+
+						if (male_female) {
+							if (CGAL_VectorUtil::GetAngle90(dir, Plane0[i].orthogonal_vector()) > 45) dirSet = false;
 						}
-						else
-							if (CGAL_VectorUtil::GetAngle90(dir, Plane1[j].orthogonal_vector()) > 45) {
-								notSharpAngle = false;
-							}
+						else {
+							if (CGAL_VectorUtil::GetAngle90(dir, Plane1[j].orthogonal_vector()) > 45) dirSet = false;
+						}
+
+
 					}
 
 					//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -879,23 +882,13 @@ inline bool face_to_face(
 						IK::Vector_3 offset_vector;
 						CGAL_IntersectionUtil::orthogonal_vector_between_two_plane_pairs(*plane0_0, *plane1_0, *plane1_1, offset_vector);
 
-						dir = male_or_female ? insertion_vectors0[i]: insertion_vectors1[j];
-					
-
-					
-						if (dirSet) {
-
-							//Wrong angle, either input or intersection calculation
-							//Try set lines out as center + dir
+						//dir = i > j ? insertion_vectors0[i]: insertion_vectors1[j];
+	
+						if (dirSet) 
 								CGAL_IntersectionUtil::vector_two_planes(dir, *plane1_0, *plane1_1, offset_vector);
-							
-							//CGAL_Debug(999);
-							//CGAL_Debug();
-						
-						}
-						else {
-							//CGAL_Debug(-999);
-						}
+			
+			
+				
 					
 
 
