@@ -82,53 +82,49 @@ public:
 };
 
 
-joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_volumes)[4]) {
+joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_volumes)[4]):
+    id(_id), f0(_f0), f1(_f1), e0(_e0), e1(_e1), type(-1) {
 
-    this->id = _id;
-    this->f0 = _f0;
-    this->f1 = _f1;
-    this->e0 = _e0;
-    this->e1 = _e1;
-    this->type = -1;
 
     for (int i = 0; i < 4; i++) {
-        this->joint_volumes[i].reserve(_joint_volumes[i].size());
-        for (int j = 0; j < _joint_volumes[i].size(); j++) {
-            IK::Point_3 p = _joint_volumes[i][j];
-            this->joint_volumes[i].push_back(p);
-        }
+        this->joint_volumes[i] = _joint_volumes[i];
+        //this->joint_volumes[i].reserve(_joint_volumes[i].size());
+        //for (int j = 0; j < _joint_volumes[i].size(); j++) {
+        //    IK::Point_3 p = _joint_volumes[i][j];
+        //    this->joint_volumes[i].push_back(p);
+        //}
     }
 
 
 }
 
-joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type) {
+joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type):
+    id(_id), f0(_f0), f1(_f1), e0(_e0), e1(_e1), type(_type)
+{
 
-    this->id = _id;
-    this->f0 = _f0;
-    this->f1 = _f1;
-    this->e0 = _e0;
-    this->e1 = _e1;
-    this->type = _type;
+
 
     for (int i = 0; i < 4; i++) {
-        this->joint_volumes[i].reserve(_joint_volumes[i].size());
-        for (int j = 0; j < _joint_volumes[i].size(); j++) {
-            this->joint_volumes[i].emplace_back(_joint_volumes[i][j]);
-        }
+        this->joint_volumes[i] = _joint_volumes[i];
+        //this->joint_volumes[i].reserve(_joint_volumes[i].size());
+        //for (int j = 0; j < _joint_volumes[i].size(); j++) {
+        //    this->joint_volumes[i].emplace_back(_joint_volumes[i][j]);
+        //}
     }
 
     for (int i = 0; i < 2; i++) {
-        this->joint_lines[i].reserve(_joint_lines[i].size());
-        for (int j = 0; j < _joint_lines[i].size(); j++) {
-            this->joint_lines[i].emplace_back(_joint_lines[i][j]);
-        }
+        this->joint_lines[i] = _joint_lines[i];
+        //this->joint_lines[i].reserve(_joint_lines[i].size());
+        //for (int j = 0; j < _joint_lines[i].size(); j++) {
+        //    this->joint_lines[i].emplace_back(_joint_lines[i][j]);
+        //}
     }
 
-    this->joint_area.reserve(_joint_area.size());
-    for (int j = 0; j < _joint_area.size(); j++) {
-        this->joint_area.emplace_back(_joint_area[j]);
-    }
+    this->joint_area = _joint_area;
+    //this->joint_area.reserve(_joint_area.size());
+    //for (int j = 0; j < _joint_area.size(); j++) {
+    //    this->joint_area.emplace_back(_joint_area[j]);
+    //}
 
 }
 

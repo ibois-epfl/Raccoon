@@ -49,11 +49,15 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	//Create joints, Perform Joint Area Search
 	//////////////////////////////////////////////////////////////////////////////
 	auto joints = std::vector<joint>();
+	//auto joints = std::unordered_map<joint>();
 	rtree_search(elements, search_type, joints);
 
 	//////////////////////////////////////////////////////////////////////////////
 	//Create and Align Joints
 	//////////////////////////////////////////////////////////////////////////////
+
+	//Align joint rectangles
+
 
 	for (int i = 0; i < joints.size(); i++) {
 		//Cross_Simple(joints[i]);
@@ -127,7 +131,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	plines.reserve(elements.size() * 4);
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 
-		elements[i].get_joints_geometry(joints, plines, 0);
+		//elements[i].get_joints_geometry(joints, plines, 0);
 		//elements[i].get_joints_geometry(joints, plines,1);
 		//elements[i].get_joints_geometry(joints, plines, 2);//push joint geometry from joint to element
 		//elements[i].get_joints_geometry(joints, plines, 3);
@@ -141,6 +145,10 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	if (show_plane_normals) {
 		for (int i = 1; i < elements.size(); i++) {//Pls.size()
 			for (int j = 0; j < elements[i].planes.size(); j++) {//
+				//auto center = CGAL_PolylineUtil::Center(elements[i].polylines[j]);
+
+				//if(elements[i].edge_vectors.size()>0)
+					//plines.push_back({ center,center + elements[i].edge_vectors[j] });
 			   // auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(Pls[i][j].point(), Pls[i][j], 10, 10, 10);
 			   //auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(CGAL_PolylineUtil::Center(elements[i].polylines[j]), elements[i].planes[j], 10, 10, 10);
 			   //plines.push_back(planeDisplay);

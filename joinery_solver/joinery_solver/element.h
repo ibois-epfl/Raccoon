@@ -60,8 +60,8 @@ inline element::element() { }
 //{
 //}
 
-inline element::element(int _id) {
-	this->id = _id;
+inline element::element(int _id) : id(_id){
+	
 }
 
 inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector <CGAL_Polyline>& output, int what_to_expose) {

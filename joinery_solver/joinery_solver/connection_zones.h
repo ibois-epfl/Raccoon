@@ -879,8 +879,9 @@ inline bool face_to_face(
 						IK::Vector_3 offset_vector;
 						CGAL_IntersectionUtil::orthogonal_vector_between_two_plane_pairs(*plane0_0, *plane1_0, *plane1_1, offset_vector);
 
-						
+						dir = male_or_female ? insertion_vectors0[i]: insertion_vectors1[j];
 					
+
 					
 						if (dirSet) {
 

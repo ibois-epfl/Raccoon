@@ -560,7 +560,7 @@ namespace CGAL_IntersectionUtil {
 
         //return p1 - p0;
 
-
+        
 
         IK::Segment_3 line(IK::Point_3(0, 0, 0), IK::Point_3(v.hx(), v.hy(), v.hz()));
         IK::Point_3 p0;
