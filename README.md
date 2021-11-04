@@ -3,6 +3,7 @@ Development code for Petras Vestartas
 
 ### Interface
 - [x] pybind11 + CGAL
+- [ ] simplify conversion (instead of creation of polyline vector, create directly elements)
 - [ ] compas_wood C++ repository
 - [ ] C# (Wrapper) + CGAL
 - [ ] Grasshopper components (integration with NGon)
