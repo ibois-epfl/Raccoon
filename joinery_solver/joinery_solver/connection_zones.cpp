@@ -19,7 +19,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	std::vector<CGAL_Polyline> out_polyline_pairs;
 		std::vector<std::vector<IK::Vector_3>> out_insertion_vectors;
 		std::vector<std::vector<int>> out_joint_types;
-		std::vector<int> out_three_valence_element_indices_and_instruction;
+		std::vector<std::vector<int>> out_three_valence_element_indices_and_instruction;
 
 	compas::polylines_from_vertices_and_faces_and_properties(
 		polylines_vertices_XYZ, 
@@ -34,7 +34,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 		);
 	
 
-	
+	std::vector<CGAL_Polyline> plines;
 	const int n = out_polyline_pairs.size() * 0.5;
 	int search_type = 0;//Implement
 	bool show_plane_normals = true;
@@ -48,15 +48,20 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	//////////////////////////////////////////////////////////////////////////////
 	//Create joints, Perform Joint Area Search
 	//////////////////////////////////////////////////////////////////////////////
+	
 	auto joints = std::vector<joint>();
-	//auto joints = std::unordered_map<joint>();
-	rtree_search(elements, search_type, joints);
+	auto joints_map = std::unordered_map<uint64_t, int>();
+	rtree_search(elements, search_type, joints, joints_map);
 
 	//////////////////////////////////////////////////////////////////////////////
 	//Create and Align Joints
 	//////////////////////////////////////////////////////////////////////////////
-
-	//Align joint rectangles
+	three_valence_joint_alignment(
+		out_three_valence_element_indices_and_instruction,
+		elements,
+		joints,
+		joints_map,
+		plines);
 
 
 	for (int i = 0; i < joints.size(); i++) {
@@ -127,7 +132,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	//////////////////////////////////////////////////////////////////////////////
 	//Iterate joint address
 	//////////////////////////////////////////////////////////////////////////////
-	std::vector<CGAL_Polyline> plines;
+
 	plines.reserve(elements.size() * 4);
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 

@@ -2,15 +2,24 @@
 
 #include "compas.h"
 #include <float.h>
+#include <inttypes.h>
 int Digs = DECIMAL_DIG;
 
 inline void CGAL_Debug() {
 	printf("\n");
 }
 
+//inline void CGAL_Debug(uint64_t v) {
+//
+//	printf("%" PRIu64 "\n", v);
+//}
+
 inline void CGAL_Debug(size_t v) {
-	printf("CPP size %zi\n", v);
+	printf("%" PRIu64 "\n", v);
+	//printf("CPP size %zi\n", v);
 }
+
+
 
 inline void CGAL_Debug(bool v) {
 	printf("CPP bool %i\n", v);

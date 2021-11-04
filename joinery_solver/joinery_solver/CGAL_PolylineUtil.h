@@ -11,7 +11,7 @@ namespace CGAL_PolylineUtil {
 
 
 
-	inline IK::Point_3 PointAt(IK::Segment_3& l, double t)
+	inline IK::Point_3 PointAt(const IK::Segment_3& l, double t)
 	{
 
 		//s[0].z()
@@ -34,7 +34,7 @@ namespace CGAL_PolylineUtil {
 
 
 
-	inline bool ClosestPointTo(const IK::Point_3& point, IK::Segment_3& s, double& t)
+	inline bool ClosestPointTo(const IK::Point_3& point, const IK::Segment_3& s, double& t)
 	{
 		bool rc = false;
 		//if (t) {
@@ -63,7 +63,7 @@ namespace CGAL_PolylineUtil {
 		return rc;
 	}
 
-	inline void LineLineOverlap(IK::Segment_3& l0, IK::Segment_3& l1, IK::Segment_3& result) {
+	inline void LineLineOverlap(const IK::Segment_3& l0, const IK::Segment_3& l1, IK::Segment_3& result) {
 
 		double t[4];
 		t[0] = 0;
@@ -77,8 +77,46 @@ namespace CGAL_PolylineUtil {
 
 	}
 
-	inline void LineLineOverlapAverage(IK::Segment_3& l0, IK::Segment_3& l1, IK::Segment_3& result)
+	inline void LineLineOverlapAverage(const IK::Segment_3& l0, const IK::Segment_3& l1, IK::Segment_3& result)
 	{
+		IK::Segment_3 lA;
+		LineLineOverlap(l0, l1, lA);
+		IK::Segment_3 lB;
+		LineLineOverlap(l1, l0, lB);
+
+
+		IK::Segment_3 a(CGAL_VectorUtil::MidPoint_(lA[0], lB[0]), CGAL_VectorUtil::MidPoint_(lA[1], lB[1]));
+		IK::Segment_3 b(CGAL_VectorUtil::MidPoint_(lA[0], lB[1]), CGAL_VectorUtil::MidPoint_(lA[1], lB[0]));
+
+		result = (a.squared_length() > b.squared_length()) ? a : b;
+
+	}
+
+	inline void LineLineOverlapAverage(const CGAL_Polyline& l0_, const CGAL_Polyline& l1_, IK::Segment_3& result)
+	{
+
+		IK::Segment_3 l0(l0_[0], l0_[1]);
+		IK::Segment_3 l1(l1_[0], l1_[1]);
+
+
+		IK::Segment_3 lA;
+		LineLineOverlap(l0, l1, lA);
+		IK::Segment_3 lB;
+		LineLineOverlap(l1, l0, lB);
+
+
+		IK::Segment_3 a(CGAL_VectorUtil::MidPoint_(lA[0], lB[0]), CGAL_VectorUtil::MidPoint_(lA[1], lB[1]));
+		IK::Segment_3 b(CGAL_VectorUtil::MidPoint_(lA[0], lB[1]), CGAL_VectorUtil::MidPoint_(lA[1], lB[0]));
+
+		result = (a.squared_length() > b.squared_length()) ? a : b;
+
+	}
+
+	inline void line_line_overlap_average_segments(const IK::Segment_3& l0, const IK::Segment_3& l1, IK::Segment_3& result)
+	{
+
+
+
 		IK::Segment_3 lA;
 		LineLineOverlap(l0, l1, lA);
 		IK::Segment_3 lB;

@@ -72,7 +72,7 @@ namespace compas
         std::vector<CGAL_Polyline>& out_polyline_pairs,
         std::vector<std::vector<IK::Vector_3>>& out_insertion_vectors,
         std::vector<std::vector<int>>& out_joint_types,
-        std::vector<int>& out_three_valence_element_indices_and_instruction
+        std::vector<std::vector<int>>& out_three_valence_element_indices_and_instruction
 );
 
 
@@ -190,7 +190,7 @@ inline void compas::polylines_from_vertices_and_faces_and_properties(
     std::vector<CGAL_Polyline>& out_polyline_pairs,
     std::vector<std::vector<IK::Vector_3>>& out_insertion_vectors,
     std::vector<std::vector<int>>& out_joint_types,
-    std::vector<int>& out_three_valence_element_indices_and_instruction
+    std::vector<std::vector<int>>& out_three_valence_element_indices_and_instruction
     ) {
 
     //////////////////////////////////////////////////////////////////////////////
@@ -259,6 +259,28 @@ inline void compas::polylines_from_vertices_and_faces_and_properties(
         }
 
     }
+
+    if (three_valence_element_indices_and_instruction.size() > 0) {
+        out_three_valence_element_indices_and_instruction.reserve(three_valence_element_indices_and_instruction.size());
+
+      
+      
+        for (int i = 0; i < three_valence_element_indices_and_instruction.size(); i+=4) {
+
+            std::vector<int> ids
+            {
+            three_valence_element_indices_and_instruction(i + 0, 0),
+            three_valence_element_indices_and_instruction(i + 1, 0),
+            three_valence_element_indices_and_instruction(i + 2, 0),
+            three_valence_element_indices_and_instruction(i + 3, 0),
+
+            };
+
+            out_three_valence_element_indices_and_instruction.push_back(ids);
+
+        }
+    }
+    
 
 
    

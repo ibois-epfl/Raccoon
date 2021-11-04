@@ -9,33 +9,9 @@ namespace joint_library {
 	//type_typeidedge_subtypeieinplane_id
 	//0 - do not merge, 1 - edge insertion, 2 - hole 3 - insert between multiple edges hole
 
-	//1
-	inline void cr_c_ip_0(joint& joint) {
 
 
-		//printf("Cross_Simple %zi", joint.m.size());
-
-		joint.name = "cr_c_ip_0";
-
-		joint.f[0] = {
-		{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) },
-		{ IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,0.55),IK::Point_3(-0.5,-0.5,0.55),IK::Point_3(-0.5,-0.5,0) }
-		};
-
-
-		joint.m[0] = {
-		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) },
-		{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) }
-		};
-
-		joint.m_boolean_type = { '0','0' };
-		joint.f_boolean_type = { '0','0' };
-
-		//Orient to 3D
-		joint.orient_to_connection_area();
-	}
-
-	//2
+	//1-9
 	inline void ss_e_ip_0(joint& joint) {
 
 
@@ -70,7 +46,7 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
-	//3
+	//10-19
 	inline void ss_e_op_0(joint& joint) {
 
 
@@ -101,7 +77,7 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
-	//4
+	//20-29
 	inline void ts_e_p_0(joint& joint) {
 
 
@@ -130,6 +106,56 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
+	inline void ts_e_p_1(joint& joint) {
+
+
+		joint.name = "ts_e_p_1";
+
+
+		joint.f[0] = { { IK::Point_3(-0.5,-0.5,-0.277777777777778), IK::Point_3(0.5,-0.5,-0.277777777777778), IK::Point_3(0.5,-0.5,-0.388888888888889), IK::Point_3(-0.5,-0.5,-0.388888888888889), IK::Point_3(-0.5,-0.5,-0.277777777777778) }, { IK::Point_3(-0.5,-0.5,0.166666666666667), IK::Point_3(0.5,-0.5,0.166666666666667), IK::Point_3(0.5,-0.5,0.0555555555555556), IK::Point_3(-0.5,-0.5,0.0555555555555556), IK::Point_3(-0.5,-0.5,0.166666666666667) }, { IK::Point_3(-0.5,-0.5,0.166666666666667), IK::Point_3(-0.5,-0.5,-0.388888888888889), IK::Point_3(0.5,-0.5,-0.388888888888889), IK::Point_3(0.5,-0.5,0.166666666666667), IK::Point_3(-0.5,-0.5,0.166666666666667) } };
+
+
+		joint.f[1] = { { IK::Point_3(-0.5,0.5,-0.277777777777778), IK::Point_3(0.5,0.5,-0.277777777777778), IK::Point_3(0.5,0.5,-0.388888888888889), IK::Point_3(-0.5,0.5,-0.388888888888889), IK::Point_3(-0.5,0.5,-0.277777777777778) }, { IK::Point_3(-0.5,0.5,0.166666666666667), IK::Point_3(0.5,0.5,0.166666666666667), IK::Point_3(0.5,0.5,0.0555555555555556), IK::Point_3(-0.5,0.5,0.0555555555555556), IK::Point_3(-0.5,0.5,0.166666666666667) }, { IK::Point_3(-0.5,0.5,0.166666666666667), IK::Point_3(-0.5,0.5,-0.388888888888889), IK::Point_3(0.5,0.5,-0.388888888888889), IK::Point_3(0.5,0.5,0.166666666666667), IK::Point_3(-0.5,0.5,0.166666666666667) } };
+
+
+		//Joint lines, always the last line or rectangle is not a joint but an cutting element
+		joint.m[0] = { { IK::Point_3(0.5,-0.5,0.166666666666667), IK::Point_3(0.5,0.5,0.166666666666667), IK::Point_3(0.5,0.5,0.0555555555555556), IK::Point_3(0.5,-0.5,0.0555555555555556), IK::Point_3(0.5,-0.5,-0.277777777777778), IK::Point_3(0.5,0.5,-0.277777777777778), IK::Point_3(0.5,0.5,-0.388888888888889), IK::Point_3(0.5,-0.5,-0.388888888888889)}, { IK::Point_3(0.5,-0.5,0.5), IK::Point_3(0.5,-0.5,-0.5) } };
+
+		joint.m[1] = { { IK::Point_3(-0.5,-0.5,0.166666666666667), IK::Point_3(-0.5,0.5,0.166666666666667), IK::Point_3(-0.5,0.5,0.0555555555555558), IK::Point_3(-0.5,-0.5,0.0555555555555557), IK::Point_3(-0.5,-0.5,-0.277777777777778), IK::Point_3(-0.5,0.5,-0.277777777777778), IK::Point_3(-0.5,0.5,-0.388888888888889), IK::Point_3(-0.5,-0.5,-0.388888888888889) }, { IK::Point_3(-0.5,-0.5,0.5), IK::Point_3(-0.5,-0.5,-0.5) } };
+
+
+		joint.f_boolean_type = { '2','2','2','2' };
+		joint.m_boolean_type = { '1','1' };
+
+		joint.orient_to_connection_area();
+	}
+
+	//30-39
+	inline void cr_c_ip_0(joint& joint) {
+
+
+		//printf("Cross_Simple %zi", joint.m.size());
+
+		joint.name = "cr_c_ip_0";
+
+		joint.f[0] = {
+		{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) },
+		{ IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,0.55),IK::Point_3(-0.5,-0.5,0.55),IK::Point_3(-0.5,-0.5,0) }
+		};
+
+
+		joint.m[0] = {
+		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) },
+		{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) }
+		};
+
+		joint.m_boolean_type = { '0','0' };
+		joint.f_boolean_type = { '0','0' };
+
+		//Orient to 3D
+		joint.orient_to_connection_area();
+	}
+
 	inline void construct_joint_by_index(joint& joint, int& id_representing_joing_name) {
 
 		if (id_representing_joing_name == 0) {
@@ -142,7 +168,20 @@ namespace joint_library {
 			ss_e_op_0(joint);
 		}
 		else if (id_representing_joing_name > 19 && id_representing_joing_name < 30) {
-			ts_e_p_0(joint);
+			switch (id_representing_joing_name)
+			{
+			case(20):
+				ts_e_p_1(joint);
+				break;
+			default:
+				ts_e_p_0(joint);
+				break;
+			}
+			
+		}
+
+		else if (id_representing_joing_name > 39 && id_representing_joing_name < 40) {
+			cr_c_ip_0(joint);
 		}
 	}
 

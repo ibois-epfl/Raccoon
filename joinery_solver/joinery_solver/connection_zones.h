@@ -7,6 +7,7 @@
 #include "CGAL_BoxUtil.h"
 #include "CGAL_PlaneUtil.h"
 #include "CGAL_Print.h"
+#include "CGAL_MathUtil.h"
 #include "RTree.h"
 #include "AxisPlane.h"
 #include "clipper.h"
@@ -1002,8 +1003,8 @@ inline void rtree_search(
 	int search_type,
 
 	//Output
-	std::vector<joint>& joints
-
+	std::vector<joint>& joints,
+	std::unordered_map<uint64_t, int>& joints_map
 ) {
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -1047,7 +1048,8 @@ inline void rtree_search(
 		int nhits = tree.Search(min, max, callback);//callback in this method call callback above
 
 	}
-
+	joints.reserve(result.size());
+	joints_map.reserve(result.size());
 
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -1095,8 +1097,9 @@ inline void rtree_search(
 			);
 
 
+			joints_map.emplace(CGAL_MathUtil::unique_from_two_int(result[i], result[i + 1]),jointID);
 
-			//CGAL_Debug();
+			//CGAL_Debug(CGAL_MathUtil::unique_from_two_int(result[i], result[i + 1]));
 			//CGAL_Debug(jointID, result[i + 0],  e0);
 			//CGAL_Debug(jointID, result[i + 1], e1);
 			if (e1 < 2 || e0 < 2) {
@@ -1267,6 +1270,128 @@ inline void get_obb_and_planes(
 
 }
 
+
+inline void three_valence_joint_alignment(
+	std::vector<std::vector<int>>& out_three_valence_element_indices_and_instruction,
+	std::vector<element>& elements,
+	std::vector<joint>& joints,
+	std::unordered_map<uint64_t, int>& joints_map,
+	std::vector<CGAL_Polyline>& plines
+	) {
+
+	//CGAL_Debug(0);
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	 //For solving multiple valences (Specific case Annen), only works when only one joint is possible between two unique plates (wont work for plates with subdivided edges)
+	 //////////////////////////////////////////////////////////////////////////////////////////////////
+	if (out_three_valence_element_indices_and_instruction.size() == 0) return;
+	//CGAL_Debug(1);
+
+	//CGAL_Debug();
+	//CGAL_Debug(joints_map.size());
+	//for (auto a : joints_map) {
+	//	CGAL_Debug(a.first);
+	//	CGAL_Debug(a.second);
+	//}
+	//CGAL_Debug();
+
+	for (int i = 0; i < out_three_valence_element_indices_and_instruction.size(); i ++) {
+	
+		
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		//get unique key
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		int id_0 = joints_map[CGAL_MathUtil::unique_from_two_int(out_three_valence_element_indices_and_instruction[i][0], out_three_valence_element_indices_and_instruction[i][1])];
+		int id_1 = joints_map[CGAL_MathUtil::unique_from_two_int(out_three_valence_element_indices_and_instruction[i][2], out_three_valence_element_indices_and_instruction[i][3])];
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		//Get overlap segment and plane within its normal
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		IK::Segment_3 l0(joints[id_0].joint_lines[0][0], joints[id_0].joint_lines[0][1]);
+
+
+		IK::Segment_3 l1 = CGAL::has_smaller_distance_to_point(joints[id_0].joint_lines[0][0], joints[id_1].joint_lines[0][0], joints[id_1].joint_lines[0][1]) 
+			? IK::Segment_3(joints[id_1].joint_lines[0][0], joints[id_1].joint_lines[0][1]) 
+			: IK::Segment_3(joints[id_1].joint_lines[0][1], joints[id_1].joint_lines[0][0]);
+
+		IK::Segment_3 l;
+		CGAL_PolylineUtil::line_line_overlap_average_segments(l0,l1, l);
+
+		//plines.push_back({ l[0] ,l[1] });
+
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		//Construct plane from exisiting joint volume edges
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//if (joints[id_0].joint_volumes[0].size() == 0) return;
+		//if (joints[id_1].joint_volumes[0].size() == 0) return;
+
+		IK::Vector_3 cross0 = CGAL::cross_product(
+			joints[id_0].joint_volumes[0][2] - joints[id_0].joint_volumes[0][1], 
+			joints[id_0].joint_volumes[0][0] - joints[id_0].joint_volumes[0][1]);
+		IK::Vector_3 cross1 = CGAL::cross_product(
+			joints[id_1].joint_volumes[0][2] - joints[id_1].joint_volumes[0][1], 
+			joints[id_1].joint_volumes[0][0] - joints[id_1].joint_volumes[0][1]);
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		//Intersect lines with planes
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//CGAL_Debug(cross0);
+		//CGAL_Debug(cross1);
+		
+		//if (!CGAL::has_smaller_distance_to_point(IK::Point_3(cross0.hx(), cross0.hy(), cross0.hz()), IK::Point_3(cross1.hx(), cross1.hy(), cross1.hz()), IK::Point_3(-cross1.hx(), -cross1.hy(), -cross1.hz())))
+		//	cross1 = IK::Vector_3(-cross1.hx(), -cross1.hy(), -cross1.hz());
+
+		IK::Plane_3 plane0_0(l[0], cross0);
+		IK::Plane_3 plane0_1(l[1], cross0);
+		IK::Plane_3 plane1_0(l[1], cross1);
+		IK::Plane_3 plane1_1(l[0], cross1);
+
+		//plines.push_back({ l[0], l[0] + cross0 });
+		//plines.push_back({ l[1], l[1] + cross0 });
+		//plines.push_back({ l[0], l[0] + cross1 });
+		//plines.push_back({ l[1], l[1] + cross1 });
+
+		for (int j = 0; j < 4; j += 2) {
+			if (joints[id_0].joint_volumes[j].size() == 0) continue;
+
+			IK::Segment_3 s0(joints[id_0].joint_volumes[j + 0][0], joints[id_0].joint_volumes[j + 1][0]);
+			IK::Segment_3 s1(joints[id_0].joint_volumes[j + 0][1], joints[id_0].joint_volumes[j + 1][1]);
+			IK::Segment_3 s2(joints[id_0].joint_volumes[j + 0][2], joints[id_0].joint_volumes[j + 1][2]);
+			IK::Segment_3 s3(joints[id_0].joint_volumes[j + 0][3], joints[id_0].joint_volumes[j + 1][3]);
+
+			CGAL_IntersectionUtil::Plane4LinesIntersection(plane0_0, s0, s1, s2, s3, joints[id_0].joint_volumes[j]);
+			CGAL_IntersectionUtil::Plane4LinesIntersection(plane0_1, s0, s1, s2, s3, joints[id_0].joint_volumes[j+1]);
+			//plines.push_back(joints[id_0].joint_volumes[j]);
+			//plines.push_back(joints[id_0].joint_volumes[j+1]);
+		}
+
+		for (int j = 0; j < 4; j += 2) {
+			if (joints[id_1].joint_volumes[j].size() == 0) continue;
+
+			IK::Segment_3 s0(joints[id_1].joint_volumes[j + 0][0], joints[id_1].joint_volumes[j + 1][0]);
+			IK::Segment_3 s1(joints[id_1].joint_volumes[j + 0][1], joints[id_1].joint_volumes[j + 1][1]);
+			IK::Segment_3 s2(joints[id_1].joint_volumes[j + 0][2], joints[id_1].joint_volumes[j + 1][2]);
+			IK::Segment_3 s3(joints[id_1].joint_volumes[j + 0][3], joints[id_1].joint_volumes[j + 1][3]);
+
+			CGAL_IntersectionUtil::Plane4LinesIntersection(plane1_0, s0, s1, s2, s3, joints[id_1].joint_volumes[j]);
+			CGAL_IntersectionUtil::Plane4LinesIntersection(plane1_1, s0, s1, s2, s3, joints[id_1].joint_volumes[j+1]);
+
+			//plines.push_back(joints[id_1].joint_volumes[j]);
+			//plines.push_back(joints[id_1].joint_volumes[j + 1]);
+		}
+
+	}
+
+
+
+
+
+
+
+}
 
 //inline bool OrientTile(CGAL_Polyline &rect0, CGAL_Polyline &rect1, std::vector<std::vector<CGAL_Polyline>> &orientedTiles, int tileType = 0) {
 //
