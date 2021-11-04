@@ -23,14 +23,14 @@ Development code for Petras Vestartas
 
 
 ### Joints
-- [ ] *parameterize ss_e_ip_0 to changing number of tenons, method ss_e_ip_1
-- [ ] *parameterize ss_e_op_0 to changing number of tenons, method ss_e_op_1
-- [ ] *parameterize ts_e_p_1 to changing number of tenons, method ts_e_p_2
-- [ ] *parameterize cr_c_ip_1 conic cross 
+- [ ] :snowflake: parameterize ss_e_ip_0 to changing number of tenons, method ss_e_ip_1
+- [ ] :snowflake: parameterize ss_e_op_0 to changing number of tenons, method ss_e_op_1
+- [ ] :snowflake: parameterize ts_e_p_1 to changing number of tenons, method ts_e_p_2
+- [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
 
 ### Merge
 - [x] insert face joints inside edge
-- [ ] *insert between multiple edges (cross joint case)
+- [ ] :snowflake: insert between multiple edges (cross joint case)
 - [ ] cut projection and insert in polylgon (case when side-side joints are rotated)
 - [ ] mesh boolean: a) reference shapes, b) joints polygon pairs
 
@@ -52,7 +52,7 @@ Development code for Petras Vestartas
 - [ ] milling
 - [ ] camera
 - [ ] slice
-- [ ] *notches 
+- [ ] :snowflake: notches 
 - [ ] drilling using I J  
 - [ ] rotation limits in 5 axis
 
