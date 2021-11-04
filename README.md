@@ -7,6 +7,7 @@ Development code for Petras Vestartas
 - [ ] compas_wood C++ repository
 - [ ] C# (Wrapper) + CGAL
 - [ ] Grasshopper components (integration with NGon)
+- [ ] C++ Visualizer
 
 ### Global Search Methods
 - [x] RTree + OOB and ABB collision
@@ -44,7 +45,7 @@ Development code for Petras Vestartas
 ### Display
 - [ ] Meshing in COMPAS
 
-### CNC
+### CNC G-Code
 - [x] C A axis implementation
 - [ ] B-Axis integration ( a)find most top position, b) rotate b axis)
 - [ ] calibration procedure
