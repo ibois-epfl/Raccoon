@@ -6,3 +6,8 @@ C:\Users\petra\AppData\Roaming\Grasshopper\Libraries\Raccoon\Raccoon.pdb
 C:\IBOIS57\_Code\Software\CSharp\Raccoon\Raccoon\obj\Debug\Raccoon.dll
 C:\IBOIS57\_Code\Software\CSharp\Raccoon\Raccoon\obj\Debug\Raccoon.pdb
 C:\IBOIS57\_Code\Software\CSharp\Raccoon\Raccoon\obj\Debug\Raccoon.csproj.AssemblyReference.cache
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.Properties.Resources.resources
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.csproj.GenerateResource.cache
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.csproj.CoreCompileInputs.cache
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.dll
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.pdb
