@@ -145,10 +145,10 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	if (show_plane_normals) {
 		for (int i = 1; i < elements.size(); i++) {//Pls.size()
 			for (int j = 0; j < elements[i].planes.size(); j++) {//
-				//auto center = CGAL_PolylineUtil::Center(elements[i].polylines[j]);
+				auto center = CGAL_PolylineUtil::Center(elements[i].polylines[j]);
 
-				//if(elements[i].edge_vectors.size()>0)
-					//plines.push_back({ center,center + elements[i].edge_vectors[j] });
+				if(elements[i].edge_vectors.size()>0)
+					plines.push_back({ center,center + elements[i].edge_vectors[j] });
 			   // auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(Pls[i][j].point(), Pls[i][j], 10, 10, 10);
 			   //auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(CGAL_PolylineUtil::Center(elements[i].polylines[j]), elements[i].planes[j], 10, 10, 10);
 			   //plines.push_back(planeDisplay);

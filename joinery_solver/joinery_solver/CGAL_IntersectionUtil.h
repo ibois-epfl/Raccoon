@@ -548,7 +548,7 @@ namespace CGAL_IntersectionUtil {
 
     }
 
-    inline void vector_two_planes(IK::Vector_3& v, IK::Plane_3& plane0, IK::Plane_3& plane1, IK::Vector_3& output) {
+    inline bool vector_two_planes(IK::Vector_3& dir, IK::Plane_3& plane0, IK::Plane_3& plane1, IK::Vector_3& output) {
         //printf("vector_two_planes \n");
         //IK::Line_3 line(IK::Point_3(0, 0, 0), v);
 
@@ -560,14 +560,26 @@ namespace CGAL_IntersectionUtil {
 
         //return p1 - p0;
 
+        //check validity
+        bool dirSet = (std::abs(dir.hx()) + std::abs(dir.hy()) + std::abs(dir.hz())) > GlobalTolerance;// == CGAL::NULL_VECTOR;
+        if (!dirSet) return dirSet;
         
+            
 
-        IK::Segment_3 line(IK::Point_3(0, 0, 0), IK::Point_3(v.hx(), v.hy(), v.hz()));
+        IK::Segment_3 line(IK::Point_3(0, 0, 0), IK::Point_3(dir.hx(), dir.hy(), dir.hz()));
         IK::Point_3 p0;
         IK::Point_3 p1;
         CGAL_IntersectionUtil::Intersect(line, plane0, p0);
         CGAL_IntersectionUtil::Intersect(line, plane1, p1);
         output = p1 - p0;
+
+        //Check scale
+        double dist_ortho = (plane1.projection(plane0.point()) - plane0.point()).squared_length();
+        double dist = output.squared_length();
+        dirSet = dist / dist_ortho < 10;
+        return dirSet;
+       // return true;
+
     }
 
     inline void orthogonal_vector_between_two_plane_pairs(IK::Plane_3& plane_pair0_0, IK::Plane_3& plane_pair1_0, IK::Plane_3& plane_pair1_1, IK::Vector_3& output) {

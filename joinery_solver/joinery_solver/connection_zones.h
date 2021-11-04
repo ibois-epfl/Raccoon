@@ -595,36 +595,36 @@ inline bool face_to_face(
 					IK::Vector_3 dir = i > j ? insertion_vectors0[i] : insertion_vectors1[j];
 				
 
-					
-					////Take priority for male 
-					bool dirSet = false;
-					bool male_female = true;
-					if (i > j) 
-						if (insertion_vectors0.size() > 0) {
-							dir = insertion_vectors0[i];
-							dirSet = true;
-						}
-					else 
-						if (insertion_vectors1.size() > 0) {
-							dir = insertion_vectors1[j];
-							dirSet = true;
-							male_female = false;
-						}
+					//
+					//////Take priority for male 
+					bool dirSet = insertion_vectors0.size()>0;
+					////bool male_female = true;
+					//if (i > j) 
+					//	if (insertion_vectors0.size() > 0) {
+					//		//dir = insertion_vectors0[i];
+					//		dirSet = true;
+					//	}
+					//else 
+					//	if (insertion_vectors1.size() > 0) {
+					//		dir = insertion_vectors1[j];
+					//		dirSet = true;
+					//		male_female = false;
+					//	}
 
 
-					if (dirSet) {
+					//if (dirSet) {
 				
-						bool dirSet = (std::abs(dir.hx()) + std::abs(dir.hy()) + std::abs(dir.hz()))   > GlobalTolerance;// == CGAL::NULL_VECTOR;
+					//	bool dirSet = (std::abs(dir.hx()) + std::abs(dir.hy()) + std::abs(dir.hz()))   > GlobalTolerance;// == CGAL::NULL_VECTOR;
 
-						if (male_female) {
-							if (CGAL_VectorUtil::GetAngle90(dir, Plane0[i].orthogonal_vector()) > 45) dirSet = false;
-						}
-						else {
-							if (CGAL_VectorUtil::GetAngle90(dir, Plane1[j].orthogonal_vector()) > 45) dirSet = false;
-						}
+					//	if (male_female) {
+					//		if (CGAL_VectorUtil::GetAngle90(dir, Plane0[i].orthogonal_vector()) > 45) dirSet = false;
+					//	}
+					//	else {
+					//		if (CGAL_VectorUtil::GetAngle90(dir, Plane1[j].orthogonal_vector()) > 45) dirSet = false;
+					//	}
 
 
-					}
+					//}
 
 					//////////////////////////////////////////////////////////////////////////////////////////////////
 					//Indentify connection volumes
@@ -883,9 +883,13 @@ inline bool face_to_face(
 						CGAL_IntersectionUtil::orthogonal_vector_between_two_plane_pairs(*plane0_0, *plane1_0, *plane1_1, offset_vector);
 
 						//dir = i > j ? insertion_vectors0[i]: insertion_vectors1[j];
-	
-						if (dirSet) 
-								CGAL_IntersectionUtil::vector_two_planes(dir, *plane1_0, *plane1_1, offset_vector);
+						//dirSet = true;
+						if (dirSet) {
+							IK::Vector_3 offset_vector_;
+							bool flag = CGAL_IntersectionUtil::vector_two_planes(dir, *plane1_0, *plane1_1, offset_vector_);
+							if (flag)
+								offset_vector = offset_vector_;
+						}
 			
 			
 				
