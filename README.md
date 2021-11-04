@@ -1,17 +1,17 @@
 # Raccoon_Litter_Box
 Development code for Petras Vestartas
 
-# Interface
+### Interface
 - [x] pybind11 + CGAL
 - [ ] compas_wood C++ repository
 - [ ] C# (Wrapper) + CGAL
 - [ ] Grasshopper components (integration with NGon)
 
-# Global Search Methods
+### Global Search Methods
 - [x] RTree + OOB and ABB collision
 - [ ] no search by user given index (must have input in the beginning)
 
-# Local Search Methods
+### Local Search Methods
 - [x] plane_to_face cross
 - [x] face_to_face side-to-side non-parallel
 - [x] face_to_face side-to-side parallel in-plane
@@ -20,30 +20,30 @@ Development code for Petras Vestartas
 - [ ] face_to_face top_to_top 
 
 
-# Joints
+### Joints
 - [ ] parameterize ss_e_ip_0 to changing number of tenons, method ss_e_ip_1
 - [ ] parameterize ss_e_op_0 to changing number of tenons, method ss_e_op_1
 - [ ] parameterize ts_e_p_1 to changing number of tenons, method ts_e_p_2
 - [ ] parameterize cr_c_ip_1 conic cross 
 
-# Merge
+### Merge
 - [x] insert face joints inside edge
 - [ ] insert between multiple edges (cross joint case)
 - [ ] cut projection and insert in polylgon (case when side-side joints are rotated)
 - [ ] mesh boolean: a) reference shapes, b) joints polygon pairs
 
-# Element Grouping
+### Element Grouping
 - [ ] introduce unordered_map to track grouping like sorted lists x;x;x
 
-# Insertion Vector
+### Insertion Vector
 - [x] side-top connection
 - [ ] side-side connection
 - [ ] top-top connection
 
-# Display
+### Display
 - [ ] Meshing in COMPAS
 
-# CNC
+### CNC
 - [x] C A axis implementation
 - [ ] B-Axis integration ( a)find most top position, b) rotate b axis)
 - [ ] calibration procedure
@@ -54,7 +54,7 @@ Development code for Petras Vestartas
 - [ ] drilling using I J  
 - [ ] rotation limits in 5 axis
 
-# Examples
+### Examples
 - [x] Small samples
 - [x] Annen
 - [ ] CR
