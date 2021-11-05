@@ -1,6 +1,8 @@
 # Raccoon_Litter_Box
 Development code for Petras Vestartas
 
+# C++ Project joinery_solver
+
 ### Interface
 - [x] pybind11 + CGAL
 - [ ] output: polylines, polylines vertex count, polylines ids (minus are joints), cut types (milling, drilling, cut, notches)
@@ -46,7 +48,21 @@ Development code for Petras Vestartas
 ### Display
 - [ ] Meshing in COMPAS
 
-### CNC G-Code
+### Examples
+- [x] Small samples
+- [x] Annen
+- [ ] CR
+- [ ] VDA
+- [ ] Vidy
+- [ ] Students
+
+# CSharp Project Raccoon (CNC G-Code)
+
+### Physical Work
+- [ ] Fabricate table
+- [ ] camera holder, buy cameras
+
+### Code
 - [x] C A axis implementation
 - [ ] B-Axis integration ( a)find most top position, b) rotate b axis)
 - [ ] calibration procedure
@@ -57,10 +73,4 @@ Development code for Petras Vestartas
 - [ ] drilling using I J  
 - [ ] rotation limits in 5 axis
 
-### Examples
-- [x] Small samples
-- [x] Annen
-- [ ] CR
-- [ ] VDA
-- [ ] Vidy
-- [ ] Students
+
