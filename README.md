@@ -57,7 +57,8 @@ Development code for Petras Vestartas
 - [ ] Students
 
 # CSharp Project Raccoon (CNC G-Code)
-To run CNC G-Code download the Build folder and place in Grasshopper Libraries folder: https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
+To run CNC G-Code download the Build folder and place in Grasshopper Libraries folder: 
+https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
 
 Important: add all tools parameters from the current CNC machine to Tools.txt file.
 
