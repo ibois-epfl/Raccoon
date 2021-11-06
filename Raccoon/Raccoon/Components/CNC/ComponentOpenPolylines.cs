@@ -215,25 +215,34 @@ namespace Raccoon.Components.CNC
         protected override void AfterSolveInstance()
         {
 
+            GH_Document ghdoc = base.OnPingDocument();
+            for (int i = 0; i < ghdoc.ObjectCount; i++)
+            {
+                IGH_DocumentObject obj = ghdoc.Objects[i];
+                if (obj.Attributes.DocObject.ToString().Equals("Grasshopper.Kernel.Special.GH_Group"))
+                {
+                    Grasshopper.Kernel.Special.GH_Group groupp = (Grasshopper.Kernel.Special.GH_Group)obj;
+                    if (groupp.ObjectIDs.Contains(this.InstanceGuid))
+                        return;
+                }
+
+            }
+
+
             List<Guid> guids = new List<Guid>() { this.InstanceGuid };
 
             foreach (var param in base.Params.Input)
-            {
                 foreach (IGH_Param source in param.Sources)
-                {
                     guids.Add(source.InstanceGuid);
-                }
-            }
 
-            //Get grasshopper document
-            GH_Document GrasshopperDocument = base.OnPingDocument();
+
             Grasshopper.Kernel.Special.GH_Group g = new Grasshopper.Kernel.Special.GH_Group();
             g.NickName = base.Name.ToString();
 
 
             g.Colour = System.Drawing.Color.FromArgb(255, 255, 0, 255);
 
-            GrasshopperDocument.AddObject(g, false, GrasshopperDocument.ObjectCount);
+            ghdoc.AddObject(g, false, ghdoc.ObjectCount);
             for (int i = 0; i < guids.Count; i++)
                 g.AddObject(guids[i]);
             g.ExpireCaches();

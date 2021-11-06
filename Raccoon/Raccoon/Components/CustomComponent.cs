@@ -25,7 +25,7 @@ namespace Raccoon
 
     public class CustomComponent : GH_Component
     {
-
+        public bool run_once = true;
         public PreviewObject preview;
         public BoundingBox bbox = Utilities.MakaDimensions.MakaBBox();
         public Rhino.Display.DisplayMaterial m = new Rhino.Display.DisplayMaterial(Color.White);
