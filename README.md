@@ -57,14 +57,13 @@ Development code for Petras Vestartas
 - [ ] Students
 
 # CSharp Project Raccoon (CNC G-Code)
+Download Build folder [link]: https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
 
 ### Physical Work
 - [ ] Fabricate table
 - [ ] camera holder, buy cameras
 
 ### Code
-
-[Download Build folder]: https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
 
 - [x] C A axis implementation
 - [ ] B-Axis integration ( a)find most top position, b) rotate b axis)
