@@ -57,8 +57,7 @@ Development code for Petras Vestartas
 - [ ] Students
 
 # CSharp Project Raccoon (CNC G-Code)
-Download Build folder 
-[link]: https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
+Download Build folder https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
 
 ### Physical Work
 - [ ] Fabricate table
