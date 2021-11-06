@@ -66,10 +66,10 @@ Development code for Petras Vestartas
 - [x] C A axis implementation
 - [ ] B-Axis integration ( a)find most top position, b) rotate b axis)
 - [ ] calibration procedure
-- [ ] milling
+- [x] milling
 - [ ] camera
-- [ ] slice
-- [ ] :snowflake: notches 
+- [x] slice
+- [x] notches 
 - [ ] drilling using I J  
 - [ ] rotation limits in 5 axis
 
