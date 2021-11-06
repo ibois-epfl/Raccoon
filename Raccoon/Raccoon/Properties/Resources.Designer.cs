@@ -123,6 +123,26 @@ namespace Raccoon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap openCut {
+            get {
+                object obj = ResourceManager.GetObject("openCut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pair {
+            get {
+                object obj = ResourceManager.GetObject("pair", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap RaccoonBig {
             get {
                 object obj = ResourceManager.GetObject("RaccoonBig", resourceCulture);
@@ -146,6 +166,26 @@ namespace Raccoon.Properties {
         internal static System.Drawing.Bitmap Saw {
             get {
                 object obj = ResourceManager.GetObject("Saw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spiralDrill {
+            get {
+                object obj = ResourceManager.GetObject("spiralDrill", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap straightdrill {
+            get {
+                object obj = ResourceManager.GetObject("straightdrill", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

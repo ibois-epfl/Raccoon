@@ -101,7 +101,7 @@ namespace Raccoon.Components.CNC
             }
 
             //Add Booleans
-            bool[] boolValue = new bool[] { true, true };
+            bool[] boolValue = new bool[] { true, false };
             int[] boolID = new int[] { 9, 10 };
 
             for (int i = 0; i < boolID.Length; i++)
@@ -175,6 +175,7 @@ namespace Raccoon.Components.CNC
                     if (this.tools.ContainsKey((int)toolID))
                     {
                         this.toolr = (this.toolr == 0) ? this.tools[(int)toolID].radius : this.toolr;
+                        //Rhino.RhinoApp.WriteLine(toolr.ToString());
 
 
                         this.preview = new PreviewObject();
@@ -221,7 +222,7 @@ namespace Raccoon.Components.CNC
         {
             get
             {
-                return Properties.Resources.lattice;
+                return Properties.Resources.pair;
             }
         }
         public override Guid ComponentGuid => new Guid("1a2be114-fe1f-4d3b-b01f-49a78c487256");

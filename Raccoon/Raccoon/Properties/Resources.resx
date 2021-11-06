@@ -136,6 +136,12 @@
   <data name="Mill" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Mill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="openCut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\openCut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pair" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pair.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="RaccoonBig" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RaccoonBig.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,5 +150,11 @@
   </data>
   <data name="Saw" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Saw.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="spiralDrill" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spiralDrill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="straightdrill" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\straightdrill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

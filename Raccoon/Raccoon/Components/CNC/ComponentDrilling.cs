@@ -15,7 +15,7 @@ namespace Raccoon.Components
         {
             get
             {
-                return Properties.Resources.Drill;
+                return Properties.Resources.straightdrill;
             }
         }
         public override GH_Exposure Exposure => GH_Exposure.secondary;

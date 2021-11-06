@@ -326,7 +326,7 @@ namespace Raccoon.Components.CNC
         {
             get
             {
-                return Properties.Resources.drill_circles;
+                return Properties.Resources.spiralDrill;
             }
         }
 

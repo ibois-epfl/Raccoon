@@ -170,11 +170,6 @@ namespace Raccoon.Components.CNC
 
                     }
 
-
-
-
-
-
                     this.tools = Raccoon.GCode.Tool.ToolsFromAssembly();
                     if (this.tools.ContainsKey((int)toolID))
                     {
@@ -203,7 +198,7 @@ namespace Raccoon.Components.CNC
         {
             get
             {
-                return Properties.Resources.Mill;
+                return Properties.Resources.openCut;
             }
         }
 

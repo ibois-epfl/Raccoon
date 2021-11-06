@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Raccoon</RootNamespace>
     <AssemblyName>Raccoon</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -58,9 +59,32 @@
     <Compile Include="Components\CNC\ComponentDrilling.cs" />
     <Compile Include="Components\CNC\ComponentCirclesHoles.cs" />
     <Compile Include="Components\CNC\ComponentOpenPolylines.cs" />
+    <Compile Include="Components\CNC\CutComponent.cs" />
     <Compile Include="Components\CustomComponent.cs" />
     <Compile Include="Components\GHData.cs" />
+    <Compile Include="Components\CNC\RobotMillingGH.cs" />
+    <Compile Include="Components\CNC\RobotSawBladeGH.cs" />
     <Compile Include="Components\View\ComponentSimulate.cs" />
+    <Compile Include="Cut\clipper642.cs" />
+    <Compile Include="Cut\CurveUtil.cs" />
+    <Compile Include="Cut\Cut.cs" />
+    <Compile Include="Cut\CutDrill.cs" />
+    <Compile Include="Cut\CutEngrave.cs" />
+    <Compile Include="Cut\CutMill.cs" />
+    <Compile Include="Cut\CutSawBlade.cs" />
+    <Compile Include="Cut\CutSawBladeBisector.cs" />
+    <Compile Include="Cut\CutType.cs" />
+    <Compile Include="Cut\Ears.cs" />
+    <Compile Include="Cut\Interpolate.cs" />
+    <Compile Include="Cut\InterpolateUtil.cs" />
+    <Compile Include="Cut\LineUtil.cs" />
+    <Compile Include="Cut\Map.cs" />
+    <Compile Include="Cut\MathUtil.cs" />
+    <Compile Include="Cut\Offset.cs" />
+    <Compile Include="Cut\PlaneUtil.cs" />
+    <Compile Include="Cut\PointUtil.cs" />
+    <Compile Include="Cut\PolylineUtil.cs" />
+    <Compile Include="Cut\VectorUtil.cs" />
     <Compile Include="GCode\CoordinateSystem.cs" />
     <Compile Include="GCode\Cutting.cs" />
     <Compile Include="GCode\GCodeToGeometry.cs" />
@@ -115,6 +139,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\merge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\straightdrill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\openCut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spiralDrill.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

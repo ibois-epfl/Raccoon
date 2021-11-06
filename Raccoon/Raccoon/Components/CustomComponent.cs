@@ -50,6 +50,11 @@ namespace Raccoon
 
         public Dictionary<int, Raccoon.GCode.ToolParameters> tools = Raccoon.GCode.Tool.ToolsFromAssembly();
 
+
+
+          
+    
+
         public CustomComponent(string Name, string Nick, string Desc) : base(Name, Nick, Desc, "Raccoon", "CNC") { }
 
         public CustomComponent(string Name, string Nick, string Desc, string subCategory) : base(Name, Nick, Desc, "Raccoon", subCategory) { }
