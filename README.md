@@ -63,6 +63,9 @@ Development code for Petras Vestartas
 - [ ] camera holder, buy cameras
 
 ### Code
+
+[Download Build folder]: https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
+
 - [x] C A axis implementation
 - [ ] B-Axis integration ( a)find most top position, b) rotate b axis)
 - [ ] calibration procedure
