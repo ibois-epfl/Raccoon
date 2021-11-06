@@ -162,7 +162,10 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-Erase "$(TargetPath)"</PostBuildEvent>
+Erase "$(TargetPath)"
+
+Copy "$(SolutionPath)" "$(SolutionDir)build\$(ProjectName).gha"
+Erase "$(SolutionPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
@@ -173,5 +176,12 @@ Erase "$(TargetPath)"</PostBuildEvent>
     </StartArguments>
     <StartAction>Program</StartAction>
     <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+Erase "$(TargetPath)"
+
+Copy "$(SolutionPath)" "$(SolutionDir)build\$(ProjectName).gha"
+Erase "$(SolutionPath)"</PreBuildEvent>
   </PropertyGroup>
 </Project>
