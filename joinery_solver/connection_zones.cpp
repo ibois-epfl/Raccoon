@@ -64,6 +64,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 		plines);
 
 
+	double division_distance = 300;
+	double shift = 0.6;
 	for (int i = 0; i < joints.size(); i++) {
 		//Cross_Simple(joints[i]);
 
@@ -88,9 +90,9 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 				//CGAL_Debug(id0, id1);
 
 				if (id0 > 9 && id0 < 20)
-					joint_library::construct_joint_by_index(joints[i], id0);
+					joint_library::construct_joint_by_index(joints[i], id0, division_distance, shift);
 				else if (id1 > 9 && id1 < 20)
-					joint_library::construct_joint_by_index(joints[i], id1);
+					joint_library::construct_joint_by_index(joints[i], id1, division_distance, shift);
 
 			}
 			else
@@ -110,9 +112,9 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 				//CGAL_Debug(id0, id1);
 
 				if (id0 > 19 && id0 < 30) 
-					joint_library::construct_joint_by_index(joints[i], id0);
+					joint_library::construct_joint_by_index(joints[i], id0, division_distance, shift);
 				else if (id1 > 19 && id1 < 30) 
-					joint_library::construct_joint_by_index(joints[i], id1);
+					joint_library::construct_joint_by_index(joints[i], id1, division_distance, shift);
 
 			}else 
 				joint_library::ts_e_p_0(joints[i]);//default option
@@ -163,7 +165,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	//////////////////////////////////////////////////////////////////////////////
 	//Convert Output to Raw Data
 	//////////////////////////////////////////////////////////////////////////////
-	return compas::result_from_polylinesVector(plines);
+	return compas::result_from_polylinesVector(plines,true);
 
 }
 

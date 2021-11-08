@@ -8,7 +8,8 @@
 #include <CGAL/Bbox_2.h>
 #include <CGAL/Bbox_3.h>
 #include <CGAL/Plane_3.h>
-
+#include <iostream>
+#include <fstream>
 
 
 using IK = CGAL::Exact_predicates_inexact_constructions_kernel;
@@ -78,7 +79,7 @@ namespace compas
 
     std::vector<compas::RowMatrixXd> result_from_polylinesVectorVector(std::vector < std::vector < CGAL_Polyline>> polylines);
 
-    std::vector<compas::RowMatrixXd> result_from_polylinesVector(std::vector < CGAL_Polyline> polylines);
+    std::vector<compas::RowMatrixXd> result_from_polylinesVector(std::vector < CGAL_Polyline>& polylines, bool debug);
 }
 
 
@@ -315,9 +316,13 @@ inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVectorVecto
 }
 
 
-inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVector(std::vector < CGAL_Polyline> polylines) {
+inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVector(std::vector < CGAL_Polyline>& polylines, bool debug) {
 
     std::vector<compas::RowMatrixXd> pointsets;
+
+ 
+
+  
 
     for (auto i = polylines.begin(); i != polylines.end(); i++) {
 
@@ -328,9 +333,11 @@ inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVector(std:
         compas::RowMatrixXd points(n, 3);
 
         for (int k = 0; k < n; k++) {
-            points(k, 0) = (double)poly[k].x();
-            points(k, 1) = (double)poly[k].y();
-            points(k, 2) = (double)poly[k].z();
+            points(k, 0) = (double)poly[k].hx();
+            points(k, 1) = (double)poly[k].hy();
+            points(k, 2) = (double)poly[k].hz();
+
+ 
         }
 
         pointsets.push_back(points);
@@ -338,6 +345,31 @@ inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVector(std:
     }
 
     //  printf("CPP number of points: %i ", pointsets.size());
+
+    if (debug) {
+        std::ofstream myfile;
+        myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output.txt");
+       
+
+        for (auto i = polylines.begin(); i != polylines.end(); i++) {
+
+            const CGAL_Polyline& poly = *i;
+            int n = poly.size();
+            compas::RowMatrixXd points(n, 3);
+
+            for (int k = 0; k < n; k++) {
+                points(k, 0) = (double)poly[k].hx();
+                points(k, 1) = (double)poly[k].hy();
+                points(k, 2) = (double)poly[k].hz();
+            }
+
+
+            for (int k = 0; k < n; k++)
+                myfile << poly[k].hx() << " " << poly[k].hy() << " " << poly[k].hz() << " " << "\n";
+            myfile << ("\n");
+        }
+        myfile.close();
+    }
 
     return pointsets;
 }
