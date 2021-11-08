@@ -27,7 +27,7 @@ Development code for Petras Vestartas
 
 ### Joints
 - [ ] store each parameterized joint inside std::unordered_map<string, joint> that is not remapped yet
-- [ ] :snowflake: parameterize ss_e_ip_0 to changing number of tenons, method ss_e_ip_1
+
 - [x] parametric ss_e_op_1 Nejiri Arigata 
 
 ![Nejiri Arigata](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_0.jpg) 
@@ -35,6 +35,10 @@ Development code for Petras Vestartas
 - [x] parametric ss_e_op_2 Dovetail
 
 ![Dovetail](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_1.jpg) 
+
+- [x] parametric ss_e_ip_0 Dovetail 
+
+![Dovetail](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_2.jpg) 
 
 - [ ] :snowflake: parameterize ts_e_p_1 to changing number of tenons, method ts_e_p_2
 - [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
