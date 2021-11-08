@@ -161,7 +161,7 @@ namespace joint_library {
 		////////////////////////////////////////////////////////////////////
 		int start = 0;
 		
-		IK::Vector_3 v = shift == 0 ? IK::Vector_3(0,0,0) : IK::Vector_3(0,0, RemapNumbers(shift, 0, 1.0, -0.25, 0.25) / (divisions+1) );
+		IK::Vector_3 v = shift == 0 ? IK::Vector_3(0,0,0) : IK::Vector_3(0,0, RemapNumbers(shift, 0, 1.0, -0.5, 0.5) / (divisions+1) );
 		for (int i = start; i < 4; i += 1) {
 
 			int mid = (int)(arrays[i].size() * 0.5);
@@ -181,6 +181,152 @@ namespace joint_library {
 				}
 
 				
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//Create Polylines
+		////////////////////////////////////////////////////////////////////
+
+		for (int i = 0; i < 4; i += 2) {
+
+			CGAL_Polyline pline;
+			pline.reserve(arrays[0].size() * 2);
+
+			for (int j = 0; j < arrays[0].size(); j++) {
+
+				bool flip = j % 2 == 0;
+				flip = i < 2 ? flip : !flip;
+
+				if (flip) {
+					pline.push_back(arrays[i + 0][j]);
+					pline.push_back(arrays[i + 1][j]);
+				}
+				else {
+					pline.push_back(arrays[i + 1][j]);
+					pline.push_back(arrays[i + 0][j]);
+				}
+
+			}
+
+			if (i < 2) {
+				joint.m[1] = {
+					pline,
+					//{ pline[0], pline[pline.size() - 1] },
+					{ pline[0], pline[pline.size() - 1] }
+				};
+			}
+			else {
+				joint.m[0] = {
+					pline,
+					//{ pline[0], pline[pline.size() - 1] },
+					{ pline[0], pline[pline.size() - 1] }
+
+				};
+			}
+		}
+
+		for (int i = 1; i < 4; i += 2) {
+
+			CGAL_Polyline pline;
+			pline.reserve(arrays[0].size() * 2);
+
+			for (int j = 0; j < arrays[0].size(); j++) {
+
+				bool flip = j % 2 == 0;
+				flip = i < 2 ? flip : !flip;
+
+				if (flip) {
+					pline.push_back(arrays[i + 0][j]);
+					pline.push_back(arrays[(i + 1) % 4][j]);
+				}
+				else {
+					pline.push_back(arrays[(i + 1) % 4][j]);
+					pline.push_back(arrays[i + 0][j]);
+				}
+
+			}
+
+			if (i < 2) {
+				joint.f[0] = {
+					pline,
+					//{ pline[0],pline[pline.size() - 1] },
+					{ pline[0],pline[pline.size() - 1] }
+				};
+			}
+			else {
+				joint.f[1] = {
+					pline,
+					//{ pline[0],pline[pline.size() - 1] },
+					{ pline[0],pline[pline.size() - 1] }
+				};
+			}
+		}
+
+
+
+
+		joint.f_boolean_type = { '1','1' };
+		joint.m_boolean_type = { '1','1' };
+
+		joint.orient_to_connection_area();
+	}
+
+
+	inline void ss_e_op_2(joint& joint, const double& division_distance, const double& shift) {
+
+
+		joint.name = "ss_e_op_2";
+
+		//Resize arrays
+		joint.f[0].reserve(2);
+		joint.f[1].reserve(2);
+		joint.m[0].reserve(2);
+		joint.m[1].reserve(2);
+
+		////////////////////////////////////////////////////////////////////
+		//Number of divisions
+		//Input joint line (its lengths)
+		//Input distance for division
+		////////////////////////////////////////////////////////////////////
+		double joint_length = CGAL::squared_distance(joint.joint_lines[0][0], joint.joint_lines[0][1]); // Math.Abs(500);
+		int divisions = (int)std::ceil(joint_length / (division_distance * division_distance));
+		divisions = (int)std::max(2, std::min(20, divisions));
+		divisions += divisions % 2;
+		////////////////////////////////////////////////////////////////////
+		//Interpolate points
+		////////////////////////////////////////////////////////////////////
+		std::vector<IK::Point_3> arrays[4];
+
+
+
+
+
+		interpolate_points(IK::Point_3(0.5, -0.5, -0.5), IK::Point_3(0.5, -0.5, 0.5), divisions, false, arrays[0]);
+		interpolate_points(IK::Point_3(-0.5, -0.5, -0.5), IK::Point_3(-0.5, -0.5, 0.5), divisions, false, arrays[1]);
+		interpolate_points(IK::Point_3(-0.5, 0.5, -0.5), IK::Point_3(-0.5, 0.5, 0.5), divisions, false, arrays[2]);
+		interpolate_points(IK::Point_3(0.5, 0.5, -0.5), IK::Point_3(0.5, 0.5, 0.5), divisions, false, arrays[3]);
+
+
+
+
+		////////////////////////////////////////////////////////////////////
+		//Move segments
+		////////////////////////////////////////////////////////////////////
+		int start = 0;
+
+		IK::Vector_3 v = shift == 0 ? IK::Vector_3(0, 0, 0) : IK::Vector_3(0, 0, RemapNumbers(shift, 0, 1.0, -0.5, 0.5) / (divisions + 1));
+		for (int i = start; i < 4; i++) {
+
+			int mid = (int)(arrays[i].size() * 0.5);
+
+			for (int j = 0; j < arrays[i].size(); j++) {
+
+				int flip = (j % 2 == 0) ? 1 : -1;
+				flip = i < 2 ? flip : flip * -1;
+
+				arrays[i][j] += v * flip;
+
 			}
 		}
 
@@ -365,8 +511,11 @@ namespace joint_library {
 
 			switch (id_representing_joing_name)
 			{
-			case(10):
+			case(11):
 				ss_e_op_1(joint, division_distance, shift);
+				break;
+			case(10):
+				ss_e_op_2(joint, division_distance, shift);
 				break;
 			default:
 				ss_e_op_0(joint);
