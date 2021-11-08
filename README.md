@@ -26,6 +26,7 @@ Development code for Petras Vestartas
 
 
 ### Joints
+- [ ] store each parameterized joint inside std::unordered_map<string, joint> that is not remapped yet
 - [ ] :snowflake: parameterize ss_e_ip_0 to changing number of tenons, method ss_e_ip_1
 - [x] parametric ss_e_op_1 Nejiri Arigata 
 
