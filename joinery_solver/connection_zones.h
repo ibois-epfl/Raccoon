@@ -135,16 +135,13 @@ inline void get_elements(
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Other prperties such as insertion vectors or joint tapes
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//CGAL_Debug(joint_types[id].size());
-		if (insertion_vectors[id].size() > 0)
-			elements[id].edge_vectors = insertion_vectors[id];
+		if (insertion_vectors.size() > 0)
+			if (insertion_vectors[id].size() > 0)
+				elements[id].edge_vectors = insertion_vectors[id];
 
-		//for (int j = 0; j < elements[id].edge_vectors.size(); j++)
-		//	CGAL_Debug(elements[id].edge_vectors[j]);
-		//CGAL_Debug();
-
-		if (joint_types[id].size() > 0)
-			elements[id].joint_types = joint_types[id];
+		if (joint_types.size() > 0)
+			if (joint_types[id].size() > 0)
+				elements[id].joint_types = joint_types[id];
 		
 	}
 
@@ -593,39 +590,15 @@ inline bool face_to_face(
 					//ToDo set edge direction - Check Insertion angle if êdge axis is assigned
 					//Applies for both elements
 					////////////////////////////////////////////////////////////////////////////////
-					IK::Vector_3 dir = i > j ? insertion_vectors0[i] : insertion_vectors1[j];
-				
-
-					//
-					//////Take priority for male 
-					bool dirSet = insertion_vectors0.size()>0;
-					////bool male_female = true;
-					//if (i > j) 
-					//	if (insertion_vectors0.size() > 0) {
-					//		//dir = insertion_vectors0[i];
-					//		dirSet = true;
-					//	}
-					//else 
-					//	if (insertion_vectors1.size() > 0) {
-					//		dir = insertion_vectors1[j];
-					//		dirSet = true;
-					//		male_female = false;
-					//	}
+					IK::Vector_3 dir(0,0,0);
+					bool dirSet = false;
+					if (insertion_vectors0.size() > 0) {
+						//////Take priority for male 
+						dir = i > j ? insertion_vectors0[i] : insertion_vectors1[j];
+						bool dirSet = true;
+					}
 
 
-					//if (dirSet) {
-				
-					//	bool dirSet = (std::abs(dir.hx()) + std::abs(dir.hy()) + std::abs(dir.hz()))   > GlobalTolerance;// == CGAL::NULL_VECTOR;
-
-					//	if (male_female) {
-					//		if (CGAL_VectorUtil::GetAngle90(dir, Plane0[i].orthogonal_vector()) > 45) dirSet = false;
-					//	}
-					//	else {
-					//		if (CGAL_VectorUtil::GetAngle90(dir, Plane1[j].orthogonal_vector()) > 45) dirSet = false;
-					//	}
-
-
-					//}
 
 					//////////////////////////////////////////////////////////////////////////////////////////////////
 					//Indentify connection volumes

@@ -59,12 +59,12 @@ namespace joint_library {
 
 		//Joint lines, always the last line or rectangle is not a joint but an cutting element
 		joint.f[0] = {
-			{  IK::Point_3(0,-0.5,0.357142857142857), IK::Point_3(-0.5,-0.5,0.357142857142857), IK::Point_3(-0.5,-0.5,0.214285714285714), IK::Point_3(0.5,-0.5,0.214285714285714), IK::Point_3(0.5,-0.5,0.0714285714285714), IK::Point_3(-0.5,-0.5,0.0714285714285714), IK::Point_3(-0.5,-0.5,-0.0714285714285714), IK::Point_3(0.5,-0.5,-0.0714285714285714), IK::Point_3(0.5,-0.5,-0.214285714285714), IK::Point_3(-0.5,-0.5,-0.214285714285714), IK::Point_3(-0.5,-0.5,-0.357142857142857), IK::Point_3(0,-0.5,-0.357142857142857) },
+			{ IK::Point_3(0,-0.5,0.357142857142857), IK::Point_3(-0.5,-0.5,0.357142857142857), IK::Point_3(-0.5,-0.5,0.214285714285714), IK::Point_3(0.5,-0.5,0.214285714285714), IK::Point_3(0.5,-0.5,0.0714285714285714), IK::Point_3(-0.5,-0.5,0.0714285714285714), IK::Point_3(-0.5,-0.5,-0.0714285714285714), IK::Point_3(0.5,-0.5,-0.0714285714285714), IK::Point_3(0.5,-0.5,-0.214285714285714), IK::Point_3(-0.5,-0.5,-0.214285714285714), IK::Point_3(-0.5,-0.5,-0.357142857142857), IK::Point_3(0,-0.5,-0.357142857142857) },
 			{ IK::Point_3(0,-0.5,0.5), IK::Point_3(0,-0.5,-0.5)}
 		};
 
 		joint.f[1] = {
-			{  IK::Point_3(0,0.5,0.357142857142857), IK::Point_3(-0.5,0.5,0.357142857142857), IK::Point_3(-0.5,0.5,0.214285714285714), IK::Point_3(0.5,0.5,0.214285714285714), IK::Point_3(0.5,0.5,0.0714285714285714), IK::Point_3(-0.5,0.5,0.0714285714285714), IK::Point_3(-0.5,0.5,-0.0714285714285714), IK::Point_3(0.5,0.5,-0.0714285714285714), IK::Point_3(0.5,0.5,-0.214285714285714), IK::Point_3(-0.5,0.5,-0.214285714285714), IK::Point_3(-0.5,0.5,-0.357142857142857), IK::Point_3(0,0.5,-0.357142857142857) },
+			{ IK::Point_3(0,0.5,0.357142857142857), IK::Point_3(-0.5,0.5,0.357142857142857), IK::Point_3(-0.5,0.5,0.214285714285714), IK::Point_3(0.5,0.5,0.214285714285714), IK::Point_3(0.5,0.5,0.0714285714285714), IK::Point_3(-0.5,0.5,0.0714285714285714), IK::Point_3(-0.5,0.5,-0.0714285714285714), IK::Point_3(0.5,0.5,-0.0714285714285714), IK::Point_3(0.5,0.5,-0.214285714285714), IK::Point_3(-0.5,0.5,-0.214285714285714), IK::Point_3(-0.5,0.5,-0.357142857142857), IK::Point_3(0,0.5,-0.357142857142857) },
 			{ IK::Point_3(0,0.5,0.5), IK::Point_3(0,0.5,-0.5) }
 		};
 
@@ -77,6 +77,96 @@ namespace joint_library {
 		joint.m[1] = {
 			{ IK::Point_3(0,0.5,0.357142857142857), IK::Point_3(-0.5,0.5,0.357142857142857), IK::Point_3(-0.5,0.5,0.214285714285714), IK::Point_3(0.5,0.5,0.214285714285714), IK::Point_3(0.5,0.5,0.0714285714285714), IK::Point_3(-0.5,0.5,0.0714285714285714), IK::Point_3(-0.5,0.5,-0.0714285714285714), IK::Point_3(0.5,0.5,-0.0714285714285714), IK::Point_3(0.5,0.5,-0.214285714285714), IK::Point_3(-0.5,0.5,-0.214285714285714), IK::Point_3(-0.5,0.5,-0.357142857142857), IK::Point_3(0,0.5,-0.357142857142857)  },
 			{ IK::Point_3(0,0.5,0.5), IK::Point_3(0,0.5,-0.5) }
+		};
+
+
+		joint.f_boolean_type = { '1','1' };
+		joint.m_boolean_type = { '1','1' };
+
+		joint.orient_to_connection_area();
+	}
+
+	inline void ss_e_ip_1(joint& joint, const double& division_distance, const double& shift) {
+
+
+		joint.name = "ss_e_ip_1";
+
+		//Resize arrays
+		joint.f[0].reserve(2);
+		joint.f[1].reserve(2);
+		joint.m[0].reserve(2);
+		joint.m[1].reserve(2);
+
+		////////////////////////////////////////////////////////////////////
+		//Number of divisions
+		//Input joint line (its lengths)
+		//Input distance for division
+		////////////////////////////////////////////////////////////////////
+		double joint_length = CGAL::squared_distance(joint.joint_lines[0][0], joint.joint_lines[0][1]); // Math.Abs(500);
+		int divisions = (int)std::ceil(joint_length / (division_distance * division_distance));
+		divisions = (int)std::max(2, std::min(20, divisions));
+		divisions += divisions % 2;
+
+		//////////////////////////////////////////////////////////////////////////////////////////
+		//Interpolate points
+		//////////////////////////////////////////////////////////////////////////////////////////
+		std::vector<IK::Point_3> pts0;
+		interpolate_points(IK::Point_3(0, -0.5, 0.5), IK::Point_3(0, -0.5, -0.5), divisions, false, pts0);
+		IK::Vector_3 v (0.5, 0, 0);
+		IK::Vector_3  v_d (0, 0, -(1.0 / ((divisions + 1) * 2)) * shift);
+
+		int count = pts0.size() * 2;
+
+		//1st polyline
+		std::vector<IK::Point_3> pline0;
+		pline0.reserve(count);
+		pline0.emplace_back(pts0[0]);
+		pline0.emplace_back(pts0[0] - v - v_d );
+
+		for (int i = 1; i < pts0.size() - 1; i++) {
+			if (i % 2 == 1) {
+				pline0.emplace_back(pts0[i] - v + v_d);
+				pline0.emplace_back(pts0[i] + v - v_d);
+			}
+			else {
+				pline0.emplace_back(pts0[i] + v + v_d);
+				pline0.emplace_back(pts0[i] - v - v_d);
+			}
+		}
+
+		pline0.emplace_back(pts0[pts0.size() - 1] - v + v_d );
+		pline0.emplace_back(pts0[pts0.size() - 1]);
+
+		//2nd polyline
+		IK::Vector_3 v_o(0, 1, 0);
+		std::vector<IK::Point_3> pline1;
+		pline1.reserve(pline0.size());
+
+		for (int i = 0; i < pline0.size(); i++) {
+			pline1.emplace_back(pline0[i] + v_o);
+		}
+
+
+		//Joint lines, always the last line or rectangle is not a joint but an cutting element
+		joint.f[0] = {
+				pline0,
+			{ pline0.begin(), pline0.end()}
+		};
+
+		joint.f[1] = {
+				pline1,
+			{ pline1.begin(), pline1.end()}
+		};
+
+		joint.m[0] = {
+				pline0,
+			{ pline0.begin(), pline0.end()}
+		};
+
+
+		joint.m[1] = {
+				pline1,
+			{ pline1.begin(), pline1.end()}
 		};
 
 
@@ -116,7 +206,6 @@ namespace joint_library {
 
 		joint.orient_to_connection_area();
 	}
-
 
 
 	inline void ss_e_op_1(joint& joint, const double& division_distance, const double& shift) {
@@ -298,17 +387,10 @@ namespace joint_library {
 		////////////////////////////////////////////////////////////////////
 		std::vector<IK::Point_3> arrays[4];
 
-
-
-
-
 		interpolate_points(IK::Point_3(0.5, -0.5, -0.5), IK::Point_3(0.5, -0.5, 0.5), divisions, false, arrays[0]);
 		interpolate_points(IK::Point_3(-0.5, -0.5, -0.5), IK::Point_3(-0.5, -0.5, 0.5), divisions, false, arrays[1]);
 		interpolate_points(IK::Point_3(-0.5, 0.5, -0.5), IK::Point_3(-0.5, 0.5, 0.5), divisions, false, arrays[2]);
 		interpolate_points(IK::Point_3(0.5, 0.5, -0.5), IK::Point_3(0.5, 0.5, 0.5), divisions, false, arrays[3]);
-
-
-
 
 		////////////////////////////////////////////////////////////////////
 		//Move segments
@@ -499,13 +581,23 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
-	inline void construct_joint_by_index(joint& joint, int& id_representing_joing_name, const double& division_distance, const double& shift) {
+	inline void construct_joint_by_index(joint& joint, const int& id_representing_joing_name, const double& division_distance, const double& shift) {
 
 		if (id_representing_joing_name == 0) {
 			cr_c_ip_0(joint);
 		}
 		else if (id_representing_joing_name > 0 && id_representing_joing_name < 10) {
-			ss_e_ip_0(joint);
+		
+
+			switch (id_representing_joing_name)
+			{
+			case(1):
+				ss_e_ip_1(joint, division_distance, shift);
+				break;
+			default:
+				ss_e_ip_0(joint);
+				break;
+			}
 		}
 		else if (id_representing_joing_name > 9 && id_representing_joing_name < 20) {
 
