@@ -28,6 +28,10 @@ Development code for Petras Vestartas
 ### Joints
 - [ ] :snowflake: parameterize ss_e_ip_0 to changing number of tenons, method ss_e_ip_1
 - [ ] :snowflake: parameterize ss_e_op_0 to changing number of tenons, method ss_e_op_1
+- [x] parameteric ss_e_op_1 Nejiri Arigata 
+
+![Nejiri Arigata](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_0.jpg) 
+
 - [ ] :snowflake: parameterize ts_e_p_1 to changing number of tenons, method ts_e_p_2
 - [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
 
