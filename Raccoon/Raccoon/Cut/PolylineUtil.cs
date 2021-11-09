@@ -13,40 +13,65 @@ namespace Raccoon
 
     public static class PolylineUtil {
 
-        public static Polyline CreateSpiral(Polyline x, Polyline y, int divisions) {
+        public static Polyline CreateSpiral(Polyline x, Polyline y, int divisions, ref Polyline spiral_normal) {
 
             //Spiral will always have %2 elemenets to have the same vertical start and end point
-            //Rhino.RhinoApp.WriteLine(divisions.ToString());
 
 
-           // Polyline[] interpolatedPlines = PointUtil.InterpolatePolylines(y, x, (((int)(divisions)) + ((int)(divisions)) % 2), true);
             Polyline[] interpolatedPlines = PointUtil.InterpolatePolylines(y, x, (((int)(divisions-1)) ), true);
 
             Polyline spiral = new Polyline();
+           // Polyline spiral_normal = new Polyline();
 
             for (int i = 0; i < interpolatedPlines.Length - 1; i++) {//i
                 for (int j = 0; j < interpolatedPlines[i].Count - 1; j++) {
+
                     Line l = new Line(interpolatedPlines[i][j], interpolatedPlines[i + 1][j]);
                     double t = MathUtil.RemapNumbers(j, 0, interpolatedPlines[i].Count - 1, 0, 1);
-                    //double modT = i % 2 == 0 && !x.IsClosed ? t : 1 - t;
+
                     spiral.Add(l.PointAt(t));
+                    Vector3d normal = (interpolatedPlines[i][j] - interpolatedPlines[i + 1][j]);
+                    normal.Unitize();
+                    normal *= 10;
+                    spiral_normal.Add(l.PointAt(t)+ normal);
                 }
 
                 if (!y.IsClosed) {
                     for (int j = interpolatedPlines[i].Count - 1; j >= 0; j--) {
                         spiral.Add(interpolatedPlines[i + 1][j]);
+
+                        Vector3d normal = (interpolatedPlines[i][j] - interpolatedPlines[i + 1][j]);
+                        normal.Unitize();
+                        normal *= 10;
+                        spiral_normal.Add(interpolatedPlines[i + 1][j] + normal);
                     }
                 }
             }
 
 
             if (y.IsClosed) {
-                spiral.AddRange(interpolatedPlines[interpolatedPlines.Length - 1]);
+
+                //spiral.AddRange(interpolatedPlines[interpolatedPlines.Length - 1]);
+                for (int i = 0; i< interpolatedPlines[interpolatedPlines.Length - 1].Count; i++)
+                {
+                    spiral.Add(interpolatedPlines[interpolatedPlines.Length - 1][i]);
+
+                    Vector3d normal = (interpolatedPlines[interpolatedPlines.Length - 2][i] - interpolatedPlines[interpolatedPlines.Length - 1][i]);
+                    normal.Unitize();
+                    normal *= 10;
+                    spiral_normal.Add(interpolatedPlines[interpolatedPlines.Length - 1][i] + normal);
+
+                }
+
+              
             }
 
             spiral.Add(spiral[0]);
-
-
+            spiral_normal.Add(spiral_normal[0]);
+            //Rhino.RhinoDoc.ActiveDoc.Objects.AddPolyline(spiral);
+            //Rhino.RhinoDoc.ActiveDoc.Objects.AddPolyline(spiral_normal);
+            //// Rhino.RhinoDoc.ActiveDoc.Objects.AddPolyline(interpolatedPlines[0]);
+            ////Rhino.RhinoDoc.ActiveDoc.Objects.AddPolyline(interpolatedPlines[1]);
 
             return spiral;
 

@@ -457,8 +457,9 @@ namespace Raccoon
 
                     //Rhino.RhinoApp.WriteLine((offset[0][0].DistanceTo(offset[1][0]) / heightDivisions).ToString());
                     int hd = (int)(offset[0][0].DistanceTo(offset[1][0]) / heightDivisions);
-                   // Polyline spiral = PolylineUtil.CreateSpiral(offset[0], offset[1], Math.Max(1, (int)(hd * 0.5)));
-                    Polyline spiral = PolylineUtil.CreateSpiral(offset[0], offset[1], Math.Max(1, (int)(hd )));
+                    // Polyline spiral = PolylineUtil.CreateSpiral(offset[0], offset[1], Math.Max(1, (int)(hd * 0.5)));
+                    Polyline spiral_normal =new Polyline();
+                    Polyline spiral = PolylineUtil.CreateSpiral(offset[0], offset[1], Math.Max(1, (int)(hd )),ref spiral_normal);
                     List<Plane> normalPlanes = new List<Plane>();
 
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -488,7 +489,9 @@ namespace Raccoon
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     for (int n = 0; n < spiral.Count; n++)
                     {
-                        normalPlanes.Add(normalPlane.ChangeOrigin(spiral[n]));
+                        Plane plane = new Plane(spiral[n], spiral_normal[n]- spiral[n]);
+                        plane= PlaneUtil.AlignPlane(plane, normalPlane.XAxis);
+                        normalPlanes.Add(plane);//normalPlane.ChangeOrigin(spiral[n])
                     }
 
 

@@ -66,8 +66,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 			plines);
 	}
 
-	double division_distance = 100;
-	double shift = 0.25;
+	double division_distance = 200;
+	double shift = 0.6;
 
 	////////////////////////////////////////////////////////////////////////////////
 	////Create and Align Joints
@@ -96,8 +96,11 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 		//Cross_Simple(joints[i]);
 
 
-
+		CGAL_Debug(joints[i].type);
+		CGAL_Debug(joints[i].type);
+		CGAL_Debug(joints[i].type);
 		switch (joints[i].type) {
+			
 
 		case(12):
 			if (elements[joints[i].f0].joint_types.size() > 0) {
@@ -135,7 +138,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 
 			}
 			else
-				joint_library::ts_e_p_0(joints[i]);//default option
+				joint_library::construct_joint_by_index(joints[i], 11, division_distance, shift);
+		
 
 			break;
 
@@ -182,7 +186,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 		//elements[i].get_joints_geometry(joints, plines, 0);
 		//elements[i].get_joints_geometry(joints, plines,1);
 		//elements[i].get_joints_geometry(joints, plines, 2);//push joint geometry from joint to element
-	//	elements[i].get_joints_geometry(joints, plines, 3);
+		elements[i].get_joints_geometry(joints, plines, 3);
 			elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
 
 	}

@@ -73,24 +73,32 @@ namespace Raccoon.GCode
                     }
                     else
                     {
-
-                        //check for turn
                         if (AB.Item1 > AB_last.Item1 + angles || AB.Item1 < AB_last.Item1 - angles)
                         {
-                            //Rhino.RhinoApp.WriteLine(angles.ToString());
+
+
+
+
                             ncc.Add("(**********************_turn_*************************)");
 
+                            //Move until middle to the next point
+                            Point3d mid = (p + p_last) * 0.5;
+                            ncc.Add(GCode.CoordinateSystem.Pt2nc(mid, 3, ""));
+
+
+                       
+                            //retreate, change position
                             Point3d retreatPoint = p_last + n_last * RetreatDistance;
                             Point3d retreatPointSafety = new Point3d(retreatPoint.X, retreatPoint.Y, Zsec);
+
                             ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPoint, 3, "") + AB_last.Item3 + " (retreat)");
-
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointSafety, 3, "") + " (retreat_To_Safety)");
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointSafety, 3, "") + AB.Item3 + " (rotate_In_Safety)");
-
-                            ncc.Add("F" + (Speed * 0.05).ToString());
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPoint, 3, "") + " (return_to_retreate_point)");
+                            //ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointSafety, 3, "") + " (retreat_To_Safety)");
+                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPoint, 3, "") + AB.Item3 + " (rotate_In_Safety)");
+                            //ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPoint, 3, "") + " (return_to_retreate_point)");
                             ncc.Add("F" + (Speed).ToString());
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(p_last, 3, "") + " (return)");
+
+                            //Back to middle - finish edge with another direction
+                            ncc.Add(GCode.CoordinateSystem.Pt2nc(mid, 3, "") + " (return)");
                             ncc.Add("(********************_end_turn_**********************)");
                         }
 
@@ -116,9 +124,9 @@ namespace Raccoon.GCode
                     AB_last = AB;
                 }//for j
 
-                ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety.X, safety.Y, Zsec) + AB.Item3 + speed +  " (last_point)");
+                ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety.X, safety.Y, 800) + AB.Item3 + speed +  " (last_point)");
 
-
+                //Zsec
 
 
 
