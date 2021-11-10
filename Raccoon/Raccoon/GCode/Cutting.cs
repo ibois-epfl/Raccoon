@@ -29,6 +29,7 @@ namespace Raccoon.GCode
                 "G1 F"+Speed.ToString() ,
                 "M08" + " (air_supply)" ,
 
+                "(ReplaceB)",
                 "(____________start_cutting____________)",
                 //"G0 X0 Y0 Z" + Zsec.ToString() + Axes.DefaultRotation+ " (startpos)"
             };
@@ -154,6 +155,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                 "G0 " + Axes.HomePosition + Axes.DefaultRotation + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
                 "M08" + " (air_supply)" ,
                  "G1 F"+Speed.ToString() ,
+                 "(ReplaceB)",
                 "(____________start_cutting____________)",
                 //"G0 X0 Y0 Z" + Zsec.ToString() + Axes.DefaultRotation+ " (startpos)"
             };
@@ -530,6 +532,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                 "G0 " + Axes.HomePosition + Axes.DefaultRotation + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
                 "M08" + " (air_supply)" ,
                  "G1 F"+Speed.ToString() ,
+                 "(ReplaceB)",
                 "(____________start_cutting____________)"
             };
 

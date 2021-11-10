@@ -1,0 +1,227 @@
+
+P69
+N1  {** Mess-Zyklus M69            **}
+N2  {** V1.02  date: 09.12.98       **}
+N3  {**        time: 09.00          **}
+N10 P210:0; P8855:1 { Messpos. im Anzeigeformat !!!!}
+N12 _bohr_r::=214; _kugel_r::=215;_prognum::216;_pos1::217;_pos2::218;
+N14 _mess_pos1::=220; _mess_pos2::=221;
+N20 _sicherh::=141;_mess_f::=143;
+N50 {P211 : scr- PAra}
+N52  P210<>del(143).140;    P210<>del(144).141;
+N54 P210<>del(147).142; P210<>del(P147+4).142; P210<>del(149).142;
+N56
+N58 _old_g90_91:=P9378; _old_interp:=P9340;   _old_f:=P9336;  { rette modale Einst. }
+N60 G90 G40
+N62 P210<>del(9304).64
+N63 _prognum:=P9304 *(-1) M23.65
+N64 _prognum:=P9300
+N65 {<--Einsprg. }
+N98  P210<>del(140).137
+N100 P140=1.10000; P140=2.20000; P140=40.40000; P140=60.60000;
+N102 P140=7.70000;
+N104 M23.137  { -> Fehler }
+N129 { Fehlerleiste }
+N130 P8501:8130; M30 {Aufmass}
+N131 P8501:8131; M30 {Untermass}
+N132 P8501:8132; M30 {Zulaessige Massdifferenz Åberschritten}
+N133 P8501:8133; M30 {Vertrauensbereich Åberschritten}
+N134 P8501:8134; M30 {R-Bohrung < R-MessfÅhler}
+N135 P8501:8135; M30 {Bohrachse ist Messachse}
+N136 P8501:8136; M30 {MessfÅhler schaltet nicht}
+N137 P8501:8137; M30 {P140 falsch programmiert}
+N138 P8501:8138; M30 {P141 falsch programmiert}
+N139 P8501:8139; M30 {P142 falsch programmiert}
+N140 P8501:8140; M30 {P143 falsch programmiert}
+N141 P8501:8141; M30 {P144 falsch programmiert}
+N142 P8501:8142; M30 {P145/P147/P149/P150 falsch programmiert}
+N143 P8501:8143; M30 {Erfahrungswert falsch programmiert}
+N144 P8501:8144; M30 {P146 falsch programmiert}
+N145 P8501:8145; M30 {Messtoleranz 1 falsch programmiert}
+N146 P8501:8146; M30 {Messtoleranz 2 falsch programmiert}
+N147 P8501:8147; M30 {Messtoleranz 3 falsch programmiert}
+N148 P8501:8148; M30 {Messtoleranz 4 falsch programmiert}
+N149 P8501:8149; M30 {Messtoleranz 5 falsch programmiert}
+N150 P8501:8150; M30 {P148 falsch programmiert}
+N151 P8501:8151; M30 {Trigger Punkt XN falsch programmiert}
+N152 P8501:8152; M30 {Trigger Punkt XP falsch programmiert}
+N153 P8501:8153; M30 {Trigger Punkt YN falsch programmiert}
+N154 P8501:8154; M30 {Trigger Punkt YP falsch programmiert}
+N155 P8501:8155; M30 {Trigger Punkt ZN falsch programmiert}
+N156 P8501:8156; M30 {Trigger Punkt ZP falsch programmiert}
+N157 P8501:8157; M30 {Drilling Punkt I falsch programmiert}
+N158 P8501:8158; M30 {Drilling Punkt J falsch programmiert}
+N159 P8501:8159; M30 {Drilling Punkt K falsch programmiert}
+N160 P8501:8160; M30 {Drilling Punkt R falsch programmiert}
+N161 P8501:8161; M30 {P151 falsch programmiert}
+N162 P8501:8162; M30 {P152 falsch programmiert}
+N163 P8501:8163; M30 {P153 falsch programmiert}
+N164 P8501:8164; M30 {Werkzeug nicht aufgerufen}
+N165 P8501:8165; M30 {G53 nicht aktiv}
+N166 P8501:8166; M30 {G54 bis G59 nicht aktiv}
+N167 P8501:8167; M30 {Messtaster schaltet vor Sicherheitsabstand}
+N168 P8501:8168; M30 {P154 falsch programmiert}
+N9000 P(_ptr_trigpkt):0;  { loesche Triggerpunkte XN }
+N9010 M24.P144
+N9020 M26 G1 F:_old_f  a(_ax_nr): _pos1; M1
+N9025 P210<>(P(12181+(_ax_nr-1)*200)and$ff).167 { Springe, wenn kein RWL gekommen }
+N9030 M26 G1 F:_mess_f a(_ax_nr):_pos2;
+N9040 M1 { Standort aufnehmen }
+N9050 P210=(P(12181+(_ax_nr-1)*200)and$ff).136 { Springe, wenn kein RWL gekommen }
+N9060 P(_ptr_trigpkt):P(_ptr_trigpkt) + _eich_pos - (P(12153+(_ax_nr-1)*200)) - _kugel_r; {Eichpos - Messpos}
+N9065 G1 F:_old_f  a(_ax_nr): _pos1; { Zum Sicherheitsabst. zuruecksetzen !!PRELLEN}
+N9070 M25
+N9080 P(_ptr_trigpkt):P(_ptr_trigpkt)/P144
+N9090 M2
+N9100 P(_ptr_trigpkt):0;  { loesche Triggerpunkte XN }
+N9110 M24.P144
+N9120 M26 G1 F:_old_f  a(_ax_nr): _pos1; M1
+N9125 P210<>(P(12181+(_ax_nr-1)*200)and$ff).167 { Springe, wenn kein RWL gekommen }
+N9130 M26 G1 F:_mess_f a(_ax_nr):_pos2;
+N9140 M1 { Standort aufnehmen }
+N9150 P210=(P(12181+(_ax_nr-1)*200)and$ff).136 { Springe, wenn kein RWL gekommen }
+N9160 P(_ptr_trigpkt):P(_ptr_trigpkt) + _eich_pos - (P(12153+(_ax_nr-1)*200)) + _kugel_r; {Eichpos - Messpos}
+N9165 G1 F:_old_f  a(_ax_nr): _pos1; { Zum Sicherheitsabst. zuruecksetzen !!PRELLEN}
+N9170 M25
+N9180 P(_ptr_trigpkt):P(_ptr_trigpkt)/P144
+N9190 M2
+N9200 P(_ptr_wkst_pos):0;  { loesche Messposition }
+N9210 M24.P144
+N9230 M26 G1 G91 F:_mess_f a(_ax_nr):_pos2; { Vertrauenspos.anfahren }
+N9240 M1 { Standort aufnehmen }
+N9250 P210=(P(12181+(_ax_nr-1)*200)and$ff).136 { Springe, wenn kein RWL gekommen }
+N9260 P(_ptr_wkst_pos):P(_ptr_wkst_pos) +  (P(12153+(_ax_nr-1)*200)) + _kugel_r+ P(_ptr_trigpkt); {Messpos}
+N9265 G1 F:_old_f  a(_ax_nr): _pos1; { Zum Sicherheitsabst. zuruecksetzen !!PRELLEN}
+N9270 M25
+N9280 P(_ptr_wkst_pos):P(_ptr_wkst_pos)/P144
+N9290 M2
+N9400 _mess_pos1:0;  { loesche Bohrkantenposition }
+N9410 M26 G1 G91 F:_old_f  a(_ax_nr): _pos1; M1
+N9420 P210<>(P(12181+(_ax_nr-1)*200)and$ff).167 { Springe, wenn kein RWL gekommen }
+N9425 M24.P144
+N9430 M26 G1 F:_mess_f a(_ax_nr):_pos2;
+N9440 M1 { Standort aufnehmen }
+N9450 P210=(P(12181+(_ax_nr-1)*200)and$ff).136 { Springe, wenn kein RWL gekommen }
+N9460 _mess_pos1:_mess_pos1 + (P(12153+(_ax_nr-1)*200)) + _kugel_r + P(_ptr_trigpkt); {Messpos + Kugelradius + Ablenkung Taster}
+N9465 G1 F:_old_f a(_ax_nr): (_sicherh*(-1)) { Zum Sicherheitsabst. zuruecksetzen !!PRELLEN}
+N9480 M25
+N9490 _mess_pos1:_mess_pos1/P144
+N9495 M2
+N9500 _mess_pos2:0;  { loesche Bohrkantenposition }
+N9510 M26 G1 F:_old_f  a(_ax_nr): _pos1; M1
+N9520 P210<>(P(12181+(_ax_nr-1)*200)and$ff).167 { Springe, wenn kein RWL gekommen }
+N9525 M24.P144
+N9530 M26 G1 F:_mess_f a(_ax_nr):_pos2;
+N9540 M1 { Standort aufnehmen }
+N9550 P210=(P(12181+(_ax_nr-1)*200)and$ff).136 { Springe, wenn kein RWL gekommen }
+N9560 _mess_pos2:_mess_pos2 + (P(12153+(_ax_nr-1)*200)) - _kugel_r + P(_ptr_trigpkt);{Messpos - Kugelradius + Ablenkung Taster}
+N9565 G1 F:_old_f a(_ax_nr): _sicherh { Zum Sicherheitsabst. zuruecksetzen !!PRELLEN}
+N9580 M25
+N9590 _mess_pos2:_mess_pos2/P144
+N9595 M2
+N10000 P210<>del(141).138; P210<>del(150).142;
+N10010 P210<>del(P150+3).160; _vertrauen:=P(P147+4);
+N10012 P210<>del(8160).164;
+N10014 _kugel_r:=P8160;
+N10020 P9350=17.10100; P9350=18.10120; P9350=19.10140; {Absprung je nach Ebene }
+N10100 { G17 <--}
+N10102 P210<>del(P150).157; P210<>del(P150+1).158;
+N10104 _bohr_r:=P(P150+3)/2
+N10108 M23.10200
+N10120 { G18 <--}
+N10121 !G18 noch nicht unterstuetzt
+N10122 M0 M30
+N10140 { G19 <--}
+N10141 !G19 noch nicht unterstuetzt
+N10142 M0 M30
+N10200  _ptr_trigpkt:=P149;   _ax_nr:=P9351;_pos1:=P(P150)+(_bohr_r-_sicherh-_kugel_r);
+N10210  _eich_pos:=P(P150)+_bohr_r;         _pos2:=_pos1+_sicherh+_vertrauen;
+N10215 G1 F:_old_f a(P9351):P(P150); a(P9352):P(P150+1); { Fahre zuerst ins Zentrum }
+N10220 M28._prognum.9000
+N10230 _ptr_trigpkt:=P149+1; _ax_nr:=P9351;_pos1:=P(P150)-(_bohr_r-_sicherh-_kugel_r);
+N10235 _eich_pos:=P(P150)-_bohr_r;         _pos2:=_pos1-_sicherh-_vertrauen;
+N10240 M28._prognum.9100
+N10250 G1 F:_old_f a(P9351):P(P150); { Fahre zurueck in die Mitte }
+N10300  _ptr_trigpkt:=P149+2; _ax_nr:=P9352;_pos1:=P(P150+1)+(_bohr_r-_sicherh-_kugel_r);
+N10310  _eich_pos:=P(P150+1)+_bohr_r;       _pos2:=_pos1+_sicherh+_vertrauen;
+N10320 M28._prognum.9000
+N10330 _ptr_trigpkt:=P149+3; _ax_nr:=P9352;_pos1:=P(P150+1)-(_bohr_r-_sicherh-_kugel_r);
+N10335 _eich_pos:=P(P150+1)-_bohr_r;       _pos2:=_pos1-_sicherh-_vertrauen;
+N10340 M28._prognum.9100
+N10350 G1 F:_old_f a(P9352):P(P150+1); { Fahre zurueck in die Mitte }
+N11360 M23.300000   { ========> ENDE }
+N20000 P210<>del(141).138; P210<>del(150).142;
+N20010 _vertrauen:=P(P147+4); _kugel_r:=0;
+N20020 P9350=17.20100; P9350=18.20120; P9350=19.20140; {Absprung je nach Ebene }
+N20100 { G17 <--}
+N20102 P210<>del(P150+2).157;
+N20108 M23.20200
+N20120 { G18 <--}
+N20121 !G18 noch nicht unterstuetzt
+N20122 M0 M30
+N20140 { G19 <--}
+N20141 !G19 noch nicht unterstuetzt
+N20142 M0 M30
+N20200  _ptr_trigpkt:=P149+5; _ax_nr:=P9353;_pos1:=P(P150+2)+_sicherh;
+N20210  _eich_pos:=P(P150+2);               _pos2:=_pos1-_sicherh-_vertrauen;
+N20220 M28._prognum.9000
+N20250 G1 F:_old_f a(P9353):_pos1; { Fahre zurueck zum Sicherheitsabstand }
+N21360 M23.300000   { ========> ENDE }
+N40000 P210<>del(141).138; P210<>del(148).150;
+N40010 P210<>del(154).168; _vertrauen:=P(P147+4);
+N40020 P148=1.40030; P148=2.40050; P148=3.40070; {Absprung je angew.Achse}
+N40030 { 1.Achse Messachse }
+N40035 _ptr_wkst_pos:=P154;  _ptr_trigpkt:=P149
+N40040 M23.40200
+N40050 { 2.Achse Messachse }
+N40055 _ptr_wkst_pos:=P154+1;
+N40060 M23.40200
+N40070 { 3.Achse Messachse }
+N40075 _ptr_trigpkt:=P149+5; _ptr_wkst_pos:=P154+2; _kugel_r:=0;
+N40200 _ax_nr:=P9353;_pos1:=(_sicherh);
+N40210 _pos2:=-(_vertrauen);
+N40220 M28._prognum.9200
+N40250 G1 G90 F:_old_f  { Fahre zurueck zum Sicherheitsabstand }
+N41360 M23.300000   { ========> ENDE }
+N60000 P210<>del(141).138; P210<>del(154).168;
+N60010 P210<>del(152).162; _vertrauen:=P(P147+4);
+N60012 P210<>del(8160).164;
+N60014 _kugel_r:=P8160;
+N60020 P9350=17.60100; P9350=18.60120; P9350=19.60140; {Absprung je nach Ebene }
+N60100 { G17 <--}
+N60102 P210<>del(P149).151;   P210<>del(P149+1).152;
+N60104 P210<>del(P149+2).153; P210<>del(P149+3).154;
+N60108 M23.60200
+N60120 { G18 <--}
+N60121 !G18 noch nicht unterstuetzt
+N60122 M0 M30
+N60140 { G19 <--}
+N60141 !G19 noch nicht unterstuetzt
+N60142 M0 M30
+N60200 _ptr_trigpkt:=P149;_ax_nr:=P9351; _bohr_dm:=P152;
+N60210 _pos1:=_bohr_dm/2 -_sicherh - _kugel_r;
+N60215 _pos2:=_sicherh + _vertrauen;
+N60220 M28._prognum.9400
+N60230 _ptr_trigpkt:=P149+1;_ax_nr:=P9351; M1;
+N60240 _pos1:=(_bohr_dm - (_sicherh*2) - (_kugel_r*2))*(-1);
+N60245 _pos2:=(_sicherh + _vertrauen)*(-1);
+N60250 M28._prognum.9500
+N60255 P(P154):(_mess_pos1 + _mess_pos2)/2; { Bohrungsmittelpkt. berechnen und ablegen }
+N60260 G1 G90 F:_old_f a(P9351):P(P154); { Fahre zurueck in die Mitte }
+N60300 _ptr_trigpkt:=P149+2;_ax_nr:=P9352; M1;
+N60310 _pos1:=_bohr_dm/2 -_sicherh - _kugel_r;
+N60315 _pos2:=_sicherh + _vertrauen;
+N60320 M28._prognum.9400
+N60330 _ptr_trigpkt:=P149+3;_ax_nr:=P9352; M1;
+N60340 _pos1:=(_bohr_dm - (_sicherh*2) - (_kugel_r*2))*(-1);
+N60345 _pos2:=(_sicherh + _vertrauen)*(-1);
+N60350 M28._prognum.9500
+N60355 P(P154+1):(_mess_pos1 + _mess_pos2)/2; { Bohrungsmittelpkt. berechnen und ablegen }
+N60360 G1 G90 F:_old_f a(P9352):P(P154+1); { Fahre zurueck in die Mitte }
+N61360 M23.300000   { ========> ENDE }
+N300000 { Gemeinsamer Ausgang}
+N300010 G(_old_g90_91) G(_old_interp) F:_old_f  { setze modale Einst. zurueck}
+N300020 M2
+#
+
+
