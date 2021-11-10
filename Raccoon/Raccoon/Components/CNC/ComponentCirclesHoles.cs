@@ -147,6 +147,15 @@ namespace Raccoon.Components.CNC
             DA.GetDataList(1,  R);
             DA.GetDataList(2,  S);
             DA.GetDataList(3,  T);
+            DA.GetData("ToolID", ref base.toolID);
+            this.toolr = this.tools.ContainsKey((int)toolID) ? this.tools[(int)toolID].radius : 0;
+
+            if(this.toolr != 0)
+            {
+                for (int i = 0; i < R.Count; i++)
+                    R[i] -= this.toolr;
+               
+            }
 
             if (C.Count != R.Count)
                 if (R.Count > 0)
@@ -256,7 +265,7 @@ namespace Raccoon.Components.CNC
             /////////////////////////////////////////////////////////////////////////////////////
 
 
-            DA.GetData("ToolID", ref base.toolID);
+         
             DA.GetData("Zsec", ref base.Zsec);
             DA.GetData("Speed", ref base.XYfeed);
             DA.GetData("Retreate", ref base.Retreat);

@@ -24,7 +24,7 @@ namespace Raccoon.GCode
                 "S" + Utilities.GeometryProcessing.Lerp(tool.prescribedSpindleSpeed, tool.maxSpindleSpeed, 0.7).ToString() + " M3" + " (sxx_-_speed,_m3_-_clockwise)", //slow rmp "S2500 M3 M1"
                 //"G47" + Axes.DefaultRotation +" F5000" + " (g47_-_3_axis_in_plane)",//neutral position "G1 G47 A0 B0 F5000 M1"
                 //"G0 G49 G" + zero.ToString() + " X0 Y0 Z" + Zsec.ToString() + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
-                "G0 G49 Z800" + " (go_to_safe_z_position_to_avoid_collision)" ,
+                "G0 G49 Z750" + " (go_to_safe_z_position_to_avoid_collision)" ,
                 "G0 " + Axes.HomePosition + Axes.DefaultRotation + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
                 "G1 F"+Speed.ToString() ,
                 "M08" + " (air_supply)" ,
@@ -151,7 +151,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                 "S" + Utilities.GeometryProcessing.Lerp(tool.prescribedSpindleSpeed, tool.maxSpindleSpeed, 0.7).ToString() + " M3" + " (sxx_-_speed,_m3_-_clockwise)", //slow rmp "S2500 M3 M1"
                 //"G47" + Axes.DefaultRotation +" F5000" + " (g47_-_3_axis_in_plane)",//neutral position "G1 G47 A0 B0 F5000 M1"
                 //"G0 G49 G" + zero.ToString() + " X0 Y0 Z" + Zsec.ToString() + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
-                "G0 G49 Z800" + " (go_to_safe_z_position_to_avoid_collision)" ,
+                "G0 G49 Z750" + " (go_to_safe_z_position_to_avoid_collision)" ,
                 "G0 " + Axes.HomePosition + Axes.DefaultRotation + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
                 "M08" + " (air_supply)" ,
                  "G1 F"+Speed.ToString() ,
@@ -528,7 +528,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                 "S" + Utilities.GeometryProcessing.Lerp(tool.prescribedSpindleSpeed, tool.maxSpindleSpeed, 0.7).ToString() + " M3" + " (sxx_-_speed,_m3_-_clockwise)", //slow rmp "S2500 M3 M1"
                 //"G47" +Axes.DefaultRotation +" F5000" + " (g47_-_3_axis_in_plane)",//neutral position "G1 G47 A0 B0 F5000 M1"
                 //"G0 G49 G" + zero.ToString() + " X0 Y0 Z" + Zsec.ToString() + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
-                "G0 G49 Z800" + " (go_to_safe_z_position_to_avoid_collision)" ,
+                "G0 G49 Z750" + " (go_to_safe_z_position_to_avoid_collision)" ,
                 "G0 " + Axes.HomePosition + Axes.DefaultRotation + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
                 "M08" + " (air_supply)" ,
                  "G1 F"+Speed.ToString() ,

@@ -21,12 +21,14 @@ namespace Raccoon.Components.CNC
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
+            pManager.AddNumberParameter("BAxis", "BAxis", "BAxis", GH_ParamAccess.list);
             pManager.AddTextParameter("GCode", "GCode", "G-Code as DataTree", GH_ParamAccess.tree);
             //pManager.AddTextParameter("Filename", "Filename", "Filename", GH_ParamAccess.item, "P1234567");
 
 
-            for (int i = 1; i < pManager.ParamCount; i++)
+            for (int i = 2; i < pManager.ParamCount; i++)
                 pManager[i].Optional = true;
+            pManager[0].Optional = true;
         }
 
 
@@ -34,20 +36,23 @@ namespace Raccoon.Components.CNC
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
 
+          
             pManager.AddTextParameter("GCode", "GCode", "GCode", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
-
+         
+            var angles = new List<double>();
+            DA.GetDataList(0, angles);
+         
             this.GCode = new List<string>();
             var dt = new GH_Structure<GH_String>();
-            DA.GetDataTree(0, out dt);
+            DA.GetDataTree(1, out dt);
 
-
+        
             var y = new GH_Structure<GH_String>();
-            for (int i = 1; i < Params.Input.Count; i++)
+            for (int i = 2; i < Params.Input.Count; i++)
             {
 
                 var moreStrings = new GH_Structure<GH_String>();
@@ -65,18 +70,23 @@ namespace Raccoon.Components.CNC
             //DA.GetData<string>(1, ref name);
 
 
-
+      
             var t = new List<string>();
             t.Add(this.filename);
             int counter = 10;
+            int replace_counter = 0;
 
+            Dictionary<string, bool> repeated_values = new Dictionary<string, bool>();
+            repeated_values.Add("M5", false);
+            repeated_values.Add("M30", false);
+            repeated_values.Add("(endpos)", false);
+            repeated_values.Add("(g49_means_5axis_toolpath_-_startpos)", true);
+            
             for (int i = 0; i < x.Branches.Count; i++)
             {
 
                 for (int j = 0; j < x[i].Count; j++)
                 {
-
-
                     string s = x[i][j].Value;
 
                     if (s[0] == 'N')
@@ -85,14 +95,42 @@ namespace Raccoon.Components.CNC
 
                         string[] words = s.Split(' ');
                         string newWord = "N" + counter.ToString();
+
+                        bool insert = true;
                         for (int k = 1; k < words.Length; k++)
                         {
-                            if (words[k] == "M5") break;
-                            if (words[k] == "M30") break;
-                            newWord += (" " + words[k]);
+
+                            if (repeated_values.ContainsKey(words[k])) {
+                                //Rhino.RhinoApp.WriteLine(words[k]);
+                                if (repeated_values[words[k]])
+                                {
+                                    newWord += (" " + words[k]);
+                                    repeated_values[words[k]] = false;
+                                }
+                                else
+                                {
+                                    insert = false;
+                                    break;
+                                }
+
+                            } else if (words[k] == "(ReplaceB)" && angles.Count > replace_counter)
+                            {
+               //
+                                words[k] = "B"+angles[replace_counter].ToString();
+                                replace_counter++;
+                             }
+                        
+
+                                newWord += (" " + words[k]);
+                          
+
                         }
-                        t.Add(newWord);
-                        counter += 10;
+
+                        if (insert)
+                        {
+                            t.Add(newWord);
+                            counter += 10;
+                        }
 
                     }
                     else if (s[0] == '(' && s[1] == '*')
@@ -103,10 +141,10 @@ namespace Raccoon.Components.CNC
                 }
 
             }
-            t.Add("G0" + Raccoon.GCode.Axes.HomePosition + Raccoon.GCode.Axes.DefaultRotation + " (end pos)");
+            t.Add("N" + (counter + 10).ToString() + " G0" + Raccoon.GCode.Axes.HomePosition2 + Raccoon.GCode.Axes.DefaultRotation + " (end pos)");
             //t.Add("N" + (counter + 0).ToString() + " G0 X0 Y3500 Z400 A0 B0");
-            t.Add("N" + (counter + 10).ToString() + " M5");
-            t.Add("N" + (counter + 20).ToString() + " M30");
+            t.Add("N" + (counter + 20).ToString() + " M5");
+            t.Add("N" + (counter + 30).ToString() + " M30");
             t.Add("#");
 
             this.GCode = t;
@@ -186,36 +224,36 @@ namespace Raccoon.Components.CNC
 
 
 
-            GH_Document ghdoc = base.OnPingDocument();
-            for (int i = 0; i < ghdoc.ObjectCount; i++)
-            {
-                IGH_DocumentObject obj = ghdoc.Objects[i];
-                if (obj.Attributes.DocObject.ToString().Equals("Grasshopper.Kernel.Special.GH_Group"))
-                {
-                    Grasshopper.Kernel.Special.GH_Group groupp = (Grasshopper.Kernel.Special.GH_Group)obj;
-                    if (groupp.ObjectIDs.Contains(this.InstanceGuid))
-                        return;
-                }
+            //GH_Document ghdoc = base.OnPingDocument();
+            //for (int i = 0; i < ghdoc.ObjectCount; i++)
+            //{
+            //    IGH_DocumentObject obj = ghdoc.Objects[i];
+            //    if (obj.Attributes.DocObject.ToString().Equals("Grasshopper.Kernel.Special.GH_Group"))
+            //    {
+            //        Grasshopper.Kernel.Special.GH_Group groupp = (Grasshopper.Kernel.Special.GH_Group)obj;
+            //        if (groupp.ObjectIDs.Contains(this.InstanceGuid))
+            //            return;
+            //    }
 
-            }
-
-
-            List<Guid> guids = new List<Guid>() { this.InstanceGuid };
-
-            foreach (var param in base.Params.Input)
-                foreach (IGH_Param source in param.Sources)
-                    guids.Add(source.InstanceGuid);
+            //}
 
 
-            Grasshopper.Kernel.Special.GH_Group g = new Grasshopper.Kernel.Special.GH_Group();
-            g.NickName = base.Name.ToString() + " Click + or -";
-            g.Colour = System.Drawing.Color.FromArgb(255, 255, 255, 255);
+            //List<Guid> guids = new List<Guid>() { this.InstanceGuid };
 
-            for (int i = 0; i < guids.Count; i++)
-                g.AddObject(guids[i]);
+            //foreach (var param in base.Params.Input)
+            //    foreach (IGH_Param source in param.Sources)
+            //        guids.Add(source.InstanceGuid);
 
-            ghdoc.AddObject(g, false, ghdoc.ObjectCount);
-            g.ExpireCaches();
+
+            //Grasshopper.Kernel.Special.GH_Group g = new Grasshopper.Kernel.Special.GH_Group();
+            //g.NickName = base.Name.ToString() + " Click + or -";
+            //g.Colour = System.Drawing.Color.FromArgb(255, 255, 255, 255);
+
+            //for (int i = 0; i < guids.Count; i++)
+            //    g.AddObject(guids[i]);
+
+            //ghdoc.AddObject(g, false, ghdoc.ObjectCount);
+            //g.ExpireCaches();
 
 
 

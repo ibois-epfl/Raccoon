@@ -16,8 +16,8 @@ namespace Raccoon.GCode
         public const char B = 'A';
         public const char C = 'B';
         public const string DefaultRotation = " C0 A0";
-        public const string HomePosition2 = " X5000 Y-2000 Z800";
-        public const string HomePosition = " X0 Y0 Z800";//" X5000 Y-2000 Z800";
+        public const string HomePosition2 = " X5000 Y-2000 Z750";
+        public const string HomePosition = " X0 Y0 Z750";//" X5000 Y-2000 Z800";
     }
     
 
