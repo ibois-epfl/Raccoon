@@ -169,7 +169,7 @@ namespace Raccoon
 
                     //3.0 Notches
                     List<Line> notchLines = new List<Line>();
-                    if (notch) {
+                    if (notch && notchesTypes[m][0] !=0) {
                         for (int i = 0; i < P0Sorted.Length; i++) {
                             notchLines.AddRange(Ears.DrillingHoleForConvexCorners(P0Sorted[i], P1Sorted[i], Radius, notchesTypes[i]));
                         }
@@ -421,8 +421,8 @@ namespace Raccoon
                     normalPlane = normalPlane.AlignPlane(XAxis);
 
 
-                    double retreateZBasedOnZAxis = ZAxis.Unit().Z < 0 ? retreateZ - 800 * ZAxis.Unit().Z : retreateZ;
-                    double retreateZUpwards = ZAxis.Unit().Z < 0 ? retreate : retreate;
+                    //double retreateZBasedOnZAxis = ZAxis.Unit().Z < 0 ? retreateZ - Raccoon.GCode.Axes.ZCoord * ZAxis.Unit().Z : retreateZ;
+                    //double retreateZUpwards = ZAxis.Unit().Z < 0 ? retreate : retreate;
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //Offset polylines by thickness of a tool
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

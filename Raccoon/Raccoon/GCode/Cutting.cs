@@ -125,7 +125,7 @@ namespace Raccoon.GCode
                     AB_last = AB;
                 }//for j
 
-                ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety.X, safety.Y, 800) + AB.Item3 + speed +  " (last_point)");
+                ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety.X, safety.Y, Axes.ZCoord) + AB.Item3 + speed +  " (last_point)");
 
                 //Zsec
 
@@ -135,6 +135,7 @@ namespace Raccoon.GCode
 
 
             ncc.Add("(____________end_cutting____________)");
+            //ncc.Add("(ReplaceB)");
             ncc.Add("G0" +Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");
             GCode.Write.WriteAndCheck(ref ncc, ref previewGeometry, filename, "5x_normal", tool.ToString());
             return ncc;
@@ -496,6 +497,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
 
             GCode.Write.WriteAndCheck(ref ncc, ref previewGeometry, filename, "5x_3dcrvs", tool.ToString());
+            //ncc.Add("(ReplaceB)");
             return ncc;
 
         }
@@ -594,6 +596,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
 
             ncc.Add("(____________end_drilling____________)");
+            //ncc.Add("(ReplaceB)");
             //ncc.Add("G0 X0 Y0 Z" + Zsec.ToString() + Axes.DefaultRotation + " (endpos)");
             ncc.Add("G0 Z" + Zsec.ToString() + " (BeforeCuttingZSecturity)");
             ncc.Add("G0"  + Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");

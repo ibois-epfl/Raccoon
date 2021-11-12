@@ -12,6 +12,9 @@ namespace Raccoon.GCode
         public const char X = 'X';
         public const char Y = 'Y';
         public const char Z = 'Z';
+        public const double XCoord = 0;
+        public const double YCoord = 0;
+        public const double ZCoord = 750;
         public const char A = 'C';
         public const char B = 'A';
         public const char C = 'B';

@@ -113,10 +113,12 @@ namespace Raccoon.Components.CNC
                                     break;
                                 }
 
-                            } else if (words[k] == "(ReplaceB)" && angles.Count > replace_counter)
+                            } else if (words[k] == "(ReplaceB)" && angles.Count > replace_counter*0.5)
                             {
-               //
-                                words[k] = "B"+angles[replace_counter].ToString();
+                                //
+                                //int oddEven = replace_counter % 2 == 0 ? 1 : -1;
+                                // words[k] = "B"+(angles[(int)(replace_counter*0.5)]* oddEven).ToString();
+                                words[k] = "B" + (angles[(int)(replace_counter )] ).ToString();
                                 replace_counter++;
                              }
                         
