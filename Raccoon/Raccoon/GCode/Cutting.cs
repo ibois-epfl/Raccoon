@@ -66,7 +66,8 @@ namespace Raccoon.GCode
                     {
 
                         safety = p + (n * RetreatDistance);
-                        ncc.Add("G0" + GCode.CoordinateSystem.Pt2nc(new Point3d(safety.X, safety.Y, Zsec)) + " (first_point)");
+                        double z_first = i == 0 ? Axes.ZCoord : Zsec;
+                        ncc.Add("G0" + GCode.CoordinateSystem.Pt2nc(new Point3d(safety.X, safety.Y, z_first)) + " (first_point)");
                         ncc.Add("G1" + " F" + Speed.ToString()+"." + " (first_point)");
                         ncc.Add(GCode.CoordinateSystem.Pt2nc(new Point3d(safety.X, safety.Y, Zsec), 3, "") + AB.Item3 + " (first_point rotate)");//G1
                         ncc.Add(GCode.CoordinateSystem.Pt2nc(safety, 3, "") + AB.Item3 + " (safety_first_retreated)");//G1
@@ -87,14 +88,15 @@ namespace Raccoon.GCode
                             ncc.Add(GCode.CoordinateSystem.Pt2nc(mid, 3, ""));
 
 
-                       
+
                             //retreate, change position
                             Point3d retreatPoint = p_last + n_last * RetreatDistance;
+                            Point3d retreatPointMid = mid + (n+n_last).Unit() * RetreatDistance;
                             Point3d retreatPointSafety = new Point3d(retreatPoint.X, retreatPoint.Y, Zsec);
 
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPoint, 3, "") + AB_last.Item3 + " (retreat)");
+                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointMid, 3, "") + AB_last.Item3 + " (retreat)");
                             //ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointSafety, 3, "") + " (retreat_To_Safety)");
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPoint, 3, "") + AB.Item3 + " (rotate_In_Safety)");
+                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointMid, 3, "") + AB.Item3 + " (rotate_In_Safety)");
                             //ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPoint, 3, "") + " (return_to_retreate_point)");
                             ncc.Add("F" + (Speed).ToString());
 
@@ -124,8 +126,8 @@ namespace Raccoon.GCode
                     p_last = p;
                     AB_last = AB;
                 }//for j
-
-                ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety.X, safety.Y, Axes.ZCoord) + AB.Item3 + speed +  " (last_point)");
+                double z_last = i == polylines.Count-1 ? Axes.ZCoord : Zsec;
+                ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety.X, safety.Y, z_last) + AB.Item3 + speed +  " (last_point)");
 
                 //Zsec
 
