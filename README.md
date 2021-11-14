@@ -49,6 +49,7 @@ Development code for Petras Vestartas
 ![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_4.jpg) 
 
 - [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
+- [ ] snap-fit joint - ts_e_p_4
 
 ### Merge
 - [x] insert face joints inside edge
