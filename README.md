@@ -62,7 +62,7 @@ Development code for Petras Vestartas
 
 ### Insertion Vector
 - [x] side-top connection
-- [ ] side-side connection
+- [x] side-side connection
 - [ ] top-top connection
 
 ### Display
