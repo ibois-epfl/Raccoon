@@ -79,19 +79,20 @@ https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
 Important: add all tools parameters from the current CNC machine to Tools.txt file.
 
 ### Physical Work
-- [ ] Fabricate table
+- [x] Fabricate table
 - [ ] camera holder, buy cameras
 
 ### Code
 
 - [x] C A axis implementation
-- [ ] B-Axis integration ( a)find most top position, b) rotate b axis)
+- [x] B-Axis integration ( a)find most top position, b) rotate b axis )
 - [ ] calibration procedure
-- [x] milling
 - [ ] camera
+- [x] milling
 - [x] slice
 - [x] notches 
-- [ ] drilling using I J  
-- [ ] rotation limits in 5 axis
+- [x] probe 
+- [ ] drilling using I J (use G48 for cutting in a plane)
+- [ ] rotation limits in 5 axis (did not popped yet)
 
 
