@@ -66,7 +66,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 			plines);
 	}
 
-	double division_distance = 200;
+	double division_distance = 300;
 	double shift = 0.6;
 
 	////////////////////////////////////////////////////////////////////////////////
