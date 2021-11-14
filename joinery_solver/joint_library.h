@@ -572,12 +572,8 @@ namespace joint_library {
 
 	inline void ts_e_p_2(joint& joint, const double& division_distance, const double& shift) {
 
-		//ts_e_p_0(joint);
-
 		joint.name = "ts_e_p_2";
 	
-
-
 		////////////////////////////////////////////////////////////////////
 		//Number of divisions
 		//Input joint line (its lengths)
@@ -676,10 +672,6 @@ namespace joint_library {
 
 		for (int i = 0; i < joint.m[0][0].size(); i += 4) {
 
-			//int id = i*0.25;
-			//CGAL_Debug(id);
-			//CGAL_Debug(joint.m[0][0].size());
-			//CGAL_Debug(joint.m[1][0].size());
 			joint.f[0].emplace_back(std::initializer_list<IK::Point_3>{joint.m[0][0][i + 0], joint.m[0][0][i + 3], joint.m[1][0][i + 3], joint.m[1][0][i + 0], joint.m[0][0][i + 0] });
 			joint.f[1].emplace_back(std::initializer_list<IK::Point_3>{joint.m[0][0][i + 1], joint.m[0][0][i + 2], joint.m[1][0][i + 2], joint.m[1][0][i + 1], joint.m[0][0][i + 1] });
 
@@ -691,6 +683,130 @@ namespace joint_library {
 
 
 		joint.f_boolean_type = std::vector<char>(size,'2');
+		joint.m_boolean_type = { '1','1' };
+
+		joint.orient_to_connection_area();
+
+	}
+
+
+	inline void ts_e_p_3(joint& joint, const double& division_distance, const double& shift) {
+
+		joint.name = "ts_e_p_3";
+
+		////////////////////////////////////////////////////////////////////
+		//Number of divisions
+		//Input joint line (its lengths)
+		//Input distance for division
+		////////////////////////////////////////////////////////////////////
+		double joint_length = CGAL::squared_distance(joint.joint_lines[0][0], joint.joint_lines[0][1]); // Math.Abs(500);
+		int divisions = (int)std::ceil(joint_length / (division_distance * division_distance));
+		divisions = (int)std::max(4, std::min(20, divisions));
+		divisions -= divisions % 4;
+
+		//Resize arrays
+		int size = (int)(divisions * 0.25) + 1;
+
+		joint.f[0].reserve(size);
+		joint.f[1].reserve(size);
+		joint.m[0].reserve(2);
+		joint.m[1].reserve(2);
+
+
+		////////////////////////////////////////////////////////////////////
+		//Interpolate points
+		////////////////////////////////////////////////////////////////////
+		std::vector<IK::Point_3> arrays[4];
+
+		interpolate_points(IK::Point_3(0.5, -0.5, -0.5), IK::Point_3(0.5, -0.5, 0.5), divisions, false, arrays[3]);
+		interpolate_points(IK::Point_3(-0.5, -0.5, -0.5), IK::Point_3(-0.5, -0.5, 0.5), divisions, false, arrays[0]);
+		interpolate_points(IK::Point_3(-0.5, 0.5, -0.5), IK::Point_3(-0.5, 0.5, 0.5), divisions, false, arrays[1]);
+		interpolate_points(IK::Point_3(0.5, 0.5, -0.5), IK::Point_3(0.5, 0.5, 0.5), divisions, false, arrays[2]);
+
+		////////////////////////////////////////////////////////////////////
+		//Move segments
+		////////////////////////////////////////////////////////////////////
+		int start = 0;
+
+		IK::Vector_3 v = shift == 0 ? IK::Vector_3(0, 0, 0) : IK::Vector_3(0, 0, RemapNumbers(shift, 0, 1.0, -0.5, 0.5) / (divisions + 1));
+		for (int i = start; i < 4; i++) {
+
+			int mid = (int)(arrays[i].size() * 0.5);
+
+			for (int j = 0; j < arrays[i].size(); j++) {
+
+				int flip = (j % 2 == 0) ? 1 : -1;
+				flip = i < 2 ? flip : flip * -1;
+
+				arrays[i][j] += v * flip;
+
+			}
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//Create Polylines
+		////////////////////////////////////////////////////////////////////
+
+		for (int i = 0; i < 4; i += 2) {
+
+			CGAL_Polyline pline;
+			pline.reserve(arrays[0].size() * 2);
+
+			for (int j = 0; j < arrays[0].size(); j++) {
+
+				if (j % 4 > 1) continue;
+
+				bool flip = j % 2 == 0;
+				flip = i < 2 ? flip : !flip;
+
+				if (flip) {
+					pline.push_back(arrays[i + 0][j]);
+					pline.push_back(arrays[i + 1][j]);
+				}
+				else {
+					pline.push_back(arrays[i + 1][j]);
+					pline.push_back(arrays[i + 0][j]);
+				}
+
+			}
+
+	
+
+			if (i < 2) {
+				pline.push_back(arrays[i + 0][arrays[0].size() - 1]);
+				joint.m[1] = {
+					pline,
+					{ pline[0], pline[pline.size() - 1] }
+				};
+			}
+			else {
+				pline.push_back(arrays[i + 1][arrays[0].size() - 1]);
+				joint.m[0] = {
+					pline,
+					{ pline[0], pline[pline.size() - 1] }
+
+				};
+			}
+		}
+
+
+
+
+
+
+		for (int i = 0; i < joint.m[0][0].size() - joint.m[0][0].size()%4; i += 4) {
+
+			joint.f[0].emplace_back(std::initializer_list<IK::Point_3>{joint.m[0][0][i + 0], joint.m[0][0][i + 3], joint.m[1][0][i + 3], joint.m[1][0][i + 0], joint.m[0][0][i + 0] });
+			joint.f[1].emplace_back(std::initializer_list<IK::Point_3>{joint.m[0][0][i + 1], joint.m[0][0][i + 2], joint.m[1][0][i + 2], joint.m[1][0][i + 1], joint.m[0][0][i + 1] });
+
+		}
+		joint.f[0].emplace_back(std::initializer_list<IK::Point_3>{ joint.f[0][0][0], joint.f[0][0][3], joint.f[0][size - 2][3], joint.f[0][size - 2][0], joint.f[0][0][0] });
+		joint.f[1].emplace_back(std::initializer_list<IK::Point_3>{joint.f[1][0][0], joint.f[1][0][3], joint.f[1][size - 2][3], joint.f[1][size - 2][0], joint.f[1][0][0]  });
+
+
+
+
+		joint.f_boolean_type = std::vector<char>(size, '2');
 		joint.m_boolean_type = { '1','1' };
 
 		joint.orient_to_connection_area();
@@ -726,7 +842,7 @@ namespace joint_library {
 	inline void construct_joint_by_index(joint& joint, const int& id_representing_joing_name, const double& division_distance, const double& shift) {
 
 		if (id_representing_joing_name == 0) {
-			cr_c_ip_0(joint);
+		
 		}
 		else if (id_representing_joing_name > 0 && id_representing_joing_name < 10) {
 		
@@ -761,14 +877,20 @@ namespace joint_library {
 		else if (id_representing_joing_name > 19 && id_representing_joing_name < 30) {
 			switch (id_representing_joing_name)
 			{
-			case(21):
+			case(23):
+				ts_e_p_3(joint, division_distance, 0);
+				break;
+			case(22):
 				ts_e_p_2(joint, division_distance, 0);
 				break;
-			case(20):
+			case(21):
 				ts_e_p_1(joint);
 				break;
-			default:
+			case(20):
 				ts_e_p_0(joint);
+				break;
+			default:
+				ts_e_p_3(joint, division_distance, 0);
 				break;
 			}
 			
