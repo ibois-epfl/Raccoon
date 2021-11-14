@@ -41,6 +41,9 @@ Development code for Petras Vestartas
 ![Dovetail](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_2.jpg) 
 
 - [ ] :snowflake: parameterize tenon mortise ts_e_p_1
+
+![Tenon-mortise](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_3.jpg) 
+
 - [ ] :snowflake: parameterize Annen joint - ts_e_p_2
 - [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
 
