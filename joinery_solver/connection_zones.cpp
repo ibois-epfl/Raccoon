@@ -160,7 +160,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 					joint_library::construct_joint_by_index(joints[i], id1, division_distance, shift);
 
 			}else 
-				joint_library::ts_e_p_0(joints[i]);//default option
+				joint_library::construct_joint_by_index(joints[i], 21, division_distance, shift);
+				//joint_library::ts_e_p_0(joints[i]);//default option
 			
 
 			
@@ -186,7 +187,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 		//elements[i].get_joints_geometry(joints, plines, 0);
 		//elements[i].get_joints_geometry(joints, plines,1);
 		//elements[i].get_joints_geometry(joints, plines, 2);//push joint geometry from joint to element
-		elements[i].get_joints_geometry(joints, plines, 3);
+		//elements[i].get_joints_geometry(joints, plines, 3);
 			elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
 
 	}
