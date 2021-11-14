@@ -575,7 +575,7 @@ namespace joint_library {
 		//ts_e_p_0(joint);
 
 		joint.name = "ts_e_p_2";
-		printf("ts_e_p_2");
+	
 
 
 		////////////////////////////////////////////////////////////////////
@@ -590,7 +590,7 @@ namespace joint_library {
 
 		//Resize arrays
 		int size = (int)(divisions * 0.5 ) + 1;
-		CGAL_Debug(size);
+	
 		joint.f[0].reserve(size);
 		joint.f[1].reserve(size);
 		joint.m[0].reserve(2);

@@ -96,9 +96,9 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 		//Cross_Simple(joints[i]);
 
 
-		CGAL_Debug(joints[i].type);
-		CGAL_Debug(joints[i].type);
-		CGAL_Debug(joints[i].type);
+		//CGAL_Debug(joints[i].type);
+		//CGAL_Debug(joints[i].type);
+		//CGAL_Debug(joints[i].type);
 		switch (joints[i].type) {
 			
 
