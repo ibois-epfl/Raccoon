@@ -592,12 +592,14 @@ inline bool face_to_face(
 					////////////////////////////////////////////////////////////////////////////////
 					IK::Vector_3 dir(0,0,0);
 					bool dirSet = false;
+					//CGAL_Debug(insertion_vectors0.size());
 					if (insertion_vectors0.size() > 0) {
 						//////Take priority for male 
 						dir = i > j ? insertion_vectors0[i] : insertion_vectors1[j];
-						bool dirSet = true;
+						dirSet = true;
+						
 					}
-
+					
 
 
 					//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -619,8 +621,7 @@ inline bool face_to_face(
 
 						if (CGAL_VectorUtil::IsParallelTo(joint_line0[0] - joint_line0[1], joint_line1[0] - joint_line1[1], GlobalTolerance) == 0) {
 
-					
-
+							
 							//joint_lines[0] = { joint_line0[0], joint_line0[1] };
 							//joint_lines[1] = { joint_line1[0], joint_line1[1] };
 
@@ -669,9 +670,11 @@ inline bool face_to_face(
 							//Create Joint rectangles by an offset of element thickness
 							////////////////////////////////////////////////////////////////////////////////
 							IK::Vector_3 offset_vector = z;
+						
+
 							if (dirSet) {
 								offset_vector = dir;
-								CGAL_Debug((dir.x() + dir.y() + dir.z()));
+								//CGAL_Debug((dir.x() + dir.y() + dir.z()));
 							}
 
 							CGAL_VectorUtil::Unitize(offset_vector);
@@ -691,7 +694,6 @@ inline bool face_to_face(
 
 					
 						
-	
 
 							////////////////////////////////////////////////////////////////////////////////
 							//Get Overlap-Line // scale it down ?
@@ -711,8 +713,8 @@ inline bool face_to_face(
 							IK::Plane_3 plEnd0 = IK::Plane_3(lJ[0], lJ.to_vector());// averagePlane0.orthogonal_vector(), CGAL::cross_product(lJ.to_vector(), averagePlane0.orthogonal_vector()));
 
 							if (dirSet)
-								IK::Plane_3(lJ[0], CGAL::cross_product(dir, CGAL::cross_product(lJ.to_vector(), dir)));
-					
+								plEnd0=IK::Plane_3(lJ[0], CGAL::cross_product(dir, CGAL::cross_product(lJ.to_vector(), dir)));
+						
 
 							IK::Plane_3 plEnd1(lJ[1], plEnd0.orthogonal_vector());
 							IK::Plane_3 pl_mid(CGAL::midpoint(lJ[0], lJ[1]), plEnd0.orthogonal_vector());

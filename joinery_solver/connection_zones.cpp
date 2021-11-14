@@ -67,7 +67,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	}
 
 	double division_distance = 250;
-	double shift = 0.6;
+	double shift = 0.0;
 
 	////////////////////////////////////////////////////////////////////////////////
 	////Create and Align Joints
