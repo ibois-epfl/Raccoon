@@ -94,7 +94,7 @@ Important: add all tools parameters from the current CNC machine to Tools.txt fi
 ### Code
 
 - [x] C A axis implementation
-- [x] B-Axis integration ( a)find most top position, b) rotate b axis ) [![B-Axis integration]](https://vimeo.com/645879445 "B-Axis integration - Click to Watch!")
+- [x] B-Axis integration ( a)find most top position, b) rotate b axis ) [B-Axis integration](https://vimeo.com/645879445 "B-Axis integration - Click to Watch!")
 
 
 - [ ] calibration procedure
