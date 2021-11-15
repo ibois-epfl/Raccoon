@@ -61,8 +61,13 @@ Development code for Petras Vestartas
 - [ ] introduce unordered_map to track grouping like sorted lists x;x;x
 
 ### Insertion Vector
-- [x] side-top connection
-- [ ] side-side connection
+Description: a vector on an element edge that is equal to a plane normal on an edge. 
+- [x] side-top connection :no_entry: insertion vector is currently defined by insertion direction, change input vectors as plane normals :
+
+![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/insertion_vectors_0.jpg) 
+
+
+- [x] side-side connection, :no_entry: not finished for out of plane connections
 - [ ] top-top connection
 
 ### Display
