@@ -97,9 +97,9 @@ Important: add all tools parameters from the current CNC machine to Tools.txt fi
 - [x] B-Axis integration ( a)find most top position, b) rotate b axis ) [Video](https://vimeo.com/645879445 "B-Axis integration - Click to Watch!")
 - [ ] calibration procedure
 - [ ] camera
-- [x] milling
+- [x] milling 
 - [x] slice
-- [x] notches 
+- [x] notches [Video](https://vimeo.com/645882287 "notches - Click to Watch!")
 - [x] probe 
 - [ ] drilling using I J (use G48 for cutting in a plane)
 - [ ] rotation limits in 5 axis (did not popped yet)
