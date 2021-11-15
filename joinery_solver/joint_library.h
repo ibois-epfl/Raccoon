@@ -381,6 +381,9 @@ namespace joint_library {
 		double joint_length = CGAL::squared_distance(joint.joint_lines[0][0], joint.joint_lines[0][1]); // Math.Abs(500);
 		int divisions = (int)std::ceil(joint_length / (division_distance * division_distance));
 		divisions = (int)std::max(2, std::min(20, divisions));
+		if (joint.tile_parameters.size() > 0)
+			divisions = joint.tile_parameters[0];
+
 		divisions += divisions % 2;
 		////////////////////////////////////////////////////////////////////
 		//Interpolate points
@@ -702,6 +705,8 @@ namespace joint_library {
 		double joint_length = CGAL::squared_distance(joint.joint_lines[0][0], joint.joint_lines[0][1]); // Math.Abs(500);
 		int divisions = (int)std::ceil(joint_length / (division_distance * division_distance));
 		divisions = (int)std::max(4, std::min(20, divisions));
+		if (joint.tile_parameters.size() > 0)
+			divisions = joint.tile_parameters[0];
 		divisions -= divisions % 4;
 
 		//Resize arrays
@@ -886,7 +891,7 @@ namespace joint_library {
 			case(21):
 				ts_e_p_1(joint);
 				break;
-			case(20):
+			case(24):
 				ts_e_p_0(joint);
 				break;
 			default:

@@ -592,12 +592,10 @@ inline bool face_to_face(
 					////////////////////////////////////////////////////////////////////////////////
 					IK::Vector_3 dir(0,0,0);
 					bool dirSet = false;
-					//CGAL_Debug(insertion_vectors0.size());
 					if (insertion_vectors0.size() > 0) {
 						//////Take priority for male 
 						dir = i > j ? insertion_vectors0[i] : insertion_vectors1[j];
-						dirSet = true;
-						
+						dirSet = (std::abs(dir.hx()) + std::abs(dir.hy()) + std::abs(dir.hz())) > 0.01;
 					}
 					
 
@@ -713,8 +711,9 @@ inline bool face_to_face(
 							IK::Plane_3 plEnd0 = IK::Plane_3(lJ[0], lJ.to_vector());// averagePlane0.orthogonal_vector(), CGAL::cross_product(lJ.to_vector(), averagePlane0.orthogonal_vector()));
 
 							if (dirSet)
-								plEnd0=IK::Plane_3(lJ[0], CGAL::cross_product(dir, CGAL::cross_product(lJ.to_vector(), dir)));
-						
+								//plEnd0=IK::Plane_3(lJ[0], CGAL::cross_product(dir, CGAL::cross_product(lJ.to_vector(), dir)));
+								plEnd0 = IK::Plane_3(lJ[0], dir);
+							//CGAL_Debug(dir);
 
 							IK::Plane_3 plEnd1(lJ[1], plEnd0.orthogonal_vector());
 							IK::Plane_3 pl_mid(CGAL::midpoint(lJ[0], lJ[1]), plEnd0.orthogonal_vector());
@@ -862,6 +861,7 @@ inline bool face_to_face(
 						//dirSet = true;
 						if (dirSet) {
 							IK::Vector_3 offset_vector_;
+							//CGAL::cross_product(dir, plane0_0->orthogonal_vector())
 							bool flag = CGAL_IntersectionUtil::vector_two_planes(dir, *plane1_0, *plane1_1, offset_vector_);
 							if (flag)
 								offset_vector = offset_vector_;
@@ -1251,7 +1251,8 @@ inline void three_valence_joint_alignment(
 	std::vector<element>& elements,
 	std::vector<joint>& joints,
 	std::unordered_map<uint64_t, int>& joints_map,
-	std::vector<CGAL_Polyline>& plines
+	std::vector<CGAL_Polyline>& plines,
+	double division_length
 	) {
 
 	//CGAL_Debug(0);
@@ -1294,7 +1295,10 @@ inline void three_valence_joint_alignment(
 
 		//plines.push_back({ l[0] ,l[1] });
 
-
+		double divisions = std::ceil(l.squared_length() / (division_length * division_length));
+		joints[id_0].tile_parameters = { divisions };
+		joints[id_1].tile_parameters = { divisions };
+		
 		//////////////////////////////////////////////////////////////////////////////////////////////////
 		//Construct plane from exisiting joint volume edges
 		//////////////////////////////////////////////////////////////////////////////////////////////////

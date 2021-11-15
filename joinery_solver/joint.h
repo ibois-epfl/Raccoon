@@ -25,7 +25,7 @@ public:
 	/////////////////////////////////////////////////////////////////////////////////////////
 	std::string name = "";
 	int id_of_global_joint_list = -1;//Directs which joint applies where, -1 all cases
-	std::vector<int> tile_parameters;//For rebuilding
+	std::vector<double> tile_parameters;//For rebuilding
 
 	std::vector<CGAL_Polyline> m[2];
 	std::vector<char> m_boolean_type;//0 - do not merge, 1 - edge insertion, 2 - hole 3 - insert between multiple edges hole
