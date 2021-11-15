@@ -61,6 +61,7 @@ Development code for Petras Vestartas
 - [ ] introduce unordered_map to track grouping like sorted lists x;x;x
 
 ### Insertion Vector
+Description: a vector on an element edge that is equal to a plane normal on an edge. 
 - [x] side-top connection
 - [x] side-side connection
 - [ ] top-top connection
