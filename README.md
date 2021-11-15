@@ -95,6 +95,8 @@ Important: add all tools parameters from the current CNC machine to Tools.txt fi
 
 - [x] C A axis implementation
 - [x] B-Axis integration ( a)find most top position, b) rotate b axis )
+
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/645879445?h=3b8e829275" width="640" height="640" frameborder="0" allowfullscreen></iframe>
 - [ ] calibration procedure
 - [ ] camera
 - [x] milling
