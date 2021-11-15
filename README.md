@@ -54,7 +54,7 @@ Development code for Petras Vestartas
 ### Merge
 - [x] insert face joints inside edge
 - [ ] :snowflake: insert between multiple edges (cross joint case)
-- [ ] cut projection and insert in polylgon (case when side-side joints are rotated)
+- [ ] cut projection and insert in polygon (case when side-side joints are rotated)
 - [ ] mesh boolean: a) reference shapes, b) joints polygon pairs
 
 ### Element Grouping
