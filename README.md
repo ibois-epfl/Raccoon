@@ -54,7 +54,7 @@ Development code for Petras Vestartas
 ### Merge
 - [x] insert face joints inside edge
 - [ ] :snowflake: insert between multiple edges (cross joint case)
-- [ ] cut projection and insert in polylgon (case when side-side joints are rotated)
+- [ ] cut projection and insert in polygon (case when side-side joints are rotated)
 - [ ] mesh boolean: a) reference shapes, b) joints polygon pairs
 
 ### Element Grouping
@@ -88,18 +88,18 @@ https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
 Important: add all tools parameters from the current CNC machine to Tools.txt file.
 
 ### Physical Work
-- [x] Fabricate table
+- [x] Fabricate table [Video](https://vimeo.com/645880001 "Fabricate table - Click to Watch!")
 - [ ] camera holder, buy cameras
 
 ### Code
 
 - [x] C A axis implementation
-- [x] B-Axis integration ( a)find most top position, b) rotate b axis )
+- [x] B-Axis integration ( a)find most top position, b) rotate b axis ) [Video](https://vimeo.com/645879445 "B-Axis integration - Click to Watch!")
 - [ ] calibration procedure
 - [ ] camera
-- [x] milling
+- [x] milling 
 - [x] slice
-- [x] notches 
+- [x] notches [Video](https://vimeo.com/645882287 "notches - Click to Watch!")
 - [x] probe 
 - [ ] drilling using I J (use G48 for cutting in a plane)
 - [ ] rotation limits in 5 axis (did not popped yet)
