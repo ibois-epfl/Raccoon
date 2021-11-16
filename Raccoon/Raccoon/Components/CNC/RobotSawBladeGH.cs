@@ -11,11 +11,11 @@ using Raccoon;
 namespace Raccoon {
     public class SawBladeGH : CustomComponent
     {
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.quarternary;
         public SawBladeGH()
           : base("SawBlade", "SawBlade",
               "SawBlade",
-              "Robot / CNC") {
+              "Robot/CNC") {
         }
 
 

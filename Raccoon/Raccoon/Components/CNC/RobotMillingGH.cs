@@ -11,11 +11,11 @@ namespace Raccoon
 {
     public class MillingGH : CustomComponent
     {
-        public override GH_Exposure Exposure => GH_Exposure.senary;
+        public override GH_Exposure Exposure => GH_Exposure.primary;
         public MillingGH()
           : base("Milling", "Milling",
               "Milling",
-              "Robot / CNC") {
+              "Robot/CNC") {
         }
 
 

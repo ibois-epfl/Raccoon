@@ -14,7 +14,7 @@ namespace Raccoon.Components.CNC
         /// Initializes a new instance of the Cutting2Polylines class.
         /// </summary>
         public ComponentCutting2Polylines()
-          : base("Two Polys", "Two Polys", "Cutting Two Polylines", "CNC")
+          : base("Two Polys", "Two Polys", "Cutting Two Polylines",  "Robot/CNC")
         {
         }
 

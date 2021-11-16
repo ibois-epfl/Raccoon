@@ -45,7 +45,7 @@ namespace Raccoon.Components
         public ComponentDrilling()
           : base("Drilling", "Drill Holes",
               "For drilling holes either 2D and 3D",
-             "CNC")
+              "Robot/CNC")
         {
         }
 

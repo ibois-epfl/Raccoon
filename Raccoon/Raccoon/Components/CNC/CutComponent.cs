@@ -12,11 +12,11 @@ namespace Raccoon.Components.CNC
     {
 
         public CutModel()
-          : base("Cut", "Cut", "Cut", "Robot / CNC")
+          : base("Cut", "Cut", "Cut", "Robot/CNC")
         {
         }
 
-        public override GH_Exposure Exposure => GH_Exposure.primary;
+        public override GH_Exposure Exposure => GH_Exposure.quinary;
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {

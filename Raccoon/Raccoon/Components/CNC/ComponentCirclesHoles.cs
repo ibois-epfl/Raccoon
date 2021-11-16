@@ -16,7 +16,7 @@ namespace Raccoon.Components.CNC
         /// Initializes a new instance of the Cutting2Polylines class.
         /// </summary>
         public ComponentCirclesHoles()
-          : base("Circle Holes", "Circle Holes", "One curve is cutting line, other curve is followed as normal (takes only control points of polyline)")
+          : base("Circle Holes", "Circle Holes", "One curve is cutting line, other curve is followed as normal (takes only control points of polyline)","Robot/CNC")
         {
         }
 

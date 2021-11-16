@@ -11,4 +11,3 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.c
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.csproj.CoreCompileInputs.cache
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.dll
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.pdb
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Debug\Raccoon.csproj.AssemblyReference.cache
