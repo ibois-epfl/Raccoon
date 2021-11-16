@@ -11,12 +11,12 @@ enum cut_types : char {
     insert_between_multiple_edges = '3',
 
     //beams
-    slice = '4',//projects and makes rectangle
+    slice = '4',//project and make rectangle
     mill = '5',
-    mill_project = '6', //projects
+    mill_project = '6', //project
     cut = '7',
-    cut_project = '8', //projects
-    binary_slice_mill = '9' //projects makes rectangle
+    cut_project = '8', //project
+    binary_slice_mill = '9' //project and make rectangle
 
 };
 

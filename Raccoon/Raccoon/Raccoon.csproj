@@ -58,7 +58,6 @@
     <Compile Include="Components\CNC\ComponentCutting2Polylines.cs" />
     <Compile Include="Components\CNC\ComponentDrilling.cs" />
     <Compile Include="Components\CNC\ComponentCirclesHoles.cs" />
-    <Compile Include="Components\CNC\ComponentOpenPolylines.cs" />
     <Compile Include="Components\CNC\CutComponent.cs" />
     <Compile Include="Components\CustomComponent.cs" />
     <Compile Include="Components\GHData.cs" />

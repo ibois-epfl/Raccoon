@@ -863,7 +863,7 @@ namespace joint_library {
 		};
 
 		
-		joint.m_boolean_type = { '0','0' };
+		joint.m_boolean_type = { '6','6','6',  '9','9','9','9'   ,'9','9' };
 		joint.f_boolean_type = { '0','0' };
 
 		//Orient to 3D
