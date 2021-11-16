@@ -844,6 +844,33 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
+	inline void cr_c_ip_1(joint& joint) {
+
+
+		//printf("Cross_Simple %zi", joint.m.size());
+
+		joint.name = "cr_c_ip_1";
+
+		joint.f[0] = {
+		{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) },
+		{ IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,0.55),IK::Point_3(-0.5,-0.5,0.55),IK::Point_3(-0.5,-0.5,0) }
+		};
+
+
+		joint.m[0] = {
+		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) },
+		{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) }
+		};
+
+		
+		joint.m_boolean_type = { '0','0' };
+		joint.f_boolean_type = { '0','0' };
+
+		//Orient to 3D
+		joint.orient_to_connection_area();
+	}
+
+
 	inline void construct_joint_by_index(joint& joint, const int& id_representing_joing_name, const double& division_distance, const double& shift) {
 
 		if (id_representing_joing_name == 0) {

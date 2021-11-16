@@ -2,6 +2,24 @@
 #include "compas.h"
 #include <string>
 
+enum cut_types : char {
+    nothing = '0',
+
+    //plates
+    edge_insertion = '1',
+    hole = '2',
+    insert_between_multiple_edges = '3',
+
+    //beams
+    slice = '4',//projects and makes rectangle
+    mill = '5',
+    mill_project = '6', //projects
+    cut = '7',
+    cut_project = '8', //projects
+    binary_slice_mill = '9' //projects makes rectangle
+
+};
+
 //Container for cuts
 class joint
 {
