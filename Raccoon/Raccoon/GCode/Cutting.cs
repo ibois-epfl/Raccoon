@@ -138,6 +138,7 @@ namespace Raccoon.GCode
 
             ncc.Add("(____________end_cutting____________)");
             //ncc.Add("(ReplaceB)");
+            ncc.Add("G0 Z" + Axes.ZCoord + " (endpos)");
             ncc.Add("G0" +Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");
             GCode.Write.WriteAndCheck(ref ncc, ref previewGeometry, filename, "5x_normal", tool.ToString());
             return ncc;
@@ -493,7 +494,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                     }
                 }
             }
-            //ncc.Add("G0 X0 Y3700 Z" + Zsec.ToString() + Axes.DefaultRotation + " (endpos)");
+            ncc.Add("G0 Z" +Axes.ZCoord + " (endpos)");
             ncc.Add("G0" + Axes.HomePosition2 + Axes.DefaultRotation + " (end pos)");
  
 
@@ -601,6 +602,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
             //ncc.Add("(ReplaceB)");
             //ncc.Add("G0 X0 Y0 Z" + Zsec.ToString() + Axes.DefaultRotation + " (endpos)");
             ncc.Add("G0 Z" + Zsec.ToString() + " (BeforeCuttingZSecturity)");
+            ncc.Add("G0 Z" + Axes.ZCoord + " (endpos)");
             ncc.Add("G0"  + Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");
             
             ncc.Add("P4010:250 (lift_aspiration,_plastic_cover_for_ventilation)");

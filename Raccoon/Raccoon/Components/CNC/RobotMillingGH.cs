@@ -33,6 +33,7 @@ namespace Raccoon
             pManager.AddNumberParameter("Speed", "Speed", "velocity of horizontal cutting in mm/min", GH_ParamAccess.item);//5000
             pManager.AddNumberParameter("Zsec", "Zsec", "Safe Plane over workpiece.Program begins and starts at this Z-height", GH_ParamAccess.item);//700
             pManager.AddNumberParameter("Retreate", "Retreate", "Height of the XY Plane for tool retreat", GH_ParamAccess.item);//70
+            pManager.AddNumberParameter("Angle", "Angle", "Rotate Angle to avoid curved movement", GH_ParamAccess.item);//70
         }
 
         //Inputs
@@ -73,10 +74,10 @@ namespace Raccoon
             //    //Add sliders
 
 
-            double[] sliderValue = new double[] { 12, 2, 0, 10, 42, 20000, 750, 300 };
-            double[] sliderMinValue = new double[] { 0, 0, 0, 1, 0,10000, 0, 0, };
-            double[] sliderMaxValue = new double[] { 12, 4, 100, 10, 150, 40000, 800, 800 };
-            int[] sliderID = new int[] { 2, 3, 4, 5, 6, 7, 8, 9 };
+            double[] sliderValue = new double[] { 12, 2, 0, 10, 42, 20000, 750, 50,5 };
+            double[] sliderMinValue = new double[] { 0, 0, 0, 1, 0,10000, 0, 0,0 };
+            double[] sliderMaxValue = new double[] { 12, 4, 100, 10, 150, 40000, 800, 800,360 };
+            int[] sliderID = new int[] { 2, 3, 4, 5, 6, 7, 8, 9,10 };
             for (int i = 0; i < sliderValue.Length; i++)
             {
                 Grasshopper.Kernel.Parameters.Param_Number ni = Params.Input[sliderID[i]] as Grasshopper.Kernel.Parameters.Param_Number;
@@ -161,6 +162,8 @@ namespace Raccoon
             bool merge = false;//not cutting
             bool projectRotate = false;
             bool SawFlip90Cut = false;
+            double angle = 5;
+            DA.GetData(10,ref angle);
 
             var c = new List<Cut>();
 
@@ -366,7 +369,7 @@ namespace Raccoon
                     preview.PreviewLines0 = new List<Line>();
                     preview.PreviewLines1 = new List<Line>();
                     preview.PreviewLines2 = new List<Line>();
-                    GCode = Raccoon.GCode.Cutting.PolylineCutSimple(this.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, 80);
+                    GCode = Raccoon.GCode.Cutting.PolylineCutSimple(this.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, angle);
                     Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview);
 
                     

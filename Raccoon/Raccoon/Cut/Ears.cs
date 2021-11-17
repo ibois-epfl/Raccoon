@@ -32,9 +32,10 @@ namespace Raccoon {
             bool fillet = false;
             double R_ = T[0] == 4 ? R * 2 : R;
 
+            bool notchStart = true;
             for (int i = closed; i < xA.Count - closed; i++) {
 
-
+               
 
                 ///////////////////////////////////////////////////////////////////////
                 //Get extension lines
@@ -151,15 +152,14 @@ namespace Raccoon {
                 planes.Add(pl1);
                 planes.Add(pl2);
 
-          
+                bool lastFlag = false;
+               
                 if (T.Length == 1) {
 
                     switch (T[0]) {
                         case (2):
                         case (3):
-                            bool flag = T[0] == 3 ?
-                              p0.DistanceToSquared(p1) < p0.DistanceToSquared(p2) :
-                              p0.DistanceToSquared(p1) > p0.DistanceToSquared(p2);
+                            bool flag = T[0] == 3 ?  p0.DistanceToSquared(p1) < p0.DistanceToSquared(p2) :  p0.DistanceToSquared(p1) > p0.DistanceToSquared(p2);
                             if (flag)
                                 l0.Add(normalXAxis0);
                             else
@@ -175,6 +175,22 @@ namespace Raccoon {
                             l2.Add(normalXAxis2Fillet1);
                      
                             break;
+
+                        case (5):
+                        case (6):
+
+                            if (i % 2 == 1)
+                                lastFlag = !lastFlag;
+                            if (T[0]==6)
+                                lastFlag = !lastFlag;
+
+
+                            if (lastFlag)
+                                l0.Add(normalXAxis0);
+                            else
+                                l0.Add(normalXAxis1);
+                            break;
+
                         case (10):
                         default:
                             l0.Add(Line.Unset);
@@ -355,7 +371,7 @@ namespace Raccoon {
                 vecAv_ *= R;
 
                 //Line drillingAxis = new Line(x[i] + vecAv, x1[i] + vecAv_);
-                Rhino.RhinoApp.WriteLine(notchesTypes.Length.ToString() + " " + n.ToString());
+                //Rhino.RhinoApp.WriteLine(notchesTypes.Length.ToString() + " " + n.ToString());
                 Line drillingAxis = Line.Unset;
                 if (notchesTypes != null) {
                     if (notchesTypes.Length == n) {

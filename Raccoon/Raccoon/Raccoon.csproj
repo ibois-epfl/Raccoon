@@ -160,11 +160,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-Erase "$(TargetPath)"
-
-Copy "$(SolutionPath)" "$(SolutionDir)build\$(ProjectName).gha"
-Erase "$(SolutionPath)"</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)$(ProjectName).gha" "C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\build\" /s /i /y
+Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <FallbackCulture>en-US</FallbackCulture>
@@ -178,9 +175,8 @@ Erase "$(SolutionPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-Erase "$(TargetPath)"
 
-Copy "$(SolutionPath)" "$(SolutionDir)build\$(ProjectName).gha"
-Erase "$(SolutionPath)"</PreBuildEvent>
+
+</PreBuildEvent>
   </PropertyGroup>
 </Project>
