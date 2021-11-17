@@ -13,7 +13,7 @@ Development code for Petras Vestartas
 - [ ] C++ Visualizer
 
 ### Global Search Methods
-- [x] RTree + OOB and ABB collision
+- [x] Closest Object Query + OOB and ABB collision
 - [ ] no search by user given index (must have input in the beginning)
 
 ### Local Search Methods
