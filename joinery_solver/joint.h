@@ -94,7 +94,6 @@ public:
     
 
 
-	
 	void transform(CGAL::Aff_transformation_3<IK>& xform0, CGAL::Aff_transformation_3<IK>& xform1);//Custom user transformation
 	bool orient_to_connection_area();//Orient to connection area if rectangles are set
 };
