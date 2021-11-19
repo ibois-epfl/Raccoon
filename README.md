@@ -22,11 +22,11 @@ ________________________________________________________
 - [ ] C++ Visualizer
 ________________________________________________________
 
-### Global Search Methods
+### Search Global Methods
 - [x] Closest Object Query + OOB and ABB collision
 - [ ] no search by user given index (must have input in the beginning)
 
-### Local Search Methods
+### Search Local Methods
 - [x] plane_to_face cross
 - [x] face_to_face side-to-side non-parallel
 - [x] face_to_face side-to-side parallel in-plane
