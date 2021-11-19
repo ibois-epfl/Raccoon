@@ -33,7 +33,7 @@ ________________________________________________________
 - [x] face_to_face side-to-side parallel out-of-plane
 - [x] face_to_face top-to-side 
 - [ ] face_to_face top_to_top 
-
+________________________________________________________
 
 ### Joints
 - [ ] store each parameterized joint inside std::unordered_map<string, joint> that is not remapped yet
@@ -61,6 +61,8 @@ ________________________________________________________
 - [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
 - [ ] snap-fit joint - ts_e_p_4
 
+________________________________________________________
+
 ### Merge
 - [x] insert face joints inside edge
 - [ ] :snowflake: insert between multiple edges (cross joint case)
@@ -75,7 +77,6 @@ Description: a vector on an element edge that is equal to a plane normal on an e
 - [x] side-top connection :no_entry: insertion vector is currently defined by insertion direction, change input vectors as plane normals :
 
 ![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/insertion_vectors_0.jpg) 
-
 
 - [x] side-side connection, :no_entry: not finished for out of plane connections
 - [ ] top-top connection
