@@ -90,16 +90,12 @@ public:
     }
 
 
-
-    
-
-
 	void transform(CGAL::Aff_transformation_3<IK>& xform0, CGAL::Aff_transformation_3<IK>& xform1);//Custom user transformation
 	bool orient_to_connection_area();//Orient to connection area if rectangles are set
 };
 
 
-joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_volumes)[4]):
+inline joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_volumes)[4]):
     id(_id), f0(_f0), f1(_f1), e0(_e0), e1(_e1), type(-1) {
 
 
@@ -115,7 +111,7 @@ joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_
 
 }
 
-joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type):
+inline joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type):
     id(_id), f0(_f0), f1(_f1), e0(_e0), e1(_e1), type(_type)
 {
 

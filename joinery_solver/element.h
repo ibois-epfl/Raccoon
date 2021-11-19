@@ -123,7 +123,7 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 }
 
 
-bool sort_by_third(const std::tuple<int, bool, double>& a, const std::tuple<int, bool, double>& b)
+inline bool sort_by_third(const std::tuple<int, bool, double>& a, const std::tuple<int, bool, double>& b)
 {
 	return (std::get<2>(a) < std::get<2>(b));
 }

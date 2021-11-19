@@ -1,4 +1,4 @@
-#include "compas.h"
+#include "stdafx.h"
 #include "connection_zones.h"
 
 std::vector<compas::RowMatrixXd> get_connection_zones(
@@ -107,17 +107,17 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 
 
 
-
-void init_connectionzones(pybind11::module& m) {
-	pybind11::module submodule = m.def_submodule("connectionzonesCGAL");
-
-	submodule.def(
-		"get_connection_zones",
-		&get_connection_zones,
-		pybind11::arg("V").noconvert(),
-		pybind11::arg("F").noconvert(),
-		pybind11::arg("D").noconvert(),
-		pybind11::arg("J").noconvert(),
-		pybind11::arg("X").noconvert()
-	);
-}
+//
+//void init_connectionzones(pybind11::module& m) {
+//    pybind11::module submodule = m.def_submodule("connectionzonesCGAL");
+//
+//    submodule.def(
+//        "get_connection_zones",
+//        &get_connection_zones,
+//        pybind11::arg("V").noconvert(),
+//        pybind11::arg("F").noconvert(),
+//        pybind11::arg("D").noconvert(),
+//        pybind11::arg("J").noconvert(),
+//        pybind11::arg("X").noconvert()
+//    );
+//}

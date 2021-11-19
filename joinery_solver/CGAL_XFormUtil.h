@@ -392,7 +392,7 @@ namespace CGAL_XFormUtil {
     }
 
 
-    void AxisRotation(double angle, IK::Vector_3& axis, CGAL::Aff_transformation_3<IK>& rot)
+    inline void AxisRotation(double angle, IK::Vector_3& axis, CGAL::Aff_transformation_3<IK>& rot)
     {
         //create matrix of the rotation
         IK::RT 

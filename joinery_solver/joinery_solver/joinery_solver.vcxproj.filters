@@ -21,9 +21,6 @@
     <ClInclude Include="..\compas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\slicer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\CGAL_BoxUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,12 +60,21 @@
     <ClInclude Include="..\CGAL_MathUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xxx_interop_python.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\clipper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\connection_zones.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xxx_interop_python.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

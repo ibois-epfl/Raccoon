@@ -1,6 +1,17 @@
 ﻿  stdafx.cpp
    --- Rhino C++ component links with libs in "C:/Program Files/Rhino 7 SDK/Lib/Release"
   cmdjoinery_solver_rhino7.cpp
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(30,1): warning C4005: 'ON_DBL_MIN': macro redefinition
+C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(214): message : see previous definition of 'ON_DBL_MIN'
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(31,1): warning C4005: 'ON_EPSILON': macro redefinition
+C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(221): message : see previous definition of 'ON_EPSILON'
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(34,1): warning C4005: 'ON_DBL_MAX': macro redefinition
+C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(208): message : see previous definition of 'ON_DBL_MAX'
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(94,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(117,9): warning C4189: 'n': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(301,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(333,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(358,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   joinery_solver_rhino7App.cpp
   joinery_solver_rhino7PlugIn.cpp
   Generating Code...

@@ -1,6 +1,7 @@
 #pragma once
-#include <pybind11/eigen.h>
-#include <pybind11/stl.h>
+//#include <pybind11/eigen.h>
+//#include <pybind11/stl.h>
+
 #include <Eigen/StdVector>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
@@ -10,7 +11,7 @@
 #include <CGAL/Plane_3.h>
 #include <iostream>
 #include <fstream>
-
+//#include "connection_zones.h"
 
 using IK = CGAL::Exact_predicates_inexact_constructions_kernel;
 using EK = CGAL::Exact_predicates_exact_constructions_kernel;
@@ -19,11 +20,11 @@ typedef CGAL::Cartesian_converter<EK, IK> EK_to_IK;
 using CGAL_Polyline = std::vector<IK::Point_3>;
 using CGAL_Polylines = std::list<CGAL_Polyline>;
 
-static double GlobalTolerance = 0.01;
-static double GlobalToleranceSquare = 0.0001;
-static double GlobalClipperScale = 1000000.0;
-static double GlobalClipperAreaTolerance = 0.0001;
-static double GlobalExtend[5] = { 0,0,0,0,0 };
+static  double GlobalTolerance = 0.01;
+static  double GlobalToleranceSquare = 0.0001;
+static  double GlobalClipperScale = 1000000.0;
+static  double GlobalClipperAreaTolerance = 0.0001;
+static  double GlobalExtend[5] = { 0,0,0,0,0 };
 
 #define ON_IS_FINITE(x) (0x7FF0 != (*((unsigned short*)(&x) + 3) & 0x7FF0))
 #define ON_DBL_MIN 2.22507385850720200e-308
@@ -375,36 +376,23 @@ inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVector(std:
 }
 
 
-//void init_meshing(py::module&);
-//void init_booleans(py::module&);
-//void init_slicer(py::module&);
-//void init_intersections(py::module&);
-//void init_measure(py::module&);
-void init_connectionzones(pybind11::module&);
-
-
-void say_hello() {
-    printf("CPP SHello World \n");
-}
-
-
-
-
-//pybind11module, module
-PYBIND11_MODULE(pybind11module, m) {
-
-    m.doc() = "";
-    //m.doc() = "pybind11module";//Module name
-    m.def("say_hello", &say_hello);//Function reference
-
-    pybind11::class_<compas::Result>(m, "Result")
-        .def_readonly("vertices", &compas::Result::vertices)
-        .def_readonly("faces", &compas::Result::faces);
-
-    //init_meshing(m);
-    //init_booleans(m);
-    //init_slicer(m);
-    //init_intersections(m);
-    //init_measure(m);
-    init_connectionzones(m);
-}
+//void init_connectionzones(pybind11::module&);
+//
+//
+//void say_hello() {
+//    printf("CPP SHello World \n");
+//}
+//
+//
+////pybind11module, module
+//PYBIND11_MODULE(pybind11module, m) {
+//
+//    m.doc() = "";
+//    m.def("say_hello", &say_hello);//Function reference
+//
+//    pybind11::class_<compas::Result>(m, "Result")
+//        .def_readonly("vertices", &compas::Result::vertices)
+//        .def_readonly("faces", &compas::Result::faces);
+//
+//    init_connectionzones(m);
+//}

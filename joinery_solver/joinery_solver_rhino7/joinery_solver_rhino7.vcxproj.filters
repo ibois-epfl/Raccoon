@@ -35,9 +35,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="joinery_solver_rhino7PlugIn.h">
       <Filter>Header Files</Filter>
     </ClInclude>

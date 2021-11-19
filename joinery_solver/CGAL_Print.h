@@ -3,7 +3,7 @@
 #include "compas.h"
 #include <float.h>
 #include <inttypes.h>
-int Digs = DECIMAL_DIG;
+static int Digs = DECIMAL_DIG;
 
 inline void CGAL_Debug() {
 	printf("\n");

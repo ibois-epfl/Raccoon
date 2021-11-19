@@ -1,4 +1,4 @@
-//#pragma once
+#pragma once
 #include "compas.h"
 #include "CGAL_XFormUtil.h"
 #include "CGAL_VectorUtil.h"
@@ -9,7 +9,7 @@
 #include "CGAL_Print.h"
 #include "CGAL_MathUtil.h"
 #include "RTree.h"
-#include "AxisPlane.h"
+
 #include "clipper.h"
 #include "clipperUtil.h"
 
@@ -1408,3 +1408,10 @@ inline void three_valence_joint_alignment(
 
 
 
+std::vector<compas::RowMatrixXd> get_connection_zones(
+	Eigen::Ref<const compas::RowMatrixXd>& polylines_vertices_XYZ,
+	Eigen::Ref<const compas::RowMatrixXi>& polylines_vertices_count_int,
+	Eigen::Ref<const compas::RowMatrixXd>& face_vectors_XYZ,
+	Eigen::Ref<const compas::RowMatrixXi>& face_joints_types_int,
+	Eigen::Ref<const compas::RowMatrixXi>& three_valence_element_indices_and_instruction
+);

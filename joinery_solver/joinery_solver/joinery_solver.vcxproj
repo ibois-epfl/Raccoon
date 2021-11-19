@@ -83,11 +83,13 @@
     <ClInclude Include="..\joint.h" />
     <ClInclude Include="..\joint_library.h" />
     <ClInclude Include="..\RTree.h" />
-    <ClInclude Include="..\slicer.h" />
+    <ClInclude Include="..\stdafx.h" />
+    <ClInclude Include="..\xxx_interop_python.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\clipper.cpp" />
     <ClCompile Include="..\connection_zones.cpp" />
+    <ClCompile Include="..\xxx_interop_python.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

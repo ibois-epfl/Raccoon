@@ -1,7 +1,7 @@
 #pragma once
 #include <math.h>
 #include "compas.h"
-#include "AxisPlane.h"
+//#include "AxisPlane.h"
 //#include "CGAL_PolylineUtil.h"
 
 

@@ -4,6 +4,20 @@
 
 #pragma once
 
+
+//#if defined(_M_X64) && defined(WIN32) && defined(WIN64)
+////  The afxwin.h includes afx.h, which includes afxver_.h, 
+////  which unconditionally defines WIN32  This is a bug.
+////  Note, all Windows builds (32 and 64 bit) define _WIN32.
+////  Only 64-bit builds define _WIN64. Never define/undefine
+//// _WIN32 or _WIN64.  Only define EXACTLY one of WIN32 or WIN64.
+////  See the MSDN "Predefined Macros" help file for details.
+//#undef WIN32
+#define NOMINMAX	// my additions
+#undef min			// my additions
+#undef max			// my additions
+//#endif
+
 #ifndef VC_EXTRALEAN
 #define VC_EXTRALEAN                             // Exclude rarely-used stuff from Windows headers
 #endif
@@ -83,3 +97,4 @@
 
 // Rhino SDK linking pragmas
 #include "rhinoSdkPlugInLinkingPragmas.h"
+

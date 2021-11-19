@@ -37,7 +37,7 @@
 * used has retained a Delphi flavour.                                          *
 *                                                                              *
 *******************************************************************************/
-
+#include "stdafx.h"
 #include "clipper.h"
 #include <cmath>
 #include <vector>
