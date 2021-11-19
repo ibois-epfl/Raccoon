@@ -9,6 +9,7 @@ ________________________________________________________
 - [ ] output: polylines, polylines vertex count, polylines ids (minus are joints), cut types (milling, drilling, cut, notches)
 - [ ] simplify conversion (instead of creation of polyline vector, create directly elements)
 - [ ] compas_wood C++ repository
+- [ ] Meshing in COMPAS
 
 ### Interface Rhino C++ Grasshopper
 - [ ] C# (Wrapper) + CGAL
@@ -79,8 +80,7 @@ Description: a vector on an element edge that is equal to a plane normal on an e
 - [x] side-side connection, :no_entry: not finished for out of plane connections
 - [ ] top-top connection
 
-### Display
-- [ ] Meshing in COMPAS
+________________________________________________________
 
 ### Examples
 - [x] Small samples
@@ -89,6 +89,8 @@ Description: a vector on an element edge that is equal to a plane normal on an e
 - [ ] VDA
 - [ ] Vidy
 - [ ] Students
+
+________________________________________________________
 
 # CSharp Project Raccoon (CNC G-Code)
 To run CNC G-Code download the Build folder and place in Grasshopper Libraries folder: 
