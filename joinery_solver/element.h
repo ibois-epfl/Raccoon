@@ -32,7 +32,7 @@ class element
 		//joint must be sorted according to edge id to be merged
 		/////////////////////////////////////////////////////////////////////////////////////////
 		//std::map<int, std::pair<bool, int>>edgeID_mf_jointID; //e0,true,jointID
-		std::vector<std::vector<std::tuple<int,bool,double>>> j_mf; //jointID_malefemale, can be multiple joints per face, i.e. tenon mortise with multiple joints
+		std::vector<std::vector<std::tuple<int,bool,double>>> j_mf; //(-1, false, parameter on edge) elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true,0));
 		//std::vector<CGAL_Polyline> modified_polylines;
 		//public Mesh mesh;
 
@@ -56,9 +56,6 @@ class element
 
 inline element::element() { }
 
-//void element::get_joints_geometry(std::vector<CGAL_Polyline>)
-//{
-//}
 
 inline element::element(int _id) : id(_id){
 	
@@ -66,12 +63,14 @@ inline element::element(int _id) : id(_id){
 
 inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector <CGAL_Polyline>& output, int what_to_expose) {
 
+
+
 	for (int i = 0; i < polylines.size(); i++) {
 
 
-		for (size_t j = 0; j < j_mf[i].size(); j++)
-		{
+		for (size_t j = 0; j < j_mf[i].size(); j++)	{
 
+			
 
 			switch (what_to_expose)
 			{
@@ -80,16 +79,8 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_area);
 				break;
 			case(1):
-				//if (joints[std::get<0>(j_mf[i][j])].joint_lines[0].size()==2) 
-					output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[0]);
-				//if (joints[std::get<0>(j_mf[i][j])].joint_lines[1].size() == 2)
-					output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[1]);
-
-				
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].joint_lines[0][0],true);
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].joint_lines[0][1], true);
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].joint_lines[1][0], true);
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].joint_lines[1][1], true);
+				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[0]);
+				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[1]);
 				break;
 			case(2):
 				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[0]);
@@ -100,6 +91,14 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 
 				break;
 			case(3):
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size());
+				//CGAL_Debug(std::get<0>(j_mf[i][j]));
+				//CGAL_Debug(std::get<1>(j_mf[i][j]));
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].m[0].size());
+				//printf(joints[std::get<0>(j_mf[i][j])].name.c_str());
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].m[1].size());
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].f[0].size());
+				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].f[1].size());
 				output.insert(
 					output.end(),
 					joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).begin(),

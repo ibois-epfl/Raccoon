@@ -12,7 +12,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 
 	std::vector<CGAL_Polyline> plines;
 	
-	int search_type = 0;//Implement
+	int search_type = 1;//Implement
 	bool show_plane_normals = true;
 	double division_distance = 300;
 	double shift = 0.6;
@@ -58,108 +58,15 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	//////////////////////////////////////////////////////////////////////////////
 	//3-valence joints
 	//////////////////////////////////////////////////////////////////////////////
-	if (out_three_valence_element_indices_and_instruction.size() > 0) {
-		three_valence_joint_alignment(
-			out_three_valence_element_indices_and_instruction,
-			elements,
-			joints,
-			joints_map,
-			plines,
-			division_distance);
-	}
-
-
+	if (out_three_valence_element_indices_and_instruction.size() > 0) 
+		three_valence_joint_alignment(out_three_valence_element_indices_and_instruction,elements,joints,joints_map,	plines,	division_distance);
 
 	////////////////////////////////////////////////////////////////////////////////
-	////Create and Align Joints
+	////Create and Align Joints 1. Iterate type 2. Select joint based on not/given user joint_type
 	////////////////////////////////////////////////////////////////////////////////
-	for (int i = 0; i < joints.size(); i++) {
-		//Cross_Simple(joints[i]);
-
-
-		//CGAL_Debug(joints[i].type);
-		//CGAL_Debug(joints[i].type);
-		//CGAL_Debug(joints[i].type);
-		switch (joints[i].type) {
-			
-
-		case(12):
-			if (elements[joints[i].f0].joint_types.size() > 0) {
-
-				int id0 = elements[joints[i].f0].joint_types[joints[i].e0];
-				int id1 = elements[joints[i].f1].joint_types[joints[i].e1];
-				//CGAL_Debug(id0, id1);
-
-				if (id0 != 0)
-					joint_library::construct_joint_by_index(joints[i], id0, division_distance, shift);
-				else if (id1 != 0)
-					joint_library::construct_joint_by_index(joints[i], id1, division_distance, shift);
-
-			}
-			else {
-				joint_library::construct_joint_by_index(joints[i], 1, division_distance, shift);
-			}
-			break;
-
-		case(11):
+	joint_library::construct_joint_by_index( elements, joints, division_distance, shift);
 
 	
-
-			//joint types are given by user
-			if (elements[joints[i].f0].joint_types.size() > 0) {
-
-				int id0 = elements[joints[i].f0].joint_types[joints[i].e0];
-				int id1 = elements[joints[i].f1].joint_types[joints[i].e1];
-				//CGAL_Debug(id0, id1);
-
-				if (id0 > 9 && id0 < 20)
-					joint_library::construct_joint_by_index(joints[i], id0, division_distance, shift);
-				else if (id1 > 9 && id1 < 20)
-					joint_library::construct_joint_by_index(joints[i], id1, division_distance, shift);
-
-			}
-			else
-				joint_library::construct_joint_by_index(joints[i], 11, division_distance, shift);
-		
-
-			break;
-
-		case(20):
-
-
-
-			//joint types are given by user
-			if (elements[joints[i].f0].joint_types.size() > 0) {
-
-				int id0 = elements[joints[i].f0].joint_types[joints[i].e0];
-				int id1 = elements[joints[i].f1].joint_types[joints[i].e1];
-				//CGAL_Debug(id0, id1);
-
-				if (id0 > 19 && id0 < 30) 
-					joint_library::construct_joint_by_index(joints[i], id0, division_distance, shift);
-				else if (id1 > 19 && id1 < 30) 
-					joint_library::construct_joint_by_index(joints[i], id1, division_distance, shift);
-
-			}
-			else {
-				joint_library::construct_joint_by_index(joints[i], 23, division_distance, shift);
-				//joint_library::construct_joint_by_index(joints[i], 21, division_distance, shift);
-				//joint_library::ts_e_p_0(joints[i]);//default option
-
-			}
-			
-	
-
-			break;
-
-		}
-
-
-
-	}
-
-	
-	//CGAL_Debug(joints.size());
 	//////////////////////////////////////////////////////////////////////////////
 	//Iterate joint address
 	//////////////////////////////////////////////////////////////////////////////
@@ -167,10 +74,10 @@ std::vector<compas::RowMatrixXd> get_connection_zones(
 	plines.reserve(elements.size() * 4);
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 
-		//elements[i].get_joints_geometry(joints, plines, 0);
-		//elements[i].get_joints_geometry(joints, plines,1);
-		//elements[i].get_joints_geometry(joints, plines, 2);
-		//elements[i].get_joints_geometry(joints, plines, 3);//push joint geometry from joint to element
+		elements[i].get_joints_geometry(joints, plines, 0);
+		elements[i].get_joints_geometry(joints, plines,1);
+		elements[i].get_joints_geometry(joints, plines, 2);
+		elements[i].get_joints_geometry(joints, plines, 3);//push joint geometry from joint to element
 		elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
 
 	}

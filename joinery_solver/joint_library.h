@@ -895,19 +895,27 @@ namespace joint_library {
 	inline void cr_c_ip_0(joint& joint) {
 
 
-		//printf("Cross_Simple %zi", joint.m.size());
+		//printf("cr_c_ip_0");
 
 		joint.name = "cr_c_ip_0";
 
 		joint.f[0] = {
-		{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) },
 		{ IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,0.55),IK::Point_3(-0.5,-0.5,0.55),IK::Point_3(-0.5,-0.5,0) }
+		};
+
+		joint.f[1] = {
+			{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) },
+
 		};
 
 
 		joint.m[0] = {
-		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) },
-		{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) }
+		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) }
+		};
+
+
+		joint.m[1] = {
+{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) }
 		};
 
 		joint.m_boolean_type = { '0','0' };
@@ -917,7 +925,7 @@ namespace joint_library {
 		joint.orient_to_connection_area();
 	}
 
-	inline void cr_c_ip_1(joint& joint, double& shift) {
+	inline void cr_c_ip_1(joint& joint, const double& shift) {
 
 		joint.name = "cr_c_ip_1";
 
@@ -963,7 +971,7 @@ namespace joint_library {
 		joint.m[0].reserve(9);
 		joint.f[1].reserve(9);
 
-		auto xform = to_plane(IK::Vector_3(0, 1, 0), IK::Vector_3(1, 0, 0), IK::Vector_3(0, 0, 1));
+		auto xform = to_plane(IK::Vector_3(0, 1, 0), IK::Vector_3(1, 0, 0), IK::Vector_3(0, 0, -1));
 
 		double lenghts[9] = { 0.5,0.4,0.4, 0.4,0.4,  0.1,0.1,0.1,0.1 };
 		for (int i = 0; i < 9; i++) {
@@ -1052,67 +1060,109 @@ namespace joint_library {
 	}
 
 
-	inline void construct_joint_by_index(joint& joint, const int& id_representing_joing_name, const double& division_distance, const double& shift) {
+	inline void construct_joint_by_index(std::vector<element>& elements, std::vector<joint>& joints, const double& division_distance, const double& shift) {
 
-		if (id_representing_joing_name == 0) {
+		for (auto& joint : joints) {
 
-		}
-		else if (id_representing_joing_name > 0 && id_representing_joing_name < 10) {
+			//Select user given type
+			int id_representing_joing_name = -1;
+			if (elements[joint.f0].joint_types.size() && elements[joint.f1].joint_types.size())
+				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0] > elements[joint.f1].joint_types[joint.e1] ? elements[joint.f0].joint_types[joint.e0] : elements[joint.f1].joint_types[joint.e1];
+			else if (elements[joint.f0].joint_types.size())
+				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0];
+			else if (elements[joint.f1].joint_types.size())
+				id_representing_joing_name = elements[joint.f1].joint_types[joint.e1];
 
+			//CGAL_Debug(joint.type);
+			//CGAL_Debug(id_representing_joing_name);
+			//CGAL_Debug(joint.type == 30);
+			//CGAL_Debug((id_representing_joing_name > 39 && id_representing_joing_name < 50));
+			//CGAL_Debug(id_representing_joing_name == -1);
+			//CGAL_Debug(joint.type == 30 && ((id_representing_joing_name > 39 && id_representing_joing_name < 50) || id_representing_joing_name == -1));
 
-			switch (id_representing_joing_name)
-			{
-			case(1):
-				ss_e_ip_1(joint, division_distance, shift);
-				break;
-			default:
-				ss_e_ip_0(joint);
-				break;
+			//Select first by local search, only then by user given index, or by default
+			if (id_representing_joing_name == 0) {
+				//CGAL_Debug(55555);
+				return;//Nothing
 			}
-		}
-		else if (id_representing_joing_name > 9 && id_representing_joing_name < 20) {
+			else if (joint.type == 12 && ((id_representing_joing_name > 0 && id_representing_joing_name < 10) || id_representing_joing_name == -1)) {
+				//CGAL_Debug(66666);
+				switch (id_representing_joing_name)
+				{
+				case(1):
+					ss_e_ip_1(joint, division_distance, shift);
+					break;
+				default:
+					ss_e_ip_0(joint);
+					break;
+				}
 
-			switch (id_representing_joing_name)
-			{
-			case(11):
-				ss_e_op_1(joint, division_distance, shift);
-				break;
-			case(10):
-				ss_e_op_2(joint, division_distance, shift);
-				break;
-			default:
-				ss_e_op_0(joint);
-				break;
+			}
+			else if (joint.type == 11 && ((id_representing_joing_name > 9 && id_representing_joing_name < 20) || id_representing_joing_name == -1)) {
+				//CGAL_Debug(77777);
+				switch (id_representing_joing_name)
+				{
+				case(11):
+					ss_e_op_1(joint, division_distance, shift);
+					break;
+				case(10):
+					ss_e_op_2(joint, division_distance, shift);
+					break;
+				default:
+					ss_e_op_0(joint);
+					break;
+				}
+
+
+			}
+			else if (joint.type == 20 && ((id_representing_joing_name > 19 && id_representing_joing_name < 30) || id_representing_joing_name == -1)) {
+				CGAL_Debug(88888);
+				switch (id_representing_joing_name)
+				{
+				case(23):
+					ts_e_p_3(joint, division_distance, 0);
+					break;
+				case(22):
+					ts_e_p_2(joint, division_distance, 0);
+					break;
+				case(21):
+					ts_e_p_1(joint);
+					break;
+				case(24):
+					ts_e_p_0(joint);
+					break;
+				default:
+					ts_e_p_3(joint, division_distance, 0);
+					break;
+				}
+
+			}
+			else if (joint.type == 30 && ((id_representing_joing_name > 39 && id_representing_joing_name < 50) || id_representing_joing_name == -1)) {
+				//CGAL_Debug(99999);
+
+				switch (id_representing_joing_name)
+				{
+
+				case(40):
+					cr_c_ip_1(joint, shift);
+					break;
+				default:
+					cr_c_ip_1(joint, shift);
+					//cr_c_ip_0(joint);
+					//printf(joint.name.c_str());
+					break;
+				}
+
 			}
 
+		
+
+
 
 		}
-		else if (id_representing_joing_name > 19 && id_representing_joing_name < 30) {
-			switch (id_representing_joing_name)
-			{
-			case(23):
-				ts_e_p_3(joint, division_distance, 0);
-				break;
-			case(22):
-				ts_e_p_2(joint, division_distance, 0);
-				break;
-			case(21):
-				ts_e_p_1(joint);
-				break;
-			case(24):
-				ts_e_p_0(joint);
-				break;
-			default:
-				ts_e_p_3(joint, division_distance, 0);
-				break;
-			}
+	
 
-		}
-
-		else if (id_representing_joing_name > 39 && id_representing_joing_name < 40) {
-			cr_c_ip_0(joint);
-		}
-	}
+}
 
 
 
