@@ -3,27 +3,37 @@ Development code for Petras Vestartas
 
 # C++ Project joinery_solver
 
-### Interface
+________________________________________________________
+### Interface compas_wood
 - [x] pybind11 + CGAL
 - [ ] output: polylines, polylines vertex count, polylines ids (minus are joints), cut types (milling, drilling, cut, notches)
 - [ ] simplify conversion (instead of creation of polyline vector, create directly elements)
 - [ ] compas_wood C++ repository
+- [ ] Meshing in COMPAS
+
+### Interface Rhino C++ Grasshopper
 - [ ] C# (Wrapper) + CGAL
 - [ ] Grasshopper components (integration with NGon)
-- [ ] C++ Visualizer
 
-### Global Search Methods
+### Interface Rhino C++ Plugin
+- [x] Rhino requires stdafx files referenced to .cpp files. If you are using another project for building this one, create stdafx.h in that project to stop complaining. And underfine following variables in rhino stdafx.h file, #define NOMINMAX #undef min #undef max. Since library files will be place else where, add in C/C++ -> General -> Additional Include Directions -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver	
+
+### Interface Stand-alone
+- [ ] C++ Visualizer
+________________________________________________________
+
+### Search Global Methods
 - [x] Closest Object Query + OOB and ABB collision
 - [ ] no search by user given index (must have input in the beginning)
 
-### Local Search Methods
+### Search Local Methods
 - [x] plane_to_face cross
 - [x] face_to_face side-to-side non-parallel
 - [x] face_to_face side-to-side parallel in-plane
 - [x] face_to_face side-to-side parallel out-of-plane
 - [x] face_to_face top-to-side 
 - [ ] face_to_face top_to_top 
-
+________________________________________________________
 
 ### Joints
 - [ ] store each parameterized joint inside std::unordered_map<string, joint> that is not remapped yet
@@ -51,6 +61,8 @@ Development code for Petras Vestartas
 - [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
 - [ ] snap-fit joint - ts_e_p_4
 
+________________________________________________________
+
 ### Merge
 - [x] insert face joints inside edge
 - [ ] :snowflake: insert between multiple edges (cross joint case)
@@ -66,12 +78,10 @@ Description: a vector on an element edge that is equal to a plane normal on an e
 
 ![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/insertion_vectors_0.jpg) 
 
-
 - [x] side-side connection, :no_entry: not finished for out of plane connections
 - [ ] top-top connection
 
-### Display
-- [ ] Meshing in COMPAS
+________________________________________________________
 
 ### Examples
 - [x] Small samples
@@ -80,6 +90,8 @@ Description: a vector on an element edge that is equal to a plane normal on an e
 - [ ] VDA
 - [ ] Vidy
 - [ ] Students
+
+________________________________________________________
 
 # CSharp Project Raccoon (CNC G-Code)
 To run CNC G-Code download the Build folder and place in Grasshopper Libraries folder: 
