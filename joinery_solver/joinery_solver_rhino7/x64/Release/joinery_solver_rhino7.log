@@ -1,0 +1,8 @@
+﻿  stdafx.cpp
+   --- Rhino C++ component links with libs in "C:/Program Files/Rhino 7 SDK/Lib/Release"
+  cmdjoinery_solver_rhino7.cpp
+  joinery_solver_rhino7App.cpp
+  joinery_solver_rhino7PlugIn.cpp
+  Generating Code...
+     Creating library C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.lib and object C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.exp
+  joinery_solver_rhino7.vcxproj -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.rhp

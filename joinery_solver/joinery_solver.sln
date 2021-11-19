@@ -5,13 +5,22 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "joinery_solver", "joinery_solver\joinery_solver.vcxproj", "{A5F8FDB5-C3A6-47E0-9337-7FB67444F513}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "joinery_solver_rhino7", "joinery_solver_rhino7\joinery_solver_rhino7.vcxproj", "{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5F8FDB5-C3A6-47E0-9337-7FB67444F513}.Debug|x64.ActiveCfg = Release|x64
+		{A5F8FDB5-C3A6-47E0-9337-7FB67444F513}.Debug|x64.Build.0 = Release|x64
 		{A5F8FDB5-C3A6-47E0-9337-7FB67444F513}.Release|x64.ActiveCfg = Release|x64
 		{A5F8FDB5-C3A6-47E0-9337-7FB67444F513}.Release|x64.Build.0 = Release|x64
+		{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}.Debug|x64.ActiveCfg = Debug|x64
+		{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}.Debug|x64.Build.0 = Debug|x64
+		{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}.Release|x64.ActiveCfg = Release|x64
+		{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
