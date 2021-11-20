@@ -49,8 +49,8 @@ class element
 		element();
 		element(int);
 
-		void get_joints_geometry(std::vector<joint>& joints, std::vector <CGAL_Polyline>& output, int what_to_expose);
-		void element::get_joints_geometry_as_closed_polylines(std::vector<joint>& joints, std::vector <CGAL_Polyline>& output);
+		void get_joints_geometry(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output, int what_to_expose);
+		void element::get_joints_geometry_as_closed_polylines(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
 };
 
 
@@ -61,9 +61,9 @@ inline element::element(int _id) : id(_id){
 	
 }
 
-inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector <CGAL_Polyline>& output, int what_to_expose) {
+inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output, int what_to_expose) {
 
-
+	//you are in a loop
 
 	for (int i = 0; i < polylines.size(); i++) {
 
@@ -75,40 +75,40 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 			switch (what_to_expose)
 			{
 			case(0):
-				//if(joints[j_mf[i].first].f0==0 && joints[j_mf[i].first].f1==3)
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_area);
+				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_area);
 				break;
 			case(1):
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[0]);
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[1]);
+				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[0]);
+				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[1]);
 				break;
 			case(2):
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[0]);
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[1]);
+				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[0]);
+				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[1]);
 
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[2]);
-				output.push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[3]);
+				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[2]);
+				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[3]);
 
 				break;
 			case(3):
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size());
-				//CGAL_Debug(std::get<0>(j_mf[i][j]));
-				//CGAL_Debug(std::get<1>(j_mf[i][j]));
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].m[0].size());
-				//printf(joints[std::get<0>(j_mf[i][j])].name.c_str());
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].m[1].size());
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].f[0].size());
-				//CGAL_Debug(joints[std::get<0>(j_mf[i][j])].f[1].size());
-				output.insert(
-					output.end(),
-					joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).begin(),
-					joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).end()
-				);
-				output.insert(
-					output.end(),
-					joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false).begin(),
-					joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false).end()
-				);
+
+				//int n = joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size() ;
+				for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size(); k++) {
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);//cut
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);//direction
+				}
+
+
+
+				//output[this->id].insert(
+				//	output[this->id].end(),
+				//	joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).begin(),
+				//	joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).end()
+				//);
+				//output[this->id].insert(
+				//	output[this->id].end(),
+				//	joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false).begin(),
+				//	joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false).end()
+				//);
 				break;
 			default:
 				break;
@@ -128,8 +128,10 @@ inline bool sort_by_third(const std::tuple<int, bool, double>& a, const std::tup
 	return (std::get<2>(a) < std::get<2>(b));
 }
 
-inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>& joints, std::vector <CGAL_Polyline>& output) {
+inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
 
+	//you are in a loop
+	
 	///////////////////////////////////////////////////////////////////////////////
 	//Copy top and bottom polylines
 	///////////////////////////////////////////////////////////////////////////////
@@ -325,8 +327,8 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 		if (i == n - 1) {
 			newPolyline0.push_back(newPolyline0[0]);
 			newPolyline1.push_back(newPolyline1[0]);
-			output.push_back(newPolyline0);
-			output.push_back(newPolyline1);
+			output[this->id].push_back(newPolyline0);
+			output[this->id].push_back(newPolyline1);
 		}
 	}
 	
@@ -357,8 +359,8 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 					joints[std::get<0> (j_mf[i][j])].reverse(std::get<1> (j_mf[i][j]));
 
 				for (int k = 0; k < joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).size() - 1; k++) {
-					output.push_back(joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true)[k]);
-					output.push_back(joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false)[k]);
+					output[this->id].push_back(joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true)[k]);
+					output[this->id].push_back(joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false)[k]);
 				}
 
 			}

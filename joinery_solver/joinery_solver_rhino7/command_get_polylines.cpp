@@ -2,6 +2,7 @@
 #include "joinery_solver_rhino7PlugIn.h"
 #include "compas.h"
 #include "connection_zones.h"
+#include <exception>
 
 #include <chrono>
 using namespace std::chrono;
@@ -88,30 +89,36 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	std::vector<std::vector<int>> input_joint_types;
 	std::vector<std::vector<int>> input_three_valence_element_indices_and_instruction;
 	//output
-	std::vector<CGAL_Polyline> output;
+	std::vector<std::vector<CGAL_Polyline>> output_polyline_groups;
 	//parameters
 	int search_type = 1;
 	double division_distance = 300;
 	double shift = 0.6;
 
 	//get_connection_zones_test();
-	try {
-		get_connection_zones(
-			input_polyline_pairs,
-			input_insertion_vectors,
-			input_joint_types,
-			input_three_valence_element_indices_and_instruction,
-			output,
-			search_type,
-			division_distance,
-			shift
-		);
-	}
-	catch (char const* exception) {
-		RhinoApp().Print(exception);
-	}	catch (...) {
-		RhinoApp().Print("Caught exception : Some other exception");
-	}
+	//__try {
+		try {
+			get_connection_zones(
+				input_polyline_pairs,
+				input_insertion_vectors,
+				input_joint_types,
+				input_three_valence_element_indices_and_instruction,
+				output_polyline_groups,
+				search_type,
+				division_distance,
+				shift
+			);
+	
+		} catch (char const* exception) {
+			RhinoApp().Print(exception);
+		}	catch (...) {
+			RhinoApp().Print("Caught exception : Some other exception");
+		}
+	
+	//}	__except (EXCEPTION_EXECUTE_HANDLER) {
+		//SEH handling
+		//printf("Executing SEH __except block\r\n");
+	//}
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<milliseconds>(stop - start);
 	RhinoApp().Print("==================================== %d ms ==================================== \n", duration);
@@ -122,22 +129,26 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	/////////////////////////////////////////////////////////////////////
 
 	RhinoApp().Print(L"Input %d \n", input_polyline_pairs.size());
-	RhinoApp().Print(L"Output %d \n", output.size());
+	RhinoApp().Print(L"Output %d \n", output_polyline_groups.size());
 
-	for (int i = 0; i < output.size(); i++) {
-	/*	std::vector<ON_3dPoint> points;
-		points.reserve(input_polyline_pairs[i].size());*/
+	for (auto& output : output_polyline_groups) {
 		
-		ON_3dPointArray points;
-		points.Reserve(output[i].size());
-		for (size_t j = 0; j < output[i].size(); j++)
-			points.Append(ON_3dPoint(output[i][j].hx(), output[i][j].hy(), output[i][j].hz()));
-		
-		ON_Polyline pline(points);
-		CRhinoCurveObject* curve_object = context.m_doc.AddCurveObject(pline);
+		ON_SimpleArray<const CRhinoObject*> group_members(output.size());
+		for (int i = 0; i < output.size(); i++) {
 
+			ON_3dPointArray points;
+			points.Reserve(output[i].size());
+			for (size_t j = 0; j < output[i].size(); j++)
+				points.Append(ON_3dPoint(output[i][j].hx(), output[i][j].hy(), output[i][j].hz()));
+
+			ON_Polyline pline(points);
+			CRhinoCurveObject* curve_object = context.m_doc.AddCurveObject(pline);
+			group_members.Append(curve_object);
+		}
+
+		int group_index = context.m_doc.m_group_table.AddGroup(ON_Group(), group_members);
+		if (group_index < 0) CRhinoCommand::failure;
 	}
-
 	context.m_doc.Redraw();
 
 

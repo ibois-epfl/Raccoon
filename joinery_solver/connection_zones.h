@@ -1252,7 +1252,7 @@ inline void three_valence_joint_alignment(
 	std::vector<element>& elements,
 	std::vector<joint>& joints,
 	std::unordered_map<uint64_t, int>& joints_map,
-	std::vector<CGAL_Polyline>& plines,
+	//std::vector<std::vector<CGAL_Polyline>>& plines,
 	double division_length
 	) {
 
@@ -1359,8 +1359,6 @@ inline void three_valence_joint_alignment(
 			CGAL_IntersectionUtil::Plane4LinesIntersection(plane1_0, s0, s1, s2, s3, joints[id_1].joint_volumes[j]);
 			CGAL_IntersectionUtil::Plane4LinesIntersection(plane1_1, s0, s1, s2, s3, joints[id_1].joint_volumes[j+1]);
 
-			//plines.push_back(joints[id_1].joint_volumes[j]);
-			//plines.push_back(joints[id_1].joint_volumes[j + 1]);
 		}
 
 	}
@@ -1415,7 +1413,7 @@ void get_connection_zones(
 	std::vector<std::vector<int>>& input_three_valence_element_indices_and_instruction,
 
 	//output
-	std::vector<CGAL_Polyline>& plines,
+	std::vector<std::vector<CGAL_Polyline>>& plines,
 
 	int search_type = 1,
 	double division_distance = 300,

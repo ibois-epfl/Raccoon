@@ -12,7 +12,7 @@ void get_connection_zones(
 	std::vector<std::vector<int>>& input_three_valence_element_indices_and_instruction,
 
 	//output
-	std::vector<CGAL_Polyline>& plines,
+	std::vector<std::vector<CGAL_Polyline>>& plines,
 
 	int search_type,
 	double division_distance,
@@ -56,7 +56,7 @@ void get_connection_zones(
 
 
 	if (input_three_valence_element_indices_and_instruction.size() > 0)
-		three_valence_joint_alignment(input_three_valence_element_indices_and_instruction, elements, joints, joints_map, plines, division_distance);
+		three_valence_joint_alignment(input_three_valence_element_indices_and_instruction, elements, joints, joints_map, division_distance);//plines, 
 	
 	////////////////////////////////////////////////////////////////////////////////
 	////Create and Align Joints 1. Iterate type 2. Select joint based on not/given user joint_type
@@ -69,14 +69,15 @@ void get_connection_zones(
 	//Iterate joint address
 	//////////////////////////////////////////////////////////////////////////////
 
-	plines.reserve(elements.size() * 4);
+	plines = std::vector<std::vector<CGAL_Polyline>>(elements.size());
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 
-		elements[i].get_joints_geometry(joints, plines, 0);
-		elements[i].get_joints_geometry(joints, plines, 1);
-		elements[i].get_joints_geometry(joints, plines, 2);
-		elements[i].get_joints_geometry(joints, plines, 3);//push joint geometry from joint to element
+		//elements[i].get_joints_geometry(joints, plines, 0);
+		//elements[i].get_joints_geometry(joints, plines, 1);
+		//elements[i].get_joints_geometry(joints, plines, 2);
 		elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
+		elements[i].get_joints_geometry(joints, plines, 3);//push joint geometry from joint to element
+		
 
 	}
 
@@ -84,19 +85,19 @@ void get_connection_zones(
 	//Display Normals
 	//////////////////////////////////////////////////////////////////////////////
 
-	if (false) {
-		for (int i = 1; i < elements.size(); i++) {//Pls.size()
-			for (int j = 0; j < elements[i].planes.size(); j++) {//
-				auto center = CGAL_PolylineUtil::Center(elements[i].polylines[j]);
+	//if (false) {
+	//	for (int i = 1; i < elements.size(); i++) {//Pls.size()
+	//		for (int j = 0; j < elements[i].planes.size(); j++) {//
+	//			auto center = CGAL_PolylineUtil::Center(elements[i].polylines[j]);
 
-				if (elements[i].edge_vectors.size() > 0)
-					plines.push_back({ center,center + elements[i].edge_vectors[j] });
-				// auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(Pls[i][j].point(), Pls[i][j], 10, 10, 10);
-				//auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(CGAL_PolylineUtil::Center(elements[i].polylines[j]), elements[i].planes[j], 10, 10, 10);
-				//plines.push_back(planeDisplay);
-			}
-		}
-	}
+	//			if (elements[i].edge_vectors.size() > 0)
+	//				plines.push_back({ center,center + elements[i].edge_vectors[j] });
+	//			// auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(Pls[i][j].point(), Pls[i][j], 10, 10, 10);
+	//			//auto planeDisplay = CGAL_PlaneUtil::PlaneToLine(CGAL_PolylineUtil::Center(elements[i].polylines[j]), elements[i].planes[j], 10, 10, 10);
+	//			//plines.push_back(planeDisplay);
+	//		}
+	//	}
+	//}
 
 
 
@@ -140,7 +141,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 		out_three_valence_element_indices_and_instruction
 	);
 	
-	std::vector<CGAL_Polyline> output;
+	std::vector<std::vector<CGAL_Polyline>> output;
 	get_connection_zones(
 		out_polyline_pairs,
 		out_insertion_vectors,
