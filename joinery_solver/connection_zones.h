@@ -1406,12 +1406,33 @@ inline void three_valence_joint_alignment(
 //    return true;
 //}
 
+void get_connection_zones_test();
 
+void get_connection_zones(
+	std::vector<CGAL_Polyline>& input_polyline_pairs,
+	std::vector<std::vector<IK::Vector_3>>& input_insertion_vectors,
+	std::vector<std::vector<int>>& input_joint_types,
+	std::vector<std::vector<int>>& input_three_valence_element_indices_and_instruction,
 
-std::vector<compas::RowMatrixXd> get_connection_zones(
+	//output
+	std::vector<CGAL_Polyline>& plines,
+
+	int search_type = 1,
+	double division_distance = 300,
+	double shift = 0.6
+);
+
+std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 	Eigen::Ref<const compas::RowMatrixXd>& polylines_vertices_XYZ,
 	Eigen::Ref<const compas::RowMatrixXi>& polylines_vertices_count_int,
 	Eigen::Ref<const compas::RowMatrixXd>& face_vectors_XYZ,
 	Eigen::Ref<const compas::RowMatrixXi>& face_joints_types_int,
-	Eigen::Ref<const compas::RowMatrixXi>& three_valence_element_indices_and_instruction
+	Eigen::Ref<const compas::RowMatrixXi>& three_valence_element_indices_and_instruction,
+	//output
+	//std::vector<compas::RowMatrixXd>& plines_as_point_matrix,
+
+	int search_type = 1,
+	double division_distance = 300,
+	double shift = 0.6
 );
+

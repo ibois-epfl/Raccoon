@@ -24,7 +24,13 @@
     <ClCompile Include="joinery_solver_rhino7PlugIn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cmdjoinery_solver_rhino7.cpp">
+    <ClCompile Include="command_get_polylines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\clipper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\connection_zones.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

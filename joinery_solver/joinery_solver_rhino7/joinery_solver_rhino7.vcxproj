@@ -11,7 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cmdjoinery_solver_rhino7.cpp" />
+    <ClCompile Include="..\clipper.cpp" />
+    <ClCompile Include="..\connection_zones.cpp" />
+    <ClCompile Include="command_get_polylines.cpp" />
     <ClCompile Include="joinery_solver_rhino7App.cpp" />
     <ClCompile Include="joinery_solver_rhino7PlugIn.cpp" />
     <ClCompile Include="stdafx.cpp">

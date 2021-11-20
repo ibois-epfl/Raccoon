@@ -5,13 +5,16 @@ void init_connectionzones(pybind11::module& m) {
     pybind11::module submodule = m.def_submodule("connectionzonesCGAL");
 
     submodule.def(
-        "get_connection_zones",
-        &get_connection_zones,
+        "get_connection_zones_compas",
+        &get_connection_zones_compas,
         pybind11::arg("V").noconvert(),
         pybind11::arg("F").noconvert(),
         pybind11::arg("D").noconvert(),
         pybind11::arg("J").noconvert(),
-        pybind11::arg("X").noconvert()
+        pybind11::arg("X").noconvert(),
+        pybind11::arg("search_type"),
+        pybind11::arg("division_distance"),
+        pybind11::arg("shift")
     );
 }
 
