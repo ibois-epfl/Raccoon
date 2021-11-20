@@ -32,7 +32,7 @@ class element
 		//joint must be sorted according to edge id to be merged
 		/////////////////////////////////////////////////////////////////////////////////////////
 		//std::map<int, std::pair<bool, int>>edgeID_mf_jointID; //e0,true,jointID
-		std::vector<std::vector<std::tuple<int,bool,double>>> j_mf; //(-1, false, parameter on edge) elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true,0));
+		std::vector<std::vector<std::tuple<int,bool,double>>> j_mf; //(joint id, male/female, parameter on edge) elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true,0));
 		//std::vector<CGAL_Polyline> modified_polylines;
 		//public Mesh mesh;
 
@@ -50,7 +50,8 @@ class element
 		element(int);
 
 		void get_joints_geometry(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output, int what_to_expose);
-		void element::get_joints_geometry_as_closed_polylines(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
+		void element::get_joints_geometry_as_closed_polylines_replacing_edges(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
+		void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
 };
 
 
@@ -64,14 +65,8 @@ inline element::element(int _id) : id(_id){
 inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output, int what_to_expose) {
 
 	//you are in a loop
-
-	for (int i = 0; i < polylines.size(); i++) {
-
-
-		for (size_t j = 0; j < j_mf[i].size(); j++)	{
-
-			
-
+	for (int i = 0; i < j_mf.size(); i++) {//loop joint id 
+		for (size_t j = 0; j < j_mf[i].size(); j++)	{//loop joints per each face + 1 undefined
 			switch (what_to_expose)
 			{
 			case(0):
@@ -84,51 +79,30 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 			case(2):
 				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[0]);
 				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[1]);
-
 				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[2]);
 				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[3]);
-
 				break;
 			case(3):
-
-				//int n = joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size() ;
 				for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size(); k++) {
 					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);//cut
 					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);//direction
 				}
-
-
-
-				//output[this->id].insert(
-				//	output[this->id].end(),
-				//	joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).begin(),
-				//	joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).end()
-				//);
-				//output[this->id].insert(
-				//	output[this->id].end(),
-				//	joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false).begin(),
-				//	joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false).end()
-				//);
 				break;
 			default:
 				break;
 			}
 		}
-
 	}
-
-
-
-
 }
-
 
 inline bool sort_by_third(const std::tuple<int, bool, double>& a, const std::tuple<int, bool, double>& b)
 {
 	return (std::get<2>(a) < std::get<2>(b));
 }
 
-inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
+inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
+
+	
 
 	//you are in a loop
 	
@@ -147,9 +121,9 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 	//Sorts joints by edges
 	//Get closest parameter to edge and sort by this values
 	///////////////////////////////////////////////////////////////////////////////
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {//iterate edge count
 
-		for (int j = 0; j < this->j_mf[i+2].size(); j++) {
+		for (int j = 0; j < this->j_mf[i+2].size(); j++) { //iterate edges, skipping first two
 
 			if (joints[std::get<0>(j_mf[i + 2][j])].name == "") continue;
 
@@ -173,10 +147,6 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 	///////////////////////////////////////////////////////////////////////////////
 	//Perform Intersection, skip first two elements because they are top and bottom
 	///////////////////////////////////////////////////////////////////////////////
-
-
-
-
 	for (int i = 0; i < n; i++) {//iterate sides only
 
 		for (int j = 0; j < this->j_mf[i + 2].size(); j++) {//
@@ -231,10 +201,6 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 				IK::Plane_3 joint_line_plane_0_next(joint_line_0[0], planes[2 + i].orthogonal_vector());
 				IK::Plane_3 joint_line_plane_1_prev(joint_line_1[0], planes[2 + i].orthogonal_vector());
 				IK::Plane_3 joint_line_plane_1_next(joint_line_1[0], planes[2 + i].orthogonal_vector());
-
-
-
-
 
 
 				IK::Vector_3 v(0, 0, 2);
@@ -295,11 +261,11 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 		}//for j
 	} //for i
 
-	
+
 	//Update the end
 	polyline0[polyline0.size() - 1] = polyline0[0];
 	polyline1[polyline1.size() - 1] = polyline1[0];
-	
+
 
 
 
@@ -393,3 +359,15 @@ inline void element::get_joints_geometry_as_closed_polylines(std::vector<joint>&
 
 }
 
+inline void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
+
+
+	CGAL_Debug(9999);
+	for (int i = 0; i < this->j_mf.size(); i++) {
+		CGAL_Debug(this->j_mf[i].size());
+		for (int j = 0; j < this->j_mf[i].size(); j++) {//
+
+		}
+	}
+
+}

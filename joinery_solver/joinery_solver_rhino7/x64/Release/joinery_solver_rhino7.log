@@ -1,4 +1,4 @@
-﻿  connection_zones.cpp
+﻿  command_get_polylines.cpp
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(30,1): warning C4005: 'ON_DBL_MIN': macro redefinition
 C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(214): message : see previous definition of 'ON_DBL_MIN'
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(31,1): warning C4005: 'ON_EPSILON': macro redefinition
@@ -20,10 +20,14 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_XFormUtil.h(363
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_XFormUtil.h(365,18): warning C4189: 'x33': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(186,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(205,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(350,63): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(350,45): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(366,65): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(366,45): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(348,63): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(348,45): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(364,65): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(364,45): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(467,14): warning C4457: declaration of 'p0' hides function parameter
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(391,16): message : see declaration of 'p0'
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(468,14): warning C4457: declaration of 'p1' hides function parameter
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(391,33): message : see declaration of 'p1'
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(625,116): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Segment_3<Kernel_>' to 'CGAL::Segment_3<Kernel_> &'
           with
           [
@@ -64,7 +68,7 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PlaneUtil.h(130
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PlaneUtil.h(130,109): message : A non-const reference may only be bound to an lvalue
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(16,1): warning C4005: 'ASSERT': macro redefinition
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\atlmfc\include\afx.h(366): message : see previous definition of 'ASSERT'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(142,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(116,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(191,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(458,39): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
@@ -87,29 +91,27 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(179,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(184,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(184,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(621,10): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(633,10): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
           with
           [
               Kernel_=CGAL::Epick
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(621,10): message : A non-const reference may only be bound to an lvalue
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(547,13): warning C4189: 'isQuad': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(573,13): warning C4189: 'isQuad': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1024,7): warning C4189: 'nhits': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1124,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1161,11): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1203,36): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1224,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1225,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1226,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1228,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1234,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1235,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1238,10): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1239,8): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1183,10): warning C4189: 'scale': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.cpp(24,44): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.cpp(24,14): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(633,10): message : A non-const reference may only be bound to an lvalue
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(559,13): warning C4189: 'isQuad': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(585,13): warning C4189: 'isQuad': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1036,7): warning C4189: 'nhits': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1136,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1173,11): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1215,36): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1236,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1237,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1238,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1240,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1246,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1247,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1250,10): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1251,8): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1195,10): warning C4189: 'scale': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(1388,14): warning C4189: 'nodeWasSplit': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(1375): message : while compiling class template member function 'void RTree<int,double,3,ELEMTYPE,8,4>::LoadNodes(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *,RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *,RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::PartitionVars *)'
           with
@@ -158,184 +160,15 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(455): messag
           [
               ELEMTYPE=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(990): message : see reference to function template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>::RTree(void)' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1002): message : see reference to function template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>::RTree(void)' being compiled
           with
           [
               ELEMTYPE=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(990): message : see reference to class template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1002): message : see reference to class template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>' being compiled
           with
           [
               ELEMTYPE=double
           ]
-  command_get_polylines.cpp
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(30,1): warning C4005: 'ON_DBL_MIN': macro redefinition
-C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(214): message : see previous definition of 'ON_DBL_MIN'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(31,1): warning C4005: 'ON_EPSILON': macro redefinition
-C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(221): message : see previous definition of 'ON_EPSILON'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(34,1): warning C4005: 'ON_DBL_MAX': macro redefinition
-C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(208): message : see previous definition of 'ON_DBL_MAX'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(94,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(116,6): warning C4189: 'n': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(299,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(327,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(352,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(384,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(409,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_VectorUtil.h(259,14): warning C4189: 'rc': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_VectorUtil.h(321,51): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_XFormUtil.h(362,18): warning C4189: 'x30': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_XFormUtil.h(364,18): warning C4189: 'x32': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_XFormUtil.h(363,18): warning C4189: 'x31': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_XFormUtil.h(365,18): warning C4189: 'x33': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(186,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(205,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(350,63): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(350,45): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(366,65): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PolylineUtil.h(366,45): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(625,116): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Segment_3<Kernel_>' to 'CGAL::Segment_3<Kernel_> &'
-          with
-          [
-              Kernel_=CGAL::Epick
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(625,116): message : A non-const reference may only be bound to an lvalue
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(702,111): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
-          with
-          [
-              Kernel_=CGAL::Epick
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(702,111): message : A non-const reference may only be bound to an lvalue
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(703,103): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
-          with
-          [
-              Kernel_=CGAL::Epick
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(703,103): message : A non-const reference may only be bound to an lvalue
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(705,103): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
-          with
-          [
-              Kernel_=CGAL::Epick
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(705,103): message : A non-const reference may only be bound to an lvalue
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(756,27): warning C4457: declaration of 'result' hides function parameter
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_IntersectionUtil.h(733,124): message : see declaration of 'result'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PlaneUtil.h(127,109): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
-          with
-          [
-              Kernel_=CGAL::Epick
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PlaneUtil.h(127,109): message : A non-const reference may only be bound to an lvalue
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PlaneUtil.h(130,109): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
-          with
-          [
-              Kernel_=CGAL::Epick
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_PlaneUtil.h(130,109): message : A non-const reference may only be bound to an lvalue
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(16,1): warning C4005: 'ASSERT': macro redefinition
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\atlmfc\include\afx.h(366): message : see previous definition of 'ASSERT'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(142,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(191,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(458,39): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(479,8): warning C4189: 'mid': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(690,8): warning C4189: 'mid': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(782,39): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(812,8): warning C4189: 'mid': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(32,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(38,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(98,40): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(81,10): warning C4189: 'scale': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(179,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(179,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(184,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(184,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(621,10): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
-          with
-          [
-              Kernel_=CGAL::Epick
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(621,10): message : A non-const reference may only be bound to an lvalue
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(547,13): warning C4189: 'isQuad': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(573,13): warning C4189: 'isQuad': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1024,7): warning C4189: 'nhits': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1124,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1161,11): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1203,36): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1224,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1225,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1226,7): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1228,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1234,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1235,9): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1238,10): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1239,8): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1183,10): warning C4189: 'scale': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(1388,14): warning C4189: 'nodeWasSplit': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(1375): message : while compiling class template member function 'void RTree<int,double,3,ELEMTYPE,8,4>::LoadNodes(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *,RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *,RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::PartitionVars *)'
-          with
-          [
-              ELEMTYPE=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(1186): message : see reference to function template instantiation 'void RTree<int,double,3,ELEMTYPE,8,4>::LoadNodes(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *,RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *,RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::PartitionVars *)' being compiled
-          with
-          [
-              ELEMTYPE=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(877): message : while compiling class template member function 'void RTree<int,double,3,ELEMTYPE,8,4>::FreeNode(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *)'
-          with
-          [
-              ELEMTYPE=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(857): message : see reference to function template instantiation 'void RTree<int,double,3,ELEMTYPE,8,4>::FreeNode(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *)' being compiled
-          with
-          [
-              ELEMTYPE=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(914): message : while compiling class template member function 'void RTree<int,double,3,ELEMTYPE,8,4>::InitNode(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *)'
-          with
-          [
-              ELEMTYPE=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(870): message : see reference to function template instantiation 'void RTree<int,double,3,ELEMTYPE,8,4>::InitNode(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *)' being compiled
-          with
-          [
-              ELEMTYPE=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(1609): message : while compiling class template member function 'bool RTree<int,double,3,ELEMTYPE,8,4>::Search(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *,RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Rect *,int &,std::function<bool (const DATATYPE &)>) const'
-          with
-          [
-              ELEMTYPE=double,
-              DATATYPE=int
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(557): message : see reference to function template instantiation 'bool RTree<int,double,3,ELEMTYPE,8,4>::Search(RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Node *,RTree<int,ELEMTYPE,3,ELEMTYPE,8,4>::Rect *,int &,std::function<bool (const DATATYPE &)>) const' being compiled
-          with
-          [
-              ELEMTYPE=double,
-              DATATYPE=int
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(455): message : while compiling class template member function 'RTree<int,double,3,ELEMTYPE,8,4>::RTree(void)'
-          with
-          [
-              ELEMTYPE=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(990): message : see reference to function template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>::RTree(void)' being compiled
-          with
-          [
-              ELEMTYPE=double
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(990): message : see reference to class template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>' being compiled
-          with
-          [
-              ELEMTYPE=double
-          ]
-  Generating Code...
      Creating library C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.lib and object C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.exp
   joinery_solver_rhino7.vcxproj -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.rhp

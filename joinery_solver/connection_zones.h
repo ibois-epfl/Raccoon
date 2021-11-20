@@ -128,8 +128,8 @@ inline void get_elements(
 			elements[id].polylines[2 + j] = { pp[i][j],  pp[i][j + 1], pp[i + 1][j + 1], pp[i + 1][j], pp[i][j] };
 		}
 
-		//Edge initialization
-		elements[id].j_mf = std::vector< std::vector<std::tuple<int, bool,double>>>(pp[i].size() + 1);//(-1, false, parameter on edge)
+		//Edge initialization, total number of edge top,bottom + all sides + undefined not lying on face
+		elements[id].j_mf = std::vector< std::vector<std::tuple<int, bool,double>>>( (pp[i].size()-1) + 2 + 1);//(side id, false, parameter on edge)
 
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -244,7 +244,8 @@ inline bool plane_to_face(std::vector<
 	std::vector<IK::Plane_3>& Plane1,
 	std::vector<IK::Vector_3>& insertion_vectors0,
 	std::vector<IK::Vector_3>& insertion_vectors1,
-	int& e0, int& e1,
+	int& e0_0, int& e1_0, 
+	int& e0_1, int& e1_1,
 	CGAL_Polyline& joint_area,
 	//CGAL_Polyline(&joint_quads)[2],
 	CGAL_Polyline(&joint_lines)[2],
@@ -254,8 +255,8 @@ inline bool plane_to_face(std::vector<
 
 	double angleTol = 16,
 	bool checkOverlap = false) {
-	e0 = -1;
-	e1 = -1;
+	e0_0 = -1;
+	e1_1 = -1;
 	type = 30;
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -322,19 +323,27 @@ inline bool plane_to_face(std::vector<
 	//////////////////////////////////////////////////////////////////////////////
 	//printf("\n_");
 	IK::Segment_3 cx0_py0__cy0_px0;
-	if (!CGAL_PolylineUtil::PlanePolyline(*cx0, *cy0, *px0, *py0, cx0_py0__cy0_px0)) return false;//, cx0_py0__cy0_px0_Max
+	std::pair<int, int> edge_pair_e0_0__e1_0;//
+	if (!CGAL_PolylineUtil::PlanePolyline(*cx0, *cy0, *px0, *py0, cx0_py0__cy0_px0, edge_pair_e0_0__e1_0)) return false;//, cx0_py0__cy0_px0_Max
 	//printf("A");
 
 	IK::Segment_3 cx0_py1__cy1_px0;
-	if (!CGAL_PolylineUtil::PlanePolyline(*cx0, *cy1, *px0, *py1, cx0_py1__cy1_px0)) return false;//, cx0_py1__cy1_px0_Max
+	std::pair<int, int> edge_pair_e0_0__e1_1;
+	if (!CGAL_PolylineUtil::PlanePolyline(*cx0, *cy1, *px0, *py1, cx0_py1__cy1_px0, edge_pair_e0_0__e1_1)) return false;//, cx0_py1__cy1_px0_Max
 	//printf("B");
 
 	IK::Segment_3 cx1_py0__cy0_px1;
-	if (!CGAL_PolylineUtil::PlanePolyline(*cx1, *cy0, *px1, *py0, cx1_py0__cy0_px1)) return false;//, cx1_py0__cy0_px1_Max
+	std::pair<int, int> edge_pair_e0_1__e1_0;
+	if (!CGAL_PolylineUtil::PlanePolyline(*cx1, *cy0, *px1, *py0, cx1_py0__cy0_px1, edge_pair_e0_1__e1_0)) return false;//, cx1_py0__cy0_px1_Max
 	//printf("C");
 
 	IK::Segment_3 cx1_py1__cy1_px1;
-	if (!CGAL_PolylineUtil::PlanePolyline(*cx1, *cy1, *px1, *py1, cx1_py1__cy1_px1)) return false;//,cx1_py1__cy1_px1_Max
+	std::pair<int, int> edge_pair_e0_1__e1_1;
+	if (!CGAL_PolylineUtil::PlanePolyline(*cx1, *cy1, *px1, *py1, cx1_py1__cy1_px1, edge_pair_e0_1__e1_1)) return false;//,cx1_py1__cy1_px1_Max
+	e0_0 = edge_pair_e0_0__e1_0.first;
+	e1_0 = edge_pair_e0_0__e1_0.second;
+	e0_1 = edge_pair_e0_1__e1_1.first;
+	e1_1 = edge_pair_e0_1__e1_1.second;
 	//printf("D");
 	//printf("_\n");
 
@@ -492,7 +501,8 @@ inline bool face_to_face(
 	std::vector<IK::Plane_3>& Plane1,
 	std::vector<IK::Vector_3>& insertion_vectors0,
 	std::vector<IK::Vector_3>& insertion_vectors1,
-	int& e0, int& e1,
+	int& e0_0, int& e1_0,
+	int& e0_1, int& e1_1,
 	CGAL_Polyline& joint_area,
 	CGAL_Polyline(&joint_lines)[2],
 	CGAL_Polyline(&joint_volumes_pairA_pairB)[4],
@@ -520,8 +530,10 @@ inline bool face_to_face(
 				if (hasIntersection) {
 
 
-					e0 = i;
-					e1 = j;
+					e0_0 = i;
+					e1_0 = j;
+					e0_1 = i;
+					e1_1 = j;
 					int type0 = i > 1 ? 0 : 1;
 					int type1 = j > 1 ? 0 : 1;
 					type = type0 + type1;
@@ -1038,15 +1050,15 @@ inline void rtree_search(
 		CGAL_Polyline joint_quads[2];
 		CGAL_Polyline joint_lines[2];
 		CGAL_Polyline joint_volumes_pairA_pairB[4];
-		int e0, e1, type;
+		int e0_0, e1_0, e0_1, e1_1, type;
 
 		int found_type = 0;
 		switch (search_type) {
 		case(0):
-			found_type = face_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, elements[result[i ]].edge_vectors, elements[result[i + 1]].edge_vectors, e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type) ? 1 : 0;
+			found_type = face_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, elements[result[i ]].edge_vectors, elements[result[i + 1]].edge_vectors, e0_0, e1_0, e0_1, e1_1, joint_area, joint_lines, joint_volumes_pairA_pairB, type) ? 1 : 0;
 			break;
 		case(1):
-			found_type = plane_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, elements[result[i ]].edge_vectors, elements[result[i + 1]].edge_vectors, e0, e1, joint_area, joint_lines, joint_volumes_pairA_pairB, type) ? 2 : 0;
+			found_type = plane_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, elements[result[i ]].edge_vectors, elements[result[i + 1]].edge_vectors, e0_0, e1_0,e0_1, e1_1, joint_area, joint_lines, joint_volumes_pairA_pairB, type) ? 2 : 0;
 			break;
 		}
 
@@ -1063,7 +1075,7 @@ inline void rtree_search(
 			joints.emplace_back(
 				jointID,
 				result[i], result[i + 1],
-				e0, e1,
+				e0_0, e1_0, e0_1, e1_1,
 				joint_area,
 				joint_lines,
 				joint_volumes_pairA_pairB,
@@ -1073,26 +1085,26 @@ inline void rtree_search(
 			//CGAL_Debug(1);
 			joints_map.emplace(CGAL_MathUtil::unique_from_two_int(result[i], result[i + 1]),jointID);
 			//CGAL_Debug(e1);
-			if (e1 == -1) {
+			if (e1_0 == -1) {
 				//CGAL_Debug(3);
 				elements[result[i + 0]].j_mf.back().push_back(std::tuple<int, bool, double>(jointID, true, 0));
 				elements[result[i + 1]].j_mf.back().push_back(std::tuple<int, bool, double>(jointID, false, 0));
 				//CGAL_Debug(4);
 			}
 			else {
-				if (e1 < 2 || e0 < 2) {
-					if ((e1 < 2 && e0>1)) {
-						elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true, 0));
-						elements[result[i + 1]].j_mf[e1].push_back(std::tuple<int, bool, double>(jointID, false, 0));
+				if (e1_0 < 2 || e0_0 < 2) {
+					if ((e1_0 < 2 && e0_0>1)) {
+						elements[result[i + 0]].j_mf[e0_0].push_back(std::tuple<int, bool, double>(jointID, true, 0));
+						elements[result[i + 1]].j_mf[e1_0].push_back(std::tuple<int, bool, double>(jointID, false, 0));
 					}
 					else {
-						elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, false, 0));
-						elements[result[i + 1]].j_mf[e1].push_back(std::tuple<int, bool, double>(jointID, true, 0));
+						elements[result[i + 0]].j_mf[e0_0].push_back(std::tuple<int, bool, double>(jointID, false, 0));
+						elements[result[i + 1]].j_mf[e1_0].push_back(std::tuple<int, bool, double>(jointID, true, 0));
 					}
 				}
 				else {
-					elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true, 0));
-					elements[result[i + 1]].j_mf[e1].push_back(std::tuple<int, bool, double>(jointID, false, 0));
+					elements[result[i + 0]].j_mf[e0_0].push_back(std::tuple<int, bool, double>(jointID, true, 0));
+					elements[result[i + 1]].j_mf[e1_0].push_back(std::tuple<int, bool, double>(jointID, false, 0));
 				}
 			}
 

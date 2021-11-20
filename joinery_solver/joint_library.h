@@ -1067,11 +1067,11 @@ namespace joint_library {
 			//Select user given type
 			int id_representing_joing_name = -1;
 			if (elements[joint.f0].joint_types.size() && elements[joint.f1].joint_types.size())
-				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0] > elements[joint.f1].joint_types[joint.e1] ? elements[joint.f0].joint_types[joint.e0] : elements[joint.f1].joint_types[joint.e1];
+				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0] > elements[joint.f1].joint_types[joint.e1_0] ? elements[joint.f0].joint_types[joint.e0_0] : elements[joint.f1].joint_types[joint.e1_0];
 			else if (elements[joint.f0].joint_types.size())
-				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0];
+				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0];
 			else if (elements[joint.f1].joint_types.size())
-				id_representing_joing_name = elements[joint.f1].joint_types[joint.e1];
+				id_representing_joing_name = elements[joint.f1].joint_types[joint.e1_0];
 
 			//CGAL_Debug(joint.type);
 			//CGAL_Debug(id_representing_joing_name);

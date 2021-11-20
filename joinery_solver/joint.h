@@ -32,7 +32,7 @@ public:
 	/////////////////////////////////////////////////////////////////////////////////////////
 	//Parameters from Search method
 	/////////////////////////////////////////////////////////////////////////////////////////
-	int id, f0, f1, e0, e1, type; //10 - SS Rotate 11 - SS OUT OF PLANE 12 - SS IN Plane,  20 Top-Side, 30 - Cross
+	int id, f0, f1, e0_0, e1_0, e0_1, e1_1, type; //10 - SS Rotate 11 - SS OUT OF PLANE 12 - SS IN Plane,  20 Top-Side, 30 - Cross
 	CGAL_Polyline joint_area;//delete
 	CGAL_Polyline joint_lines[2];//delete
 	//CGAL_Polyline joint_quads[2];//delete
@@ -54,8 +54,8 @@ public:
 	/////////////////////////////////////////////////////////////////////////////////////////
 	//Constructors
 	/////////////////////////////////////////////////////////////////////////////////////////
-	joint(int, int, int, int, int, CGAL_Polyline(&)[4]);
-	joint(int, int, int, int, int,  CGAL_Polyline(&), CGAL_Polyline(&)[2], CGAL_Polyline(&)[4],int );
+	joint(int, int, int, int, int, int, int, CGAL_Polyline(&)[4]);
+	joint(int, int, int, int, int, int, int, CGAL_Polyline(&), CGAL_Polyline(&)[2], CGAL_Polyline(&)[4],int );
 
 	//Operators
    // IK::Vector_3(&input)[4]
@@ -95,49 +95,27 @@ public:
 };
 
 
-inline joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_volumes)[4]):
-    id(_id), f0(_f0), f1(_f1), e0(_e0), e1(_e1), type(-1) {
+inline joint::joint(int _id, int _f0, int _f1, int _e0_0, int _e1_0, int _e0_1, int _e1_1, CGAL_Polyline(&_joint_volumes)[4]):
+    id(_id), f0(_f0), f1(_f1), e0_0(_e0_0), e1_0(_e1_0), e0_1(_e0_1), e1_1(_e1_1), type(-1) {
 
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) 
         this->joint_volumes[i] = _joint_volumes[i];
-        //this->joint_volumes[i].reserve(_joint_volumes[i].size());
-        //for (int j = 0; j < _joint_volumes[i].size(); j++) {
-        //    IK::Point_3 p = _joint_volumes[i][j];
-        //    this->joint_volumes[i].push_back(p);
-        //}
-    }
 
 
 }
 
-inline joint::joint(int _id, int _f0, int _f1, int _e0, int _e1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type):
-    id(_id), f0(_f0), f1(_f1), e0(_e0), e1(_e1), type(_type)
+inline joint::joint(int _id, int _f0, int _f1, int _e0_0, int _e1_0, int _e0_1, int _e1_1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type):
+    id(_id), f0(_f0), f1(_f1), e0_0(_e0_0), e1_0(_e1_0), e0_1(_e0_1), e1_1(_e1_1), type(_type)
 {
 
-
-
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) 
         this->joint_volumes[i] = _joint_volumes[i];
-        //this->joint_volumes[i].reserve(_joint_volumes[i].size());
-        //for (int j = 0; j < _joint_volumes[i].size(); j++) {
-        //    this->joint_volumes[i].emplace_back(_joint_volumes[i][j]);
-        //}
-    }
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) 
         this->joint_lines[i] = _joint_lines[i];
-        //this->joint_lines[i].reserve(_joint_lines[i].size());
-        //for (int j = 0; j < _joint_lines[i].size(); j++) {
-        //    this->joint_lines[i].emplace_back(_joint_lines[i][j]);
-        //}
-    }
 
     this->joint_area = _joint_area;
-    //this->joint_area.reserve(_joint_area.size());
-    //for (int j = 0; j < _joint_area.size(); j++) {
-    //    this->joint_area.emplace_back(_joint_area[j]);
-    //}
 
 }
 

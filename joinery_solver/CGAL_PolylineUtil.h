@@ -296,9 +296,7 @@ namespace CGAL_PolylineUtil {
 
 	
 
-	inline void PlanePolylineIntersection(CGAL_Polyline& polyline, IK::Plane_3& plane, std::vector<IK::Point_3>& points) {
-
-		//IK::Point_3 pts[2];
+	inline void PlanePolylineIntersection(CGAL_Polyline& polyline, IK::Plane_3& plane, std::vector<IK::Point_3>& points, std::vector<int>& edge_ids) {
 
 		for (int i = 0; i < polyline.size() - 1; i++) {
 
@@ -308,17 +306,17 @@ namespace CGAL_PolylineUtil {
 			if (result) {
 				if (const IK::Point_3* p = boost::get<IK::Point_3>(&*result)) {
 					points.push_back(*p);
+					edge_ids.emplace_back(i);
 				}//if point type
 			}
 		}
 
-		//return points;
-
-
 
 	}
 
-	inline int IsPointPairInside(CGAL_Polyline& polyline, IK::Plane_3& plane, std::vector<IK::Point_3>& testPoints, std::vector<int>& testPointsID, double scale = 100000.0) {
+	inline int IsPointPairInside(
+		CGAL_Polyline& polyline, IK::Plane_3& plane, 
+		std::vector<IK::Point_3>& testPoints, std::vector<int>& testPointsID, double scale = 100000.0) {
 
 		/////////////////////////////////////////////////////////////////////////////////////
 		//Orient from 3D to 2D
@@ -389,8 +387,9 @@ namespace CGAL_PolylineUtil {
 
 	}
 
-	inline bool PlanePolyline(CGAL_Polyline& c0, CGAL_Polyline& c1, IK::Plane_3& p0, IK::Plane_3& p1,
-		IK::Segment_3& line) {//, IK::Segment_3& cornerMaxLine
+	inline bool PlanePolyline(CGAL_Polyline& c0, CGAL_Polyline& c1, 
+		IK::Plane_3& p0, IK::Plane_3& p1,
+		IK::Segment_3& line, std::pair<int,int> pair) {//, IK::Segment_3& cornerMaxLine
 
 		//printf("H");
 		bool debug = false;
@@ -399,16 +398,18 @@ namespace CGAL_PolylineUtil {
 		//Perform both events 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		std::vector<IK::Point_3> pts0;
-		PlanePolylineIntersection(c0, p1, pts0);
+		std::vector<int> edge_ids_0;
+		PlanePolylineIntersection(c0, p1, pts0, edge_ids_0);
 
 		std::vector<IK::Point_3> pts1;
-		PlanePolylineIntersection(c1, p0, pts1);
+		std::vector<int> edge_ids_1;
+		PlanePolylineIntersection(c1, p0, pts1, edge_ids_1);
 		//printf(" %zi ", pts0.size());
 		//printf(" %zi ", pts1.size());
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Check1: if there 2 intersections
+		//Check1: if there are 2 intersections
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		if (pts0.size() < 2) {
 			if (debug) printf("CPP PlanePolylineIntersection 0 Not2 \n");
@@ -437,20 +438,12 @@ namespace CGAL_PolylineUtil {
 
 
 		if (count0 == 0 && count1 == 0) {
-
-
-			//CGAL_Debug(pts0[0], true);
-			//CGAL_Debug(pts0[1], true);
-
-			//CGAL_Debug(pts1[0], true);
-			//CGAL_Debug(pts1[1], true);
-
 			return false;
-
 		}
 		else if (std::abs(count0 - count1) == 2) {//rectangle curve inside a rectangle curve
 
 			line = count0 == 2 ? IK::Segment_3(pts0[0], pts0[1]) : IK::Segment_3(pts1[0], pts1[1]);
+			pair = count0 == 2 ? std::pair<int,int>(edge_ids_0[0], edge_ids_0[1]) : std::pair<int, int>(edge_ids_1[0], edge_ids_1[1]);
 
 			return true;
 
@@ -458,7 +451,7 @@ namespace CGAL_PolylineUtil {
 		}
 		else if (count0 == 1 && count1 == 1) {
 			line = IK::Segment_3(pts0[ID0[0]], pts1[ID1[0]]);
-			//cornerMaxLine = line;
+			pair = std::pair<int, int>(edge_ids_0[ID0[0]], edge_ids_1[ID1[0]]);
 			return true;
 		}
 		else if (count0 > 1 || count1 > 1) {
@@ -471,69 +464,33 @@ namespace CGAL_PolylineUtil {
 				pts[i + ID0.size()] = pts1[ID1[i]];
 
 			CGAL::Bbox_3 AABB = CGAL::bbox_3(pts.begin(), pts.end(), IK());
-			line = IK::Segment_3(IK::Point_3(AABB.xmin(), AABB.ymin(), AABB.zmin()), IK::Point_3(AABB.xmax(), AABB.ymax(), AABB.zmax()));
-			//cornerMaxLine = line;
+			auto p0 = IK::Point_3(AABB.xmin(), AABB.ymin(), AABB.zmin());
+			auto p1 = IK::Point_3(AABB.xmax(), AABB.ymax(), AABB.zmax());
+			line = IK::Segment_3(p0,p1);
+			int e0, e1;
 
-			//printf("CPP %i %i \n", count0, count1);
+			//Find edge ID - not optimized...
+			for (int i = 0; i < ID0.size(); i++) {
+				if (CGAL::squared_distance(p0, pts0[ID0[i]]) < 0.001 || CGAL::squared_distance(p1, pts0[ID0[i]]) < 0.001) {
+					e0 = edge_ids_0[ID0[i]];
+					break;
+				}
+			}
+
+			for (int i = 0; i < ID1.size(); i++) {
+				if (CGAL::squared_distance(p0, pts1[ID1[i]]) < 0.001 || CGAL::squared_distance(p1, pts1[ID1[i]]) < 0.001) {
+					e1 = edge_ids_1[ID1[i]];
+					break;
+				}
+			}
+			pair = std::pair<int, int>(e0,e1);
+		
 			return true;
 		}
 
 		return false;
 
-		//if (count0 == 2 && count1 == 2 && pts0.size() == 2 && pts1.size() == 2) {
-		//    std::vector<IK::Point_3> pts  = { pts0[0], pts0[1], pts1[0], pts1[1] };
-		//    CGAL::Bbox_3 AABB = CGAL::bbox_3(pts.begin(), pts.end(), CGAL_Kernel());
-		//    cornerMaxLine = IK::Segment_3(IK::Point_3(AABB.xmin(), AABB.ymin(), AABB.zmin()), IK::Point_3(AABB.xmax(), AABB.ymax(), AABB.zmax()));
-		//}else if(count0 == 1 && count1 == 1){
 
-		//    if (CGAL::squared_distance(pts0[0], pts1[0]) > GlobalToleranceSquare) {
-		//        line = IK::Segment_3(pts0[0], pts1[0]);
-		//        cornerMaxLine = IK::Segment_3(pts0[0], pts1[0]);
-		//    }
-		//  
-		//  
-		//}
-
-		//return true;
-		//IK::Point_3 pt0;
-		//IK::Point_3 pt1;
-		//int insideCount0 = 0;
-		//int insideCount1 = 0;
-		//for (int i = 0; i < 2; i++) {
-		//    if (f0[i]) {//increase tolerance
-		//        pt0 = pts0[i];
-		//        insideCount0++;
-		//    }
-		//}
-
-		//if ((insideCount0 == 2) && (f1[0] && f1[1])) {
-		//    line = CGAL_Polyline{ pts0[0], pts0[1] };
-		//    if (debug) printf("Not Fail0 - Curve inside Curve");
-		//    return true;
-
-		//}
-		//else if (insideCount0 == 0)
-		//    return false;
-
-
-
-
-		//for (int i = 0; i < events1.Count; i++) {
-		//    if (f1[i]) {
-		//        insideCount1++;
-		//        if ((pt0.DistanceToSquared(pt1Array[i]) > tol))//Check that it was not the one before addition after last build
-		//            pt1 = pt1Array[i];
-		//    }
-		//}
-
-
-		//if ((pt1 == Point3d.Unset || insideCount1 == 2) && (f0[0] && f0[1])) {
-		//    line = CGAL_Polyline{ pt1Array[0], pt1Array[1] };
-		//    if (debug) printf("Not Fail1 - Curve inside Curve");
-		//    return true;
-		//}
-		//else if (pt0 == Point3d.Unset)
-		//    return false;
 
 
 

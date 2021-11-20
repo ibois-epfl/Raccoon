@@ -75,8 +75,9 @@ void get_connection_zones(
 		//elements[i].get_joints_geometry(joints, plines, 0);
 		//elements[i].get_joints_geometry(joints, plines, 1);
 		//elements[i].get_joints_geometry(joints, plines, 2);
-		elements[i].get_joints_geometry_as_closed_polylines(joints, plines);
 		elements[i].get_joints_geometry(joints, plines, 3);//push joint geometry from joint to element
+		elements[i].get_joints_geometry_as_closed_polylines_replacing_edges(joints, plines);
+
 		
 
 	}
