@@ -3,109 +3,108 @@
 #include "compas.h"
 #include "joint.h"
 #include "CGAL_IntersectionUtil.h"
+#include "CGAL_XFormUtil.h"
+#include "CGAL_PolylineUtil.h"
 #include "CGAL_Print.h"
-class element
-{
-	public:
+class element {
+public:
 
-		/////////////////////////////////////////////////////////////////////////////////////////
-		//Parameters
-		/////////////////////////////////////////////////////////////////////////////////////////
-		int id = -1;
-		double thickness = 0;
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//Parameters
+	/////////////////////////////////////////////////////////////////////////////////////////
+	int id = -1;
+	double thickness = 0;
 
-		/////////////////////////////////////////////////////////////////////////////////////////
-		//Basic Geometry Parameters 
-		/////////////////////////////////////////////////////////////////////////////////////////
-		CGAL::Bbox_3 aabb;
-		IK::Vector_3 oob[5];
-		std::vector<CGAL_Polyline> polylines; //pairs of polylines + each side face
-		std::vector<IK::Plane_3> planes; //top and bottom planes + each side face
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//Basic Geometry Parameters 
+	/////////////////////////////////////////////////////////////////////////////////////////
+	CGAL::Bbox_3 aabb;
+	IK::Vector_3 oob[5];
+	std::vector<CGAL_Polyline> polylines; //pairs of polylines + each side face
+	std::vector<IK::Plane_3> planes; //top and bottom planes + each side face
 
-		std::vector<IK::Vector_3> edge_vectors;//if set
-		std::vector<int> joint_types;//if set
-		IK::Segment_3 axis;
+	std::vector<IK::Vector_3> edge_vectors;//if set
+	std::vector<int> joint_types;//if set
+	IK::Segment_3 axis;
 
-		/////////////////////////////////////////////////////////////////////////////////////////
-		//Joinery Geometry Parameters 
-		//pointers to joints, joint geometry will be modified inside joint to avoid copy
-		//joint must be sorted according to edge id to be merged
-		/////////////////////////////////////////////////////////////////////////////////////////
-		//std::map<int, std::pair<bool, int>>edgeID_mf_jointID; //e0,true,jointID
-		std::vector<std::vector<std::tuple<int,bool,double>>> j_mf; //(joint id, male/female, parameter on edge) elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true,0));
-		//std::vector<CGAL_Polyline> modified_polylines;
-		//public Mesh mesh;
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//Joinery Geometry Parameters 
+	//pointers to joints, joint geometry will be modified inside joint to avoid copy
+	//joint must be sorted according to edge id to be merged
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//std::map<int, std::pair<bool, int>>edgeID_mf_jointID; //e0,true,jointID
+	std::vector<std::vector<std::tuple<int, bool, double>>> j_mf; //(joint id, male/female, parameter on edge) elements[result[i + 0]].j_mf[e0].push_back(std::tuple<int, bool, double>(jointID, true,0));
+	//std::vector<CGAL_Polyline> modified_polylines;
+	//public Mesh mesh;
 
-		/////////////////////////////////////////////////////////////////////////////////////////
-		//Component parameters
-		/////////////////////////////////////////////////////////////////////////////////////////
-		std::string key;
-		IK::Plane_3 component_plane;
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//Component parameters
+	/////////////////////////////////////////////////////////////////////////////////////////
+	std::string key;
+	IK::Plane_3 component_plane;
 
 
-		/////////////////////////////////////////////////////////////////////////////////////////
-		//Constructors
-		/////////////////////////////////////////////////////////////////////////////////////////
-		element();
-		element(int);
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//Constructors
+	/////////////////////////////////////////////////////////////////////////////////////////
+	element();
+	element(int);
 
-		void get_joints_geometry(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output, int what_to_expose);
-		void element::get_joints_geometry_as_closed_polylines_replacing_edges(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
-		void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
+	void get_joints_geometry(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output, int what_to_expose);
+	void element::get_joints_geometry_as_closed_polylines_replacing_edges(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
+	void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
 };
 
 
-inline element::element() { }
+inline element::element() {}
 
 
-inline element::element(int _id) : id(_id){
-	
+inline element::element(int _id) : id(_id) {
+
 }
 
 inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output, int what_to_expose) {
 
 	//you are in a loop
 	for (int i = 0; i < j_mf.size(); i++) {//loop joint id 
-		for (size_t j = 0; j < j_mf[i].size(); j++)	{//loop joints per each face + 1 undefined
-			switch (what_to_expose)
-			{
-			case(0):
-				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_area);
-				break;
-			case(1):
-				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[0]);
-				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_lines[1]);
-				break;
-			case(2):
-				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[0]);
-				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[1]);
-				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[2]);
-				output[this->id].push_back(joints[std::get<0> (j_mf[i][j])].joint_volumes[3]);
-				break;
-			case(3):
-				for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size(); k++) {
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);//cut
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);//direction
-				}
-				break;
-			default:
-				break;
+		for (size_t j = 0; j < j_mf[i].size(); j++) {//loop joints per each face + 1 undefined
+			switch (what_to_expose) {
+				case(0):
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_area);
+					break;
+				case(1):
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_lines[0]);
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_lines[1]);
+					break;
+				case(2):
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[0]);
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[1]);
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[2]);
+					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[3]);
+					break;
+				case(3):
+					for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size(); k++) {
+						output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);//cut
+						output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);//direction
+					}
+					break;
+				default:
+					break;
 			}
 		}
 	}
 }
 
-inline bool sort_by_third(const std::tuple<int, bool, double>& a, const std::tuple<int, bool, double>& b)
-{
+inline bool sort_by_third(const std::tuple<int, bool, double>& a, const std::tuple<int, bool, double>& b) {
 	return (std::get<2>(a) < std::get<2>(b));
 }
 
 inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
 
-	
+
 
 	//you are in a loop
-	
+
 	///////////////////////////////////////////////////////////////////////////////
 	//Copy top and bottom polylines
 	///////////////////////////////////////////////////////////////////////////////
@@ -123,9 +122,9 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 	///////////////////////////////////////////////////////////////////////////////
 	for (int i = 0; i < n; i++) {//iterate edge count
 
-		for (int j = 0; j < this->j_mf[i+2].size(); j++) { //iterate edges, skipping first two
+		for (int j = 0; j < this->j_mf[i + 2].size(); j++) { //iterate edges, skipping first two
 
-			if (joints[std::get<0>(j_mf[i + 2][j])].name == "") continue;
+			if (joints[std::get<0>(j_mf[i + 2][j])].name == "" || joints[std::get<0>(j_mf[i + 2][j])].name == "cr_c_ip_0") continue;
 
 			IK::Segment_3 element_edge(polyline0[i], polyline0[i + 1]);
 			IK::Point_3 joint_point = joints[std::get<0>(j_mf[i + 2][j])](std::get<1>(j_mf[i + 2][j]), true).back()[0];
@@ -157,9 +156,9 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 				///////////////////////////////////////////////////////////////////////////////
 				//Skip undefined names and if tiles has more than 1 polyline to insert
 				///////////////////////////////////////////////////////////////////////////////
-				if (joints[std::get<0>(j_mf[i + 2][j])].name == "") continue; 
+				if (joints[std::get<0>(j_mf[i + 2][j])].name == "" || joints[std::get<0>(j_mf[i + 2][j])].name == "cr_c_ip_0") continue;
 				if (joints[std::get<0>(j_mf[i + 2][j])](std::get<1>(j_mf[i + 2][j]), true).size() != 2) continue;
-		
+
 
 				///////////////////////////////////////////////////////////////////////////////
 				//Take last lines Element outline can be not in the same order as joint outlines Take joint segment and measure its point to the plane
@@ -219,7 +218,7 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 				bool flag3 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + next], joint_line_plane_1_next, planes[1], p3_int, joint_line_1, t3_int);
 				//output.push_back({ p3_int + v,joint_line_1[0] + v,CGAL_PolylineUtil::Center(polylines[2 + next]) + v,CGAL_PolylineUtil::Center(polylines[1]) + v });
 
-				
+
 				///////////////////////////////////////////////////////////////////////////////
 				//2 Relocate side segments points to intersection points
 				///////////////////////////////////////////////////////////////////////////////
@@ -240,7 +239,7 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 					joints[std::get<0>(j_mf[i + 2][j])](std::get<1>(j_mf[i + 2][j]), !flag)[0].front(),
 					joints[std::get<0>(j_mf[i + 2][j])](std::get<1>(j_mf[i + 2][j]), !flag)[0].back()
 				);
-;
+				;
 				if (!flip) {
 
 					//bottom
@@ -282,7 +281,7 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 
 		for (int j = 0; j < this->j_mf[i + 2].size(); j++) {//
 			if (j_mf[i + 2].size() > 0) {
-				if (joints[std::get<0>(j_mf[i + 2][j])].name == "")continue;
+				if (joints[std::get<0>(j_mf[i + 2][j])].name == "" || joints[std::get<0>(j_mf[i + 2][j])].name == "cr_c_ip_0") continue;
 				if (joints[std::get<0>(j_mf[i + 2][j])](std::get<1>(j_mf[i + 2][j]), true).size() == 2) {
 					for (auto pp : joints[std::get<0>(j_mf[i + 2][j])](std::get<1>(j_mf[i + 2][j]), true)[0]) newPolyline0.push_back(pp);
 					for (auto pp : joints[std::get<0>(j_mf[i + 2][j])](std::get<1>(j_mf[i + 2][j]), false)[0]) newPolyline1.push_back(pp);
@@ -297,44 +296,36 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 			output[this->id].push_back(newPolyline1);
 		}
 	}
-	
 
-
-	//CGAL_Debug();
-	//for (auto ppp : newPolyline0)
-	//	CGAL_Debug(ppp, true);
-	//CGAL_Debug();
-	//for (auto ppp : newPolyline1)
-	//	CGAL_Debug(ppp, true);
 
 	for (int i = 0; i < 2; i++) {//iterate top only
 
 
-		
-			for (size_t j = 0; j < j_mf[i].size(); j++)	{
 
-				if (joints[std::get<0> (j_mf[i][j])].name == "")continue;
+		for (size_t j = 0; j < j_mf[i].size(); j++) {
 
-				//Check hole position
-				bool flag =
-					CGAL::squared_distance(planes[0].projection(joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).back()[0]), joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).back()[0]) >
-					CGAL::squared_distance(planes[0].projection(joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false).back()[0]), joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false).back()[0])
-					;
+			if (joints[std::get<0>(j_mf[i][j])].name == "")continue;
 
-				if (flag)
-					joints[std::get<0> (j_mf[i][j])].reverse(std::get<1> (j_mf[i][j]));
+			//Check hole position
+			bool flag =
+				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[0]) >
+				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0])
+				;
 
-				for (int k = 0; k < joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true).size() - 1; k++) {
-					output[this->id].push_back(joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), true)[k]);
-					output[this->id].push_back(joints[std::get<0> (j_mf[i][j])](std::get<1> (j_mf[i][j]), false)[k]);
-				}
+			if (flag)
+				joints[std::get<0>(j_mf[i][j])].reverse(std::get<1>(j_mf[i][j]));
 
+			for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size() - 1; k++) {
+				output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);
+				output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);
 			}
 
-		
+		}
+
+
 	}
 
-	
+
 
 	//close
 
@@ -351,10 +342,10 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 
 
 
-	
 
 
-	
+
+
 
 
 }
@@ -362,11 +353,107 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 inline void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
 
 
-	CGAL_Debug(9999);
-	for (int i = 0; i < this->j_mf.size(); i++) {
-		CGAL_Debug(this->j_mf[i].size());
+	CGAL_Polyline pline0 = this->polylines[0];
+	CGAL_Polyline pline1 = this->polylines[1];
+	CGAL::Aff_transformation_3 xform0 = CGAL_XFormUtil::PlaneToXY(pline0[0], this->planes[0]);
+	CGAL::Aff_transformation_3 xform1 = CGAL_XFormUtil::PlaneToXY(pline1[0], this->planes[1]);
+	CGAL::Aff_transformation_3 xform0_inv = xform0.inverse();
+	CGAL::Aff_transformation_3 xform1_inv = xform1.inverse();
+	CGAL_PolylineUtil::Transform(pline0, xform0);
+	CGAL_PolylineUtil::Transform(pline1, xform1);
+
+
+	//you are in a loop
+	//only for objects that has one element as a joint and edges to insert are known
+
+	//CGAL_Debug(9999);
+	for (int i = 2; i < this->j_mf.size(); i++) {
+		//CGAL_Debug(this->j_mf[i].size());
 		for (int j = 0; j < this->j_mf[i].size(); j++) {//
 
+			
+
+			///////////////////////////////////////////////////////////////////////////////
+			//Skip undefined names and if tiles has more than 1 polyline to insert
+			///////////////////////////////////////////////////////////////////////////////
+			if (joints[std::get<0>(j_mf[i][j])].name == "" ) continue;
+			if (joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size() != 2) continue;
+
+			///////////////////////////////////////////////////////////////////////////////
+			//Take last lines Element outline can be not in the same order as joint outlines Take joint segment and measure its point to the plane
+			///////////////////////////////////////////////////////////////////////////////
+			bool flag =
+				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[0]) >
+				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0])
+				;
+
+			///////////////////////////////////////////////////////////////////////////////
+			//Intersect rectangle or line
+			///////////////////////////////////////////////////////////////////////////////
+			switch (joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back().size()) {
+
+				case(2)://one edge
+
+					break;
+
+				case(5):
+				{//two edges
+			//Intersect segment 0 with polyline
+
+					//Orient to 2D for parameter retrieval
+					CGAL_Polyline joint_pline0 = joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back();
+					CGAL_Polyline joint_pline1 = joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back();
+					CGAL_PolylineUtil::Transform(joint_pline0, xform0);
+					CGAL_PolylineUtil::Transform(joint_pline1, xform1);
+
+					//Perform 2D operations
+
+					int eA, eB;
+					joints[std::get<0>(j_mf[i][j])].get_edge_ids(std::get<1>(j_mf[i][j]), eA, eB);
+
+
+
+					//Line-Segment -> Take first element polyline intersect with joint polyline, within all points take closes to the line
+					//Do the same for the 2nd polygon, if needed
+					IK::Line_3 l0(this->polylines[0][eA - 1], this->polylines[0][eA]);
+
+					for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back().size()-1; k++) {
+						IK::Line_3 s0(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[k-1], joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[k]);
+						CGAL::intersection(l0, s0);
+					}
+
+					//
+					//IK::Line_3 l1(this->polylines[0][eB - 1], this->polylines[0][eB]);
+
+					//Find closest parameters for both parts
+
+					//split polygon in to parts by poilygon parameters t0, t1
+					//Sort them according to order and select points in between t0, next, next ... next until t1 is found
+
+
+					if (eA != eB) {
+
+					}
+					break;
+				}
+				default:
+					continue;
+					break;
+			}
+
+
+
+			if (flag)
+				joints[std::get<0>(j_mf[i][j])].reverse(std::get<1>(j_mf[i][j]));
+
+
+			CGAL_Debug(
+				joints[std::get<0>(j_mf[i][j])].e0_0,
+				joints[std::get<0>(j_mf[i][j])].e0_1,
+				joints[std::get<0>(j_mf[i][j])].e1_0,
+				joints[std::get<0>(j_mf[i][j])].e1_1
+				
+				);
 		}
 	}
 

@@ -389,7 +389,7 @@ namespace CGAL_PolylineUtil {
 
 	inline bool PlanePolyline(CGAL_Polyline& c0, CGAL_Polyline& c1, 
 		IK::Plane_3& p0, IK::Plane_3& p1,
-		IK::Segment_3& line, std::pair<int,int> pair) {//, IK::Segment_3& cornerMaxLine
+		IK::Segment_3& line, std::pair<int,int>& pair) {//, IK::Segment_3& cornerMaxLine
 
 		//printf("H");
 		bool debug = false;
@@ -452,6 +452,7 @@ namespace CGAL_PolylineUtil {
 		else if (count0 == 1 && count1 == 1) {
 			line = IK::Segment_3(pts0[ID0[0]], pts1[ID1[0]]);
 			pair = std::pair<int, int>(edge_ids_0[ID0[0]], edge_ids_1[ID1[0]]);
+			//CGAL_Debug(4444);
 			return true;
 		}
 		else if (count0 > 1 || count1 > 1) {
@@ -484,7 +485,7 @@ namespace CGAL_PolylineUtil {
 				}
 			}
 			pair = std::pair<int, int>(e0,e1);
-		
+			
 			return true;
 		}
 

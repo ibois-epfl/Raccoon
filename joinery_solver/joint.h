@@ -72,6 +72,17 @@ public:
                 return f[1];
     }
 
+    void get_edge_ids (bool male_or_female, int& eA, int& eB) {
+        if (male_or_female) {
+            eA = e0_0;
+            eB = e0_1;
+        } else {
+            eA = e1_0;
+            eB = e1_1;
+        }
+
+    }
+
     std::vector<char>& operator() (bool male_or_female) {
         if (male_or_female)
             return m_boolean_type;

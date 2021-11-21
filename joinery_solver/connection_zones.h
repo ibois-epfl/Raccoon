@@ -340,10 +340,20 @@ inline bool plane_to_face(std::vector<
 	IK::Segment_3 cx1_py1__cy1_px1;
 	std::pair<int, int> edge_pair_e0_1__e1_1;
 	if (!CGAL_PolylineUtil::PlanePolyline(*cx1, *cy1, *px1, *py1, cx1_py1__cy1_px1, edge_pair_e0_1__e1_1)) return false;//,cx1_py1__cy1_px1_Max
+
+
 	e0_0 = edge_pair_e0_0__e1_0.first;
 	e1_0 = edge_pair_e0_0__e1_0.second;
 	e0_1 = edge_pair_e0_1__e1_1.first;
 	e1_1 = edge_pair_e0_1__e1_1.second;
+	//CGAL_Debug(e0_0, e0_1, e1_0, e1_1);
+
+
+	//e0_0 = edge_pair_e0_0__e1_1.first;
+	//e1_0 = edge_pair_e0_1__e1_0.second;
+	//e0_1 = edge_pair_e0_1__e1_0.first;
+	//e1_1 = edge_pair_e0_0__e1_1.second;
+	//CGAL_Debug(e0_0, e0_1, e1_0, e1_1);
 	//printf("D");
 	//printf("_\n");
 
@@ -1022,8 +1032,6 @@ inline void rtree_search(
 
 			if (i < foundValue && CGAL_BoxUtil::GetCollision(elements[i].oob, elements[foundValue].oob)) {
 
-				//CGAL_Debug(i);
-				//CGAL_Debug(foundValue);
 
 				result.push_back(i);
 				result.push_back(foundValue);
@@ -1085,13 +1093,15 @@ inline void rtree_search(
 			//CGAL_Debug(1);
 			joints_map.emplace(CGAL_MathUtil::unique_from_two_int(result[i], result[i + 1]),jointID);
 			//CGAL_Debug(e1);
+			////////////////////////////////////////////////////////////////////////////////////////////////////////
+			//Place joint ids and male or female flags to joint list
+			////////////////////////////////////////////////////////////////////////////////////////////////////////
 			if (e1_0 == -1) {
 				//CGAL_Debug(3);
 				elements[result[i + 0]].j_mf.back().push_back(std::tuple<int, bool, double>(jointID, true, 0));
 				elements[result[i + 1]].j_mf.back().push_back(std::tuple<int, bool, double>(jointID, false, 0));
 				//CGAL_Debug(4);
-			}
-			else {
+			} else {
 				if (e1_0 < 2 || e0_0 < 2) {
 					if ((e1_0 < 2 && e0_0>1)) {
 						elements[result[i + 0]].j_mf[e0_0].push_back(std::tuple<int, bool, double>(jointID, true, 0));

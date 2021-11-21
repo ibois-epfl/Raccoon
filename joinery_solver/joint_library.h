@@ -17,8 +17,7 @@ namespace joint_library {
 
 	}
 
-	inline double get_length(double x, double y, double z)
-	{
+	inline double get_length(double x, double y, double z) {
 		//double ON_DBL_MIN = 2.22507385850720200e-308;
 
 		double len;
@@ -27,8 +26,7 @@ namespace joint_library {
 		z = fabs(z);
 		if (y >= x && y >= z) {
 			len = x; x = y; y = len;
-		}
-		else if (z >= x && z >= y) {
+		} else if (z >= x && z >= y) {
 			len = x; x = z; z = len;
 		}
 
@@ -40,13 +38,11 @@ namespace joint_library {
 		//
 		//     This code is absolutely necessary.  It is a critical
 		//     part of the bug fix for RR 11217.
-		if (x > ON_DBL_MIN)
-		{
+		if (x > ON_DBL_MIN) {
 			y /= x;
 			z /= x;
 			len = x * sqrt(1.0 + y * y + z * z);
-		}
-		else if (x > 0.0 && ON_IS_FINITE(x))
+		} else if (x > 0.0 && ON_IS_FINITE(x))
 			len = x;
 		else
 			len = 0.0;
@@ -62,8 +58,7 @@ namespace joint_library {
 
 
 		double d = get_length(v.x(), v.y(), v.z());
-		if (d > 0.0)
-		{
+		if (d > 0.0) {
 			double dx = v.x();
 			double dy = v.y();
 			double dz = v.z();
@@ -103,8 +98,7 @@ namespace joint_library {
 			}
 
 			interpolated_points.emplace_back(to);
-		}
-		else {
+		} else {
 
 			interpolated_points.reserve(Steps);
 
@@ -200,8 +194,7 @@ namespace joint_library {
 			if (i % 2 == 1) {
 				pline0.emplace_back(pts0[i] - v + v_d);
 				pline0.emplace_back(pts0[i] + v - v_d);
-			}
-			else {
+			} else {
 				pline0.emplace_back(pts0[i] + v + v_d);
 				pline0.emplace_back(pts0[i] - v - v_d);
 			}
@@ -336,8 +329,7 @@ namespace joint_library {
 				if (i == 1) {
 					if (j < (mid - 1) || j > mid)
 						arrays[i][j] -= 4 * v * flip;
-				}
-				else if (i == 0 || i == 2) {
+				} else if (i == 0 || i == 2) {
 					if (j < (mid - 1) || j > mid)
 						arrays[i][j] -= 2 * v * flip;
 				}
@@ -363,8 +355,7 @@ namespace joint_library {
 				if (flip) {
 					pline.push_back(arrays[i + 0][j]);
 					pline.push_back(arrays[i + 1][j]);
-				}
-				else {
+				} else {
 					pline.push_back(arrays[i + 1][j]);
 					pline.push_back(arrays[i + 0][j]);
 				}
@@ -377,8 +368,7 @@ namespace joint_library {
 					//{ pline[0], pline[pline.size() - 1] },
 					{ pline[0], pline[pline.size() - 1] }
 				};
-			}
-			else {
+			} else {
 				joint.m[0] = {
 					pline,
 					//{ pline[0], pline[pline.size() - 1] },
@@ -401,8 +391,7 @@ namespace joint_library {
 				if (flip) {
 					pline.push_back(arrays[i + 0][j]);
 					pline.push_back(arrays[(i + 1) % 4][j]);
-				}
-				else {
+				} else {
 					pline.push_back(arrays[(i + 1) % 4][j]);
 					pline.push_back(arrays[i + 0][j]);
 				}
@@ -415,8 +404,7 @@ namespace joint_library {
 					//{ pline[0],pline[pline.size() - 1] },
 					{ pline[0],pline[pline.size() - 1] }
 				};
-			}
-			else {
+			} else {
 				joint.f[1] = {
 					pline,
 					//{ pline[0],pline[pline.size() - 1] },
@@ -505,8 +493,7 @@ namespace joint_library {
 				if (flip) {
 					pline.push_back(arrays[i + 0][j]);
 					pline.push_back(arrays[i + 1][j]);
-				}
-				else {
+				} else {
 					pline.push_back(arrays[i + 1][j]);
 					pline.push_back(arrays[i + 0][j]);
 				}
@@ -519,8 +506,7 @@ namespace joint_library {
 					//{ pline[0], pline[pline.size() - 1] },
 					{ pline[0], pline[pline.size() - 1] }
 				};
-			}
-			else {
+			} else {
 				joint.m[0] = {
 					pline,
 					//{ pline[0], pline[pline.size() - 1] },
@@ -543,8 +529,7 @@ namespace joint_library {
 				if (flip) {
 					pline.push_back(arrays[i + 0][j]);
 					pline.push_back(arrays[(i + 1) % 4][j]);
-				}
-				else {
+				} else {
 					pline.push_back(arrays[(i + 1) % 4][j]);
 					pline.push_back(arrays[i + 0][j]);
 				}
@@ -557,8 +542,7 @@ namespace joint_library {
 					//{ pline[0],pline[pline.size() - 1] },
 					{ pline[0],pline[pline.size() - 1] }
 				};
-			}
-			else {
+			} else {
 				joint.f[1] = {
 					pline,
 					//{ pline[0],pline[pline.size() - 1] },
@@ -716,8 +700,7 @@ namespace joint_library {
 				if (flip) {
 					pline.push_back(arrays[i + 0][j]);
 					pline.push_back(arrays[i + 1][j]);
-				}
-				else {
+				} else {
 					pline.push_back(arrays[i + 1][j]);
 					pline.push_back(arrays[i + 0][j]);
 				}
@@ -730,8 +713,7 @@ namespace joint_library {
 					//{ pline[0], pline[pline.size() - 1] },
 					{ pline[0], pline[pline.size() - 1] }
 				};
-			}
-			else {
+			} else {
 				joint.m[0] = {
 					pline,
 					//{ pline[0], pline[pline.size() - 1] },
@@ -840,8 +822,7 @@ namespace joint_library {
 				if (flip) {
 					pline.push_back(arrays[i + 0][j]);
 					pline.push_back(arrays[i + 1][j]);
-				}
-				else {
+				} else {
 					pline.push_back(arrays[i + 1][j]);
 					pline.push_back(arrays[i + 0][j]);
 				}
@@ -856,8 +837,7 @@ namespace joint_library {
 					pline,
 					{ pline[0], pline[pline.size() - 1] }
 				};
-			}
-			else {
+			} else {
 				pline.push_back(arrays[i + 1][arrays[0].size() - 1]);
 				joint.m[0] = {
 					pline,
@@ -900,22 +880,26 @@ namespace joint_library {
 		joint.name = "cr_c_ip_0";
 
 		joint.f[0] = {
+		{ IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,0.55),IK::Point_3(-0.5,-0.5,0.55),IK::Point_3(-0.5,-0.5,0) },
 		{ IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,0.55),IK::Point_3(-0.5,-0.5,0.55),IK::Point_3(-0.5,-0.5,0) }
 		};
 
 		joint.f[1] = {
 			{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) },
+			{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) }
 
 		};
 
 
 		joint.m[0] = {
+		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) },
 		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) }
 		};
 
 
 		joint.m[1] = {
-{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) }
+		{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) },
+		{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) }
 		};
 
 		joint.m_boolean_type = { '0','0' };
@@ -1084,85 +1068,77 @@ namespace joint_library {
 			if (id_representing_joing_name == 0) {
 				//CGAL_Debug(55555);
 				return;//Nothing
-			}
-			else if (joint.type == 12 && ((id_representing_joing_name > 0 && id_representing_joing_name < 10) || id_representing_joing_name == -1)) {
+			} else if (joint.type == 12 && ((id_representing_joing_name > 0 && id_representing_joing_name < 10) || id_representing_joing_name == -1)) {
 				//CGAL_Debug(66666);
-				switch (id_representing_joing_name)
-				{
-				case(1):
-					ss_e_ip_1(joint, division_distance, shift);
-					break;
-				default:
-					ss_e_ip_0(joint);
-					break;
+				switch (id_representing_joing_name) {
+					case(1):
+						ss_e_ip_1(joint, division_distance, shift);
+						break;
+					default:
+						ss_e_ip_0(joint);
+						break;
 				}
 
-			}
-			else if (joint.type == 11 && ((id_representing_joing_name > 9 && id_representing_joing_name < 20) || id_representing_joing_name == -1)) {
+			} else if (joint.type == 11 && ((id_representing_joing_name > 9 && id_representing_joing_name < 20) || id_representing_joing_name == -1)) {
 				//CGAL_Debug(77777);
-				switch (id_representing_joing_name)
-				{
-				case(11):
-					ss_e_op_1(joint, division_distance, shift);
-					break;
-				case(10):
-					ss_e_op_2(joint, division_distance, shift);
-					break;
-				default:
-					ss_e_op_0(joint);
-					break;
+				switch (id_representing_joing_name) {
+					case(11):
+						ss_e_op_1(joint, division_distance, shift);
+						break;
+					case(10):
+						ss_e_op_2(joint, division_distance, shift);
+						break;
+					default:
+						ss_e_op_0(joint);
+						break;
 				}
 
 
-			}
-			else if (joint.type == 20 && ((id_representing_joing_name > 19 && id_representing_joing_name < 30) || id_representing_joing_name == -1)) {
-				CGAL_Debug(88888);
-				switch (id_representing_joing_name)
-				{
-				case(23):
-					ts_e_p_3(joint, division_distance, 0);
-					break;
-				case(22):
-					ts_e_p_2(joint, division_distance, 0);
-					break;
-				case(21):
-					ts_e_p_1(joint);
-					break;
-				case(24):
-					ts_e_p_0(joint);
-					break;
-				default:
-					ts_e_p_3(joint, division_distance, 0);
-					break;
+			} else if (joint.type == 20 && ((id_representing_joing_name > 19 && id_representing_joing_name < 30) || id_representing_joing_name == -1)) {
+				//CGAL_Debug(88888);
+				switch (id_representing_joing_name) {
+					case(23):
+						ts_e_p_3(joint, division_distance, 0);
+						break;
+					case(22):
+						ts_e_p_2(joint, division_distance, 0);
+						break;
+					case(21):
+						ts_e_p_1(joint);
+						break;
+					case(24):
+						ts_e_p_0(joint);
+						break;
+					default:
+						ts_e_p_3(joint, division_distance, 0);
+						break;
 				}
 
-			}
-			else if (joint.type == 30 && ((id_representing_joing_name > 39 && id_representing_joing_name < 50) || id_representing_joing_name == -1)) {
+			} else if (joint.type == 30 && ((id_representing_joing_name > 39 && id_representing_joing_name < 50) || id_representing_joing_name == -1)) {
 				//CGAL_Debug(99999);
 
-				switch (id_representing_joing_name)
-				{
+				switch (id_representing_joing_name) {
 
-				case(40):
-					cr_c_ip_1(joint, shift);
-					break;
-				default:
-					cr_c_ip_1(joint, shift);
-					//cr_c_ip_0(joint);
-					//printf(joint.name.c_str());
-					break;
+					case(40):
+						cr_c_ip_1(joint, shift);
+						break;
+					default:
+						//cr_c_ip_1(joint, shift);
+						cr_c_ip_0(joint);
+						//printf(joint.name.c_str());
+						break;
 				}
 
 			}
 
-		
+
 
 
 
 		}
-	
 
-}
+
+	}
 
 
 

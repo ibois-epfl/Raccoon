@@ -11,6 +11,9 @@
 #include <CGAL/Plane_3.h>
 #include <iostream>
 #include <fstream>
+#include <CGAL/Boolean_set_operations_2.h>
+#include <list>
+
 //#include "connection_zones.h"
 
 using IK = CGAL::Exact_predicates_inexact_constructions_kernel;
@@ -19,6 +22,7 @@ typedef CGAL::Cartesian_converter<IK, EK> IK_to_EK;
 typedef CGAL::Cartesian_converter<EK, IK> EK_to_IK;
 using CGAL_Polyline = std::vector<IK::Point_3>;
 using CGAL_Polylines = std::list<CGAL_Polyline>;
+
 
 static  double GlobalTolerance = 0.01;
 static  double GlobalToleranceSquare = 0.0001;
