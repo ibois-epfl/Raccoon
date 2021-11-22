@@ -11,6 +11,21 @@
 //https://github.com/mcneel/opennurbs/blob/c20e599d1ff8f08a55d3dddf5b39e37e8b5cac06/opennurbs_intersect.cpp
 namespace CGAL_IntersectionUtil {
 
+    inline bool LineLine2D(IK::Segment_2& cutter_line, IK::Segment_2& segment, IK::Point_2& output, double & t) {
+
+
+        const auto result = CGAL::intersection(cutter_line, segment);
+
+
+        if (result) {
+            if (const IK::Point_2* p = boost::get<IK::Point_2 >(&*result)) {
+                output = *p;
+                //CGAL_IntersectionUtil::ClosestPointTo(*p, cutter_line, t);
+            }
+        }
+
+        return false;
+    }
 
 
     //bool ON_Matrix::SwapCols(int col0, int col1)
@@ -54,8 +69,8 @@ namespace CGAL_IntersectionUtil {
             (l[0].z() == l[1].z()) ? l[0].z() : s * l[0].z() + t * l[1].z()
         );
     }
-    inline bool ClosestPointTo(const IK::Point_3& point, IK::Segment_3& s, double& t)
-    {
+
+    inline bool ClosestPointTo(const IK::Point_3& point, IK::Segment_3& s, double& t) {
         bool rc = false;
         //if (t) {
         const IK::Vector_3 D = s.to_vector();
@@ -67,15 +82,13 @@ namespace CGAL_IntersectionUtil {
 
             if ((point - s[0]).squared_length() <= (point - s[1]).squared_length()) {
                 t = ((point - s[0]) * D) / DoD;
-            }
-            else {
+            } else {
                 t = 1.0 + ((point - s[1]) * D) / DoD;
             }
 
             rc = true;
 
-        }
-        else {
+        } else {
             t = 0.0;
             rc = true;			// (GBA) Closest point to a degenerate line works as well
         }
@@ -83,14 +96,41 @@ namespace CGAL_IntersectionUtil {
         return rc;
     }
 
+    inline bool ClosestPointTo(const IK::Point_2& point, const IK::Segment_2& s, double& t) {
+        bool rc = false;
+        //if (t) {
+        const IK::Vector_2 D = s.to_vector();
+     
+        const double DoD = D.squared_length();
+        //CGAL_Debug(DoD);
+
+        if (DoD > 0.0) {
+
+            if ((point - s[0]).squared_length() <= (point - s[1]).squared_length()) {
+                t = ((point - s[0]) * D) / DoD;
+            } else {
+                t = 1.0 + ((point - s[1]) * D) / DoD;
+            }
+
+            rc = true;
+
+        } else {
+            t = 0.0;
+            rc = true;			// (GBA) Closest point to a degenerate line works as well
+        }
+        // }
+        return rc;
+    }
+
+
     inline void line_line_line(IK::Segment_3& l0, IK::Segment_3& middle, IK::Segment_3& l1, 
         IK::Point_3& p0, IK::Point_3& p1, 
         double& middle_t_0, double& middle_t_1 ) {
   
 
-        IK::Line_3 l0_(IK::Point_3(-1242.9339929999999, -680.04568599999982, 711.26441699999987), IK::Point_3(-1740.1076069999997, -680.04568599999982, 711.26441699999987));
-        IK::Line_3 l1_(IK::Point_3(-1242.933992, -680.04568600000005, 711.26441699999998), IK::Point_3(-1242.933992, -196.286, 535.190291));
-            
+        //IK::Line_3 l0_(IK::Point_3(-1242.9339929999999, -680.04568599999982, 711.26441699999987), IK::Point_3(-1740.1076069999997, -680.04568599999982, 711.26441699999987));
+        //IK::Line_3 l1_(IK::Point_3(-1242.933992, -680.04568600000005, 711.26441699999998), IK::Point_3(-1242.933992, -196.286, 535.190291));
+        //    
 
 
 

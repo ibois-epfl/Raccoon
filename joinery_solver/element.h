@@ -52,6 +52,7 @@ public:
 
 	void get_joints_geometry(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output, int what_to_expose);
 	void element::get_joints_geometry_as_closed_polylines_replacing_edges(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
+	bool element::intersection_closed_and_open_paths_2D(CGAL_Polyline& closed_pline_cutter, CGAL_Polyline& pline_to_cut, IK::Plane_3& plane, CGAL_Polyline& c);
 	void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output);
 };
 
@@ -70,23 +71,26 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 		for (size_t j = 0; j < j_mf[i].size(); j++) {//loop joints per each face + 1 undefined
 			switch (what_to_expose) {
 				case(0):
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_area);
+					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_area);
 					break;
 				case(1):
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_lines[0]);
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_lines[1]);
+					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_lines[0]);
+					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_lines[1]);
 					break;
 				case(2):
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[0]);
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[1]);
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[2]);
-					output[this->id].push_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[3]);
+					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[0]);
+					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[1]);
+					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[2]);
+					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[3]);
 					break;
 				case(3):
+					output[this->id].emplace_back(this->polylines[0]);//cut
+					output[this->id].emplace_back(this->polylines[1]);//cut
 					for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size(); k++) {
-						output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);//cut
-						output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);//direction
+						output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);//cut
+						output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);//direction
 					}
+
 					break;
 				default:
 					break;
@@ -320,6 +324,8 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 				output[this->id].push_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);
 			}
 
+
+
 		}
 
 
@@ -350,17 +356,128 @@ inline void element::get_joints_geometry_as_closed_polylines_replacing_edges(std
 
 }
 
+inline bool element::intersection_closed_and_open_paths_2D(CGAL_Polyline& closed_pline_cutter, CGAL_Polyline& pline_to_cut, IK::Plane_3& plane, CGAL_Polyline& c) {
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	//Orient from 3D to 2D
+	/////////////////////////////////////////////////////////////////////////////////////
+	CGAL_Polyline a;
+	CGAL_Polyline b;
+	CGAL_PolylineUtil::Duplicate(pline_to_cut, a);
+	CGAL_PolylineUtil::Duplicate(closed_pline_cutter, b);
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	//Create Transformation
+	/////////////////////////////////////////////////////////////////////////////////////
+	CGAL::Aff_transformation_3<IK> xform_toXY = CGAL_XFormUtil::PlaneToXY(b[0], plane);
+	CGAL::Aff_transformation_3<IK> xform_toXY_Inv = xform_toXY.inverse();
+	CGAL_PolylineUtil::Transform(a, xform_toXY);
+	CGAL_PolylineUtil::Transform(b, xform_toXY);
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	//Find Max Coordinate to get Scale factor
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	double max_coordinate = 0;
+	for (int i = 0; i < a.size() - 1; i++) {
+		if (max_coordinate < std::abs(a[i].hx()))
+			max_coordinate = std::abs(a[i].hx());
+
+		if (max_coordinate < std::abs(a[i].hy()))
+			max_coordinate = std::abs(a[i].hy());
+	}
+
+	for (int i = 0; i < b.size() - 1; i++) {
+		if (max_coordinate < std::abs(b[i].hx()))
+			max_coordinate = std::abs(b[i].hx());
+
+		if (max_coordinate < std::abs(a[i].hy()))
+			max_coordinate = std::abs(b[i].hy());
+	}
+
+	double scale = std::pow(10, 17 - CGAL_MathUtil::count_digits(max_coordinate));
+	CGAL_Debug(scale);
+	/////////////////////////////////////////////////////////////////////////////////////
+	//Convert to Clipper
+	/////////////////////////////////////////////////////////////////////////////////////
+	std::vector< ClipperLib::IntPoint > pathA(a.size());
+	std::vector< ClipperLib::IntPoint > pathB(b.size() - 1);
+
+	for (int i = 0; i < a.size() ; i++) {
+		pathA[i] = ClipperLib::IntPoint(a[i].x() * scale, a[i].y() * scale);
+		printf("%f,%f,%f \n", a[i].x(), a[i].y(), a[i].z());
+	}
+	//printf("\n");
+	for (int i = 0; i < b.size() - 1; i++) {
+		pathB[i] = ClipperLib::IntPoint(b[i].x() * scale, b[i].y() * scale);
+		printf("%f,%f,%f \n", b[i].x(), b[i].y(), b[i].z());
+	}
+
+
+
+	ClipperLib::Clipper clipper;
+	
+	clipper.AddPath(pathA, ClipperLib::ptSubject, false);
+	clipper.AddPath(pathB, ClipperLib::ptClip, true);
+	//ClipperLib::Paths C;
+	ClipperLib::PolyTree C;
+	clipper.Execute(ClipperLib::ctIntersection, C, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+
+
+	CGAL_Debug(C.ChildCount());
+	if (C.ChildCount() > 0) {
+
+		//Calculate number of points
+		int count = 0;
+		ClipperLib::PolyNode* polynode = C.GetFirst();
+		while (polynode) {
+			//do stuff with polynode here
+			if (polynode->Contour.size() <= 1)
+				continue;
+			count += polynode->Contour.size();
+			polynode = polynode->GetNext();
+		}
+		c.reserve(count);
+
+
+		polynode = C.GetFirst();
+		count = 0;
+		while (polynode) {
+			//do stuff with polynode here
+			if (polynode->Contour.size() <= 1)
+				continue;
+
+			//Check if seam is correctly placed
+			for (size_t j = 0; j < polynode->Contour.size(); j++)
+				c.emplace_back(polynode->Contour[j].X / scale, polynode->Contour[j].Y / scale, 0);
+		
+			polynode = polynode->GetNext();
+			count++;
+		}
+	
+
+
+		//Transform to 3D space
+		for (int i = 0; i < c.size(); i++)
+			c[i] = c[i].transform(xform_toXY_Inv);
+
+
+	} else {
+		return false;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	//Output
+	/////////////////////////////////////////////////////////////////////////////////////
+	return true;
+
+}
+
 inline void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
 
 
 	CGAL_Polyline pline0 = this->polylines[0];
 	CGAL_Polyline pline1 = this->polylines[1];
-	CGAL::Aff_transformation_3 xform0 = CGAL_XFormUtil::PlaneToXY(pline0[0], this->planes[0]);
-	CGAL::Aff_transformation_3 xform1 = CGAL_XFormUtil::PlaneToXY(pline1[0], this->planes[1]);
-	CGAL::Aff_transformation_3 xform0_inv = xform0.inverse();
-	CGAL::Aff_transformation_3 xform1_inv = xform1.inverse();
-	CGAL_PolylineUtil::Transform(pline0, xform0);
-	CGAL_PolylineUtil::Transform(pline1, xform1);
 
 
 	//you are in a loop
@@ -398,42 +515,19 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 
 				case(5):
 				{//two edges
-			//Intersect segment 0 with polyline
-
-					//Orient to 2D for parameter retrieval
-					CGAL_Polyline joint_pline0 = joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back();
-					CGAL_Polyline joint_pline1 = joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back();
-					CGAL_PolylineUtil::Transform(joint_pline0, xform0);
-					CGAL_PolylineUtil::Transform(joint_pline1, xform1);
-
-					//Perform 2D operations
 
 					int eA, eB;
 					joints[std::get<0>(j_mf[i][j])].get_edge_ids(std::get<1>(j_mf[i][j]), eA, eB);
+					if (false) {//split by line, in this case you need to know which side is inside
 
-
-
-					//Line-Segment -> Take first element polyline intersect with joint polyline, within all points take closes to the line
-					//Do the same for the 2nd polygon, if needed
-					IK::Line_3 l0(this->polylines[0][eA - 1], this->polylines[0][eA]);
-
-					for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back().size()-1; k++) {
-						IK::Line_3 s0(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[k-1], joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[k]);
-						CGAL::intersection(l0, s0);
+					} else {//split by full polygon 
+						CGAL_Polyline joint_pline_0;
+						intersection_closed_and_open_paths_2D(pline0, joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).front(), this->planes[0], joint_pline_0);
+						output[this->id].emplace_back(joint_pline_0);
 					}
 
-					//
-					//IK::Line_3 l1(this->polylines[0][eB - 1], this->polylines[0][eB]);
 
-					//Find closest parameters for both parts
-
-					//split polygon in to parts by poilygon parameters t0, t1
-					//Sort them according to order and select points in between t0, next, next ... next until t1 is found
-
-
-					if (eA != eB) {
-
-					}
+				
 					break;
 				}
 				default:

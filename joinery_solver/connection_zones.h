@@ -152,6 +152,9 @@ inline void get_elements(
 
 
 
+
+
+
 inline bool intersection_2D(CGAL_Polyline& p0, CGAL_Polyline& p1, IK::Plane_3& plane, CGAL_Polyline& c, double scale = 100000.0) {
 
 	/////////////////////////////////////////////////////////////////////////////////////
