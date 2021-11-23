@@ -879,27 +879,31 @@ namespace joint_library {
 
 		joint.name = "cr_c_ip_0";
 
+		double scale = 1;
 		joint.f[0] = {
-		{ IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,0.55),IK::Point_3(-0.5,-0.5,0.55),IK::Point_3(-0.5,-0.5,0) },
-		{ IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,0.55),IK::Point_3(-0.5,-0.5,0.55),IK::Point_3(-0.5,-0.5,0) }
+		
+			{	IK::Point_3(-0.5,0.5,scale),IK::Point_3(-0.5,-0.5,scale),IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,scale) },
+			{	IK::Point_3(-0.5,0.5,scale),IK::Point_3(-0.5,-0.5,scale),IK::Point_3(-0.5,-0.5,0),IK::Point_3(-0.5,0.5,0),IK::Point_3(-0.5,0.5,scale) }
+	
 		};
 
 		joint.f[1] = {
-			{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) },
-			{ IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, 0.55), IK::Point_3(0.5, -0.5, 0.55), IK::Point_3(0.5, -0.5, 0) }
+			{  IK::Point_3(0.5, 0.5, scale), IK::Point_3(0.5, -0.5, scale),  IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, scale)  },
+			{  IK::Point_3(0.5, 0.5, scale), IK::Point_3(0.5, -0.5, scale),  IK::Point_3(0.5, -0.5, 0), IK::Point_3(0.5, 0.5, 0), IK::Point_3(0.5, 0.5, scale) }
+			
 
 		};
 
 
 		joint.m[0] = {
-		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) },
-		{ IK::Point_3(0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,-0.55),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-0.55) }
+		{ IK::Point_3(0.5,0.5,-scale),IK::Point_3(-0.5,0.5,-scale),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-scale) },
+		{ IK::Point_3(0.5,0.5,-scale),IK::Point_3(-0.5,0.5,-scale),IK::Point_3(-0.5,0.5,0),IK::Point_3(0.5,0.5,0),IK::Point_3(0.5,0.5,-scale) }
 		};
 
 
 		joint.m[1] = {
-		{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) },
-		{ IK::Point_3(0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,-0.55),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-0.55) }
+		{ IK::Point_3(0.5,-0.5,-scale),IK::Point_3(-0.5,-0.5,-scale),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-scale) },
+		{ IK::Point_3(0.5,-0.5,-scale),IK::Point_3(-0.5,-0.5,-scale),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-scale) }
 		};
 
 		joint.m_boolean_type = { '0','0' };

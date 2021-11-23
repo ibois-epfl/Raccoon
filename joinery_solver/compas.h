@@ -28,7 +28,7 @@ static  double GlobalTolerance = 0.01;
 static  double GlobalToleranceSquare = 0.0001;
 static  double GlobalClipperScale = 1000000.0;
 static  double GlobalClipperAreaTolerance = 0.0001;
-static  double GlobalExtend[5] = { 0,0,0,0,0 };
+static  double GlobalExtend[5] = { 0.0,0.0,0,0,0 };
 
 #define ON_IS_FINITE(x) (0x7FF0 != (*((unsigned short*)(&x) + 3) & 0x7FF0))
 #define ON_DBL_MIN 2.22507385850720200e-308
@@ -377,8 +377,14 @@ inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVector(std:
 
 	std::vector<compas::RowMatrixXd> pointsets;
 
-
+	int kk = 0;
 	for (auto& polylines : polylines_vector) {
+
+		kk++;
+
+		//if (kk % 2 == 1) {
+		//	continue;
+		//}
 
 		for (auto i = polylines.begin(); i != polylines.end(); i++) {
 

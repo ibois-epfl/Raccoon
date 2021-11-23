@@ -345,10 +345,14 @@ inline bool plane_to_face(std::vector<
 	if (!CGAL_PolylineUtil::PlanePolyline(*cx1, *cy1, *px1, *py1, cx1_py1__cy1_px1, edge_pair_e0_1__e1_1)) return false;//,cx1_py1__cy1_px1_Max
 
 
-	e0_0 = edge_pair_e0_0__e1_0.first;
-	e1_0 = edge_pair_e0_0__e1_0.second;
-	e0_1 = edge_pair_e0_1__e1_1.first;
-	e1_1 = edge_pair_e0_1__e1_1.second;
+	e0_0 = edge_pair_e0_0__e1_0.first+2;
+	e1_0 = edge_pair_e0_0__e1_0.second + 2;
+	e0_1 = edge_pair_e0_1__e1_1.first + 2;
+	e1_1 = edge_pair_e0_1__e1_1.second + 2;
+	//e0_0 = -1;
+	//e1_0 = -1;
+	//e0_1 = -1;
+	//e1_1 = -1;
 	//CGAL_Debug(e0_0, e0_1, e1_0, e1_1);
 
 
@@ -463,12 +467,71 @@ inline bool plane_to_face(std::vector<
 	v *= (1 + GlobalExtend[2]);
 
 
+	//Align v direction in comparison to orignal 4 lines if possible
+	//IK::Point_3 origin(0,0,0);
+	//IK::Vector_3 v_copy = v;
+	//IK::Vector_3 v_align = cx0_py0__cy0_px0.to_vector();
+	//CGAL_VectorUtil::Unitize(v_copy);
+	//CGAL_VectorUtil::Unitize(v_align);
+
+	//if (CGAL::squared_distance(origin + v_align, origin + v_copy) > CGAL::squared_distance(origin - v_align, origin + v_copy))
+		//v *= -1;
+
 	//intersection mid plane with four lines and move it in both directions
 	//CGAL_Polyline joint_area;
 	CGAL_IntersectionUtil::Plane4LinesIntersection(midPlane, cx0_py0__cy0_px0, cx0_py1__cy1_px0, cx1_py1__cy1_px1, cx1_py0__cy0_px1, joint_area);
+
+
+
+	//////////////////////////////////////////////////////////////////////////////
+	//Move rectangles in opposite direction
+	//////////////////////////////////////////////////////////////////////////////
+	//std::reverse(joint_area.begin(), joint_area.end());
+	//std::rotate(joint_area.begin(), joint_area.begin() + 1, joint_area.end());
+	//std::vector<IK::Point_3> pts0 = { joint_area[0] ,joint_area[1] , joint_area[2] , joint_area[3]   };
+
+	////IK::Point_3 pts1[4] = { joint_area[0] - v, joint_area[1] - v, joint_area[2] - v, joint_area[3] - v };
+	//joint_area = pts0;
+	//joint_area.push_back(joint_area[0]);
+
+
+
+
+
+
+
+	//for (int i = 0; i < 4; i++) {
+	//	if (CGAL::squared_distance(joint_area_oriented[0], px0->projection(joint_area_oriented[0])) > GlobalToleranceSquare)
+	//		std::rotate(joint_area_oriented.begin(), joint_area_oriented.begin() + 1, joint_area_oriented.end());
+	//	else {
+	//		CGAL_Debug(9999);
+	//		break;
+
+	//	}
+	//}
+
+	//if (CGAL::squared_distance(joint_area[1], px1->projection(joint_area_oriented[1])) > GlobalToleranceSquare)
+	//	std::reverse(joint_area_oriented.begin(), joint_area_oriented.end());
+	//joint_area_oriented.emplace_back(joint_area_oriented[0]);
+	//joint_area = joint_area_oriented;
+
+	////std::rotate(joint_area_oriented.begin(), joint_area_oriented.begin() + 1, joint_area_oriented.end());
+
+	//IK::Point_3 center = CGAL_PolylineUtil::Center(*cx0);//not center but closest point, check all and tak closest
+	//if (CGAL::squared_distance(IK::Point_3(joint_area_oriented[0]) + v, center) > CGAL::squared_distance(IK::Point_3(joint_area_oriented[0]) - v, center))
+	//	v *= -1;
+
+	
+	//v *= -1;
+	
 	joint_volumes_pairA_pairB[0] = { IK::Point_3(joint_area[0]) + v, IK::Point_3(joint_area[1]) + v, IK::Point_3(joint_area[2]) + v, IK::Point_3(joint_area[3]) + v, IK::Point_3(joint_area[4]) + v };
 	joint_volumes_pairA_pairB[1] = { IK::Point_3(joint_area[0]) - v, IK::Point_3(joint_area[1]) - v, IK::Point_3(joint_area[2]) - v, IK::Point_3(joint_area[3]) - v, IK::Point_3(joint_area[4]) - v };
+	//std::reverse(joint_area.begin(), joint_area.end());
+	//std::reverse(joint_volumes_pairA_pairB[0].begin(), joint_volumes_pairA_pairB[0].end());
+	//std::reverse(joint_volumes_pairA_pairB[1].begin(), joint_volumes_pairA_pairB[1].end());
 
+	//joint_lines[0] = { joint_volumes_pairA_pairB[0][0],joint_volumes_pairA_pairB[1][0] + v };
+	//joint_lines[1] = { joint_volumes_pairA_pairB[0][0],joint_volumes_pairA_pairB[0][3] };
 
 	 //jointArea0.insert(jointArea0.end(), jointArea1.begin(), jointArea1.end());
 
@@ -477,6 +540,7 @@ inline bool plane_to_face(std::vector<
 	 //jointArea0 = rm.Translate(lMax.direction().Unit() * (-(1 + this.extend[2]) + 0.00) * maxLength);//For some reason extend by 1.5
 	 //jointArea1 = rm.Translate(lMax.direction().Unit() * ((1 + this.extend[2]) + 0.00) * maxLength);//For some reason extend by 1.5
 
+	//does not work
 	if (GlobalExtend[0] + GlobalExtend[1] > 0) {
 		CGAL_PolylineUtil::Extend(joint_volumes_pairA_pairB[0], 0, 0, 0, GlobalExtend[0], GlobalExtend[0]);
 		CGAL_PolylineUtil::Extend(joint_volumes_pairA_pairB[0], 2, 0, 0, GlobalExtend[0], GlobalExtend[0]);
@@ -499,7 +563,7 @@ inline bool plane_to_face(std::vector<
 	////////////////////////////////////////////////////////////////////////////////
 	//Joint pj = new Joint(this.joints.Count, x.key, y.key, -1, -1, new List<Polyline>{ jointArea0, jointArea1 }, jointLines, new OutlineType[]{ OutlineType.Side, OutlineType.Side }, CollisionType.PlaneFace);//OutlineType
 	//this.joints.Add(pj);
-	type = 30;
+
 	return true;
 
 
@@ -1105,7 +1169,7 @@ inline void rtree_search(
 				elements[result[i + 1]].j_mf.back().push_back(std::tuple<int, bool, double>(jointID, false, 0));
 				//CGAL_Debug(4);
 			} else {
-				if (e1_0 < 2 || e0_0 < 2) {
+				if ((e1_0 < 2 || e0_0 < 2) && type != 30) {//side-top connection weirdo, clean this up
 					if ((e1_0 < 2 && e0_0>1)) {
 						elements[result[i + 0]].j_mf[e0_0].push_back(std::tuple<int, bool, double>(jointID, true, 0));
 						elements[result[i + 1]].j_mf[e1_0].push_back(std::tuple<int, bool, double>(jointID, false, 0));

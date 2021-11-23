@@ -79,9 +79,9 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 					break;
 				case(2):
 					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[0]);
-					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[1]);
+					//output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[1]);
 					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[2]);
-					output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[3]);
+					//output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[3]);
 					break;
 				case(3):
 					output[this->id].emplace_back(this->polylines[0]);//cut
@@ -396,7 +396,7 @@ inline bool element::intersection_closed_and_open_paths_2D(CGAL_Polyline& closed
 	}
 
 	double scale = std::pow(10, 17 - CGAL_MathUtil::count_digits(max_coordinate));
-	CGAL_Debug(scale);
+	//CGAL_Debug(scale);
 	/////////////////////////////////////////////////////////////////////////////////////
 	//Convert to Clipper
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -405,12 +405,12 @@ inline bool element::intersection_closed_and_open_paths_2D(CGAL_Polyline& closed
 
 	for (int i = 0; i < a.size() ; i++) {
 		pathA[i] = ClipperLib::IntPoint(a[i].x() * scale, a[i].y() * scale);
-		printf("%f,%f,%f \n", a[i].x(), a[i].y(), a[i].z());
+		//printf("%f,%f,%f \n", a[i].x(), a[i].y(), a[i].z());
 	}
 	//printf("\n");
 	for (int i = 0; i < b.size() - 1; i++) {
 		pathB[i] = ClipperLib::IntPoint(b[i].x() * scale, b[i].y() * scale);
-		printf("%f,%f,%f \n", b[i].x(), b[i].y(), b[i].z());
+		//printf("%f,%f,%f \n", b[i].x(), b[i].y(), b[i].z());
 	}
 
 
@@ -421,10 +421,10 @@ inline bool element::intersection_closed_and_open_paths_2D(CGAL_Polyline& closed
 	clipper.AddPath(pathB, ClipperLib::ptClip, true);
 	//ClipperLib::Paths C;
 	ClipperLib::PolyTree C;
-	clipper.Execute(ClipperLib::ctIntersection, C, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+	clipper.Execute(ClipperLib::ctIntersection, C, ClipperLib::pftEvenOdd, ClipperLib::pftEvenOdd);
 
 
-	CGAL_Debug(C.ChildCount());
+	//CGAL_Debug(C.ChildCount());
 	if (C.ChildCount() > 0) {
 
 		//Calculate number of points
@@ -436,9 +436,11 @@ inline bool element::intersection_closed_and_open_paths_2D(CGAL_Polyline& closed
 				continue;
 			count += polynode->Contour.size();
 			polynode = polynode->GetNext();
+
+			break;
 		}
 		c.reserve(count);
-
+		//CGAL_Debug(count);
 
 		polynode = C.GetFirst();
 		count = 0;
@@ -448,11 +450,35 @@ inline bool element::intersection_closed_and_open_paths_2D(CGAL_Polyline& closed
 				continue;
 
 			//Check if seam is correctly placed
-			for (size_t j = 0; j < polynode->Contour.size(); j++)
-				c.emplace_back(polynode->Contour[j].X / scale, polynode->Contour[j].Y / scale, 0);
+			if (count == 0) {
+				for (size_t j = 0; j < polynode->Contour.size(); j++)
+					c.emplace_back(polynode->Contour[j].X / scale, polynode->Contour[j].Y / scale, 0);
+			} else {//if there are multiple segments
+				std::vector<IK::Point_3> pts;
+				pts.reserve(polynode->Contour.size());
+				for (size_t j = 0; j < polynode->Contour.size(); j++)
+					pts.emplace_back(polynode->Contour[j].X / scale, polynode->Contour[j].Y / scale, 0);
+
+				//Check if curve is closest to new pline if not reverse
+				if (CGAL::squared_distance(c.back(), pts.front()) > GlobalToleranceSquare && CGAL::squared_distance(c.back(), pts.back()) > GlobalToleranceSquare)
+					std::reverse(c.begin(), c.end());
+
+				//Check if insertable curve end is closest to the main curve end, if not reverse
+				if (CGAL::squared_distance(c.back(), pts.front()) > CGAL::squared_distance(c.back(), pts.back()))
+					std::reverse(pts.begin(),pts.end());
+
+				for (size_t j = 1; j < pts.size(); j++)
+					c.emplace_back(pts[j]);
+			}
+			//if (count >0) {
+			//		for (size_t j = 0; j < polynode->Contour.size(); j++)
+			//			c.emplace_back(polynode->Contour[j].X / scale, polynode->Contour[j].Y / scale, 0);
+			//}
+
 		
 			polynode = polynode->GetNext();
 			count++;
+			//break;
 		}
 	
 
@@ -488,7 +514,7 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 		//CGAL_Debug(this->j_mf[i].size());
 		for (int j = 0; j < this->j_mf[i].size(); j++) {//
 
-			
+			//CGAL_Debug(9999);
 
 			///////////////////////////////////////////////////////////////////////////////
 			//Skip undefined names and if tiles has more than 1 polyline to insert
@@ -504,6 +530,11 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0])
 				;
 
+			if (flag)
+				joints[std::get<0>(j_mf[i][j])].reverse(std::get<1>(j_mf[i][j]));
+
+			
+
 			///////////////////////////////////////////////////////////////////////////////
 			//Intersect rectangle or line
 			///////////////////////////////////////////////////////////////////////////////
@@ -517,13 +548,20 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 				{//two edges
 
 					int eA, eB;
+					
 					joints[std::get<0>(j_mf[i][j])].get_edge_ids(std::get<1>(j_mf[i][j]), eA, eB);
 					if (false) {//split by line, in this case you need to know which side is inside
 
 					} else {//split by full polygon 
 						CGAL_Polyline joint_pline_0;
 						intersection_closed_and_open_paths_2D(pline0, joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).front(), this->planes[0], joint_pline_0);
+
+						CGAL_Polyline joint_pline_1;
+						intersection_closed_and_open_paths_2D(pline1, joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).front(), this->planes[1], joint_pline_1);
+
+						//output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).front());
 						output[this->id].emplace_back(joint_pline_0);
+						output[this->id].emplace_back(joint_pline_1);
 					}
 
 
@@ -537,17 +575,16 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 
 
 
-			if (flag)
-				joints[std::get<0>(j_mf[i][j])].reverse(std::get<1>(j_mf[i][j]));
 
 
-			CGAL_Debug(
-				joints[std::get<0>(j_mf[i][j])].e0_0,
-				joints[std::get<0>(j_mf[i][j])].e0_1,
-				joints[std::get<0>(j_mf[i][j])].e1_0,
-				joints[std::get<0>(j_mf[i][j])].e1_1
-				
-				);
+
+			//CGAL_Debug(
+			//	joints[std::get<0>(j_mf[i][j])].e0_0,
+			//	joints[std::get<0>(j_mf[i][j])].e0_1,
+			//	joints[std::get<0>(j_mf[i][j])].e1_0,
+			//	joints[std::get<0>(j_mf[i][j])].e1_1
+			//	
+			//	);
 		}
 	}
 
