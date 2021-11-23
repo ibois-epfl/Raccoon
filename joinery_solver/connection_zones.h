@@ -1128,7 +1128,7 @@ inline void rtree_search(
 		int e0_0, e1_0, e0_1, e1_1, type;
 
 		int found_type = 0;
-		switch (search_type) {
+		switch (0) {
 		case(0):
 			found_type = face_to_face(elements[result[i]].polylines, elements[result[i + 1]].polylines, elements[result[i]].planes, elements[result[i + 1]].planes, elements[result[i ]].edge_vectors, elements[result[i + 1]].edge_vectors, e0_0, e1_0, e0_1, e1_1, joint_area, joint_lines, joint_volumes_pairA_pairB, type) ? 1 : 0;
 			break;

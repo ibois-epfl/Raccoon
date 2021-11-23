@@ -31,7 +31,21 @@ public:
 
 static class command_get_polylines thejoinery_solver_rhino7Command;
 
+static int RhinoFindOrCreateLayer(CRhinoDoc& doc, const wchar_t* layer_name) {
+	if (nullptr == layer_name || 0 == layer_name[0])
+		return ON_UNSET_INT_INDEX;
 
+	int layer_index = doc.m_layer_table.FindLayerFromFullPathName(layer_name, ON_UNSET_INT_INDEX);
+	if (layer_index == ON_UNSET_INT_INDEX) {
+		ON_Layer layer;
+		layer.SetName(layer_name);
+		layer.SetColor(ON_Color(255, 0, 0));
+		layer.SetPlotColor(ON_Color(255, 0, 0));
+		layer_index = doc.m_layer_table.AddLayer(layer);
+	}
+
+	return layer_index;
+}
 
 CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandContext& context)
 {
@@ -131,6 +145,16 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	RhinoApp().Print(L"Input %d \n", input_polyline_pairs.size());
 	RhinoApp().Print(L"Output %d \n", output_polyline_groups.size());
 
+	//Create layer
+	const wchar_t* layer_name = L"joinery_solver";
+	int layer_index = RhinoFindOrCreateLayer(context.m_doc, layer_name);
+	if (layer_index == ON_UNSET_INT_INDEX)
+		return CRhinoCommand::failure;
+
+	ON_3dmObjectAttributes attributes;
+	context.m_doc.GetDefaultObjectAttributes(attributes);
+	attributes.m_layer_index = layer_index;
+
 	for (auto& output : output_polyline_groups) {
 		
 		ON_SimpleArray<const CRhinoObject*> group_members(output.size());
@@ -142,7 +166,7 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 				points.Append(ON_3dPoint(output[i][j].hx(), output[i][j].hy(), output[i][j].hz()));
 
 			ON_Polyline pline(points);
-			CRhinoCurveObject* curve_object = context.m_doc.AddCurveObject(pline);
+			CRhinoCurveObject* curve_object = context.m_doc.AddCurveObject(pline,&attributes);
 			group_members.Append(curve_object);
 		}
 
