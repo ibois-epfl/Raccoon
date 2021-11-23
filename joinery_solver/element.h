@@ -584,17 +584,105 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 			///////////////////////////////////////////////////////////////////////////////
 			switch (joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back().size()) {
 
-				case(2)://one edge
+				case(2):
+				{//Reposition end points
+				
+					int id = i - 2;
+					int n = pline0.size() - 1;
+
+
+					IK::Segment_3 joint_line_0(joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), true).back()[0], joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), true).back()[1]);
+					IK::Segment_3 joint_line_1(joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), false).back()[0], joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), false).back()[1]);
+
 					///////////////////////////////////////////////////////////////////////////////
-					//Reposition end points
+					//Take last lines
 					///////////////////////////////////////////////////////////////////////////////
+					int prev = (((id - 1) % n) + n) % n;
+					int next = (((id + 1) % n) + n) % n;
+					int nextnext = (((id + 2) % n) + n) % n;
+
+					IK::Segment_3 next_segment_0(pline0[prev], pline0[id]);
+					IK::Segment_3 prev_segment_0(pline0[next], pline0[nextnext]);
+					IK::Segment_3 next_segment_1(pline1[prev], pline1[id]);
+					IK::Segment_3 prev_segment_1(pline1[next], pline1[nextnext]);
+			
+
+					///////////////////////////////////////////////////////////////////////////////
+					//Intersect them with side lines, same principle must work on both polygons
+					///////////////////////////////////////////////////////////////////////////////
+					//1 Perform intersection line-line (needs implementation from rhino)
+					//3 If intersecting relocate joint line points --|*---------*|--, if not overlaping do not change |  *-----*  |.
+					IK::Point_3 p0_int, p1_int, p2_int, p3_int;
+					double t0_int, t1_int, t2_int, t3_int;
+
+					IK::Plane_3 joint_line_plane_0_prev(joint_line_0[0], planes[2 + id].orthogonal_vector());
+					IK::Plane_3 joint_line_plane_0_next(joint_line_0[0], planes[2 + id].orthogonal_vector());
+					IK::Plane_3 joint_line_plane_1_prev(joint_line_1[0], planes[2 + id].orthogonal_vector());
+					IK::Plane_3 joint_line_plane_1_next(joint_line_1[0], planes[2 + id].orthogonal_vector());
+
+
+					IK::Vector_3 v(0, 0, 2);
+
+
+					bool flag0 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + prev], joint_line_plane_0_prev, planes[0], p0_int, joint_line_0, t0_int);
+
+					//output.push_back({ p0_int + v,joint_line_0[0]+ v,CGAL_PolylineUtil::Center(polylines[2 + prev]) + v,CGAL_PolylineUtil::Center(polylines[0]) + v });
+
+					bool flag1 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + next], joint_line_plane_0_next, planes[0], p1_int, joint_line_0, t1_int);
+					//output.push_back({ p1_int + v ,joint_line_0[0] + v,CGAL_PolylineUtil::Center(polylines[2 + next]) + v,CGAL_PolylineUtil::Center(polylines[0]) + v });
+
+					bool flag2 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + prev], joint_line_plane_1_prev, planes[1], p2_int, joint_line_1, t2_int);
+					//output.push_back({ p2_int + v,joint_line_1[0] + v,CGAL_PolylineUtil::Center(polylines[2 + prev]) + v,CGAL_PolylineUtil::Center(polylines[1]) + v });
+
+					bool flag3 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + next], joint_line_plane_1_next, planes[1], p3_int, joint_line_1, t3_int);
+					//output.push_back({ p3_int + v,joint_line_1[0] + v,CGAL_PolylineUtil::Center(polylines[2 + next]) + v,CGAL_PolylineUtil::Center(polylines[1]) + v });
+
+
+					///////////////////////////////////////////////////////////////////////////////
+					//2 Relocate side segments points to intersection points
+					///////////////////////////////////////////////////////////////////////////////
+
+
+					if (flag0) pline0[id] = p0_int;
+					if (flag1) pline0[next] = p1_int;
+
+
+					if (flag2) pline1[id] = p2_int;
+					if (flag3) pline1[next] = p3_int;
+
+					///////////////////////////////////////////////////////////////////////////////
+					//3 Check orientation of joint outlines, if needed flip
+					///////////////////////////////////////////////////////////////////////////////
+					bool flip = CGAL::has_smaller_distance_to_point(
+						pline0[id],
+						joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), !flag)[0].front(),
+						joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), !flag)[0].back()
+					);
+					;
+					if (!flip) {
+
+						//bottom
+						std::reverse(
+							joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), !flag)[0].begin(),
+							joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), !flag)[0].end()
+						);
+
+						//top
+						std::reverse(
+							joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), flag)[0].begin(),
+							joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), flag)[0].end()
+						);
+					}
 
 
 					///////////////////////////////////////////////////////////////////////////////
 					//Get closest parameters (edge start, start+1) and add to pairs
 					///////////////////////////////////////////////////////////////////////////////
+					std::pair<double, double> cp_pair(id + 0.1, id + 0.9);
+					sorted_segments_or_points_0.insert(std::make_pair(cp_pair.first, std::pair<std::pair<double, double>, CGAL_Polyline>{ cp_pair, joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), true)[0] }));
+					sorted_segments_or_points_1.insert(std::make_pair(cp_pair.first, std::pair<std::pair<double, double>, CGAL_Polyline>{ cp_pair, joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), false)[0] }));
 					break;
-
+				}
 				case(5):
 				{//two edges
 

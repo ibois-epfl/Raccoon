@@ -430,8 +430,9 @@ inline std::vector<compas::RowMatrixXd> compas::result_from_polylinesVector(std:
 					myfile << poly[k].hx() << " " << poly[k].hy() << " " << poly[k].hz() << " " << "\n";
 				myfile << ("\n");
 			}
-			myfile.close();
+		
 		}
+		myfile.close();
 	}
 
 	return pointsets;
