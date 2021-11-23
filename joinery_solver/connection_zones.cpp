@@ -39,7 +39,7 @@ void get_connection_zones(
 	auto joints = std::vector<joint>();
 	auto joints_map = std::unordered_map<uint64_t, int>();
 	rtree_search(elements, search_type, joints, joints_map);
-	return;
+
 	//if (true) {
 	//	std::ofstream myfile;
 	//	myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output.txt");
@@ -70,13 +70,13 @@ void get_connection_zones(
 	//////////////////////////////////////////////////////////////////////////////
 
 	plines = std::vector<std::vector<CGAL_Polyline>>(elements.size());
-	//CGAL_Debug(joints.size());
+	CGAL_Debug(joints.size());
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 
 		//elements[i].get_joints_geometry(joints, plines, 0);
 		//elements[i].get_joints_geometry(joints, plines, 1);
-		//elements[i].get_joints_geometry(joints, plines, 2);
-		//elements[i].get_joints_geometry(joints, plines, 3);//push joint geometry from joint to element
+		elements[i].get_joints_geometry(joints, plines, 2);
+		elements[i].get_joints_geometry(joints, plines, 3);//push joint geometry from joint to element
 		//elements[i].get_joints_geometry_as_closed_polylines_replacing_edges(joints, plines);
 		//elements[i].get_joints_geometry_as_closed_polylines_performing_intersection(joints, plines);
 

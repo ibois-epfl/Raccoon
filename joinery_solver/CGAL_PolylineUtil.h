@@ -296,21 +296,44 @@ namespace CGAL_PolylineUtil {
 
 	
 
-	inline void PlanePolylineIntersection(CGAL_Polyline& polyline, IK::Plane_3& plane, std::vector<IK::Point_3>& points, std::vector<int>& edge_ids) {
+	inline bool PlanePolylineIntersection(CGAL_Polyline& polyline, IK::Plane_3& plane, std::vector<IK::Point_3>& points, std::vector<int>& edge_ids) {
 
+		//CGAL_Debug(polyline.size() - 1);
 		for (int i = 0; i < polyline.size() - 1; i++) {
-
+			//CGAL_Debug(1);
 			IK::Segment_3 segment(polyline[i], polyline[i + 1]);
-			auto result = CGAL::intersection(segment, plane);
+			//CGAL_Debug(2);
+			//CGAL_Debug(segment.squared_length());
+			//CGAL_Debug(plane.is_degenerate());
+			//CGAL_Debug(CGAL::squared_distance(plane.projection(segment[0]), segment[0]));
+			//CGAL_Debug(CGAL::squared_distance(plane.projection(segment[1]), segment[1]));
 
+			if (CGAL::squared_distance(plane.projection(segment[0]), segment[0]) < GlobalToleranceSquare) {
+				//CGAL_Debug(9999);
+				return false;
+
+			}
+
+			if (CGAL::squared_distance(plane.projection(segment[1]), segment[1]) < GlobalToleranceSquare) {
+				//CGAL_Debug(9999);
+				return false;
+			}
+
+			//if(  CGAL::squared_distance(plane.projection(segment[0]), segment[0])  )
+			
+			const auto result = CGAL::intersection(segment, plane);
+			
+			//CGAL_Debug(3);
 			if (result) {
 				if (const IK::Point_3* p = boost::get<IK::Point_3>(&*result)) {
-					points.push_back(*p);
+					points.emplace_back(*p);
 					edge_ids.emplace_back(i);
 				}//if point type
 			}
+			//CGAL_Debug(4);
 		}
-
+		//CGAL_Debug(5);
+		return true;
 
 	}
 
@@ -393,21 +416,21 @@ namespace CGAL_PolylineUtil {
 
 		//printf("H");
 		bool debug = false;
-
+		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Perform both events 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		std::vector<IK::Point_3> pts0;
 		std::vector<int> edge_ids_0;
-		PlanePolylineIntersection(c0, p1, pts0, edge_ids_0);
-
+		if(!PlanePolylineIntersection(c0, p1, pts0, edge_ids_0)) return false;
+		
 		std::vector<IK::Point_3> pts1;
 		std::vector<int> edge_ids_1;
-		PlanePolylineIntersection(c1, p0, pts1, edge_ids_1);
+		if (!PlanePolylineIntersection(c1, p0, pts1, edge_ids_1)) return false;
 		//printf(" %zi ", pts0.size());
 		//printf(" %zi ", pts1.size());
 
-
+	
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Check1: if there are 2 intersections
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
