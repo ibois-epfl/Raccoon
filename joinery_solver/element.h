@@ -556,6 +556,7 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 
 	std::vector<bool> flags0(pline0.size() - 1);
 	std::vector<bool> flags1(pline1.size() - 1);
+	int point_count = pline0.size();
 
 	for (int i = 2; i < this->j_mf.size(); i++) {
 		for (int j = 0; j < this->j_mf[i].size(); j++) {//
@@ -679,8 +680,10 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 					//Get closest parameters (edge start, start+1) and add to pairs
 					///////////////////////////////////////////////////////////////////////////////
 					std::pair<double, double> cp_pair(id + 0.1, id + 0.9);
+
 					sorted_segments_or_points_0.insert(std::make_pair(cp_pair.first, std::pair<std::pair<double, double>, CGAL_Polyline>{ cp_pair, joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), true)[0] }));
 					sorted_segments_or_points_1.insert(std::make_pair(cp_pair.first, std::pair<std::pair<double, double>, CGAL_Polyline>{ cp_pair, joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), false)[0] }));
+					point_count += joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), true)[0].size();
 					break;
 				}
 				case(5):
@@ -709,7 +712,7 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 						intersection_closed_and_open_paths_2D(pline1, joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).front(), this->planes[1], joint_pline_1, edge_pair, cp_pair_1);
 						sorted_segments_or_points_1.insert(std::make_pair((cp_pair_1.first + cp_pair_1.first) * 0.5, std::pair<std::pair<double, double>, CGAL_Polyline>{ cp_pair_1, joint_pline_1 }));
 						
-
+						point_count += joint_pline_1.size();
 						//pairs0.push_back(cp_pair_0);
 						//pairs1.push_back(cp_pair_1);
 
@@ -736,8 +739,10 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 	///////////////////////////////////////////////////////////////////////////////
 	std::vector<bool> point_flags_0(pline0.size(), true);//point flags to keep corners
 	for (auto& pair : sorted_segments_or_points_0)
-		for (size_t j = std::ceil(pair.second.first.first); j <= std::floor(pair.second.first.second); j++)//are corners in between insertable polylines
+		for (size_t j = std::ceil(pair.second.first.first); j <= std::floor(pair.second.first.second); j++) {//are corners in between insertable polylines
 			point_flags_0[j] = false;
+			point_count--;
+		}
 	point_flags_0[point_flags_0.size() - 1] = false;//ignore last
 	
 	//CGAL_Debug(std::floor(sorted_segments_or_points_0.begin()->second.first.first), sorted_segments_or_points_0.begin()->second.first.second);
@@ -753,7 +758,8 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 	if (std::floor(sorted_segments_or_points_0.begin()->second.first.first) < 1 && std::ceil(sorted_segments_or_points_0.begin()->second.first.second) == (pline0.size() - 1)) {
 		std::reverse(sorted_segments_or_points_0.begin()->second.second.begin(), sorted_segments_or_points_0.begin()->second.second.end());
 		point_flags_0[0] = false;
-	}
+		point_count--;
+	} 
 
 	if (std::floor(sorted_segments_or_points_1.begin()->second.first.first) < 1 && std::ceil(sorted_segments_or_points_1.begin()->second.first.second) == (pline1.size() - 1)) {
 		std::reverse(sorted_segments_or_points_1.begin()->second.second.begin(), sorted_segments_or_points_1.begin()->second.second.end());
@@ -779,6 +785,8 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 
 	CGAL_Polyline pline0_new; //reserve optimize
 	CGAL_Polyline pline1_new;//reserve optimize
+	pline0_new.reserve(point_count);
+	pline1_new.reserve(point_count);
 
 	//int counter = 0;
 	for (auto const& x : sorted_segments_or_points_0) {
@@ -802,6 +810,8 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 	///////////////////////////////////////////////////////////////////////////////
 	pline0_new.emplace_back(pline0_new.front());
 	pline1_new.emplace_back(pline1_new.front());
+
+	//CGAL_Debug(pline0_new.size(), point_count);
 
 	///////////////////////////////////////////////////////////////////////////////
 	//Output
