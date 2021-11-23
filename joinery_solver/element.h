@@ -540,6 +540,7 @@ inline bool element::intersection_closed_and_open_paths_2D(
 
 inline void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
 
+	//ÔPTIMIZE CASE(5) BECASE EDGE ARE KNOWN, BUT CHECK ALSO CROSS JOINT ENSURE THAT YOU TAKE CROSSING EDGES
 
 	CGAL_Polyline pline0 = this->polylines[0];
 	CGAL_Polyline pline1 = this->polylines[1];
