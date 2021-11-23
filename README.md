@@ -65,7 +65,7 @@ ________________________________________________________
 
 ### Merge
 - [x] insert face joints inside edge
-- [ ] :snowflake: insert between multiple edges (cross joint case)
+- [x] insert between multiple edges (cross joint case + face joints) ![Merge closed polygons and open edges](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/merge_1.jpg) 
 - [ ] cut projection and insert in polygon (case when side-side joints are rotated)
 - [ ] mesh boolean: a) reference shapes, b) joints polygon pairs
 
