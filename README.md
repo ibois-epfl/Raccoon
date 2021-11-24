@@ -61,6 +61,23 @@ ________________________________________________________
 - [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
 - [ ] snap-fit joint - ts_e_p_4
 
+#Joints Parameters
+
+    nothing = '0',
+
+    //plates
+    edge_insertion = '1',
+    hole = '2',
+    insert_between_multiple_edges = '3',
+
+    //beams
+    slice = '4',//project and make rectangle
+    mill = '5',
+    mill_project = '6', //project
+    cut = '7',
+    cut_project = '8', //project
+    binary_slice_mill = '9' //project and make rectangle
+
 ________________________________________________________
 
 ### Merge
