@@ -14,6 +14,7 @@
     <ClCompile Include="..\clipper.cpp" />
     <ClCompile Include="..\connection_zones.cpp" />
     <ClCompile Include="command_get_polylines.cpp" />
+    <ClCompile Include="command_mesh_difference.cpp" />
     <ClCompile Include="joinery_solver_rhino7App.cpp" />
     <ClCompile Include="joinery_solver_rhino7PlugIn.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -88,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(RhinoIncDir) C:\IBOIS57\_Code\Software\Python\Pybind11Example\source\module;C:\IBOIS57\_Code\Software\Python\Pybind11Example\externals\pybind11\include;C:\Users\petra\AppData\Local\Programs\Python\Python38\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -115,7 +116,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
       <AdditionalIncludeDirectories>$(RhinoIncDir) C:\IBOIS57\_Code\Software\Python\Pybind11Example\source\module;C:\IBOIS57\_Code\Software\Python\Pybind11Example\externals\pybind11\include;C:\Users\petra\AppData\Local\Programs\Python\Python38\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
