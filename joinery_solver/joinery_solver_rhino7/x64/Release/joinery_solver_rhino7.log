@@ -1,5 +1,7 @@
 ﻿  command_mesh_difference.cpp
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(200,14): warning C4189: 'meshObjBaked': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(179,34): warning C4101: 'e': unreferenced local variable
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(231,34): warning C4101: 'e': unreferenced local variable
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(352,8): warning C4189: 'meshObjBaked': local variable is initialized but not referenced
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\algorithm(2892,24): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
 C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\IO\helpers.h(56): message : see reference to function template instantiation '_OutIt std::transform<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,int(__cdecl *)(int)>(const _InIt,const _InIt,_OutIt,_Fn)' being compiled
           with
@@ -52,28 +54,30 @@ C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing
           [
               TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>
           ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\corefinement.h(642): message : see reference to function template instantiation 'std::array<bool,4> CGAL::Polygon_mesh_processing::corefine_and_compute_boolean_operations<TriangleMesh,NamedParameters1,NamedParameters2,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,const std::array<boost::optional<TriangleMesh *>,4> &,const NamedParameters1 &,const NamedParameters2 &,const std::tuple<CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>> &)' being compiled
+C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\corefinement.h(577): message : see reference to function template instantiation 'std::array<bool,4> CGAL::Polygon_mesh_processing::corefine_and_compute_boolean_operations<TriangleMesh,NamedParameters1,NamedParameters2,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,const std::array<boost::optional<TriangleMesh *>,4> &,const NamedParameters1 &,const NamedParameters2 &,const std::tuple<CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>> &)' being compiled
           with
           [
               TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,
+              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>,
               NamedParameters2=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>
           ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\corefinement.h(1118): message : see reference to function template instantiation 'bool CGAL::Polygon_mesh_processing::corefine_and_compute_difference<TriangleMesh,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,TriangleMesh &,const NamedParameters1 &,const NamedParameters2 &,const NamedParametersOut &)' being compiled
+C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\corefinement.h(1027): message : see reference to function template instantiation 'bool CGAL::Polygon_mesh_processing::corefine_and_compute_union<TriangleMesh,NamedParameters1,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,TriangleMesh &,const NamedParameters1 &,const NamedParameters2 &,const NamedParametersOut &)' being compiled
           with
           [
               TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,
+              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>,
               NamedParameters2=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,
               NamedParametersOut=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(155): message : see reference to function template instantiation 'bool CGAL::Polygon_mesh_processing::corefine_and_compute_difference<CGAL::Surface_mesh<CGAL::Point_3<Kernel_>>>(TriangleMesh &,TriangleMesh &,TriangleMesh &)' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(218): message : see reference to function template instantiation 'bool CGAL::Polygon_mesh_processing::corefine_and_compute_union<CGAL::Surface_mesh<CGAL::Point_3<Kernel_>>,CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,TriangleMesh &,const NamedParameters1 &)' being compiled
           with
           [
               Kernel_=CGAL::Epick,
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
+              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>
           ]
 C:\IBOIS57\_Code\Software\CPP\Boost\boost\iterator\function_output_iterator.hpp(38): warning C4702: unreachable code
 C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Compact_container.h(875): warning C4702: unreachable code
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(190): warning C4715: 'MeshBoolean_CreateArrayTrackColors': not all control paths return a value
      Creating library C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.lib and object C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.exp
   joinery_solver_rhino7.vcxproj -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.rhp
