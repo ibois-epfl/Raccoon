@@ -84,7 +84,7 @@ ________________________________________________________
 - [x] insert face joints inside edge
 - [x] insert between multiple edges (open polylines + closed polygons) ![Merge closed polygons and open edges](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/merge_1.jpg) 
 - [ ] cut projection and insert in polygon (case when side-side joints are rotated)
-- [ ] mesh boolean: a) reference shapes, b) joints polygon pairs
+- [x] mesh boolean: a) reference shapes, b) joints polygon pairs
 
 ### Element Grouping
 - [ ] introduce unordered_map to track grouping like sorted lists x;x;x
