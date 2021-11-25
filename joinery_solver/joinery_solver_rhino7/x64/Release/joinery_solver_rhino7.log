@@ -18,4 +18,4 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_group_loft.cpp(83,9): warning C4189: 'shift': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_group_loft.cpp(81,6): warning C4189: 'search_type': local variable is initialized but not referenced
      Creating library C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.lib and object C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.exp
-  joinery_solver_rhino7.vcxproj -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.rhp
+LINK : fatal error LNK1327: failure during running mt.exe
