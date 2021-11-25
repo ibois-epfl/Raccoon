@@ -541,45 +541,52 @@ inline bool element::intersection_closed_and_open_paths_2D(
 inline void element::get_joints_geometry_as_closed_polylines_performing_intersection(std::vector<joint>& joints, std::vector <std::vector <CGAL_Polyline>>& output) {
 
 	//ÔPTIMIZE CASE(5) BECASE EDGE ARE KNOWN, BUT CHECK ALSO CROSS JOINT ENSURE THAT YOU TAKE CROSSING EDGES
+	//CHANGE TO 2D METHOD, TO AVOID MULTIPLE THE SAME MATRIX CREATION FOR ORIENTATION TO 2D I.E. CLIPPER AND LINELINE3D
+	//you are in a loop
+	//only for objects that has one element as a joint and edges to insert are known
 
 	CGAL_Polyline pline0 = this->polylines[0];
 	CGAL_Polyline pline1 = this->polylines[1];
 
-
-	//you are in a loop
-	//only for objects that has one element as a joint and edges to insert are known
-
-
 	std::map< double,   std::pair<std::pair<double, double>,CGAL_Polyline>      > sorted_segments_or_points_0;
 	std::map< double,   std::pair<std::pair<double, double>, CGAL_Polyline>     > sorted_segments_or_points_1;
-	//std::vector<std::pair<double, double>> pairs0;
-	//std::vector<std::pair<double, double>> pairs1;
 
 	std::vector<bool> flags0(pline0.size() - 1);
 	std::vector<bool> flags1(pline1.size() - 1);
 	int point_count = pline0.size();
 
+	IK::Segment_3 last_segment0_start(IK::Point_3(0, 0, 0), IK::Point_3(0, 0, 0));
+	IK::Segment_3 last_segment1_start(IK::Point_3(0, 0, 0), IK::Point_3(0, 0, 0));
+	IK::Segment_3 last_segment0;
+	IK::Segment_3 last_segment1;
+	int lastID = -1;
 	for (int i = 2; i < this->j_mf.size(); i++) {
+		
 		for (int j = 0; j < this->j_mf[i].size(); j++) {//
 
 			///////////////////////////////////////////////////////////////////////////////
 			//Skip undefined names and if tiles has more than 1 polyline to insert
 			///////////////////////////////////////////////////////////////////////////////
+			bool male_or_female = std::get<1>(j_mf[i][j]);
 			if (joints[std::get<0>(j_mf[i][j])].name == "" ) continue;
-			if (joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size() != 2) continue;
+			if (joints[std::get<0>(j_mf[i][j])](male_or_female, true).size() != 2) continue;
+			//if (!(joints[std::get<0>(j_mf[i][j])].get_first_cutting_type(male_or_female) == '1' || joints[std::get<0>(j_mf[i][j])].get_first_cutting_type(male_or_female) == '3')) continue;
 
+	
+				
 			///////////////////////////////////////////////////////////////////////////////
 			//Take last lines Element outline can be not in the same order as joint outlines Take joint segment and measure its point to the plane
 			///////////////////////////////////////////////////////////////////////////////
 			bool flag =
-				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[0]) >
-				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0])
+				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](male_or_female, true).back()[0]), joints[std::get<0>(j_mf[i][j])](male_or_female, true).back()[0]) >
+				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](male_or_female, false).back()[0]), joints[std::get<0>(j_mf[i][j])](male_or_female, false).back()[0])
 				;
 
 			if (flag)
 				joints[std::get<0>(j_mf[i][j])].reverse(std::get<1>(j_mf[i][j]));
 
 			
+		
 
 			///////////////////////////////////////////////////////////////////////////////
 			//Intersect rectangle or line
@@ -617,41 +624,48 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 					IK::Point_3 p0_int, p1_int, p2_int, p3_int;
 					double t0_int, t1_int, t2_int, t3_int;
 
-					IK::Plane_3 joint_line_plane_0_prev(joint_line_0[0], planes[2 + id].orthogonal_vector());
+					IK::Plane_3 joint_line_plane_0_prev = IK::Plane_3(joint_line_0[0], planes[2 + id].orthogonal_vector());// IK::Plane_3(prev_segment_0[0], planes[2 + id].orthogonal_vector());
 					IK::Plane_3 joint_line_plane_0_next(joint_line_0[0], planes[2 + id].orthogonal_vector());
-					IK::Plane_3 joint_line_plane_1_prev(joint_line_1[0], planes[2 + id].orthogonal_vector());
+					IK::Plane_3 joint_line_plane_1_prev = IK::Plane_3(joint_line_1[0], planes[2 + id].orthogonal_vector());// IK::Plane_3(prev_segment_1[0], planes[2 + id].orthogonal_vector());
 					IK::Plane_3 joint_line_plane_1_next(joint_line_1[0], planes[2 + id].orthogonal_vector());
 
-
-					IK::Vector_3 v(0, 0, 2);
-
-
 					bool flag0 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + prev], joint_line_plane_0_prev, planes[0], p0_int, joint_line_0, t0_int);
-
-					//output.push_back({ p0_int + v,joint_line_0[0]+ v,CGAL_PolylineUtil::Center(polylines[2 + prev]) + v,CGAL_PolylineUtil::Center(polylines[0]) + v });
-
 					bool flag1 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + next], joint_line_plane_0_next, planes[0], p1_int, joint_line_0, t1_int);
-					//output.push_back({ p1_int + v ,joint_line_0[0] + v,CGAL_PolylineUtil::Center(polylines[2 + next]) + v,CGAL_PolylineUtil::Center(polylines[0]) + v });
-
 					bool flag2 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + prev], joint_line_plane_1_prev, planes[1], p2_int, joint_line_1, t2_int);
-					//output.push_back({ p2_int + v,joint_line_1[0] + v,CGAL_PolylineUtil::Center(polylines[2 + prev]) + v,CGAL_PolylineUtil::Center(polylines[1]) + v });
-
 					bool flag3 = CGAL_IntersectionUtil::plane_plane_plane(planes[2 + next], joint_line_plane_1_next, planes[1], p3_int, joint_line_1, t3_int);
-					//output.push_back({ p3_int + v,joint_line_1[0] + v,CGAL_PolylineUtil::Center(polylines[2 + next]) + v,CGAL_PolylineUtil::Center(polylines[1]) + v });
-
 
 					///////////////////////////////////////////////////////////////////////////////
 					//2 Relocate side segments points to intersection points
 					///////////////////////////////////////////////////////////////////////////////
 
+					if (lastID == i - 1) {
+						IK::Point_3 p0;
+						IK::Point_3 p1;
+						if (CGAL_IntersectionUtil::LineLine3D(last_segment0, joint_line_0, p0) && CGAL_IntersectionUtil::LineLine3D(last_segment1, joint_line_1, p1)) {
+							p0_int = p0;
+							p2_int = p1;
+						}
+					}
+		
 
 					if (flag0) pline0[id] = p0_int;
 					if (flag1) pline0[next] = p1_int;
-
-
 					if (flag2) pline1[id] = p2_int;
 					if (flag3) pline1[next] = p3_int;
+					
 
+
+					last_segment0 = joint_line_0;
+					last_segment1 = joint_line_1;
+					if (i == 2) {
+						last_segment0_start = joint_line_0;
+						last_segment1_start = joint_line_1;
+					}
+
+
+
+
+					lastID = i;
 					///////////////////////////////////////////////////////////////////////////////
 					//3 Check orientation of joint outlines, if needed flip
 					///////////////////////////////////////////////////////////////////////////////
@@ -660,7 +674,7 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 						joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), !flag)[0].front(),
 						joints[std::get<0>(j_mf[id + 2][j])](std::get<1>(j_mf[id + 2][j]), !flag)[0].back()
 					);
-					;
+					
 					if (!flip) {
 
 						//bottom
@@ -731,6 +745,7 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 			}
 
 		}
+		
 	}
 
 
@@ -809,10 +824,48 @@ inline void element::get_joints_geometry_as_closed_polylines_performing_intersec
 	///////////////////////////////////////////////////////////////////////////////
 	//Close
 	///////////////////////////////////////////////////////////////////////////////
+	if (lastID == this->polylines[0].size() && last_segment0_start.squared_length() > GlobalToleranceSquare) {
+		IK::Point_3 p0;
+		IK::Point_3 p1;
+		if (CGAL_IntersectionUtil::LineLine3D(last_segment0_start, last_segment0, p0) && CGAL_IntersectionUtil::LineLine3D(last_segment1_start, last_segment1, p1)) {
+			pline0_new[0] = p0;
+			pline1_new[0] = p1;
+		}
+	}
 	pline0_new.emplace_back(pline0_new.front());
 	pline1_new.emplace_back(pline1_new.front());
 
-	//CGAL_Debug(pline0_new.size(), point_count);
+	///////////////////////////////////////////////////////////////////////////////
+	//Add loose elements from top and bottom outlines
+	///////////////////////////////////////////////////////////////////////////////
+
+
+	for (int i = 0; i < 2; i++) {//iterate top only
+
+		for (size_t j = 0; j < j_mf[i].size(); j++) {
+
+			if (joints[std::get<0>(j_mf[i][j])].name == "")continue;
+			//if (joints[std::get<0>(j_mf[i][j])].get_first_cutting_type(std::get<1>(j_mf[i][j])) != '2') continue;
+
+
+			//Check hole position
+			bool flag =
+				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).back()[0]) >
+				CGAL::squared_distance(planes[0].projection(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0]), joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false).back()[0])
+				;
+
+
+
+			if (flag)
+				joints[std::get<0>(j_mf[i][j])].reverse(std::get<1>(j_mf[i][j]));
+
+			for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size() - 1; k++) {
+				output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);
+				output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);
+			}
+
+		}
+	}
 
 	///////////////////////////////////////////////////////////////////////////////
 	//Output

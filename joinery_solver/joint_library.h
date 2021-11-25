@@ -171,8 +171,11 @@ namespace joint_library {
 		////////////////////////////////////////////////////////////////////
 		double joint_length = CGAL::squared_distance(joint.joint_lines[0][0], joint.joint_lines[0][1]); // Math.Abs(500);
 		int divisions = (int)std::ceil(joint_length / (division_distance * division_distance));
-		divisions = (int)std::max(2, std::min(20, divisions));
+		divisions = (int)std::max(2, std::min(100, divisions));
 		divisions += divisions % 2;
+		/*divisions = 10;
+		CGAL_Debug(joint_length);
+		CGAL_Debug(divisions);*/
 
 		//////////////////////////////////////////////////////////////////////////////////////////
 		//Interpolate points
@@ -180,7 +183,8 @@ namespace joint_library {
 		std::vector<IK::Point_3> pts0;
 		interpolate_points(IK::Point_3(0, -0.5, 0.5), IK::Point_3(0, -0.5, -0.5), divisions, false, pts0);
 		IK::Vector_3 v(0.5, 0, 0);
-		IK::Vector_3  v_d(0, 0, -(1.0 / ((divisions + 1) * 2)) * shift);
+		double shift_ = RemapNumbers(shift, 0, 1.0, -0.5, 0.5);
+		IK::Vector_3  v_d(0, 0, -(1.0 / ((divisions + 1) * 2)) * shift_);
 
 		int count = pts0.size() * 2;
 
@@ -216,23 +220,23 @@ namespace joint_library {
 		//Joint lines, always the last line or rectangle is not a joint but an cutting element
 		joint.f[0] = {
 				pline0,
-			{ pline0.begin(), pline0.end()}
+			{ pline0.front(), pline0.back()}
 		};
 
 		joint.f[1] = {
 				pline1,
-			{ pline1.begin(), pline1.end()}
+			{ pline1.front(), pline1.back()}
 		};
 
 		joint.m[0] = {
 				pline0,
-			{ pline0.begin(), pline0.end()}
+			{ pline0.front(), pline0.back()}
 		};
 
 
 		joint.m[1] = {
 				pline1,
-			{ pline1.begin(), pline1.end()}
+			{ pline1.front(), pline1.back()}
 		};
 
 
@@ -274,10 +278,10 @@ namespace joint_library {
 	}
 
 
-	inline void ss_e_op_1(joint& joint, const double& division_distance, const double& shift) {
+	inline void ss_e_op_2(joint& joint, const double& division_distance, const double& shift) {
 
 
-		joint.name = "ss_e_op_1";
+		joint.name = "ss_e_op_2";
 
 		//Resize arrays
 		joint.f[0].reserve(2);
@@ -292,7 +296,7 @@ namespace joint_library {
 		////////////////////////////////////////////////////////////////////
 		double joint_length = CGAL::squared_distance(joint.joint_lines[0][0], joint.joint_lines[0][1]); // Math.Abs(500);
 		int divisions = (int)std::ceil(joint_length / (division_distance * division_distance));
-		divisions = (int)std::max(2, std::min(20, divisions));
+		divisions = (int)std::max(4, std::min(20, divisions));
 		divisions += divisions % 2;
 		////////////////////////////////////////////////////////////////////
 		//Interpolate points
@@ -317,6 +321,7 @@ namespace joint_library {
 		int start = 0;
 
 		IK::Vector_3 v = shift == 0 ? IK::Vector_3(0, 0, 0) : IK::Vector_3(0, 0, RemapNumbers(shift, 0, 1.0, -0.5, 0.5) / (divisions + 1));
+		
 		for (int i = start; i < 4; i += 1) {
 
 			int mid = (int)(arrays[i].size() * 0.5);
@@ -423,10 +428,10 @@ namespace joint_library {
 	}
 
 
-	inline void ss_e_op_2(joint& joint, const double& division_distance, const double& shift) {
+	inline void ss_e_op_1(joint& joint, const double& division_distance, const double& shift) {
 
 
-		joint.name = "ss_e_op_2";
+		joint.name = "ss_e_op_1";
 
 		//Resize arrays
 		joint.f[0].reserve(2);
@@ -445,16 +450,16 @@ namespace joint_library {
 		if (joint.tile_parameters.size() > 0)
 			divisions = joint.tile_parameters[0];
 
-		divisions += divisions % 2;
+		divisions += divisions % 2+2;
 		////////////////////////////////////////////////////////////////////
 		//Interpolate points
 		////////////////////////////////////////////////////////////////////
 		std::vector<IK::Point_3> arrays[4];
 
-		interpolate_points(IK::Point_3(0.5, -0.5, -0.5), IK::Point_3(0.5, -0.5, 0.5), divisions, false, arrays[0]);
-		interpolate_points(IK::Point_3(-0.5, -0.5, -0.5), IK::Point_3(-0.5, -0.5, 0.5), divisions, false, arrays[1]);
-		interpolate_points(IK::Point_3(-0.5, 0.5, -0.5), IK::Point_3(-0.5, 0.5, 0.5), divisions, false, arrays[2]);
-		interpolate_points(IK::Point_3(0.5, 0.5, -0.5), IK::Point_3(0.5, 0.5, 0.5), divisions, false, arrays[3]);
+		interpolate_points(IK::Point_3(0.5, -0.5, -0.5), IK::Point_3(0.5, -0.5, 0.5), divisions, false, arrays[2]);
+		interpolate_points(IK::Point_3(-0.5, -0.5, -0.5), IK::Point_3(-0.5, -0.5, 0.5), divisions, false, arrays[3]);
+		interpolate_points(IK::Point_3(-0.5, 0.5, -0.5), IK::Point_3(-0.5, 0.5, 0.5), divisions, false, arrays[0]);
+		interpolate_points(IK::Point_3(0.5, 0.5, -0.5), IK::Point_3(0.5, 0.5, 0.5), divisions, false, arrays[1]);
 
 		////////////////////////////////////////////////////////////////////
 		//Move segments
@@ -467,9 +472,11 @@ namespace joint_library {
 			int mid = (int)(arrays[i].size() * 0.5);
 
 			for (int j = 0; j < arrays[i].size(); j++) {
-
-				int flip = (j % 2 == 0) ? 1 : -1;
-				flip = i < 2 ? flip : flip * -1;
+			
+				//int flip = (j % 2 == 0) ? 1 : -1;
+				//flip = i < 2 ? flip : flip * -1;
+				bool flip = j % 2 == 0;
+				flip = i < 2 ? flip : !flip;
 
 				arrays[i][j] += v * flip;
 
@@ -487,8 +494,14 @@ namespace joint_library {
 
 			for (int j = 0; j < arrays[0].size(); j++) {
 
+				/*bool flip = j % 2 == 0;
+				flip = i < 2 ? flip : !flip;*/
+				
 				bool flip = j % 2 == 0;
 				flip = i < 2 ? flip : !flip;
+				
+				
+			
 
 				if (flip) {
 					pline.push_back(arrays[i + 0][j]);
@@ -668,6 +681,7 @@ namespace joint_library {
 		////////////////////////////////////////////////////////////////////
 		int start = 0;
 
+		
 		IK::Vector_3 v = shift == 0 ? IK::Vector_3(0, 0, 0) : IK::Vector_3(0, 0, RemapNumbers(shift, 0, 1.0, -0.5, 0.5) / (divisions + 1));
 		for (int i = start; i < 4; i++) {
 
@@ -759,7 +773,7 @@ namespace joint_library {
 		////////////////////////////////////////////////////////////////////
 		double joint_length = CGAL::squared_distance(joint.joint_lines[0][0], joint.joint_lines[0][1]); // Math.Abs(500);
 		int divisions = (int)std::ceil(joint_length / (division_distance * division_distance));
-		divisions = (int)std::max(4, std::min(20, divisions));
+		divisions = (int)std::max(4, std::min(100, divisions));
 		if (joint.tile_parameters.size() > 0)
 			divisions = joint.tile_parameters[0];
 		divisions -= divisions % 4;
@@ -906,8 +920,8 @@ namespace joint_library {
 		{ IK::Point_3(0.5,-0.5,-scale),IK::Point_3(-0.5,-0.5,-scale),IK::Point_3(-0.5,-0.5,0),IK::Point_3(0.5,-0.5,0),IK::Point_3(0.5,-0.5,-scale) }
 		};
 
-		joint.m_boolean_type = { '0','0' };
-		joint.f_boolean_type = { '0','0' };
+		joint.m_boolean_type = { '3','3' };
+		joint.f_boolean_type = { '3','3' };
 
 		//Orient to 3D
 		joint.orient_to_connection_area();
@@ -1052,6 +1066,7 @@ namespace joint_library {
 
 		for (auto& joint : joints) {
 
+		
 			//Select user given type
 			int id_representing_joing_name = -1;
 			if (elements[joint.f0].joint_types.size() && elements[joint.f1].joint_types.size())
@@ -1079,7 +1094,8 @@ namespace joint_library {
 						ss_e_ip_1(joint, division_distance, shift);
 						break;
 					default:
-						ss_e_ip_0(joint);
+						ss_e_ip_1(joint, division_distance, shift);
+						//ss_e_ip_0(joint);
 						break;
 				}
 
@@ -1093,7 +1109,8 @@ namespace joint_library {
 						ss_e_op_2(joint, division_distance, shift);
 						break;
 					default:
-						ss_e_op_0(joint);
+						ss_e_op_1(joint, division_distance, shift);
+						//ss_e_op_0(joint);
 						break;
 				}
 

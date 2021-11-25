@@ -72,7 +72,7 @@ public:
                 return f[1];
     }
 
-    void get_edge_ids (bool male_or_female, int& eA, int& eB) {
+    void get_edge_ids(bool male_or_female, int& eA, int& eB) {
         if (male_or_female) {
             eA = e0_0;
             eB = e0_1;
@@ -80,8 +80,16 @@ public:
             eA = e1_0;
             eB = e1_1;
         }
-
     }
+
+    char& get_first_cutting_type(bool male_or_female) {
+        if (male_or_female) {
+            return m_boolean_type[0];
+        } else {
+            return f_boolean_type[0];
+        }
+    }
+
 
     std::vector<char>& operator() (bool male_or_female) {
         if (male_or_female)

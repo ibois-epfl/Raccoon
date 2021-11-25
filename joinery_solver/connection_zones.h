@@ -30,12 +30,27 @@ inline void get_elements(
 	std::vector<element>& elements) {
 
 	int n = pp.size() * 0.5;
-	elements = std::vector<element>(n);
+	//elements = std::vector<element>(n);
+	elements.reserve(n);
 
-	for (int i = 0, id = 0; i < pp.size(); i += 2, id++) {
+	int count = 0;
+	for (int i = 0; i < pp.size(); i += 2) {
 
 
-		elements[id].id = i * 0.5;
+
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Safety Check
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		if (pp[i].size() != pp[i + 1].size()) continue;
+		if (CGAL::squared_distance(pp[i][0], pp[i + 1][0]) < GlobalToleranceSquare) continue;
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Create Empty Element
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//elements[id].id = i * 0.5;
+		elements.emplace_back(i * 0.5);
+	
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Get BoundingBox - AABB
@@ -56,7 +71,7 @@ inline void get_elements(
 
 		AABB = CGAL::bbox_3(AABB_Min_Max.begin(), AABB_Min_Max.end(), IK());
 
-		elements[id].aabb = AABB;
+		elements[count].aabb = AABB;
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Get Object Oriented BoundingBox - OOB -> transform to XY and back to 3D
@@ -109,40 +124,41 @@ inline void get_elements(
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Get Side Polylines and Planes
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		elements[id].polylines = std::vector<CGAL_Polyline>(1 + pp[i].size());
-		elements[id].polylines[0] = pp[i];
-		elements[id].polylines[1] = pp[i + 1];
+		elements[count].polylines = std::vector<CGAL_Polyline>(1 + pp[i].size());
+		elements[count].polylines[0] = pp[i];
+		elements[count].polylines[1] = pp[i + 1];
 
-		elements[id].planes = std::vector<IK::Plane_3>(1 + pp[i].size());
+		elements[count].planes = std::vector<IK::Plane_3>(1 + pp[i].size());
 
 
 		//IK::Point_3 origin = CGAL_PolylineUtil::Center(pp[i]);
 		IK::Vector_3 normal;
 		CGAL_VectorUtil::AverageNormal(pp[i], normal, true, false);
-		elements[id].planes[0] = IK::Plane_3(CGAL_PolylineUtil::Center(pp[i]), normal);
-		elements[id].planes[1] = IK::Plane_3(CGAL_PolylineUtil::Center(pp[i + 1]), -normal);
-		elements[id].thickness = std::sqrt(CGAL::squared_distance(pp[i][0], elements[id].planes[1].projection(pp[i][0])));
+		elements[count].planes[0] = IK::Plane_3(CGAL_PolylineUtil::Center(pp[i]), normal);
+		elements[count].planes[1] = IK::Plane_3(CGAL_PolylineUtil::Center(pp[i + 1]), -normal);
+		elements[count].thickness = std::sqrt(CGAL::squared_distance(pp[i][0], elements[count].planes[1].projection(pp[i][0])));
 
 		for (int j = 0; j < pp[i].size() - 1; j++) {
-			elements[id].planes[2 + j] = IK::Plane_3(pp[i][j + 1], pp[i][j], pp[i + 1][j + 1]);
-			elements[id].polylines[2 + j] = { pp[i][j],  pp[i][j + 1], pp[i + 1][j + 1], pp[i + 1][j], pp[i][j] };
+			elements[count].planes[2 + j] = IK::Plane_3(pp[i][j + 1], pp[i][j], pp[i + 1][j + 1]);
+			elements[count].polylines[2 + j] = { pp[i][j],  pp[i][j + 1], pp[i + 1][j + 1], pp[i + 1][j], pp[i][j] };
 		}
 
 		//Edge initialization, total number of edge top,bottom + all sides + undefined not lying on face
-		elements[id].j_mf = std::vector< std::vector<std::tuple<int, bool,double>>>( (pp[i].size()-1) + 2 + 1);//(side id, false, parameter on edge)
+		elements[count].j_mf = std::vector< std::vector<std::tuple<int, bool,double>>>( (pp[i].size()-1) + 2 + 1);//(side id, false, parameter on edge)
 
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Other prperties such as insertion vectors or joint tapes
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		if (insertion_vectors.size() > 0)
-			if (insertion_vectors[id].size() > 0)
-				elements[id].edge_vectors = insertion_vectors[id];
+			if (insertion_vectors[count].size() > 0)
+				elements[count].edge_vectors = insertion_vectors[count];
 
 		if (joint_types.size() > 0)
-			if (joint_types[id].size() > 0)
-				elements[id].joint_types = joint_types[id];
-		
+			if (joint_types[count].size() > 0)
+				elements[count].joint_types = joint_types[count];
+
+		count++;
 	}
 
 

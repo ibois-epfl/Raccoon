@@ -11,6 +11,47 @@
 //https://github.com/mcneel/opennurbs/blob/c20e599d1ff8f08a55d3dddf5b39e37e8b5cac06/opennurbs_intersect.cpp
 namespace CGAL_IntersectionUtil {
 
+    inline bool LineLine3D(IK::Segment_3& cutter_line, IK::Segment_3& segment, IK::Point_3& output) {
+
+        IK::Plane_3 plane (cutter_line[0], CGAL::cross_product(cutter_line.to_vector(), segment.to_vector()));
+        CGAL::Aff_transformation_3<IK> xform = CGAL_XFormUtil::PlaneToXY(cutter_line[0], plane);
+        CGAL::Aff_transformation_3<IK> xform_Inv = xform.inverse();
+
+        IK::Point_3 p0_0 = xform.transform(cutter_line[0]);
+        IK::Point_3 p0_1 = xform.transform(cutter_line[1]);
+
+        IK::Point_3 p1_0 = xform.transform(segment[0]);
+        IK::Point_3 p1_1 = xform.transform(segment[1]);
+
+        IK::Line_2 l0(IK::Point_2( p0_0.hx(), p0_0.hy() ), IK::Point_2( p0_1.hx(), p0_1.hy() ));
+        IK::Line_2 l1(IK::Point_2(p1_0.hx(), p1_0.hy() ), IK::Point_2(p1_1.hx(), p1_1.hy() ));
+        //CGAL_Debug(p0_0,true);
+        //CGAL_Debug(p0_1, true);
+        //CGAL_Debug(p1_0, true);
+        //CGAL_Debug(p1_1, true);
+
+        //Colinearity check!!!!!!!!
+
+        const auto result = CGAL::intersection(l0, l1);
+
+
+        if (result) {
+            if (const IK::Point_2* p = boost::get<IK::Point_2 >(&*result)) {
+                output = IK::Point_3(p->hx(), p->hy(),0);
+                output = xform_Inv.transform(output);
+                //CGAL_IntersectionUtil::ClosestPointTo(*p, cutter_line, t);
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+
+
     inline bool LineLine2D(IK::Segment_2& cutter_line, IK::Segment_2& segment, IK::Point_2& output, double & t) {
 
 

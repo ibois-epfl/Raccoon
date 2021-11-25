@@ -1,15 +1,17 @@
 #include "StdAfx.h"
+#include "RhinoUI.h"
 #include "joinery_solver_rhino7PlugIn.h"
-
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Surface_mesh.h>
 #include <CGAL/Polygon_mesh_processing/corefinement.h>
 typedef CGAL::Exact_predicates_inexact_constructions_kernel  IK;
 
 #include <chrono>
-using namespace std::chrono;
+
 
 #pragma region command_mesh_difference command
+
+
 
 CGAL::Surface_mesh<CGAL::Exact_predicates_inexact_constructions_kernel::Point_3> Convert_RhinoMeshToCGAL(const ON_Mesh* meshRhino0_) {
 
@@ -257,25 +259,9 @@ public:
 	CRhinoCommand::result RunCommand(const CRhinoCommandContext& context) override;
 };
 
-
-
 static class command_mesh_difference thejoinery_solver_rhino7Command;
 
-static int RhinoFindOrCreateLayer(CRhinoDoc& doc, const wchar_t* layer_name) {
-	if (nullptr == layer_name || 0 == layer_name[0])
-		return ON_UNSET_INT_INDEX;
 
-	int layer_index = doc.m_layer_table.FindLayerFromFullPathName(layer_name, ON_UNSET_INT_INDEX);
-	if (layer_index == ON_UNSET_INT_INDEX) {
-		ON_Layer layer;
-		layer.SetName(layer_name);
-		layer.SetColor(ON_Color(255, 0, 0));
-		layer.SetPlotColor(ON_Color(255, 0, 0));
-		layer_index = doc.m_layer_table.AddLayer(layer);
-	}
-
-	return layer_index;
-}
 
 CRhinoCommand::result command_mesh_difference::RunCommand(const CRhinoCommandContext& context) {
 
@@ -306,7 +292,7 @@ CRhinoCommand::result command_mesh_difference::RunCommand(const CRhinoCommandCon
 
 
 	RhinoApp().Print("============================================================================== CPP + \n");
-	auto start = high_resolution_clock::now();
+	auto start = std::chrono::high_resolution_clock::now();
 
 	////////////////////////////////////////////////////////////////
 	// Perform CGAL Boolean
@@ -324,8 +310,8 @@ CRhinoCommand::result command_mesh_difference::RunCommand(const CRhinoCommandCon
 	ON_Mesh output = Convert_CGALMeshToRhino(outCGAL);
 
 
-	auto stop = high_resolution_clock::now();
-	auto duration = duration_cast<milliseconds>(stop - start);
+	auto stop = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 	RhinoApp().Print("==================================== %d ms ==================================== \n", duration);
 	RhinoApp().Print("============================================================================== CPP - \n");
 
