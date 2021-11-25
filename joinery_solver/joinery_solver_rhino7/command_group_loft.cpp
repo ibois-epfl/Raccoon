@@ -12,7 +12,7 @@
 bool UI(const CRhinoCommandContext& context, std::vector<ON_Curve*>& input_polyline_pairs) {
 
 	/////////////////////////////////////////////////////////////////////
-	//Get Polylines and Convert to CGAL Polylines |
+	//Polylines are grouped 
 	/////////////////////////////////////////////////////////////////////
 	CRhinoGetObject go;
 	go.SetCommandPrompt(L"Select pairs of polylines");
