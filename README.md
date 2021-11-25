@@ -27,12 +27,13 @@ ________________________________________________________
 - [ ] no search by user given index (must have input in the beginning)
 
 ### Search Local Methods
-- [x] plane_to_face cross
-- [x] face_to_face side-to-side non-parallel
-- [x] face_to_face side-to-side parallel in-plane
-- [x] face_to_face side-to-side parallel out-of-plane
-- [x] face_to_face top-to-side 
-- [ ] face_to_face top_to_top 
+
+- [x] face_to_face side-to-side parallel in-plane | **joinery_library 1-9** | type 12
+- [x] face_to_face side-to-side parallel out-of-plane | **joinery_library 10-19** | type 11
+- [x] face_to_face top-to-side | **joinery_library 20-29** | type 20
+- [x] plane_to_face cross | **joinery_library 30-39** | type 30
+- [ ] face_to_face top_to_top | **joinery_library 40-49** |
+- [x] face_to_face side-to-side | **joinery_library non-parallel 50-59** |
 ________________________________________________________
 
 ### Joints
@@ -50,23 +51,23 @@ ________________________________________________________
 
 ![Dovetail](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_2.jpg) 
 
-- [ ] parameterize tenon mortise ts_e_p_2 (ts_e_p_0 - original) (start and end point of the joint line are skipped)
+- [x] parameterize tenon mortise ts_e_p_2 (ts_e_p_0 - original) (start and end point of the joint line are skipped)
 
 ![Tenon-mortise](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_3.jpg) 
 
-- [ ] parameterize Annen joint - ts_e_p_3 (ts_e_p_2 - original)
+- [x] parameterize Annen joint - ts_e_p_3 (ts_e_p_2 - original)
 
 ![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_4.jpg) 
 
-- [ ] parameterize cr_c_ip_0 cross 
+- [x] parameterize cr_c_ip_0 cross 
 
 ![Cross Joint](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_5.jpg) 
 
-- [ ] parameterize cr_c_ip_1 conic cross 
+- [x] parameterize cr_c_ip_1 conic cross 
 
 ![Conic Joint](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_6.jpg) 
 
-- [ ] snap-fit joint - ts_e_p_4
+- [x] snap-fit joint - ts_e_p_4
 
 ## Joints Parameters
 
@@ -143,3 +144,6 @@ Important: add all tools parameters from the current CNC machine to Tools.txt fi
 - [ ] simulation update in Visual Studio 
 
 
+### Installation - Known issues
+
+Windows 7 does not find C++ file resulting in HResult error. Install x64 VCRuntime libraries: https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0
