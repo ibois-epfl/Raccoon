@@ -1063,7 +1063,10 @@ namespace joint_library {
 	}
 
 
-	inline void construct_joint_by_index(std::vector<element>& elements, std::vector<joint>& joints, const double& division_distance, const double& shift) {
+	inline void construct_joint_by_index(std::vector<element>& elements, std::vector<joint>& joints, const double& division_distance_, const double& shift_, std::vector<double>& default_parameters_for_four_types) {
+
+		double division_distance = division_distance_;
+		double shift = shift_;
 
 		for (auto& joint : joints) {
 
@@ -1076,6 +1079,13 @@ namespace joint_library {
 				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0];
 			else if (elements[joint.f1].joint_types.size())
 				id_representing_joing_name = elements[joint.f1].joint_types[joint.e1_0];
+
+			//When users gives an input -> default_parameters_for_four_types
+			int number_of_types = 6;//side-side in-plane | side-side out-of-plane | top-side | cross | top-top | side-side rotated
+			int number_of_parameters = 3;//division_dist | shift | type
+			bool default_parameters_given = default_parameters_for_four_types.size() == number_of_types * number_of_parameters;
+			//for (int i = 0; i < default_parameters_for_four_types.size(); i+=3)
+				//CGAL_Debug(default_parameters_for_four_types[i], default_parameters_for_four_types[i+1], default_parameters_for_four_types[i+2]);
 
 			//CGAL_Debug(joint.type);
 			//CGAL_Debug(id_representing_joing_name);
@@ -1090,9 +1100,21 @@ namespace joint_library {
 				return;//Nothing
 			} else if (joint.type == 12 && ((id_representing_joing_name > 0 && id_representing_joing_name < 10) || id_representing_joing_name == -1)) {
 				//CGAL_Debug(66666);
+
+				if (default_parameters_given) {
+					int group = 0;
+					division_distance = default_parameters_for_four_types[number_of_parameters * group + 0];
+					shift = default_parameters_for_four_types[number_of_parameters * group + 1];
+					if(id_representing_joing_name == -1)//for cases when joint types per each edge are not defined
+						id_representing_joing_name = default_parameters_for_four_types[number_of_parameters * group + 2];
+				}
+
 				switch (id_representing_joing_name) {
 					case(1):
 						ss_e_ip_1(joint, division_distance, shift);
+						break;
+					case(2):
+						ss_e_ip_0(joint);
 						break;
 					default:
 						ss_e_ip_1(joint, division_distance, shift);
@@ -1101,14 +1123,32 @@ namespace joint_library {
 				}
 
 			} else if (joint.type == 11 && ((id_representing_joing_name > 9 && id_representing_joing_name < 20) || id_representing_joing_name == -1)) {
+
+				if (default_parameters_given) {
+					int group = 1;
+					division_distance = default_parameters_for_four_types[number_of_parameters * group + 0];
+					shift = default_parameters_for_four_types[number_of_parameters * group + 1];
+					if (id_representing_joing_name == -1)//for cases when joint types per each edge are not defined
+						id_representing_joing_name = default_parameters_for_four_types[number_of_parameters * group + 2];
+
+					//CGAL_Debug(division_distance);
+					//CGAL_Debug(shift);
+					//CGAL_Debug(id_representing_joing_name);
+				}
+
+
 				//CGAL_Debug(77777);
 				switch (id_representing_joing_name) {
-					case(11):
+					case(10):
 						ss_e_op_1(joint, division_distance, shift);
 						break;
-					case(10):
+					case(11):
 						ss_e_op_2(joint, division_distance, shift);
 						break;
+					case(12):
+						ss_e_op_0(joint);
+						break;
+
 					default:
 						ss_e_op_1(joint, division_distance, shift);
 						//ss_e_op_0(joint);
@@ -1117,18 +1157,31 @@ namespace joint_library {
 
 
 			} else if (joint.type == 20 && ((id_representing_joing_name > 19 && id_representing_joing_name < 30) || id_representing_joing_name == -1)) {
+
+				if (default_parameters_given) {
+					int group = 2;
+					division_distance = default_parameters_for_four_types[number_of_parameters * group + 0];
+					shift = default_parameters_for_four_types[number_of_parameters * group + 1];
+					if (id_representing_joing_name == -1)//for cases when joint types per each edge are not defined
+						id_representing_joing_name = default_parameters_for_four_types[number_of_parameters * group + 2];
+
+					//CGAL_Debug(division_distance);
+					//CGAL_Debug(shift);
+					//CGAL_Debug(id_representing_joing_name);
+				}
+
 				//CGAL_Debug(88888);
 				switch (id_representing_joing_name) {
-					case(23):
-						ts_e_p_3(joint, division_distance, 0);
-						break;
-					case(22):
-						ts_e_p_2(joint, division_distance, 0);
-						break;
-					case(21):
+					case(20):
 						ts_e_p_1(joint);
 						break;
-					case(24):
+					case(21):
+						ts_e_p_2(joint, division_distance, 0);
+						break;
+					case(22):
+						ts_e_p_3(joint, division_distance, 0);
+						break;
+					case(23):
 						ts_e_p_0(joint);
 						break;
 					default:
@@ -1137,18 +1190,53 @@ namespace joint_library {
 				}
 
 			} else if (joint.type == 30 && ((id_representing_joing_name > 39 && id_representing_joing_name < 50) || id_representing_joing_name == -1)) {
+
 				//CGAL_Debug(99999);
+
+				if (default_parameters_given) {
+					int group = 3;
+					division_distance = default_parameters_for_four_types[number_of_parameters * group + 0];
+					shift = default_parameters_for_four_types[number_of_parameters * group + 1];
+					if (id_representing_joing_name == -1)//for cases when joint types per each edge are not defined
+						id_representing_joing_name = default_parameters_for_four_types[number_of_parameters * group + 2];
+				}
+
+				
 
 				switch (id_representing_joing_name) {
 
-					case(40):
-						cr_c_ip_1(joint, shift);
+					case(30):
+						cr_c_ip_0(joint);
+						break;
+					case(31):
+						cr_c_ip_0(joint);
+						//cr_c_ip_1(joint, shift);
 						break;
 					default:
-						cr_c_ip_1(joint, shift);
+						cr_c_ip_0(joint);
 						//cr_c_ip_0(joint);
 						//printf(joint.name.c_str());
 						break;
+				}
+
+			} else if (false) {//top-top
+
+				if (default_parameters_given) {
+					int group = 4;
+					division_distance = default_parameters_for_four_types[number_of_parameters * group + 0];
+					shift = default_parameters_for_four_types[number_of_parameters * group + 1];
+					if (id_representing_joing_name == -1)//for cases when joint types per each edge are not defined
+						id_representing_joing_name = default_parameters_for_four_types[number_of_parameters * group + 2];
+				}
+
+			} else if (false) {//side-side rotated
+
+				if (default_parameters_given) {
+					int group = 5;
+					division_distance = default_parameters_for_four_types[number_of_parameters * group + 0];
+					shift = default_parameters_for_four_types[number_of_parameters * group + 1];
+					if (id_representing_joing_name == -1)//for cases when joint types per each edge are not defined
+						id_representing_joing_name = default_parameters_for_four_types[number_of_parameters * group + 2];
 				}
 
 			}

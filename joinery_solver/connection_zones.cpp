@@ -14,10 +14,12 @@ void get_connection_zones(
 	//output
 	std::vector<std::vector<CGAL_Polyline>>& plines,
 
+	std::vector<double>& default_parameters_for_joint_types,
 	int search_type,
 	double division_distance,
 	double shift,
 	int output_type
+	
 
 ) {
 
@@ -62,8 +64,8 @@ void get_connection_zones(
 	////////////////////////////////////////////////////////////////////////////////
 	////Create and Align Joints 1. Iterate type 2. Select joint based on not/given user joint_type
 	////////////////////////////////////////////////////////////////////////////////
-
-	joint_library::construct_joint_by_index(elements, joints, division_distance, shift);
+	//std::vector<double> default_parameters_for_four_types = default_parameters_for_four_types_;
+	joint_library::construct_joint_by_index(elements, joints, division_distance, shift, default_parameters_for_joint_types);
 
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -93,10 +95,6 @@ void get_connection_zones(
 				elements[i].get_joints_geometry_as_closed_polylines_performing_intersection(joints, plines);
 				break;
 		}
-
-
-
-	
 
 	}
 
@@ -129,10 +127,12 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 	Eigen::Ref<const compas::RowMatrixXi>& face_joints_types_int,
 	Eigen::Ref<const compas::RowMatrixXi>& three_valence_element_indices_and_instruction,
 
+	Eigen::Ref<const compas::RowMatrixXd>& default_parameters_for_joint_types_matrix,
 	int search_type,
 	double division_distance,
 	double shift,
 	int output_type
+	
 ) {
 
 
@@ -148,6 +148,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 	std::vector<std::vector<IK::Vector_3>> out_insertion_vectors;
 	std::vector<std::vector<int>> out_joint_types;
 	std::vector<std::vector<int>> out_three_valence_element_indices_and_instruction;
+	std::vector<double> out_default_parameters_for_joint_types;
 
 	compas::polylines_from_vertices_and_faces_and_properties(
 		polylines_vertices_XYZ,
@@ -155,10 +156,12 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 		face_vectors_XYZ,
 		face_joints_types_int,
 		three_valence_element_indices_and_instruction,
+		default_parameters_for_joint_types_matrix,
 		out_polyline_pairs,
 		out_insertion_vectors,
 		out_joint_types,
-		out_three_valence_element_indices_and_instruction
+		out_three_valence_element_indices_and_instruction,
+		out_default_parameters_for_joint_types
 	);
 	
 	std::vector<std::vector<CGAL_Polyline>> output;
@@ -168,10 +171,13 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 		out_joint_types,
 		out_three_valence_element_indices_and_instruction,
 		output,
+
+		out_default_parameters_for_joint_types,
 		search_type,
 		division_distance,
 		shift,
 		output_type
+		
 	);
 
 	//////////////////////////////////////////////////////////////////////////////

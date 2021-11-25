@@ -7,13 +7,13 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(35,1): warn
 C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(221): message : see previous definition of 'ON_EPSILON'
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(38,1): warning C4005: 'ON_DBL_MAX': macro redefinition
 C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(208): message : see previous definition of 'ON_DBL_MAX'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(98,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(120,6): warning C4189: 'n': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(303,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(331,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(356,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(394,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(419,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(100,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(122,6): warning C4189: 'n': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(326,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(354,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(379,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(417,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(442,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_VectorUtil.h(259,14): warning C4189: 'rc': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_VectorUtil.h(321,51): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_XFormUtil.h(362,18): warning C4189: 'x30': local variable is initialized but not referenced
@@ -100,6 +100,36 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(778,
               _Ty=double
           ]
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(808,8): warning C4189: 'mid': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1109,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1132,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1166,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1201,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1229,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1239,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(32,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(113,40): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(96,10): warning C4189: 'scale': local variable is initialized but not referenced

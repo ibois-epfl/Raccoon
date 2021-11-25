@@ -12,10 +12,13 @@ void init_connectionzones(pybind11::module& m) {
         pybind11::arg("D").noconvert(),
         pybind11::arg("J").noconvert(),
         pybind11::arg("X").noconvert(),
+
+        pybind11::arg("T").noconvert(),
         pybind11::arg("search_type"),
         pybind11::arg("division_distance"),
         pybind11::arg("shift"),
         pybind11::arg("output_type")
+        
     );
 }
 

@@ -15,7 +15,7 @@
 
 
 
-bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, int& search_type , double& division_distance, double& shift, int& output_type) {
+bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, int& search_type , double& division_distance, double& shift, int& output_type, std::vector<double>& joint_parameters) {
 
 	/////////////////////////////////////////////////////////////////////
 	//Get Polylines and Convert to CGAL Polylines |
@@ -62,6 +62,12 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	/////////////////////////////////////////////////////////////////////
 	//Command Line Menu
 	/////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
 	CRhinoGetOption menu;
 	menu.SetCommandPrompt(L"Parameter for the Joinery Solver");
 	menu.AcceptNothing();
@@ -78,6 +84,8 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 		int division_distance_value_index = menu.AddCommandOptionNumber(RHCMDOPTNAME(L"division_distance"), &division_distance, L"connection length divided by division_distance", FALSE, 0.001, 100000.0);
 		int shift_value_index = menu.AddCommandOptionNumber(RHCMDOPTNAME(L"shift"), &shift, L"joint shift value applied for all joints", FALSE, 0.0, 1.0);
 		int output_type_value_index = menu.AddCommandOptionInteger(RHCMDOPTNAME(L"output_type"), &output_type, L"0 - joint area, 1 joint lines, 2 - joint volumes, 3 - joint geometry, 4 - joint merged with two outlines", 0, 4);
+
+		
 		CRhinoGet::result res = menu.GetOption();
 
 		if (res == CRhinoGet::nothing)
@@ -105,10 +113,77 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 		if (option_index == output_type_value_index)
 			continue; // nothing to do
 
+	}
 
+	/////////////////////////////////////////////////////////////////////
+	//Joint Parameters 
+	/////////////////////////////////////////////////////////////////////
+
+
+	//face_to_face side - to - side parallel in - plane | joinery_library 1 - 9 | type 12
+//face_to_face side - to - side parallel out - of - plane | joinery_library 10 - 19 | type 11
+//face_to_face top - to - side | joinery_library 20 - 29 | type 20
+//plane_to_face cross | joinery_library 30 - 39 | type 30
+//face_to_face top_to_top | joinery_library 40 - 49 |
+//face_to_face side - to - side | joinery_library non - parallel 50 - 59 |
+	//int list_index = 3;
+	// joint_parameters = { 1000, 0.5, 1,  1000, 0.5, 10 ,  1000, 0.5, 20 ,  1000, 0.5, 30 ,  1000, 0.5, 40 ,  1000, 0.5, 50 };
+
+
+	CRhinoGetOption menu_joint_parameters;
+	menu_joint_parameters.SetCommandPrompt(L"Individual joint parameters");
+	menu_joint_parameters.AcceptNothing();
+
+	for (;;) {
+
+		menu_joint_parameters.ClearCommandOptions();
+
+	std::array<int, 18> ids;
+		ids[0] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"SSI_Dist"), &joint_parameters[0], nullptr, FALSE, 0.001, 100000.0);
+		ids[1] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"SSI_Shift"), &joint_parameters[1], nullptr, FALSE, 0.0, 1.0);
+		ids[2] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"SSI_Type"), &joint_parameters[2], nullptr, FALSE, 1, 9);
+
+		ids[3] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"_____SSO_Dist"), &joint_parameters[3], nullptr, FALSE, 0.001, 100000.0);
+		ids[4] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"SSO_Shift"), &joint_parameters[4],nullptr, FALSE, 0.0, 1.0);
+		ids[5] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"SSO_Type"), &joint_parameters[5], nullptr, FALSE, 10, 19);
+
+		ids[6] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"_____TS_Dist"), &joint_parameters[6],nullptr, FALSE, 0.001, 100000.0);
+		ids[7] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"TS_Shift"), &joint_parameters[7],nullptr, FALSE, 0.0, 1.0);
+		ids[8] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"TS_Type"), &joint_parameters[8],nullptr, FALSE, 20, 29);
+
+		ids[9] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"_____C_Dist"), &joint_parameters[9], nullptr, FALSE, 0.001, 100000.0);
+		ids[10] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"C_Shift"), &joint_parameters[10], nullptr, FALSE, 0.0, 1.0);
+		ids[11] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"C_Type"), &joint_parameters[11], nullptr, FALSE, 30, 39);
+
+		ids[12] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"_____TT_Dist"), &joint_parameters[12],nullptr, FALSE, 0.001, 100000.0);
+		ids[13] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"TT_Shift"), &joint_parameters[13],nullptr, FALSE, 0.0, 1.0);
+		ids[14] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"TT_Type"), &joint_parameters[14], nullptr, FALSE, 40, 49);
+
+		ids[15] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"_____SSR_Dist"), &joint_parameters[15],nullptr, FALSE, 0.001, 100000.0);
+		ids[16] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"SSR_Shift"), &joint_parameters[16],nullptr, FALSE, 0.0, 1.0);
+		ids[17] = menu_joint_parameters.AddCommandOptionNumber(RHCMDOPTNAME(L"SSR_Type"), &joint_parameters[17], nullptr, FALSE, 50, 59);
+
+
+		CRhinoGet::result res = menu_joint_parameters.GetOption();
+
+		if (res == CRhinoGet::nothing)
+			break;
+		if (res == CRhinoGet::cancel)
+			return false;
+		if (res != CRhinoGet::option)
+			return false;
+
+		const CRhinoCommandOption* option = menu_joint_parameters.Option();
+		if (nullptr == option)
+			return false;
 	}
 
 
+	for (int i = 0; i < joint_parameters.size(); i++) {
+		RhinoApp().Print(L" %f ", joint_parameters[i]);
+	}
+	RhinoApp().Print(L" \n");
+	
 
 	/////////////////////////////////////////////////////////////////////
 	//Output
@@ -157,7 +232,9 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	double division_distance = 1000;
 	double shift = 0.5;
 	int output_type = 4;
-	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift, output_type)) return CRhinoCommand::failure;
+	//side-to-side parallel in-plane |  side-to-side parallel | side-to-side out-of-plane |  top-to-side | cross | top-to-top |  side-to-side non-parallel
+	std::vector<double> joint_parameters =  { 1000, 0.5, 1,  1000, 0.5, 10 ,  1000, 0.5, 20 ,  1000, 0.5, 30 ,  1000, 0.5, 40 ,  1000, 0.5, 50 };
+	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift, output_type, joint_parameters)) return CRhinoCommand::failure;
 
 
 	/////////////////////////////////////////////////////////////////////
@@ -174,7 +251,6 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 
 
 
-	//get_connection_zones_test();
 	//__try {
 	try {
 		get_connection_zones(
@@ -183,6 +259,8 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 			input_joint_types,
 			input_three_valence_element_indices_and_instruction,
 			output_polyline_groups,
+
+			joint_parameters,
 			search_type,
 			division_distance,
 			shift,

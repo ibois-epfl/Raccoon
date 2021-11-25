@@ -1532,10 +1532,13 @@ void get_connection_zones(
 	//output
 	std::vector<std::vector<CGAL_Polyline>>& plines,
 
+	//Global Parameters
+	std::vector<double>& default_parameters_for_joint_types,
 	int search_type = 1,
 	double division_distance = 300,
 	double shift = 0.6,
 	int output_type = 4
+	
 );
 
 std::vector<compas::RowMatrixXd> get_connection_zones_compas(
@@ -1547,9 +1550,11 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 	//output
 	//std::vector<compas::RowMatrixXd>& plines_as_point_matrix,
 
+	Eigen::Ref<const compas::RowMatrixXd>& default_parameters_for_joint_types_matrix,
 	int search_type = 1,
 	double division_distance = 300,
 	double shift = 0.6,
 	int output_type = 4
+	
 );
 

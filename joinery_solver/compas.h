@@ -73,11 +73,13 @@ namespace compas {
 		const compas::RowMatrixXd& face_vectors_XYZ,
 		const compas::RowMatrixXi& face_joints_types_int,
 		const compas::RowMatrixXi& three_valence_element_indices_and_instruction,
+		const compas::RowMatrixXd& default_parameters_for_joint_types_matrix,
 
 		std::vector<CGAL_Polyline>& out_polyline_pairs,
 		std::vector<std::vector<IK::Vector_3>>& out_insertion_vectors,
 		std::vector<std::vector<int>>& out_joint_types,
-		std::vector<std::vector<int>>& out_three_valence_element_indices_and_instruction
+		std::vector<std::vector<int>>& out_three_valence_element_indices_and_instruction,
+		std::vector<double>& out_default_parameters_for_joint_types
 	);
 
 
@@ -190,11 +192,15 @@ inline void compas::polylines_from_vertices_and_faces_and_properties(
 	const compas::RowMatrixXd& face_vectors_XYZ,
 	const compas::RowMatrixXi& face_joints_types_int,
 	const compas::RowMatrixXi& three_valence_element_indices_and_instruction,
+	const compas::RowMatrixXd& default_parameters_for_joint_types_matrix,
 
 	std::vector<CGAL_Polyline>& out_polyline_pairs,
 	std::vector<std::vector<IK::Vector_3>>& out_insertion_vectors,
 	std::vector<std::vector<int>>& out_joint_types,
-	std::vector<std::vector<int>>& out_three_valence_element_indices_and_instruction
+	std::vector<std::vector<int>>& out_three_valence_element_indices_and_instruction,
+	std::vector<double>& out_default_parameters_for_joint_types
+
+
 ) {
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -208,6 +214,10 @@ inline void compas::polylines_from_vertices_and_faces_and_properties(
 
 	// std::vector< std::vector<int>> joint_types;
 	out_joint_types.reserve(polylines_vertices_count_int.size());
+
+
+
+
 
 	CGAL_Polyline pline;
 	int counter = 0;
@@ -284,6 +294,19 @@ inline void compas::polylines_from_vertices_and_faces_and_properties(
 
 		}
 	}
+
+	if (default_parameters_for_joint_types_matrix.size() > 0) {
+		out_default_parameters_for_joint_types.reserve(default_parameters_for_joint_types_matrix.size());
+
+
+		for (int i = 0; i < default_parameters_for_joint_types_matrix.size(); i ++) {
+			out_default_parameters_for_joint_types.push_back(default_parameters_for_joint_types_matrix(i, 0));
+
+		}
+
+	}
+
+
 
 
 
