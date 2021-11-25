@@ -9,7 +9,7 @@
 #pragma region command_group_loft command
 
 
-bool UI(const CRhinoCommandContext& context, std::vector<ON_Curve*>& input_polyline_pairs) {//, int& search_type, double& division_distance, double& shift
+bool UI(const CRhinoCommandContext& context, std::vector<ON_Curve*>& input_polyline_pairs) {
 
 	/////////////////////////////////////////////////////////////////////
 	//Get Polylines and Convert to CGAL Polylines |
@@ -81,7 +81,7 @@ CRhinoCommand::result command_group_loft::RunCommand(const CRhinoCommandContext&
 	int search_type = 2;
 	double division_distance = 1000;
 	double shift = 0.5;
-	if (!UI(context, input_polyline_pairs)) return CRhinoCommand::failure;//, search_type, division_distance, shift
+	if (!UI(context, input_polyline_pairs)) return CRhinoCommand::failure;
 
 
 	/////////////////////////////////////////////////////////////////////
