@@ -15,7 +15,7 @@
 
 
 
-bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, int& search_type , double& division_distance, double& shift) {
+bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, int& search_type , double& division_distance, double& shift, int& output_type) {
 
 	/////////////////////////////////////////////////////////////////////
 	//Get Polylines and Convert to CGAL Polylines |
@@ -25,6 +25,8 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	go.SetGeometryFilter(CRhinoGetObject::curve_object);
 	go.GetObjects(1, 0);
 	if (go.CommandResult() != CRhinoCommand::success) return false;
+
+	go.SetGeometryFilter(CRhinoGetObject::curve_object);
 
 
 	input_polyline_pairs.reserve(go.ObjectCount() - go.ObjectCount() % 2);
@@ -47,7 +49,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 		input_polyline_pairs.emplace_back(pline);
 	}
 
-	if (input_polyline_pairs.size() == 0) return false;
+	if (input_polyline_pairs.size() == 0 || input_polyline_pairs.size() % 2 == 1) return false;
 
 
 	/////////////////////////////////////////////////////////////////////
@@ -56,7 +58,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	search_type = 2;
 	division_distance = 1000;
 	shift = 0.5;
-
+	output_type = 4;
 	/////////////////////////////////////////////////////////////////////
 	//Command Line Menu
 	/////////////////////////////////////////////////////////////////////
@@ -71,13 +73,11 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 		menu.ClearCommandOptions();
 
-		//int nval_option_index = menu.AddCommandOptionInteger(RHCMDOPTNAME(L"Integer"), &search_type, L"0 - face_to_face, 1 - plane_to_face, 2 - all", 1, 99);
-
 
 		int search_type_value_index = menu.AddCommandOptionInteger(RHCMDOPTNAME(L"search_type"), &search_type, L"0 - face_to_face, 1 - plane_to_face, 2 - all", 0, 2);
 		int division_distance_value_index = menu.AddCommandOptionNumber(RHCMDOPTNAME(L"division_distance"), &division_distance, L"connection length divided by division_distance", FALSE, 0.001, 100000.0);
 		int shift_value_index = menu.AddCommandOptionNumber(RHCMDOPTNAME(L"shift"), &shift, L"joint shift value applied for all joints", FALSE, 0.0, 1.0);
-
+		int output_type_value_index = menu.AddCommandOptionInteger(RHCMDOPTNAME(L"output_type"), &output_type, L"0 - joint area, 1 joint lines, 2 - joint volumes, 3 - joint geometry, 4 - joint merged with two outlines", 0, 4);
 		CRhinoGet::result res = menu.GetOption();
 
 		if (res == CRhinoGet::nothing)
@@ -100,6 +100,9 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 			continue; // nothing to do
 
 		if (option_index == shift_value_index)
+			continue; // nothing to do
+
+		if (option_index == output_type_value_index)
 			continue; // nothing to do
 
 
@@ -153,7 +156,8 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	int search_type = 2;
 	double division_distance = 1000;
 	double shift = 0.5;
-	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift)) return CRhinoCommand::failure;
+	int output_type = 4;
+	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift, output_type)) return CRhinoCommand::failure;
 
 
 	/////////////////////////////////////////////////////////////////////
@@ -181,7 +185,8 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 			output_polyline_groups,
 			search_type,
 			division_distance,
-			shift
+			shift,
+			output_type
 		);
 
 	} catch (char const* exception) {

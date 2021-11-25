@@ -14,6 +14,7 @@
     <ClCompile Include="..\clipper.cpp" />
     <ClCompile Include="..\connection_zones.cpp" />
     <ClCompile Include="command_get_polylines.cpp" />
+    <ClCompile Include="command_group_loft.cpp" />
     <ClCompile Include="command_mesh_difference.cpp" />
     <ClCompile Include="joinery_solver_rhino7App.cpp" />
     <ClCompile Include="joinery_solver_rhino7PlugIn.cpp" />

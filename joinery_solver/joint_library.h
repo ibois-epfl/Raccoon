@@ -948,14 +948,15 @@ namespace joint_library {
 		  IK::Point_3(b, -b, -z),IK::Point_3(-b, -b, -z),IK::Point_3(-b, b, -z),IK::Point_3(b, b, -z)//Bottom
 		};
 
+		IK::Vector_3 v0 = ((p[0] - p[1]) * (1 / (a * 2))) * (0.5 - a);
 
 		//Construct polylines from points
 		joint.f[0] = {
 
-		  { p[0], p[1],p[2],p[3],p[0] },//Center
+		  { p[0]+v0, p[1]-v0,p[2]-v0,p[3] + v0,p[0]+v0 },//Center
 
-		  { p[1], p[0],p[0 + 8],p[1 + 8],p[1] },//TopSide0
-		  { p[3], p[2],p[2 + 8],p[3 + 8],p[3] },//TopSide1
+		  { p[1]-v0, p[0]+v0,p[0 + 8]+v0,p[1 + 8] - v0,p[1] - v0 },//TopSide0
+		  { p[3]+v0, p[2]-v0,p[2 + 8]-v0,p[3 + 8] + v0,p[3] + v0 },//TopSide1
 		  { p[2], p[1],p[1 + 12],p[2 + 12],p[2] },//BotSide0
 		  { p[0], p[3],p[3 + 12],p[0 + 12],p[0] },//BotSide1
 
@@ -1144,8 +1145,8 @@ namespace joint_library {
 						cr_c_ip_1(joint, shift);
 						break;
 					default:
-						//cr_c_ip_1(joint, shift);
-						cr_c_ip_0(joint);
+						cr_c_ip_1(joint, shift);
+						//cr_c_ip_0(joint);
 						//printf(joint.name.c_str());
 						break;
 				}

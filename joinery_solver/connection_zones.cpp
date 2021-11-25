@@ -16,7 +16,8 @@ void get_connection_zones(
 
 	int search_type,
 	double division_distance,
-	double shift
+	double shift,
+	int output_type
 
 ) {
 
@@ -73,12 +74,27 @@ void get_connection_zones(
 	//CGAL_Debug(joints.size());
 	for (int i = 0; i < elements.size(); i++) {//takes 30-50 ms just to copy past polyline geometry
 
-		//elements[i].get_joints_geometry(joints, plines, 0);
-		//elements[i].get_joints_geometry(joints, plines, 1);
-		//elements[i].get_joints_geometry(joints, plines, 2);
-		//elements[i].get_joints_geometry(joints, plines, 3);//push joint geometry from joint to element
-		//elements[i].get_joints_geometry_as_closed_polylines_replacing_edges(joints, plines);
-		elements[i].get_joints_geometry_as_closed_polylines_performing_intersection(joints, plines);
+		switch (output_type) {
+			case(0):
+				elements[i].get_joints_geometry(joints, plines, 0);
+				break;
+			case(1):
+				elements[i].get_joints_geometry(joints, plines, 1);
+				break;
+			case(2):
+				elements[i].get_joints_geometry(joints, plines, 2);
+				break;
+			default:
+			case(3):
+				elements[i].get_joints_geometry(joints, plines, 3);
+				break;
+			case(4):
+				//elements[i].get_joints_geometry_as_closed_polylines_replacing_edges(joints, plines);
+				elements[i].get_joints_geometry_as_closed_polylines_performing_intersection(joints, plines);
+				break;
+		}
+
+
 
 	
 
@@ -115,7 +131,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 
 	int search_type,
 	double division_distance,
-	double shift
+	double shift,
+	int output_type
 ) {
 
 
@@ -153,7 +170,8 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 		output,
 		search_type,
 		division_distance,
-		shift
+		shift,
+		output_type
 	);
 
 	//////////////////////////////////////////////////////////////////////////////

@@ -1534,7 +1534,8 @@ void get_connection_zones(
 
 	int search_type = 1,
 	double division_distance = 300,
-	double shift = 0.6
+	double shift = 0.6,
+	int output_type = 4
 );
 
 std::vector<compas::RowMatrixXd> get_connection_zones_compas(
@@ -1548,6 +1549,7 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 
 	int search_type = 1,
 	double division_distance = 300,
-	double shift = 0.6
+	double shift = 0.6,
+	int output_type = 4
 );
 

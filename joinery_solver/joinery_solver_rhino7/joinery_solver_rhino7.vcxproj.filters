@@ -36,6 +36,9 @@
     <ClCompile Include="command_mesh_difference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="command_group_loft.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="joinery_solver_rhino7App.h">
