@@ -27,12 +27,13 @@ ________________________________________________________
 - [ ] no search by user given index (must have input in the beginning)
 
 ### Search Local Methods
-- [x] plane_to_face cross
-- [x] face_to_face side-to-side non-parallel
-- [x] face_to_face side-to-side parallel in-plane
-- [x] face_to_face side-to-side parallel out-of-plane
-- [x] face_to_face top-to-side 
-- [ ] face_to_face top_to_top 
+
+- [x] face_to_face side-to-side parallel in-plane | **joinery_library 1-9** | type 12
+- [x] face_to_face side-to-side parallel out-of-plane | **joinery_library 10-19** | type 11
+- [x] face_to_face top-to-side | **joinery_library 20-29** | type 20
+- [x] plane_to_face cross | **joinery_library 30-39** | type 30
+- [ ] face_to_face top_to_top | **joinery_library 40-49** |
+- [x] face_to_face side-to-side | **joinery_library non-parallel 50-59** |
 ________________________________________________________
 
 ### Joints
