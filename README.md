@@ -144,6 +144,6 @@ Important: add all tools parameters from the current CNC machine to Tools.txt fi
 - [ ] simulation update in Visual Studio 
 
 
-###Known issues
+### Installation - Known issues
 
 Windows 7 does not find C++ file resulting in HResult error. Install x64 VCRuntime libraries: https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0
