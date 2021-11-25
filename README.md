@@ -58,7 +58,14 @@ ________________________________________________________
 
 ![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_4.jpg) 
 
-- [ ] :snowflake: parameterize cr_c_ip_1 conic cross 
+- [ ] parameterize cr_c_ip_0 cross 
+
+![Cross Joint](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_5.jpg) 
+
+- [ ] parameterize cr_c_ip_1 conic cross 
+
+![Conic Joint](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_6.jpg) 
+
 - [ ] snap-fit joint - ts_e_p_4
 
 ## Joints Parameters
