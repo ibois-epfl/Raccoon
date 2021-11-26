@@ -39,7 +39,7 @@ ________________________________________________________
 - [x] face_to_face side-to-side parallel out-of-plane | **joinery_library 10-19** | type 11
 - [x] face_to_face top-to-side | **joinery_library 20-29** | type 20
 - [x] plane_to_face cross | **joinery_library 30-39** | type 30
-- [ ] face_to_face top_to_top | **joinery_library 40-49** |
+- [ ] face_to_face top_to_top | **joinery_library 40-49** |  :tomato:
 - [ ] face_to_face side-to-side | **joinery_library non-parallel 50-59** |
 ________________________________________________________
 
@@ -110,12 +110,12 @@ ________________________________________________________
 
 ### Insertion Vector
 Description: a vector on an element edge that is equal to a plane normal on an edge. 
-- [x] side-top connection :no_entry: insertion vector is currently defined by insertion direction, change input vectors as plane normals :
-
+- [x] side-top connection insertion vector is currently defined by plane normals, not insertion direction because it is equal what is inside code
 ![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/insertion_vectors_0.jpg) 
 
-- [x] side-side connection, :no_entry: not finished for out of plane connections
-- [ ] top-top connection :tomato:
+- [ ] side-side connection, not finished for out of plane connections
+- [ ] side-side connection in rotaiton insertion vector not tested 
+- [ ] top-top connection
 
 ________________________________________________________
 
