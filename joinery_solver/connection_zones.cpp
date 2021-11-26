@@ -29,16 +29,12 @@ void get_connection_zones(
 	//////////////////////////////////////////////////////////////////////////////
 	//Create elements, AABB, OBB, P, Pls, thickness
 	//////////////////////////////////////////////////////////////////////////////
-	
 	std::vector<element> elements;
 	get_elements(input_polyline_pairs, input_insertion_vectors, input_joint_types, elements);
 	
 	//////////////////////////////////////////////////////////////////////////////
 	//Create joints, Perform Joint Area Search
 	//////////////////////////////////////////////////////////////////////////////
-
-	
-
 	auto joints = std::vector<joint>();
 	auto joints_map = std::unordered_map<uint64_t, int>();
 	rtree_search(elements, search_type, joints, joints_map);
@@ -56,8 +52,6 @@ void get_connection_zones(
 	//////////////////////////////////////////////////////////////////////////////
 	//3-valence joints
 	//////////////////////////////////////////////////////////////////////////////
-
-
 	if (input_three_valence_element_indices_and_instruction.size() > 0)
 		three_valence_joint_alignment(input_three_valence_element_indices_and_instruction, elements, joints, joints_map, division_distance);//plines, 
 	

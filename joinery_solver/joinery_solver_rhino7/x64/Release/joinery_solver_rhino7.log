@@ -1,7 +1,4 @@
-﻿  stdafx.cpp
-   --- Rhino C++ component links with libs in "C:/Program Files/Rhino 7 SDK/Lib/Release"
-  clipper.cpp
-  connection_zones.cpp
+﻿  connection_zones.cpp
 C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Arr_dcel_base.h(44,26): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
 C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Boolean_set_operations_2\Gps_default_dcel.h(69,1): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(34,1): warning C4005: 'ON_DBL_MIN': macro redefinition
@@ -103,32 +100,32 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(778,
               _Ty=double
           ]
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(808,8): warning C4189: 'mid': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1109,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1110,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1132,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1133,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1166,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1167,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1201,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1202,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1229,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1230,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1239,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1240,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
@@ -453,32 +450,32 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(778,
               _Ty=double
           ]
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(808,8): warning C4189: 'mid': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1109,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1110,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1132,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1133,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1166,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1167,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1201,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1202,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1229,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1230,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1239,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(1240,102): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=double
@@ -511,8 +508,9 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1355,10): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1356,8): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1300,10): warning C4189: 'scale': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(89,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(164,7): warning C4189: 'nhits': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(76,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(184,7): warning C4189: 'nhits': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(265,8): warning C4189: 'nhits': local variable is initialized but not referenced
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\utility(193,16): warning C4244: 'initializing': conversion from 'size_t' to '_Ty1', possible loss of data
           with
           [
@@ -701,108 +699,6 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): mess
               NT=double,
               _Valty=std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>
           ]
-  command_group_loft.cpp
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Arr_dcel_base.h(44,26): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Boolean_set_operations_2\Gps_default_dcel.h(69,1): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(34,1): warning C4005: 'ON_DBL_MIN': macro redefinition
-C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(214): message : see previous definition of 'ON_DBL_MIN'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(35,1): warning C4005: 'ON_EPSILON': macro redefinition
-C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(221): message : see previous definition of 'ON_EPSILON'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(38,1): warning C4005: 'ON_DBL_MAX': macro redefinition
-C:\Program Files\Rhino 7 SDK\opennurbs\opennurbs_defines.h(208): message : see previous definition of 'ON_DBL_MAX'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(100,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(122,6): warning C4189: 'n': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(326,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(354,22): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(379,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(417,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\compas.h(442,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_group_loft.cpp(82,9): warning C4189: 'division_distance': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_group_loft.cpp(83,9): warning C4189: 'shift': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_group_loft.cpp(81,6): warning C4189: 'search_type': local variable is initialized but not referenced
-  command_mesh_difference.cpp
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(181,34): warning C4101: 'e': unreferenced local variable
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(233,34): warning C4101: 'e': unreferenced local variable
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(338,8): warning C4189: 'meshObjBaked': local variable is initialized but not referenced
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\algorithm(2892,24): warning C4244: '=': conversion from 'int' to 'char', possible loss of data
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\IO\helpers.h(56): message : see reference to function template instantiation '_OutIt std::transform<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,int(__cdecl *)(int)>(const _InIt,const _InIt,_OutIt,_Fn)' being compiled
-          with
-          [
-              _OutIt=std::_String_iterator<std::_String_val<std::_Simple_types<char>>>,
-              _Elem=char,
-              _InIt=std::_String_iterator<std::_String_val<std::_Simple_types<char>>>,
-              _Fn=int (__cdecl *)(int)
-          ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\internal\Corefinement\Visitor.h(1051,1): warning C4457: declaration of 'it' hides function parameter
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\internal\Corefinement\Visitor.h(1036,56): message : see declaration of 'it'
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\internal\Corefinement\Visitor.h(1408): message : see reference to function template instantiation 'void CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::triangulate_intersected_faces<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<TriangleMesh *const ,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,T>>>>>>>,VertexPointMap1>(OnFaceMapIterator,const VPM &,CGAL::Polygon_mesh_processing::Corefinement::Intersection_nodes<TriangleMesh,VertexPointMap1,VertexPointMap2,true,false> &,std::map<TriangleMesh *,boost::unordered::unordered_map<K,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary>>>,std::less<TriangleMesh *>,std::allocator<std::pair<TriangleMesh *const ,boost::unordered::unordered_map<K,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary>>>>>> &)' being compiled
-          with
-          [
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              K=CGAL::SM_Face_index,
-              T=CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,
-              VertexPointMap1=VPM1,
-              OnFaceMapIterator=std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>> *const ,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,boost::hash<CGAL::SM_Face_index>,std::equal_to<CGAL::SM_Face_index>,std::allocator<std::pair<const CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids>>>>>>>,
-              VPM=VPM1,
-              VertexPointMap2=VPM2
-          ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\internal\Corefinement\Visitor.h(1408): message : see reference to function template instantiation 'void CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::triangulate_intersected_faces<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<TriangleMesh *const ,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,T>>>>>>>,VertexPointMap1>(OnFaceMapIterator,const VPM &,CGAL::Polygon_mesh_processing::Corefinement::Intersection_nodes<TriangleMesh,VertexPointMap1,VertexPointMap2,true,false> &,std::map<TriangleMesh *,boost::unordered::unordered_map<K,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary>>>,std::less<TriangleMesh *>,std::allocator<std::pair<TriangleMesh *const ,boost::unordered::unordered_map<K,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary>>>>>> &)' being compiled
-          with
-          [
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              K=CGAL::SM_Face_index,
-              T=CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,
-              VertexPointMap1=VPM1,
-              OnFaceMapIterator=std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>> *const ,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,boost::hash<CGAL::SM_Face_index>,std::equal_to<CGAL::SM_Face_index>,std::allocator<std::pair<const CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids>>>>>>>,
-              VPM=VPM1,
-              VertexPointMap2=VPM2
-          ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\internal\Corefinement\Visitor.h(1292): message : while compiling class template member function 'void CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::finalize(CGAL::Polygon_mesh_processing::Corefinement::Intersection_nodes<TriangleMesh,VertexPointMap1,VertexPointMap2,true,false> &,const TriangleMesh &,const TriangleMesh &,const VertexPointMap1 &,const VertexPointMap2 &)'
-          with
-          [
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              VertexPointMap1=VPM1,
-              VertexPointMap2=VPM2
-          ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\internal\Corefinement\intersection_impl.h(1624): message : see reference to function template instantiation 'void CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::finalize(CGAL::Polygon_mesh_processing::Corefinement::Intersection_nodes<TriangleMesh,VertexPointMap1,VertexPointMap2,true,false> &,const TriangleMesh &,const TriangleMesh &,const VertexPointMap1 &,const VertexPointMap2 &)' being compiled
-          with
-          [
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              VertexPointMap1=VPM1,
-              VertexPointMap2=VPM2
-          ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\corefinement.h(405): message : see reference to class template instantiation 'CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>' being compiled
-          with
-          [
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>
-          ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\corefinement.h(577): message : see reference to function template instantiation 'std::array<bool,4> CGAL::Polygon_mesh_processing::corefine_and_compute_boolean_operations<TriangleMesh,NamedParameters1,NamedParameters2,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,const std::array<boost::optional<TriangleMesh *>,4> &,const NamedParameters1 &,const NamedParameters2 &,const std::tuple<CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>> &)' being compiled
-          with
-          [
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>,
-              NamedParameters2=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>
-          ]
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Polygon_mesh_processing\corefinement.h(1027): message : see reference to function template instantiation 'bool CGAL::Polygon_mesh_processing::corefine_and_compute_union<TriangleMesh,NamedParameters1,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,TriangleMesh &,const NamedParameters1 &,const NamedParameters2 &,const NamedParametersOut &)' being compiled
-          with
-          [
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>,
-              NamedParameters2=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,
-              NamedParametersOut=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>
-          ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(220): message : see reference to function template instantiation 'bool CGAL::Polygon_mesh_processing::corefine_and_compute_union<CGAL::Surface_mesh<CGAL::Point_3<Kernel_>>,CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,TriangleMesh &,const NamedParameters1 &)' being compiled
-          with
-          [
-              Kernel_=CGAL::Epick,
-              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
-              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>
-          ]
-  joinery_solver_rhino7App.cpp
-  joinery_solver_rhino7PlugIn.cpp
   Generating Code...
-C:\IBOIS57\_Code\Software\CPP\Boost\boost\iterator\function_output_iterator.hpp(38): warning C4702: unreachable code
-C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include\CGAL\Compact_container.h(875): warning C4702: unreachable code
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(192): warning C4715: 'MeshBoolean_CreateArrayTrackColors': not all control paths return a value
      Creating library C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.lib and object C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.exp
   joinery_solver_rhino7.vcxproj -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\x64\Release\joinery_solver_rhino7.rhp

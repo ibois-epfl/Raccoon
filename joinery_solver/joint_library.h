@@ -1072,13 +1072,14 @@ namespace joint_library {
 
 		
 			//Select user given type
+			//types0+265 
 			int id_representing_joing_name = -1;
 			if (elements[joint.f0].joint_types.size() && elements[joint.f1].joint_types.size())
-				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0] > elements[joint.f1].joint_types[joint.e1_0] ? elements[joint.f0].joint_types[joint.e0_0] : elements[joint.f1].joint_types[joint.e1_0];
+				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0+2] > elements[joint.f1].joint_types[joint.e1_0 + 2] ? elements[joint.f0].joint_types[joint.e0_0] : elements[joint.f1].joint_types[joint.e1_0];
 			else if (elements[joint.f0].joint_types.size())
-				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0];
+				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0 + 2];
 			else if (elements[joint.f1].joint_types.size())
-				id_representing_joing_name = elements[joint.f1].joint_types[joint.e1_0];
+				id_representing_joing_name = elements[joint.f1].joint_types[joint.e1_0 + 2];
 
 			//When users gives an input -> default_parameters_for_four_types
 			int number_of_types = 6;//side-side in-plane | side-side out-of-plane | top-side | cross | top-top | side-side rotated

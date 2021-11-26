@@ -24,7 +24,7 @@ public:
 	std::vector<IK::Plane_3> planes; //top and bottom planes + each side face
 
 	std::vector<IK::Vector_3> edge_vectors;//if set
-	std::vector<int> joint_types;//if set
+	std::vector<int> joint_types;//if set - used in joint_library | method construct_joint_by_index
 	IK::Segment_3 axis;
 
 	/////////////////////////////////////////////////////////////////////////////////////////
