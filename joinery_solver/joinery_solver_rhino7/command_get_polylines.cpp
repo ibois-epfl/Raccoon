@@ -15,7 +15,8 @@
 
 
 
-bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, int& search_type , double& division_distance, double& shift, int& output_type, std::vector<double>& joint_parameters) {
+bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, int& search_type , double& division_distance, double& shift, int& output_type, 
+	std::vector<double>& joint_parameters, std::vector<std::vector<IK::Vector_3>>& insertion_vectors) {
 
 	/////////////////////////////////////////////////////////////////////
 	//Get Polylines and Convert to CGAL Polylines |
@@ -26,7 +27,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	go.GetObjects(1, 0);
 	if (go.CommandResult() != CRhinoCommand::success) return false;
 
-	go.SetGeometryFilter(CRhinoGetObject::curve_object);
+
 
 
 	input_polyline_pairs.reserve(go.ObjectCount() - go.ObjectCount() % 2);
@@ -53,21 +54,134 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 
 	/////////////////////////////////////////////////////////////////////
-	//search_type | division_distance | shift
+	//Get Insertion direction
+	/////////////////////////////////////////////////////////////////////
+	CRhinoGetObject go2;
+	go2.SetCommandPrompt(L"Select Lines for Insertion Vectors");
+	go2.SetGeometryFilter(CRhinoGetObject::curve_object);
+	go2.EnablePreSelect(FALSE);
+	go2.EnableDeselectAllBeforePostSelect(FALSE);
+	go2.GetObjects(1, 0);
+	if (go2.CommandResult() != CRhinoCommand::success) 		return false;
+
+
+	std::vector<ON_Line> insertion_lines;
+	insertion_lines.reserve(go2.ObjectCount() );
+
+	for (int i = 0; i < go2.ObjectCount(); i++) {
+		//Convert Curve to Polyline
+		const CRhinoObjRef& o = go2.Object(i);
+		const  ON_Curve* crv = o.Curve();
+		if (!crv) continue;
+		ON_SimpleArray<ON_3dPoint> points;
+		crv->IsPolyline(&points);
+		if (points.Count() != 2) continue;
+		//Construct Line
+		
+		insertion_lines.emplace_back(points[0],points[1]);
+	}
+
+	if (insertion_lines.size() == 0) return false;
+
+	RhinoApp().Print(L" %i  \n", insertion_lines.size() );
+
+	//Create a container to store full empty insertion vectors
+	int n = input_polyline_pairs.size() * 0.5;
+
+	insertion_vectors= std::vector<std::vector<IK::Vector_3>> (n);
+	for (int i = 0; i < insertion_vectors.size(); i++) {
+		insertion_vectors[i].reserve(input_polyline_pairs[i*2].size()+1);
+		for (int j = 0; j < input_polyline_pairs[i * 2].size() + 1; j++)
+			insertion_vectors[i].emplace_back(0,0,0);
+	}
+
+	//Create RTree
+	RTree<int, double, 3> tree;
+
+	//Insert AABB
+	for (int i = 0; i < n; i++) {
+
+		//Create copy of a polyline and transform points
+		CGAL_Polyline twoPolylines;
+		twoPolylines.resize(input_polyline_pairs[i].size() + input_polyline_pairs[i + 1].size());
+		std::copy(input_polyline_pairs[i].begin(), input_polyline_pairs[i].end(), twoPolylines.begin());
+		std::copy(input_polyline_pairs[i + 1].begin(), input_polyline_pairs[i + 1].end(), twoPolylines.begin() + input_polyline_pairs[i].size());
+
+
+		CGAL::Bbox_3 AABB = CGAL::bbox_3(twoPolylines.begin(), twoPolylines.end(), IK());
+
+		CGAL_Polyline AABB_Min_Max = {
+			IK::Point_3(AABB.xmin() - 1 * GlobalTolerance, AABB.ymin() - 1 * GlobalTolerance, AABB.zmin() - 1 * GlobalTolerance),
+			IK::Point_3(AABB.xmax() + 1 * GlobalTolerance, AABB.ymax() + 1 * GlobalTolerance, AABB.zmax() + 1 * GlobalTolerance),
+		};
+
+		AABB = CGAL::bbox_3(AABB_Min_Max.begin(), AABB_Min_Max.end(), IK());
+
+		double min[3] = { AABB.xmin(), AABB.ymin(), AABB.zmin() };
+		double max[3] = { AABB.xmax(), AABB.ymax(), AABB.zmax() };
+		tree.Insert(min, max, i);
+	}
+
+
+
+	//////////////////////////////////////////////////////////////////////////////
+	// Search Closest Boxes | Skip duplicates pairs | Perform callback with OBB
+	//////////////////////////////////////////////////////////////////////////////
+
+	int collision_count = 0;
+	for (int i = 0; i < insertion_lines.size(); i++) {//AABB.size()
+
+		//std::vector<int> result;
+		auto callback = [ i, &insertion_lines, &input_polyline_pairs, &insertion_vectors, &collision_count](int foundValue) -> bool
+		{
+
+			//Get lines points
+			IK::Point_3 p0(insertion_lines[i].from.x, insertion_lines[i].from.y, insertion_lines[i].from.z);
+			IK::Point_3 p1(insertion_lines[i].to.x, insertion_lines[i].to.y, insertion_lines[i].to.z);
+
+			//Check the distance between top and bottom outlines edge
+			int edge = 0;
+			if (CGAL_PolylineUtil::closest_distance(p0, input_polyline_pairs[foundValue * 2 + 0], edge) < GlobalToleranceSquare*100) {
+				insertion_vectors[foundValue][edge+2] = IK::Vector_3(p0 - p1);
+				RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
+				collision_count++;
+			} else {
+
+				edge = 0;
+				if (CGAL_PolylineUtil::closest_distance(p0, input_polyline_pairs[foundValue * 2 + 1], edge) < GlobalToleranceSquare * 100) {
+					insertion_vectors[foundValue][edge + 2] = IK::Vector_3(p0 - p1);
+					RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge + 2);
+					collision_count++;
+				}
+			}
+
+
+			return true;
+		};
+
+		double min[3] = { insertion_lines[i].from.x, insertion_lines[i].from.y, insertion_lines[i].from.z };
+		double max[3] = { insertion_lines[i].to.x, insertion_lines[i].to.y, insertion_lines[i].to.z };
+		int nhits = tree.Search(min, max, callback);//callback in this method call callback above
+
+	}
+
+	RhinoApp().Print(L" found insertion vectors: %i \n", collision_count);
+
+
+
+
+	
+
+
+
+
+	/////////////////////////////////////////////////////////////////////
+	//Command Line Menu search_type | division_distance | shift
 	/////////////////////////////////////////////////////////////////////
 	search_type = 2;
 	division_distance = 1000;
 	shift = 0.5;
 	output_type = 4;
-	/////////////////////////////////////////////////////////////////////
-	//Command Line Menu
-	/////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 	CRhinoGetOption menu;
 	menu.SetCommandPrompt(L"Parameter for the Joinery Solver");
 	menu.AcceptNothing();
@@ -234,7 +348,8 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	int output_type = 4;
 	//side-to-side parallel in-plane |  side-to-side parallel | side-to-side out-of-plane |  top-to-side | cross | top-to-top |  side-to-side non-parallel
 	std::vector<double> joint_parameters =  { 1000, 0.5, 1,  1000, 0.5, 10 ,  1000, 0.5, 20 ,  1000, 0.5, 30 ,  1000, 0.5, 40 ,  1000, 0.5, 50 };
-	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift, output_type, joint_parameters)) return CRhinoCommand::failure;
+	std::vector<std::vector<IK::Vector_3>> input_insertion_vectors;
+	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift, output_type, joint_parameters, input_insertion_vectors)) return CRhinoCommand::failure;
 
 
 	/////////////////////////////////////////////////////////////////////
@@ -243,7 +358,7 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	RhinoApp().Print("============================================================================== CPP + \n");
 	auto start = std::chrono::high_resolution_clock::now();
 	//input
-	std::vector<std::vector<IK::Vector_3>> input_insertion_vectors;
+	//std::vector<std::vector<IK::Vector_3>> input_insertion_vectors;
 	std::vector<std::vector<int>> input_joint_types;
 	std::vector<std::vector<int>> input_three_valence_element_indices_and_instruction;
 	//output
