@@ -17,6 +17,10 @@ ________________________________________________________
 
 ### Interface Rhino C++ Plugin
 - [x] Rhino requires stdafx files referenced to .cpp files. If you are using another project for building this one, create stdafx.h in that project to stop complaining. And underfine following variables in rhino stdafx.h file, #define NOMINMAX #undef min #undef max. Since library files will be place else where, add in C/C++ -> General -> Additional Include Directions -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver	
+- [x] CGAL Builds with C++14, not 17 
+- [x] Menu 1 : Select Polylines, define | search type | division distance | shift | 
+- [x] Menu 2 : Select Insertion vectors
+- [x] Menu 3 : Joint parameters per category 
 
 ### Interface Stand-alone
 - [ ] C++ Visualizer
