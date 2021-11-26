@@ -21,6 +21,9 @@ ________________________________________________________
 - [x] Menu 1 : Select Polylines, define | search type | division distance | shift | 
 - [x] Menu 2 : Select Insertion vectors
 - [x] Menu 3 : Joint parameters per category 
+- [x] Menu 4 : Skipe not needed joints, by dots
+- [ ] Loft polyline groups with holes, like NGon
+- [ ] MAC
 
 ### Interface Stand-alone
 - [ ] C++ Visualizer
