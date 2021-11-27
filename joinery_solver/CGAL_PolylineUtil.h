@@ -37,29 +37,24 @@ namespace CGAL_PolylineUtil {
 	inline bool ClosestPointTo(const IK::Point_3& point, const IK::Segment_3& s, double& t)
 	{
 		bool rc = false;
-		//if (t) {
-		const IK::Vector_3 D = s.to_vector();
 
+		const IK::Vector_3 D = s.to_vector();
 		const double DoD = D.squared_length();
-		//CGAL_Debug(DoD);
 
 		if (DoD > 0.0) {
 
-			if ((point - s[0]).squared_length() <= (point - s[1]).squared_length()) {
+			if ((point - s[0]).squared_length() <= (point - s[1]).squared_length()) 
 				t = ((point - s[0]) * D) / DoD;
-			}
-			else {
+			else 
 				t = 1.0 + ((point - s[1]) * D) / DoD;
-			}
 
 			rc = true;
 
-		}
-		else {
+		}else {// (GBA) Closest point to a degenerate line works as well
 			t = 0.0;
-			rc = true;			// (GBA) Closest point to a degenerate line works as well
+			rc = true;			
 		}
-		// }
+
 		return rc;
 	}
 
@@ -159,17 +154,19 @@ namespace CGAL_PolylineUtil {
 		IK::Segment_3 segment(s[0], s[1]);
 		double t;
 		ClosestPointTo(point, segment, t);
-		double closestDistance = CGAL::squared_distance(point, PointAt(segment, t));
+
+		double closestDistance = std::abs(CGAL::squared_distance(point, PointAt(segment, t)));
 		
 		for (int i = 1; i < s.size() - 1; i++) {
 
 			IK::Segment_3 segment_(s[i], s[i + 1]);
 			ClosestPointTo(point, segment_, t);
-			double closestDistanceTemp = CGAL::squared_distance(point, PointAt(segment_, t));
+			double closestDistanceTemp = std::abs(CGAL::squared_distance(point, PointAt(segment_, t)));
 			if (closestDistanceTemp < closestDistance) {
 				closestDistance = closestDistanceTemp;
 				edge = i;
 			}
+		
 			if (closestDistance < GlobalToleranceSquare)
 				break;
 		}

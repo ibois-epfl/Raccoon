@@ -180,13 +180,14 @@ bool MeshBoolean_CreateArrayTrackColors(
 
 		} catch (const std::exception& e) {
 			lastMesh = meshList[i];
+		
 		}
 
 	}
 
 	output = lastMesh;
 
-
+	return true;
 
 
 }
