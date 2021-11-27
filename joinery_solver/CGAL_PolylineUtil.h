@@ -155,12 +155,12 @@ namespace CGAL_PolylineUtil {
 
 	inline double closest_distance(const IK::Point_3 point, CGAL_Polyline& s, int& edge) {
 
-
+		edge = 0;
 		IK::Segment_3 segment(s[0], s[1]);
 		double t;
 		ClosestPointTo(point, segment, t);
 		double closestDistance = CGAL::squared_distance(point, PointAt(segment, t));
-		edge = 0;
+		
 		for (int i = 1; i < s.size() - 1; i++) {
 
 			IK::Segment_3 segment_(s[i], s[i + 1]);

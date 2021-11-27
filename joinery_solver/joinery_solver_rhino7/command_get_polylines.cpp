@@ -77,14 +77,17 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 	input_insertion_vectors = std::vector<std::vector<IK::Vector_3>>(n);
 	input_joint_types = std::vector<std::vector<int>>(n);
+
 	for (int i = 0; i < input_insertion_vectors.size(); i++) {
-		input_insertion_vectors[i].reserve(input_polyline_pairs[i * 2].size() + 1);
-		input_joint_types[i].reserve(input_polyline_pairs[i * 2].size() + 1);
-		for (int j = 0; j < input_polyline_pairs[i * 2].size() + 1; j++) {
+
+		input_insertion_vectors[i].reserve(input_polyline_pairs[i * 2].size() + 2);
+		input_joint_types[i].reserve(input_polyline_pairs[i * 2].size() + 2);
+		for (int j = 0; j < input_polyline_pairs[i * 2].size() + 2; j++) {
 			input_insertion_vectors[i].emplace_back(0, 0, 0);
 			input_joint_types[i].emplace_back(-1);
 		}
 	}
+
 #pragma endregion
 
 #pragma region GetInsertionDirection
@@ -245,14 +248,19 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 				//Check the distance between top and bottom outlines edge
 				int edge = 0;
 				if (CGAL_PolylineUtil::closest_distance(p, input_polyline_pairs[foundValue * 2 + 0], edge) < GlobalToleranceSquare ) {
+					//int face_or_edge = 2 + edge;
 					int face_or_edge = text_dots[i].second < 0 ? 0 : 2 + edge;
-					input_joint_types[foundValue][face_or_edge] = std::abs(text_dots[i].second);
-					//RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge + 2);
+					int type = text_dots[i].second < -100 ? 0 : std::abs(text_dots[i].second);
+					input_joint_types[foundValue][face_or_edge] = type;
+					RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge);
 					collision_count++;
+
 				} else if (CGAL_PolylineUtil::closest_distance(p, input_polyline_pairs[foundValue * 2 + 1], edge) < GlobalToleranceSquare ) {
+					//int face_or_edge = 2 + edge;
 					int face_or_edge = text_dots[i].second < 0 ? 1 : 2 + edge;
-					input_joint_types[foundValue][face_or_edge] = std::abs(text_dots[i].second);
-					//RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge + 2);
+					int type = text_dots[i].second < -100 ? 0 : std::abs(text_dots[i].second);
+					input_joint_types[foundValue][face_or_edge] = std::abs(type);
+					RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge);
 					collision_count++;
 				}
 
@@ -268,9 +276,12 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 
 	}
-	RhinoApp().Print(L" found insertion vectors: %i \n", collision_count);
-	//if (collision_count == 0) input_joint_types.clear();
-	RhinoApp().Print(L" found insertion vectors: %i \n", input_joint_types.size());
+	RhinoApp().Print(L" Joint Types: %i \n", collision_count);
+	if (collision_count == 0) input_joint_types.clear();
+	RhinoApp().Print(L" Joint Type vector count: %i \n", input_joint_types.size());
+
+
+
 #pragma endregion
 
 #pragma region GlobalParameters

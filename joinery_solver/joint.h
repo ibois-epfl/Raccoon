@@ -30,9 +30,9 @@ class joint
 public:
 
 	/////////////////////////////////////////////////////////////////////////////////////////
-	//Parameters from Search method
+	//Parameters from Search method v-volume f-face
 	/////////////////////////////////////////////////////////////////////////////////////////
-	int id, f0, f1, e0_0, e1_0, e0_1, e1_1, type; //10 - SS Rotate 11 - SS OUT OF PLANE 12 - SS IN Plane,  20 Top-Side, 30 - Cross
+	int id, v0, v1, f0_0, f1_0, f0_1, f1_1, type; //10 - SS Rotate 11 - SS OUT OF PLANE 12 - SS IN Plane,  20 Top-Side, 30 - Cross
 	CGAL_Polyline joint_area;//delete
 	CGAL_Polyline joint_lines[2];//delete
 	//CGAL_Polyline joint_quads[2];//delete
@@ -72,13 +72,13 @@ public:
                 return f[1];
     }
 
-    void get_edge_ids(bool male_or_female, int& eA, int& eB) {
+    void get_edge_ids(bool male_or_female, int& fA, int& fB) {
         if (male_or_female) {
-            eA = e0_0;
-            eB = e0_1;
+            fA = f0_0;
+            fB = f0_1;
         } else {
-            eA = e1_0;
-            eB = e1_1;
+            fA = f1_0;
+            fB = f1_1;
         }
     }
 
@@ -114,8 +114,8 @@ public:
 };
 
 
-inline joint::joint(int _id, int _f0, int _f1, int _e0_0, int _e1_0, int _e0_1, int _e1_1, CGAL_Polyline(&_joint_volumes)[4]):
-    id(_id), f0(_f0), f1(_f1), e0_0(_e0_0), e1_0(_e1_0), e0_1(_e0_1), e1_1(_e1_1), type(-1) {
+inline joint::joint(int _id, int _v0, int _v1, int _f0_0, int _f1_0, int _f0_1, int _f1_1, CGAL_Polyline(&_joint_volumes)[4]):
+    id(_id), v0(_v0), v1(_v1), f0_0(_f0_0), f1_0(_f1_0), f0_1(_f0_1), f1_1(_f1_1), type(-1) {
 
 
     for (int i = 0; i < 4; i++) 
@@ -124,8 +124,8 @@ inline joint::joint(int _id, int _f0, int _f1, int _e0_0, int _e1_0, int _e0_1, 
 
 }
 
-inline joint::joint(int _id, int _f0, int _f1, int _e0_0, int _e1_0, int _e0_1, int _e1_1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type):
-    id(_id), f0(_f0), f1(_f1), e0_0(_e0_0), e1_0(_e1_0), e0_1(_e0_1), e1_1(_e1_1), type(_type)
+inline joint::joint(int _id, int _v0, int _v1, int _f0_0, int _f1_0, int _f0_1, int _f1_1, CGAL_Polyline(&_joint_area), CGAL_Polyline(&_joint_lines)[2], CGAL_Polyline(&_joint_volumes)[4], int _type):
+    id(_id), v0(_v0), v1(_v1), f0_0(_f0_0), f1_0(_f1_0), f0_1(_f0_1), f1_1(_f1_1), type(_type)
 {
 
     for (int i = 0; i < 4; i++) 

@@ -1067,19 +1067,43 @@ namespace joint_library {
 
 		double division_distance = division_distance_;
 		double shift = shift_;
-
+		std::ofstream myfile;
+		myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output2.txt");
+		//myfile << joints.size()<< " \n";
 		for (auto& joint : joints) {
 
 		
 			//Select user given type
 			//types0+265 
 			int id_representing_joing_name = -1;
-			if (elements[joint.f0].joint_types.size() && elements[joint.f1].joint_types.size())
-				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0+2] > elements[joint.f1].joint_types[joint.e1_0 + 2] ? elements[joint.f0].joint_types[joint.e0_0] : elements[joint.f1].joint_types[joint.e1_0];
-			else if (elements[joint.f0].joint_types.size())
-				id_representing_joing_name = elements[joint.f0].joint_types[joint.e0_0 + 2];
-			else if (elements[joint.f1].joint_types.size())
-				id_representing_joing_name = elements[joint.f1].joint_types[joint.e1_0 + 2];
+			if (elements[joint.v0].joint_types.size() && elements[joint.v1].joint_types.size()) {
+				int a = elements[joint.v0].joint_types[joint.f0_0];
+				int b = elements[joint.v1].joint_types[joint.f1_0];
+				id_representing_joing_name = (a > b) ? a : b;
+
+				for (auto& o : elements[joint.v0].joint_types)
+					myfile << o << " ";
+				myfile << "\n";
+
+				for (auto& o : elements[joint.v1].joint_types)
+					myfile << o << " ";
+				myfile << "\n";
+				
+				myfile << joint.f0_0 << "\n";
+				myfile << joint.f1_0 << "\n";
+				myfile << a << "\n";
+				myfile << b << "\n";
+				myfile << id_representing_joing_name <<"\n";
+			}
+			else if (elements[joint.v0].joint_types.size())
+				id_representing_joing_name = elements[joint.v0].joint_types[joint.f0_0];
+			else if (elements[joint.v1].joint_types.size())
+				id_representing_joing_name = elements[joint.v1].joint_types[joint.f1_0];
+
+
+			//myfile << joint.f0_0 << " " << joint.f0_1 << " \n";
+			//myfile << elements[joint.v0].joint_types[joint.f0_0] << " " << elements[joint.v1].joint_types[joint.f1_0] << " \n";
+		
 
 			//When users gives an input -> default_parameters_for_four_types
 			int number_of_types = 6;//side-side in-plane | side-side out-of-plane | top-side | cross | top-top | side-side rotated
@@ -1098,7 +1122,7 @@ namespace joint_library {
 			//Select first by local search, only then by user given index, or by default
 			if (id_representing_joing_name == 0) {
 				//CGAL_Debug(55555);
-				return;//Nothing
+				continue;//Nothing
 			} else if (joint.type == 12 && ((id_representing_joing_name > 0 && id_representing_joing_name < 10) || id_representing_joing_name == -1)) {
 				//CGAL_Debug(66666);
 
@@ -1248,7 +1272,7 @@ namespace joint_library {
 
 		}
 
-
+		myfile.close();
 	}
 
 

@@ -38,7 +38,7 @@ void get_connection_zones(
 	auto joints = std::vector<joint>();
 	auto joints_map = std::unordered_map<uint64_t, int>();
 	rtree_search(elements, search_type, joints, joints_map);
-
+	//return;
 	//if (true) {
 	//	std::ofstream myfile;
 	//	myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output.txt");
@@ -60,8 +60,15 @@ void get_connection_zones(
 	////////////////////////////////////////////////////////////////////////////////
 	//std::vector<double> default_parameters_for_four_types = default_parameters_for_four_types_;
 	joint_library::construct_joint_by_index(elements, joints, division_distance, shift, default_parameters_for_joint_types);
+	//std::ofstream myfile;
+	//myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output3.txt");
+	//myfile << joints.size();
+	//for (int i = 0; i < default_parameters_for_joint_types.size(); i++) {
+	//	for (int j = 0; j < default_parameters_for_joint_types[i].size(); j++) {
 
-
+	//	}
+	//}
+	//myfile.close();
 	//////////////////////////////////////////////////////////////////////////////
 	//Iterate joint address
 	//////////////////////////////////////////////////////////////////////////////
