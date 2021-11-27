@@ -1067,8 +1067,8 @@ namespace joint_library {
 
 		double division_distance = division_distance_;
 		double shift = shift_;
-		std::ofstream myfile;
-		myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output2.txt");
+		//std::ofstream myfile;
+		//myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output2.txt");
 		//myfile << joints.size()<< " \n";
 		for (auto& joint : joints) {
 
@@ -1081,7 +1081,7 @@ namespace joint_library {
 				int b = elements[joint.v1].joint_types[joint.f1_0];
 				id_representing_joing_name = (a > b) ? a : b;
 
-				for (auto& o : elements[joint.v0].joint_types)
+			/*	for (auto& o : elements[joint.v0].joint_types)
 					myfile << o << " ";
 				myfile << "\n";
 
@@ -1093,7 +1093,7 @@ namespace joint_library {
 				myfile << joint.f1_0 << "\n";
 				myfile << a << "\n";
 				myfile << b << "\n";
-				myfile << id_representing_joing_name <<"\n";
+				myfile << id_representing_joing_name <<"\n";*/
 			}
 			else if (elements[joint.v0].joint_types.size())
 				id_representing_joing_name = elements[joint.v0].joint_types[joint.f0_0];
@@ -1272,7 +1272,7 @@ namespace joint_library {
 
 		}
 
-		myfile.close();
+		//myfile.close();
 	}
 
 

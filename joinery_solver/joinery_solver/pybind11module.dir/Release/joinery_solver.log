@@ -1,1 +1,57 @@
-﻿  joinery_solver.vcxproj -> C:\IBOIS57\_Code\Software\Python\Pybind11Example\vsstudio\Release\pybind11module.cp38-win_amd64.pyd
+﻿  connection_zones.cpp
+  xxx_interop_python.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\utility(193,16): warning C4244: 'initializing': conversion from 'size_t' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=double
+          ] (compiling source file ..\xxx_interop_python.cpp)
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=size_t &,
+              _Other2=size_t &
+          ] (compiling source file ..\xxx_interop_python.cpp)
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=size_t &,
+              _Other2=size_t &
+          ] (compiling source file ..\xxx_interop_python.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\utility(193,54): warning C4244: 'initializing': conversion from 'size_t' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty2=double
+          ] (compiling source file ..\xxx_interop_python.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\xmemory(714,68): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ] (compiling source file ..\xxx_interop_python.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\vector(721): message : see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,double>(_Alloc &,_Objty *const ,double &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<element>,
+              _Ty=element,
+              _Objty=element
+          ] (compiling source file ..\xxx_interop_python.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\vector(726): message : see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,double>(_Alloc &,_Objty *const ,double &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<element>,
+              _Ty=element,
+              _Objty=element
+          ] (compiling source file ..\xxx_interop_python.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\vector(739): message : see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<double>(double &&)' being compiled
+          with
+          [
+              _Ty=element
+          ] (compiling source file ..\xxx_interop_python.cpp)
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(52): message : see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::emplace_back<double>(double &&)' being compiled
+          with
+          [
+              _Ty=element
+          ] (compiling source file ..\xxx_interop_python.cpp)
+     Creating library C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/Release/pybind11module.lib and object C:/IBOIS57/_Code/Software/Python/Pybind11Example/vsstudio/Release/pybind11module.exp
+  Generating code
+  Finished generating code
+  joinery_solver.vcxproj -> C:\IBOIS57\_Code\Software\Python\Pybind11Example\vsstudio\Release\pybind11module.cp38-win_amd64.pyd
