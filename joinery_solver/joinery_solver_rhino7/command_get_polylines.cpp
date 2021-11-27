@@ -200,22 +200,22 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 			int edge = 0;
 			double closest_distance = std::abs(CGAL_PolylineUtil::closest_distance(p0, input_polyline_pairs[foundValue * 2 + 0], edge));
-			//RhinoApp().Print(L"Element %i Closest Distance 0: %f \n", foundValue,  closest_distance);
+			RhinoApp().Print(L"Element %i Closest Distance 0: %f \n", foundValue,  closest_distance);
 			double flag = closest_distance < GlobalToleranceSquare * 100;
 			if (flag) {
 				input_insertion_vectors[foundValue][edge + 2] = v;
-				//RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
+				RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
 				collision_count++;
 				return true;
 			}
 
 			edge = 0;
-			closest_distance = std::abs(CGAL_PolylineUtil::closest_distance(p1, input_polyline_pairs[foundValue * 2 + 1], edge));
-			//RhinoApp().Print(L"Element %i Closest Distance 0: %f \n", foundValue,  closest_distance);
+			closest_distance = std::abs(CGAL_PolylineUtil::closest_distance(p0, input_polyline_pairs[foundValue * 2 + 1], edge));
+			RhinoApp().Print(L"Element %i Closest Distance 1: %f \n", foundValue,  closest_distance);
 			flag = closest_distance < GlobalToleranceSquare * 100;
 			if (flag) {
 				input_insertion_vectors[foundValue][edge + 2] = v;
-				//RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
+				RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
 				collision_count++;
 				return true;
 			}
