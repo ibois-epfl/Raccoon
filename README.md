@@ -22,7 +22,8 @@ ________________________________________________________
 - [x] Menu 2 : Select Insertion vectors
 - [x] Menu 3 : Joint parameters per category 
 - [x] Menu 4 : Skip not needed joints, by dots rhino_interface_1.gif
-- [ ] 
+
+
 ![RhinoInterface1](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/rhino_interface_1.gif) 
 
 - [ ] Loft polyline groups with holes, like NGon :tomato:
