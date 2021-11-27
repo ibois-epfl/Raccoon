@@ -148,25 +148,52 @@ namespace CGAL_PolylineUtil {
 		return closestDistance;
 	}
 
-	inline double closest_distance(const IK::Point_3 point, CGAL_Polyline& s, int& edge) {
+	inline double closest_distance(const IK::Point_3& point, CGAL_Polyline& s, int& edge) {
 
 		edge = 0;
 		IK::Segment_3 segment(s[0], s[1]);
-		double t;
-		ClosestPointTo(point, segment, t);
+		double closestDistance = 999999;
 
-		double closestDistance = std::abs(CGAL::squared_distance(point, PointAt(segment, t)));
-		
-		for (int i = 1; i < s.size() - 1; i++) {
+		for (int i = 0; i < s.size() - 1; i++) {
 
 			IK::Segment_3 segment_(s[i], s[i + 1]);
+
+			double t;
 			ClosestPointTo(point, segment_, t);
+
 			double closestDistanceTemp = std::abs(CGAL::squared_distance(point, PointAt(segment_, t)));
 			if (closestDistanceTemp < closestDistance) {
 				closestDistance = closestDistanceTemp;
 				edge = i;
 			}
-		
+
+			if (closestDistance < GlobalToleranceSquare)
+				break;
+		}
+
+		return closestDistance;
+	}
+
+	inline double closest_distance_and_point(const IK::Point_3& point, CGAL_Polyline& s, int& edge, IK::Point_3& closest_point) {
+
+		edge = 0;
+		IK::Segment_3 segment(s[0], s[1]);
+		double closestDistance = 999999;
+
+		for (int i = 0; i < s.size() - 1; i++) {
+
+			IK::Segment_3 segment_(s[i], s[i + 1]);
+
+			double t;
+			ClosestPointTo(point, segment_, t);
+
+			closest_point = PointAt(segment_, t);
+			double closestDistanceTemp = CGAL::squared_distance(point, closest_point);
+			if (closestDistanceTemp < closestDistance) {
+				closestDistance = closestDistanceTemp;
+				edge = i;
+			}
+
 			if (closestDistance < GlobalToleranceSquare)
 				break;
 		}

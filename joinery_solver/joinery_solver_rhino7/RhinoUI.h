@@ -12,8 +12,9 @@ inline int RhinoFindOrCreateLayer(CRhinoDoc& doc, const wchar_t* layer_name) {
 	if (layer_index == ON_UNSET_INT_INDEX) {
 		ON_Layer layer;
 		layer.SetName(layer_name);
-		layer.SetColor(ON_Color(255, 0, 0));
-		layer.SetPlotColor(ON_Color(255, 0, 0));
+		layer.SetColor(ON_Color(0, 200, 255));
+		layer.SetPlotColor(ON_Color(0, 200, 255));
+		layer.SetPlotWeight(2);
 		layer_index = doc.m_layer_table.AddLayer(layer);
 	}
 

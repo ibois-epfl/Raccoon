@@ -154,15 +154,17 @@ inline void get_elements(
 		if (insertion_vectors.size() > 0)
 			if (insertion_vectors[count].size() > 0) {
 				elements[count].edge_vectors = insertion_vectors[count];
+				//This was very nasty bug, because polylines are reverse based on orientation fix | also only shift +2 must be reversed (edges, skip top and bottom)
 				if (reverse_poylines)
-					std::reverse(elements[count].edge_vectors.begin(), elements[count].edge_vectors.end());
+					std::reverse(elements[count].edge_vectors.begin()+2, elements[count].edge_vectors.end());
 			}
 
 		if (joint_types.size() > 0)
 			if (joint_types[count].size() > 0) {
 				elements[count].joint_types = joint_types[count];
+				//This was very nasty bug, because polylines are reverse based on orientation fix | also only shift +2 must be reversed (edges, skip top and bottom)
 				if (reverse_poylines)
-					std::reverse(elements[count].joint_types.begin(), elements[count].joint_types.end());
+					std::reverse(elements[count].joint_types.begin()+2, elements[count].joint_types.end());
 			}
 
 		count++;
