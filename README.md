@@ -21,7 +21,10 @@ ________________________________________________________
 - [x] Menu 1 : Select Polylines, define | search type | division distance | shift | 
 - [x] Menu 2 : Select Insertion vectors
 - [x] Menu 3 : Joint parameters per category 
-- [ ] Menu 4 : Skip not needed joints, by dots :tomato:
+- [x] Menu 4 : Skip not needed joints, by dots 
+
+<img src="https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/rhino_interface_1.gif" width="800" height="480"/>
+
 - [ ] Loft polyline groups with holes, like NGon :tomato:
 - [ ] MAC :tomato:
 
