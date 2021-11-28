@@ -16,7 +16,7 @@ ________________________________________________________
 - [ ] Grasshopper components (integration with NGon)
 
 ### Interface Rhino C++ Plugin
-- Installation Steps:
+## Installation Steps:
 - Rhino requires stdafx files referenced to .cpp files. If you are using another project for building this one, create stdafx.h in that project to stop complaining.
 - And underfine following variables in rhino stdafx.h file, #define NOMINMAX #undef min #undef max.
 - (Headers) C/C++ -> General -> Additional Include Directions :
@@ -40,11 +40,14 @@ ________________________________________________________
 
 -  Also, add .cpp files clipper.cpp and connection_zones.cpp as existing items to the new project
 -  CGAL Builds with C++14, not 17 
-
-- [x] Menu 1 : Select Polylines, define | search type | division distance | shift | 
+-  
+## Command-line interface:
+- [x] Menu 1 : Select Polylines pairs
 - [x] Menu 2 : Select Insertion vectors
-- [x] Menu 3 : Joint parameters per category 
-- [x] Menu 4 : Skip not needed joints, by dots 
+- [x] Menu 3 : Skip not needed joints, by dots 
+- [x] Menu 4 : search type | division distance | shift | 
+- [x] Menu 5 : Joint parameters per category 
+
 
 ![rhino_command_line](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/rhino_interface_1.gif)
 
