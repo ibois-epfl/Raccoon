@@ -60,11 +60,12 @@ ________________________________________________________
 - [ ] C++ Visualizer
 ________________________________________________________
 
-### Search Global Methods
+## Search Methods
+### Global
 - [x] Closest Object Query + OOB and ABB collision
 - [ ] no search by user given index (must have input in the beginning)
 
-### Search Local Methods
+### Local
 
 - [x] face_to_face side-to-side parallel in-plane | **joinery_library 1-9** | type 12
 - [x] face_to_face side-to-side parallel out-of-plane | **joinery_library 10-19** | type 11
@@ -72,9 +73,37 @@ ________________________________________________________
 - [x] plane_to_face cross | **joinery_library 30-39** | type 30
 - [ ] face_to_face top_to_top | **joinery_library 40-49** |  :tomato:
 - [ ] face_to_face side-to-side | **joinery_library non-parallel 50-59** |
+
+### Local Search and Insertion Vector
+Description: a vector on an element edge that is equal to a plane normal on an edge. 
+- [x] side-top connection insertion vector is currently defined by plane normals, not insertion direction because it is equal what is inside code
+![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/insertion_vectors_0.jpg) 
+
+- [ ] side-side connection, not finished for out of plane connections
+- [ ] side-side connection in rotaiton insertion vector not tested 
+- [ ] top-top connection
 ________________________________________________________
 
-### Joints
+## Element 
+
+### Code implementation
+- [x] element is specified as a pair of polylines, with planes for each side
+ 
+### Merge
+- [x] insert face joints inside edge
+- [x] insert between multiple edges (open polylines + closed polygons) ![Merge closed polygons and open edges](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/merge_1.jpg) 
+- [ ] cut projection and insert in polygon (case when side-side joints are rotated)
+- [x] mesh boolean: a) reference shapes, b) joints polygon pairs
+
+### Element Grouping
+- [ ] introduce unordered_map to track grouping like sorted lists x;x;x
+
+## Joint 
+
+### Code implementation
+- [x] joint class that stores adjacency information
+- [x] change-basis transformation from unit tile to joint volume defined by two rectangles 
+- [x] assignment of joints based and search categories and connection types
 - [ ] store each parameterized joint inside std::unordered_map<string, joint> that is not remapped yet
 
 - [x] parametric ss_e_op_1 Nejiri Arigata 
@@ -127,26 +156,6 @@ ________________________________________________________
     cut = '7',
     cut_project = '8', //project
     binary_slice_mill = '9' //project and make rectangle
-
-________________________________________________________
-
-### Merge
-- [x] insert face joints inside edge
-- [x] insert between multiple edges (open polylines + closed polygons) ![Merge closed polygons and open edges](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/merge_1.jpg) 
-- [ ] cut projection and insert in polygon (case when side-side joints are rotated)
-- [x] mesh boolean: a) reference shapes, b) joints polygon pairs
-
-### Element Grouping
-- [ ] introduce unordered_map to track grouping like sorted lists x;x;x
-
-### Insertion Vector
-Description: a vector on an element edge that is equal to a plane normal on an edge. 
-- [x] side-top connection insertion vector is currently defined by plane normals, not insertion direction because it is equal what is inside code
-![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/insertion_vectors_0.jpg) 
-
-- [ ] side-side connection, not finished for out of plane connections
-- [ ] side-side connection in rotaiton insertion vector not tested 
-- [ ] top-top connection
 
 ________________________________________________________
 
