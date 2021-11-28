@@ -4,19 +4,19 @@ Development code for Petras Vestartas
 # C++ Project joinery_solver
 
 ________________________________________________________
-### Interface compas_wood
+## Interface compas_wood
 - [x] pybind11 + CGAL
 - [ ] output: polylines, polylines vertex count, polylines ids (minus are joints), cut types (milling, drilling, cut, notches)
 - [ ] simplify conversion (instead of creation of polyline vector, create directly elements)
 - [ ] compas_wood C++ repository
 - [ ] Meshing in COMPAS
 
-### Interface Rhino C++ Grasshopper
+## Interface Rhino C++ Grasshopper
 - [ ] C# (Wrapper) + CGAL
 - [ ] Grasshopper components (integration with NGon)
 
-### Interface Rhino C++ Plugin
-## Installation Steps:
+## Interface Rhino C++ Plugin
+### Installation Steps:
 - Rhino requires stdafx files referenced to .cpp files. If you are using another project for building this one, create stdafx.h in that project to stop complaining.
 - And underfine following variables in rhino stdafx.h file, #define NOMINMAX #undef min #undef max.
 - (Headers) C/C++ -> General -> Additional Include Directions :
@@ -41,7 +41,7 @@ ________________________________________________________
 -  Also, add .cpp files clipper.cpp and connection_zones.cpp as existing items to the new project
 -  CGAL Builds with C++14, not 17 
 -  
-## Command-line interface:
+### Command-line interface:
 - [x] Menu 1 : Select Polylines pairs
 - [x] Menu 2 : Select Insertion vectors
 - [x] Menu 3 : Skip not needed joints, by dots 
@@ -54,7 +54,7 @@ ________________________________________________________
 - [x] Loft polyline groups with holes, 2d cgal constrained delaunay triangulations
 - [ ] MAC :tomato:
 
-### Interface Stand-alone
+## Interface Stand-alone
 - [ ] C++ Visualizer
 ________________________________________________________
 
