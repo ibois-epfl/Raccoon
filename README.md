@@ -53,7 +53,7 @@ ________________________________________________________
 ![rhino_command_line](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/rhino_interface_1.gif)
 
 - [x] Loft polyline groups with holes, 2d cgal constrained delaunay triangulations
-- [ ] MAC :tomato:
+- [ ] MAC - only possible through NET or CPython wrappers
 
 ## Interface Stand-alone
 - [ ] C++ Visualizer
