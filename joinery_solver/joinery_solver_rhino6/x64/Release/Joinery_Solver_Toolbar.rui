@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RhinoUI major_ver="3" minor_ver="0" guid="f750255d-76ad-4917-891b-2d847e929f4e" localize="False" default_language_id="1033" dpi_scale="250">
+  <extend_rhino_menus />
+  <menus />
+  <tool_bar_groups>
+    <tool_bar_group guid="0ba98c04-c9e6-40fc-951b-ef9f48a182a1" dock_bar_guid32="00000000-0000-0000-0000-000000000000" dock_bar_guid64="00000000-0000-0000-0000-000000000000" active_tool_bar_group="55f478b4-bbe7-49f6-9701-a79e9ad8397f" single_file="False" hide_single_tab="True" point_floating="669,1310">
+      <text>
+        <locale_1033>Joinery Solver</locale_1033>
+      </text>
+      <tool_bar_group_item guid="55f478b4-bbe7-49f6-9701-a79e9ad8397f" major_version="1" minor_version="1">
+        <text>
+          <locale_1033>Joinery Solver</locale_1033>
+        </text>
+        <tool_bar_id>8a5e36d1-9833-4943-8cd3-e99f1f0c8866</tool_bar_id>
+      </tool_bar_group_item>
+      <dock_bar_info dpi_scale="250" dock_bar="False" docking="True" horz="False" visible="True" floating="True" mru_float_style="4096" bar_id="59493" mru_width="32767" point_pos="-2,-2" float_point="669,1310" rect_mru_dock_pos="0,0,0,0" dock_location_u="59420" dock_location="left" float_size="293,137" />
+    </tool_bar_group>
+  </tool_bar_groups>
+  <tool_bars>
+    <tool_bar guid="8a5e36d1-9833-4943-8cd3-e99f1f0c8866" ImportedFromFileGuid="c7da84fc-2991-4824-832a-4f2509bd0ede" ImportedFromItemGuid="f4fb3b11-6403-4239-a477-f75611dcb352">
+      <text>
+        <locale_1033>Joinery Solver</locale_1033>
+      </text>
+      <tool_bar_item guid="bf9b08f9-9435-4225-88be-d44496427fd6" button_display_mode="text_only" display_style_from_parent="False">
+        <text>
+          <locale_1033>Toolbar item</locale_1033>
+        </text>
+        <left_macro_id>87784e23-2b41-448e-8add-78f652693f0e</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="8172876b-4f29-48b8-a17c-4b30286d2334" button_display_mode="control_and_text" display_style_from_parent="False">
+        <left_macro_id>251b9ebd-400d-4778-a36e-dc2a1b9264fe</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="cd0b8e9c-e0bd-49f9-9edd-004ab90f649e" button_display_mode="control_and_text" display_style_from_parent="False">
+        <left_macro_id>527c5ca2-5528-4095-a49e-aad6800db228</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="ed2c5206-ace1-4f44-a489-5f4965eb09a2" button_display_mode="control_and_text" display_style_from_parent="False">
+        <left_macro_id>ed781ce1-d9e7-48f2-906d-ea97ca62223e</left_macro_id>
+        <right_macro_id>93f9b3c4-20ca-472c-8a64-e4ab4287cdb3</right_macro_id>
+      </tool_bar_item>
+    </tool_bar>
+  </tool_bars>
+  <macros>
+    <macro_item guid="87784e23-2b41-448e-8add-78f652693f0e" ImportedFromFileGuid="c7da84fc-2991-4824-832a-4f2509bd0ede" ImportedFromItemGuid="9eaccce3-3d2a-408b-805d-c13b9c447308" bitmap_id="ddd4b28e-390f-4930-960a-2af41a3252a2">
+      <text>
+        <locale_1033>Macro 01</locale_1033>
+      </text>
+      <tooltip>
+        <locale_1033>joinery_solver</locale_1033>
+      </tooltip>
+      <button_text>
+        <locale_1033>joinery_solver</locale_1033>
+      </button_text>
+      <script>joinery_solver</script>
+    </macro_item>
+    <macro_item guid="251b9ebd-400d-4778-a36e-dc2a1b9264fe" ImportedFromFileGuid="c7da84fc-2991-4824-832a-4f2509bd0ede" ImportedFromItemGuid="ddac4d70-8689-45ed-8144-280dc3ac6de2" bitmap_id="23444c81-e8f1-4dfe-8444-b6616af6ec4f">
+      <text>
+        <locale_1033>Macro 02</locale_1033>
+      </text>
+      <tooltip>
+        <locale_1033>js_mesh_difference</locale_1033>
+      </tooltip>
+      <button_text>
+        <locale_1033>js_mesh_difference</locale_1033>
+      </button_text>
+      <script>joinery_solver_mesh_difference</script>
+    </macro_item>
+    <macro_item guid="527c5ca2-5528-4095-a49e-aad6800db228" ImportedFromFileGuid="c7da84fc-2991-4824-832a-4f2509bd0ede" ImportedFromItemGuid="0d82585b-c405-4545-bfd1-901eca76eade" bitmap_id="d39333a3-fb0c-4252-a20a-d82f020553b8">
+      <text>
+        <locale_1033>Macro 03</locale_1033>
+      </text>
+      <tooltip>
+        <locale_1033>joinery_solver_mesh_to_nurbs</locale_1033>
+      </tooltip>
+      <button_text>
+        <locale_1033>js_mesh_to_nurbs</locale_1033>
+      </button_text>
+      <script>!
+_Select
+_Pause
+_AddNgonsToMesh
+_SelLast
+_Explode
+_SelLast
+_DupBorder
+_SelPrev
+_Delete
+_SelLast
+_SimplifyCrv 
+_SelLast
+_PlanarSrf
+_SelPrev
+_Delete
+_SelLast
+ _Join</script>
+    </macro_item>
+    <macro_item guid="ed781ce1-d9e7-48f2-906d-ea97ca62223e" ImportedFromFileGuid="c7da84fc-2991-4824-832a-4f2509bd0ede" ImportedFromItemGuid="54318d00-6a8d-4ef4-9319-5629d8c68a2d" bitmap_id="0ab97981-8a8a-4a45-a535-fd3641ee82fd">
+      <text>
+        <locale_1033>Macro 04</locale_1033>
+      </text>
+      <tooltip>
+        <locale_1033>js_group_cap</locale_1033>
+      </tooltip>
+      <button_text>
+        <locale_1033>js_loft_cap</locale_1033>
+      </button_text>
+      <script>joinery_solver_group_loft
+</script>
+    </macro_item>
+    <macro_item guid="93f9b3c4-20ca-472c-8a64-e4ab4287cdb3" ImportedFromFileGuid="c7da84fc-2991-4824-832a-4f2509bd0ede" ImportedFromItemGuid="4bb2ca65-49ec-4f1c-91a9-fea9ddb258bc" bitmap_id="f8516d97-13d3-43d0-979b-c6851f371e28">
+      <text>
+        <locale_1033>Macro 05</locale_1033>
+      </text>
+      <tooltip>
+        <locale_1033>js_loft_cap</locale_1033>
+      </tooltip>
+      <button_text>
+        <locale_1033>js_loft_cap</locale_1033>
+      </button_text>
+      <script>!
+_Select
+_Pause
+_-Loft
+_Automatic 
+_Enter
+_Enter
+_MultiPause
+_SelLast
+_Cap</script>
+    </macro_item>
+  </macros>
+  <bitmaps>
+    <small_bitmap item_width="16" item_height="16">
+      <bitmap_item guid="ddd4b28e-390f-4930-960a-2af41a3252a2" index="0" />
+      <bitmap_item guid="23444c81-e8f1-4dfe-8444-b6616af6ec4f" index="1" />
+      <bitmap_item guid="d39333a3-fb0c-4252-a20a-d82f020553b8" index="2" />
+      <bitmap_item guid="0ab97981-8a8a-4a45-a535-fd3641ee82fd" index="3" />
+      <bitmap_item guid="f8516d97-13d3-43d0-979b-c6851f371e28" index="4" />
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAABAAAABQCAYAAAAQq/UNAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAAJOgAACToAYJjBRwAAAAcSURBVFhH7cGBAAAAAMOg+VNf4QBVAAAAAACX
+GhRQAAHn9VY5AAAAAElFTkSuQmCCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</bitmap>
+    </small_bitmap>
+    <normal_bitmap item_width="24" item_height="24">
+      <bitmap_item guid="ddd4b28e-390f-4930-960a-2af41a3252a2" index="0" />
+      <bitmap_item guid="23444c81-e8f1-4dfe-8444-b6616af6ec4f" index="1" />
+      <bitmap_item guid="d39333a3-fb0c-4252-a20a-d82f020553b8" index="2" />
+      <bitmap_item guid="0ab97981-8a8a-4a45-a535-fd3641ee82fd" index="3" />
+      <bitmap_item guid="f8516d97-13d3-43d0-979b-c6851f371e28" index="4" />
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAABgAAAB4CAYAAADogzKiAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAAJOgAACToAYJjBRwAAAAiSURBVGhD7cGBAAAAAMOg+VPf4ARVAAAAAAAA
+AAAAAAAcNS14AAH/Szg0AAAAAElFTkSuQmCCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</bitmap>
+    </normal_bitmap>
+    <large_bitmap item_width="32" item_height="32">
+      <bitmap_item guid="ddd4b28e-390f-4930-960a-2af41a3252a2" index="0" />
+      <bitmap_item guid="23444c81-e8f1-4dfe-8444-b6616af6ec4f" index="1" />
+      <bitmap_item guid="d39333a3-fb0c-4252-a20a-d82f020553b8" index="2" />
+      <bitmap_item guid="0ab97981-8a8a-4a45-a535-fd3641ee82fd" index="3" />
+      <bitmap_item guid="f8516d97-13d3-43d0-979b-c6851f371e28" index="4" />
+      <bitmap>iVBORw0KGgoAAAANSUhEUgAAACAAAACgCAYAAABtym4sAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAAJOgAACToAYJjBRwAAAAqSURBVHhe7cEBAQAAAIIg/69uSEAAAAAAAAAA
+AAAAAAAAAAAAAAAAwLkaUKAAAd99Ae8AAAAASUVORK5CYIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</bitmap>
+    </large_bitmap>
+  </bitmaps>
+  <scripts />
+</RhinoUI>

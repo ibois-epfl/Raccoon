@@ -22,6 +22,7 @@
 #define VC_EXTRALEAN                             // Exclude rarely-used stuff from Windows headers
 #endif
 
+#define JOINERY_SOLVER_RHINO7	// my additions
 // This plug-in is Rhino 6 ready
 #define RHINO_V6_READY
 

@@ -43,7 +43,7 @@ RHINO_PLUG_IN_ICON_RESOURCE_ID(IDI_ICON);
 // must be present or your plug-in will not load.
 //
 // When completed, delete the following #error directive.
-RHINO_PLUG_IN_DEVELOPER_ORGANIZATION(L"Petras Vestartsa");
+RHINO_PLUG_IN_DEVELOPER_ORGANIZATION(L"Petras Vestartas");
 RHINO_PLUG_IN_DEVELOPER_ADDRESS(L"Undefined");
 RHINO_PLUG_IN_DEVELOPER_COUNTRY(L"Undefined");
 RHINO_PLUG_IN_DEVELOPER_PHONE(L"Undefined");

@@ -1,6 +1,14 @@
 #include "StdAfx.h"
 #include "RhinoUI.h"
+
+#ifdef JOINERY_SOLVER_RHINO6
+#include "joinery_solver_rhino6PlugIn.h"
+#endif
+
+#ifdef JOINERY_SOLVER_RHINO7
 #include "joinery_solver_rhino7PlugIn.h"
+#endif
+
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Surface_mesh.h>
 #include <CGAL/Polygon_mesh_processing/corefinement.h>

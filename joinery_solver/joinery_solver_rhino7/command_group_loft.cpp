@@ -1,6 +1,14 @@
 #include "StdAfx.h"
 #include "RhinoUI.h"
+
+#ifdef JOINERY_SOLVER_RHINO6
+#include "joinery_solver_rhino6PlugIn.h"
+#endif
+
+#ifdef JOINERY_SOLVER_RHINO7
 #include "joinery_solver_rhino7PlugIn.h"
+#endif
+
 #include "compas.h"
 #include <exception>
 

@@ -1,0 +1,430 @@
+﻿  stdafx.cpp
+   --- Rhino C++ component links with libs in "C:/Program Files/Rhino 6 SDK/Lib/Release"
+  clipper.cpp
+  connection_zones.cpp
+c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\arr_dcel_base.h(44): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
+c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\boolean_set_operations_2\gps_default_dcel.h(69): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(38): warning C4005: 'ON_DBL_MIN': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(187): note: see previous definition of 'ON_DBL_MIN'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(39): warning C4005: 'ON_EPSILON': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(194): note: see previous definition of 'ON_EPSILON'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(42): warning C4005: 'ON_DBL_MAX': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(181): note: see previous definition of 'ON_DBL_MAX'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(128): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(150): warning C4189: 'n': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(354): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(382): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(407): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(445): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(470): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_vectorutil.h(259): warning C4189: 'rc': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_vectorutil.h(321): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_xformutil.h(362): warning C4189: 'x30': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_xformutil.h(364): warning C4189: 'x32': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_xformutil.h(363): warning C4189: 'x31': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_xformutil.h(365): warning C4189: 'x33': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(236): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(255): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(421): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(437): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(541): warning C4457: declaration of 'p0' hides function parameter
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(464): note: see declaration of 'p0'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(542): warning C4457: declaration of 'p1' hides function parameter
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(464): note: see declaration of 'p1'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(706): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Segment_3<Kernel_>' to 'CGAL::Segment_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(706): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(783): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(783): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(784): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(784): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(786): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(786): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(837): warning C4457: declaration of 'result' hides function parameter
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(814): note: see declaration of 'result'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_planeutil.h(127): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_planeutil.h(127): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_planeutil.h(130): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_planeutil.h(130): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_mathutil.h(9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\rtree.h(16): warning C4005: 'ASSERT': macro redefinition
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\atlmfc\include\afx.h(366): note: see previous definition of 'ASSERT'
+  Parallel algorithms are only available with C++17 or later.
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(121): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(412): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(417): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(442): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(556): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(599): warning C4458: declaration of 'id' hides class member
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(15): note: see declaration of 'element::id'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(600): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(701): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(730): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(758): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(769): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(189): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(451): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(472): warning C4189: 'mid': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(688): warning C4189: 'mid': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(778): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(808): warning C4189: 'mid': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1134): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1157): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1191): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1226): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1254): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1264): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(33): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(114): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(97): warning C4189: 'scale': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(208): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(213): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(747): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(747): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(673): warning C4189: 'isQuad': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(699): warning C4189: 'isQuad': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1153): warning C4189: 'nhits': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+  command_get_polylines.cpp
+c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\arr_dcel_base.h(44): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
+c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\boolean_set_operations_2\gps_default_dcel.h(69): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(38): warning C4005: 'ON_DBL_MIN': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(187): note: see previous definition of 'ON_DBL_MIN'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(39): warning C4005: 'ON_EPSILON': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(194): note: see previous definition of 'ON_EPSILON'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(42): warning C4005: 'ON_DBL_MAX': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(181): note: see previous definition of 'ON_DBL_MAX'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(128): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(150): warning C4189: 'n': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(354): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(382): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(407): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(445): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(470): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_vectorutil.h(259): warning C4189: 'rc': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_vectorutil.h(321): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_xformutil.h(362): warning C4189: 'x30': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_xformutil.h(364): warning C4189: 'x32': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_xformutil.h(363): warning C4189: 'x31': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_xformutil.h(365): warning C4189: 'x33': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(236): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(255): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(421): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(437): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(541): warning C4457: declaration of 'p0' hides function parameter
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(464): note: see declaration of 'p0'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(542): warning C4457: declaration of 'p1' hides function parameter
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_polylineutil.h(464): note: see declaration of 'p1'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(706): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Segment_3<Kernel_>' to 'CGAL::Segment_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(706): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(783): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(783): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(784): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(784): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(786): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(786): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(837): warning C4457: declaration of 'result' hides function parameter
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_intersectionutil.h(814): note: see declaration of 'result'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_planeutil.h(127): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_planeutil.h(127): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_planeutil.h(130): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_planeutil.h(130): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_mathutil.h(9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\rtree.h(16): warning C4005: 'ASSERT': macro redefinition
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\atlmfc\include\afx.h(366): note: see previous definition of 'ASSERT'
+  Parallel algorithms are only available with C++17 or later.
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(121): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(412): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(417): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(442): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(556): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(599): warning C4458: declaration of 'id' hides class member
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(15): note: see declaration of 'element::id'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(600): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(701): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(730): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(758): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(769): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(189): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(451): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(472): warning C4189: 'mid': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(688): warning C4189: 'mid': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(778): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(808): warning C4189: 'mid': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1134): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1157): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1191): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1226): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1254): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1264): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(33): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(114): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(97): warning C4189: 'scale': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(208): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(213): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(747): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(747): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(673): warning C4189: 'isQuad': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(699): warning C4189: 'isQuad': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1153): warning C4189: 'nhits': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(27): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(51): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(43): warning C4189: 'flag0': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(71): warning C4189: 'flag1': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(89): warning C4189: 'flag0': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(101): warning C4189: 'flag1': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(112): warning C4189: 'flag': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(202): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(202): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(215): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(342): warning C4189: 'nhits': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(455): warning C4189: 'nhits': local variable is initialized but not referenced
+  command_group_loft.cpp
+c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\arr_dcel_base.h(44): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
+c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\boolean_set_operations_2\gps_default_dcel.h(69): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(38): warning C4005: 'ON_DBL_MIN': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(187): note: see previous definition of 'ON_DBL_MIN'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(39): warning C4005: 'ON_EPSILON': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(194): note: see previous definition of 'ON_EPSILON'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(42): warning C4005: 'ON_DBL_MAX': macro redefinition
+  c:\program files\rhino 6 sdk\opennurbs\opennurbs_defines.h(181): note: see previous definition of 'ON_DBL_MAX'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(128): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(150): warning C4189: 'n': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(354): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(382): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(407): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(445): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(470): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_group_loft.cpp(90): warning C4189: 'division_distance': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_group_loft.cpp(91): warning C4189: 'shift': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_group_loft.cpp(89): warning C4189: 'search_type': local variable is initialized but not referenced
+  command_mesh_difference.cpp
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(189): warning C4101: 'e': unreferenced local variable
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(242): warning C4101: 'e': unreferenced local variable
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(347): warning C4189: 'meshObjBaked': local variable is initialized but not referenced
+c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\internal\corefinement\visitor.h(1051): warning C4457: declaration of 'it' hides function parameter
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\internal\corefinement\visitor.h(1036): note: see declaration of 'it'
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\internal\corefinement\visitor.h(1408): note: see reference to function template instantiation 'void CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::triangulate_intersected_faces<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,VertexPointMap1>(OnFaceMapIterator,const VPM &,CGAL::Polygon_mesh_processing::Corefinement::Intersection_nodes<TriangleMesh,VertexPointMap1,VertexPointMap2,true,false> &,std::map<TriangleMesh *,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,T>>>,std::less<_Kty>,std::allocator<std::pair<const _Kty,boost::unordered::unordered_map<K,T,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,T>>>>>> &)' being compiled
+          with
+          [
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
+              _Ty=std::pair<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>> *const ,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,boost::hash<CGAL::SM_Face_index>,std::equal_to<CGAL::SM_Face_index>,std::allocator<std::pair<const CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids>>>>,
+              VertexPointMap1=VPM1,
+              OnFaceMapIterator=std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>> *const ,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,boost::hash<CGAL::SM_Face_index>,std::equal_to<CGAL::SM_Face_index>,std::allocator<std::pair<const CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids>>>>>>>,
+              VPM=VPM1,
+              VertexPointMap2=VPM2,
+              K=CGAL::SM_Face_index,
+              T=CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary,
+              _Kty=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>> *
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\internal\corefinement\visitor.h(1408): note: see reference to function template instantiation 'void CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::triangulate_intersected_faces<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,VertexPointMap1>(OnFaceMapIterator,const VPM &,CGAL::Polygon_mesh_processing::Corefinement::Intersection_nodes<TriangleMesh,VertexPointMap1,VertexPointMap2,true,false> &,std::map<TriangleMesh *,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VertexPointMap1,VertexPointMap2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,T>>>,std::less<_Kty>,std::allocator<std::pair<const _Kty,boost::unordered::unordered_map<K,T,boost::hash<K>,std::equal_to<K>,std::allocator<std::pair<const K,T>>>>>> &)' being compiled
+          with
+          [
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
+              _Ty=std::pair<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>> *const ,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,boost::hash<CGAL::SM_Face_index>,std::equal_to<CGAL::SM_Face_index>,std::allocator<std::pair<const CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids>>>>,
+              VertexPointMap1=VPM1,
+              OnFaceMapIterator=std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>> *const ,boost::unordered::unordered_map<CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids,boost::hash<CGAL::SM_Face_index>,std::equal_to<CGAL::SM_Face_index>,std::allocator<std::pair<const CGAL::SM_Face_index,CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Node_ids>>>>>>>,
+              VPM=VPM1,
+              VertexPointMap2=VPM2,
+              K=CGAL::SM_Face_index,
+              T=CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::Face_boundary,
+              _Kty=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>> *
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\internal\corefinement\visitor.h(1292): note: while compiling class template member function 'void CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::finalize(CGAL::Polygon_mesh_processing::Corefinement::Intersection_nodes<TriangleMesh,VertexPointMap1,VertexPointMap2,true,false> &,const TriangleMesh &,const TriangleMesh &,const VertexPointMap1 &,const VertexPointMap2 &)'
+          with
+          [
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
+              VertexPointMap1=VPM1,
+              VertexPointMap2=VPM2
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\internal\corefinement\intersection_impl.h(1624): note: see reference to function template instantiation 'void CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>::finalize(CGAL::Polygon_mesh_processing::Corefinement::Intersection_nodes<TriangleMesh,VertexPointMap1,VertexPointMap2,true,false> &,const TriangleMesh &,const TriangleMesh &,const VertexPointMap1 &,const VertexPointMap2 &)' being compiled
+          with
+          [
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
+              VertexPointMap1=VPM1,
+              VertexPointMap2=VPM2
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\corefinement.h(405): note: see reference to class template instantiation 'CGAL::Polygon_mesh_processing::Corefinement::Surface_intersection_visitor_for_corefinement<TriangleMesh,VPM1,VPM2,Ob,Ecm_in,User_visitor,false,false>' being compiled
+          with
+          [
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\corefinement.h(577): note: see reference to function template instantiation 'std::array<bool,4> CGAL::Polygon_mesh_processing::corefine_and_compute_boolean_operations<TriangleMesh,NamedParameters1,NamedParameters2,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,const std::array<boost::optional<TriangleMesh *>,4> &,const NamedParameters1 &,const NamedParameters2 &,const std::tuple<CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>> &)' being compiled
+          with
+          [
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
+              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>,
+              NamedParameters2=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing\corefinement.h(1027): note: see reference to function template instantiation 'bool CGAL::Polygon_mesh_processing::corefine_and_compute_union<TriangleMesh,NamedParameters1,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,TriangleMesh &,const NamedParameters1 &,const NamedParameters2 &,const NamedParametersOut &)' being compiled
+          with
+          [
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
+              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>,
+              NamedParameters2=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>,
+              NamedParametersOut=CGAL::Named_function_parameters<bool,CGAL::internal_np::all_default_t,CGAL::internal_np::No_property>
+          ]
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_mesh_difference.cpp(229): note: see reference to function template instantiation 'bool CGAL::Polygon_mesh_processing::corefine_and_compute_union<CGAL::Surface_mesh<CGAL::Point_3<Kernel_>>,CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>>(TriangleMesh &,TriangleMesh &,TriangleMesh &,const NamedParameters1 &)' being compiled
+          with
+          [
+              Kernel_=CGAL::Epick,
+              TriangleMesh=CGAL::Surface_mesh<CGAL::Point_3<CGAL::Epick>>,
+              NamedParameters1=CGAL::Named_function_parameters<bool,CGAL::internal_np::throw_on_self_intersection_t,CGAL::internal_np::No_property>
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\cartesian\line_3.h(38): note: see reference to class template instantiation 'CGAL::Point_3<Kernel_>' being compiled
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\cartesian\line_3.h(46): note: see reference to class template instantiation 'CGAL::LineC3<CGAL::Epick>::Rep' being compiled
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\line_3.h(31): note: see reference to class template instantiation 'CGAL::LineC3<CGAL::Epick>' being compiled
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility(319): note: see reference to class template instantiation 'CGAL::Line_3<Kernel_>' being compiled
+          with
+          [
+              Kernel_=CGAL::Epick
+          ]
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\epic_converter.h(191): note: see reference to class template instantiation 'std::pair<CGAL::Epic_converter<IK>::Line_3,bool>' being compiled
+  c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\epic_converter.h(350): note: see reference to class template instantiation 'CGAL::Epic_converter<IK>' being compiled
+  c:\ibois57\_code\software\cpp\boost\boost\math\constants\constants.hpp(246): note: see reference to class template instantiation 'boost::math::constants::detail::constant_half<T>' being compiled
+          with
+          [
+              T=double
+          ]
+  c:\ibois57\_code\software\cpp\boost\boost\math\constants\constants.hpp(246): note: see reference to function template instantiation 'double boost::math::constants::half<T,boost::math::policies::policy<boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>>(void) noexcept' being compiled
+          with
+          [
+              T=double
+          ]
+  c:\ibois57\_code\software\cpp\boost\boost\math\special_functions\detail\bernoulli_details.hpp(88): note: see reference to function template instantiation 'double boost::math::constants::half<double>(void) noexcept' being compiled
+  joinery_solver_rhino6App.cpp
+  joinery_solver_rhino6PlugIn.cpp
+  Generating Code...
+c:\ibois57\_code\software\cpp\boost\boost\iterator\function_output_iterator.hpp(38): warning C4702: unreachable code
+c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\compact_container.h(875): warning C4702: unreachable code
+     Creating library C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino6\x64\Release\joinery_solver_rhino6.lib and object C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino6\x64\Release\joinery_solver_rhino6.exp
+  joinery_solver_rhino6.vcxproj -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino6\x64\Release\joinery_solver_rhino6.rhp
