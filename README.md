@@ -16,7 +16,21 @@ ________________________________________________________
 - [ ] Grasshopper components (integration with NGon)
 
 ### Interface Rhino C++ Plugin
-- [x] Rhino requires stdafx files referenced to .cpp files. If you are using another project for building this one, create stdafx.h in that project to stop complaining. And underfine following variables in rhino stdafx.h file, #define NOMINMAX #undef min #undef max. Since library files will be place else where, add in C/C++ -> General -> Additional Include Directions -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver	
+- Installation Steps:
+- Rhino requires stdafx files referenced to .cpp files. If you are using another project for building this one, create stdafx.h in that project to stop complaining.
+- And underfine following variables in rhino stdafx.h file, #define NOMINMAX #undef min #undef max.
+- Add references:
+
+C/C++ -> General -> Additional Include Directions 
+$(RhinoIncDir);C:\IBOIS57\_Code\Software\Python\Pybind11Example\externals\pybind11\include;C:\Users\petra\AppData\Local\Programs\Python\Python38\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7;C:\IBOIS57\_Code\Software\Python\Pybind11Example\source\module;%(AdditionalIncludeDirectories)
+
+Linker -> Input -> Additional Dependencies
+C:\Users\petra\AppData\Local\Programs\Python\Python38\libs\python38.lib;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\lib\libgmp-10.lib;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\lib\libmpfr-4.lib;
+
+- It is not enough to reference in C/C++ and Linker. Also, add .cpp files clipper.cpp and connection_zones.cpp as existing items to the new project
+
+
+- [x]    
 - [x] CGAL Builds with C++14, not 17 
 - [x] Menu 1 : Select Polylines, define | search type | division distance | shift | 
 - [x] Menu 2 : Select Insertion vectors
