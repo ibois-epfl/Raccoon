@@ -28,10 +28,8 @@ Linker -> Input -> Additional Dependencies
 C:\Users\petra\AppData\Local\Programs\Python\Python38\libs\python38.lib;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\lib\libgmp-10.lib;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\lib\libmpfr-4.lib;
 
 - It is not enough to reference in C/C++ and Linker. Also, add .cpp files clipper.cpp and connection_zones.cpp as existing items to the new project
+-  CGAL Builds with C++14, not 17 
 
-
-- [x]    
-- [x] CGAL Builds with C++14, not 17 
 - [x] Menu 1 : Select Polylines, define | search type | division distance | shift | 
 - [x] Menu 2 : Select Insertion vectors
 - [x] Menu 3 : Joint parameters per category 
