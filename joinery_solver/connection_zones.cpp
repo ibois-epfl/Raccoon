@@ -13,13 +13,14 @@ void get_connection_zones(
 
 	//output
 	std::vector<std::vector<CGAL_Polyline>>& plines,
+	std::vector<std::vector<int>>& top_face_triangulation,
 
 	std::vector<double>& default_parameters_for_joint_types,
 	int search_type,
 	double division_distance,
 	double shift,
-	int output_type
-	
+	int output_type,
+	int triangulate
 
 ) {
 
@@ -143,8 +144,15 @@ void get_connection_zones(
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
-	//Display Normals
+	//Create Mesh Triangulation for top face
 	//////////////////////////////////////////////////////////////////////////////
+	if (triangulate) {
+		top_face_triangulation = std::vector<std::vector<int>>(elements.size());
+		for (int i = 0; i < elements.size(); i++) {
+			CGAL_MeshUtil::mesh_from_polylines(plines[i], elements[i].planes[0], top_face_triangulation[i]);
+
+		}
+	}
 
 	//if (false) {
 	//	for (int i = 1; i < elements.size(); i++) {//Pls.size()
@@ -171,11 +179,15 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 	Eigen::Ref<const compas::RowMatrixXi>& face_joints_types_int,
 	Eigen::Ref<const compas::RowMatrixXi>& three_valence_element_indices_and_instruction,
 
+	//output
 	Eigen::Ref<const compas::RowMatrixXd>& default_parameters_for_joint_types_matrix,
-	int search_type,
-	double division_distance,
+	//Eigen::Ref<const compas::RowMatrixXi>& top_face_triangulation_matrix,
+
+	int search_type ,
+	double division_distance ,
 	double shift,
-	int output_type
+	int output_type ,
+	int triangulate 
 	
 ) {
 
@@ -194,13 +206,16 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 	std::vector<std::vector<int>> out_three_valence_element_indices_and_instruction;
 	std::vector<double> out_default_parameters_for_joint_types;
 
+
 	compas::polylines_from_vertices_and_faces_and_properties(
+
 		polylines_vertices_XYZ,
 		polylines_vertices_count_int,
 		face_vectors_XYZ,
 		face_joints_types_int,
 		three_valence_element_indices_and_instruction,
 		default_parameters_for_joint_types_matrix,
+
 		out_polyline_pairs,
 		out_insertion_vectors,
 		out_joint_types,
@@ -209,18 +224,22 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 	);
 	
 	std::vector<std::vector<CGAL_Polyline>> output;
+	std::vector<std::vector<int>> top_face_triangulation;
 	get_connection_zones(
 		out_polyline_pairs,
 		out_insertion_vectors,
 		out_joint_types,
 		out_three_valence_element_indices_and_instruction,
+
 		output,
+		top_face_triangulation,
 
 		out_default_parameters_for_joint_types,
 		search_type,
 		division_distance,
 		shift,
-		output_type
+		output_type,
+		triangulate
 		
 	);
 

@@ -9,6 +9,7 @@
 #include "CGAL_Print.h"
 #include "CGAL_MathUtil.h"
 #include "RTree.h"
+#include "CGAL_MeshUtil.h"
 
 #include "clipper.h"
 #include "clipperUtil.h"
@@ -1555,16 +1556,19 @@ void get_connection_zones(
 	std::vector<std::vector<IK::Vector_3>>& input_insertion_vectors,
 	std::vector<std::vector<int>>& input_joint_types,
 	std::vector<std::vector<int>>& input_three_valence_element_indices_and_instruction,
+	
 
 	//output
 	std::vector<std::vector<CGAL_Polyline>>& plines,
+	std::vector<std::vector<int>>& top_face_triangulation,
 
 	//Global Parameters
 	std::vector<double>& default_parameters_for_joint_types,
 	int search_type = 1,
 	double division_distance = 300,
 	double shift = 0.6,
-	int output_type = 4
+	int output_type = 4,
+	int triangulate = 0
 	
 );
 
@@ -1574,14 +1578,16 @@ std::vector<compas::RowMatrixXd> get_connection_zones_compas(
 	Eigen::Ref<const compas::RowMatrixXd>& face_vectors_XYZ,
 	Eigen::Ref<const compas::RowMatrixXi>& face_joints_types_int,
 	Eigen::Ref<const compas::RowMatrixXi>& three_valence_element_indices_and_instruction,
-	//output
-	//std::vector<compas::RowMatrixXd>& plines_as_point_matrix,
 
+	//output
 	Eigen::Ref<const compas::RowMatrixXd>& default_parameters_for_joint_types_matrix,
+	//Eigen::Ref<const compas::RowMatrixXi>& top_face_triangulation_matrix,
+
 	int search_type = 1,
 	double division_distance = 300,
 	double shift = 0.6,
-	int output_type = 4
+	int output_type = 4,
+	int triangulate = 0
 	
 );
 

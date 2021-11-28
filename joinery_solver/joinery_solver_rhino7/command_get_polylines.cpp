@@ -9,6 +9,107 @@
 
 #pragma region command_get_polylines command
 
+void Convert_top_face_triangulation_to_ON_Mesh(std::vector<CGAL_Polyline>& polylines, std::vector<int>& top_face_triangulation, ON_Mesh& output){
+	
+	//Count vertices and faces
+	int vertex_count=0;
+	for (int i = 0; i < polylines.size(); i += 2) 
+		vertex_count += polylines[i].size() - 1;
+
+	int face_count = top_face_triangulation.size() / 3;
+
+	//Init mesh
+	output = ON_Mesh(face_count * 3, vertex_count * 2, false, false);//face_count *2+1  vertex_count *2+1
+	//RhinoApp().Print("face_count %i vertex_count %i \n", face_count * 2, vertex_count * 2);
+	//RhinoApp().Print("face_count %i vertex_count %i \n", output.FaceCount(), output.VertexCount());
+
+	//Set vertex coordinates from all polylines a-b a-b
+	int vid = 0;
+	std::vector<std::array<int,4>> sides;
+	sides.reserve(vertex_count);
+	for (int i = 0; i < polylines.size(); i += 2) {
+		for (int j = 0; j < polylines[i].size() - 1; j++) {
+
+			bool flag0 = output.SetVertex(vid,
+				ON_3dPoint(
+					polylines[i][j].hx(),
+					polylines[i][j].hy(),
+					polylines[i][j].hz()
+				));
+
+			if (j == polylines[i].size() - 2) {//take vertices from beggining
+				int n = polylines[i].size() - 2;
+				std::array<int, 4> side{ vid, vid - n, vid - n + vertex_count, vid + 0 + vertex_count };
+				sides.emplace_back(side);
+			} else {//take next vertices
+				std::array<int, 4> side{ vid, vid + 1, vid + 1 + vertex_count, vid + 0 + vertex_count };
+				sides.emplace_back(side);
+
+			}
+
+
+			//RhinoApp().Print("Vertices flag %i index %i vertices %f %f %f \n", flag0, vid, polylines[i][j].hx(), polylines[i][j].hy(), polylines[i][j].hz());
+			
+			vid++;
+		}
+	}
+	vid = 0;
+	for (int i = 0; i < polylines.size(); i += 2) {
+		for (int j = 0; j < polylines[i].size() - 1; j++) {
+
+
+			bool flag1 = output.SetVertex(vertex_count + vid,
+				ON_3dPoint(
+					polylines[i + 1][j].hx(),
+					polylines[i + 1][j].hy(),
+					polylines[i + 1][j].hz()
+				));
+
+			
+			//RhinoApp().Print("Vertices flag %i index %i vertices %f %f %f \n\n", flag1, vid + vertex_count, polylines[i + 1][j].hx(), polylines[i + 1][j].hy(), polylines[i + 1][j].hz());
+			vid++;
+		}
+	}
+
+	//RhinoApp().Print("face_count %i vertex_count %i \n", output.FaceCount(), output.VertexCount());
+	//Set face indices ...
+
+	for (int i = 0; i < top_face_triangulation.size(); i += 3) {
+		int fid = i / 3;
+		bool flag0 = output.SetTriangle(
+			fid,
+			top_face_triangulation[i + 0],
+			top_face_triangulation[i + 1],
+			top_face_triangulation[i + 2]);
+		//RhinoApp().Print("Triangulation flag %i faceID %i vertexIds %i %i %i \n", flag0, fid, top_face_triangulation[i + 0], top_face_triangulation[i + 1], top_face_triangulation[i + 2]);
+		
+	}
+
+
+	for (int i = 0; i < top_face_triangulation.size(); i += 3) {
+		int fid = i / 3;
+		bool flag1 = output.SetTriangle(
+			face_count + fid,
+			vertex_count + top_face_triangulation[i + 2],
+			vertex_count + top_face_triangulation[i + 1],
+			vertex_count + top_face_triangulation[i + 0]);
+		
+		//RhinoApp().Print("Triangulation flag %i faceID %i vertexIds %i %i %i \n\n", flag1, face_count + fid, top_face_triangulation[i + 0] + vertex_count, top_face_triangulation[i + 1] + vertex_count, top_face_triangulation[i + 2] + vertex_count);
+	}
+
+	//Set sides
+	for (int i = 0; i < sides.size(); i++) {
+		bool flag = output.SetQuad(face_count * 2+i, sides[i][3], sides[i][2], sides[i][1], sides[i][0]);
+	//	RhinoApp().Print("Triangulation flag %i",flag);
+	}
+
+
+	output.ComputeVertexNormals();
+	RhinoUnifyMeshNormals(output, &output);
+	//output.
+	//output.AddPlanarNgons(NULL, 0.01, 3, 3, true);
+	
+}
 
 
 class CGetTextDotObject : public CRhinoGetObject {
@@ -31,7 +132,7 @@ bool CGetTextDotObject::CustomGeometryFilter(const CRhinoObject* object, const O
 
 
 bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, int& search_type, double& division_distance, double& shift, int& output_type,
-	std::vector<double>& joint_parameters, std::vector<std::vector<IK::Vector_3>>& input_insertion_vectors, std::vector<std::vector<int>>& input_joint_types) {
+	std::vector<double>& joint_parameters, std::vector<std::vector<IK::Vector_3>>& input_insertion_vectors, std::vector<std::vector<int>>& input_joint_types, int& triangulation) {
 
 	double tol = context.m_doc.AbsoluteTolerance() * 10;
 #pragma region GetPolylines
@@ -149,14 +250,14 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 		}
 
 		//if (insertion_lines.size() == 0) return false;
-		RhinoApp().Print(L" %i  \n", insertion_lines.size());
+		//RhinoApp().Print(L" %i  \n", insertion_lines.size());
 	}
 
 	//Create RTree
 	RTree<int, double, 3> tree;
 
 	//Insert AABB
-	RhinoApp().Print(L" Number of Elements: %i \n", n);
+	//RhinoApp().Print(L" Number of Elements: %i \n", n);
 	for (int i = 0; i < n; i++) {
 
 		//Create copy of a polyline and transform points
@@ -200,22 +301,22 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 			int edge = 0;
 			double closest_distance = std::abs(CGAL_PolylineUtil::closest_distance(p0, input_polyline_pairs[foundValue * 2 + 0], edge));
-			RhinoApp().Print(L"Element %i Closest Distance 0: %f \n", foundValue,  closest_distance);
+			//RhinoApp().Print(L"Element %i Closest Distance 0: %f \n", foundValue,  closest_distance);
 			double flag = closest_distance < GlobalToleranceSquare * 100;
 			if (flag) {
 				input_insertion_vectors[foundValue][edge + 2] = v;
-				RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
+				//RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
 				collision_count++;
 				return true;
 			}
 
 			edge = 0;
 			closest_distance = std::abs(CGAL_PolylineUtil::closest_distance(p0, input_polyline_pairs[foundValue * 2 + 1], edge));
-			RhinoApp().Print(L"Element %i Closest Distance 1: %f \n", foundValue,  closest_distance);
+			//RhinoApp().Print(L"Element %i Closest Distance 1: %f \n", foundValue,  closest_distance);
 			flag = closest_distance < GlobalToleranceSquare * 100;
 			if (flag) {
 				input_insertion_vectors[foundValue][edge + 2] = v;
-				RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
+				//RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge+2);
 				collision_count++;
 				return true;
 			}
@@ -232,7 +333,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 	}
 
-	RhinoApp().Print(L" found insertion vectors: %i \n", collision_count);
+	//RhinoApp().Print(L" found insertion vectors: %i \n", collision_count);
 	if (collision_count == 0) input_insertion_vectors.clear();
 #pragma endregion
 
@@ -285,22 +386,22 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 			//std::vector<int> result;
 			auto callback = [i, &text_dots, &input_polyline_pairs, &input_joint_types, &collision_count,  & context](int foundValue) -> bool
 			{
-				RhinoApp().Print(L" __________________ \n");
+				//RhinoApp().Print(L" __________________ \n");
 				//Get lines points
 				IK::Point_3 p(text_dots[i].first.x, text_dots[i].first.y, text_dots[i].first.z);
-				RhinoApp().Print(L" x %f y %f z %f \n", p.hx(), p.hy(), p.hz());
+				//RhinoApp().Print(L" x %f y %f z %f \n", p.hx(), p.hy(), p.hz());
 
 				//Check the distance between top and bottom outlines edge
 				int edge = 0;
 				double closest_distance = std::abs(CGAL_PolylineUtil::closest_distance(p, input_polyline_pairs[foundValue * 2 + 0], edge));
-				RhinoApp().Print(L"Element %i Closest Distance 0: %f \n", foundValue,  closest_distance);
+				//RhinoApp().Print(L"Element %i Closest Distance 0: %f \n", foundValue,  closest_distance);
 				double flag = closest_distance < GlobalToleranceSquare * 100;
 				if (flag) {
 					int face_or_edge = text_dots[i].second < 0 ? 0 : 2 + edge;
 					int type = text_dots[i].second < -100 ? 0 : std::abs(text_dots[i].second);
 					input_joint_types[foundValue][face_or_edge] = type;
-					RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge);
-					RhinoApp().Print(L" Closest Distance 0: %f \n", closest_distance);
+					//RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge);
+					//RhinoApp().Print(L" Closest Distance 0: %f \n", closest_distance);
 					collision_count++;
 					return true;
 				}
@@ -311,14 +412,14 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 
 				 closest_distance = std::abs(CGAL_PolylineUtil::closest_distance(p, input_polyline_pairs[foundValue * 2 + 1], edge));
-				 RhinoApp().Print(L" Element %i Closest Distance 0: %f \n", foundValue, closest_distance);
+				 //RhinoApp().Print(L" Element %i Closest Distance 0: %f \n", foundValue, closest_distance);
 				 flag = closest_distance < GlobalToleranceSquare * 100;
 				if (flag) {
 					int face_or_edge = text_dots[i].second < 0 ? 1 : 2 + edge;
 					int type = text_dots[i].second < -100 ? 0 : std::abs(text_dots[i].second);
 					input_joint_types[foundValue][face_or_edge] = std::abs(type);
-					RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge);
-					RhinoApp().Print(L" Closest Distance 1: %f \n", closest_distance);
+					//RhinoApp().Print(L" Element %i edge %i \n", foundValue, edge);
+					//RhinoApp().Print(L" Closest Distance 1: %f \n", closest_distance);
 					collision_count++;
 					return true;
 				}
@@ -334,7 +435,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 				//	pline1.Append(ON_3dPoint(p.hx(), p.hy(), p.hz()));
 				//CRhinoCurveObject* curve_object0 = context.m_doc.AddCurveObject(pline0);
 				//CRhinoCurveObject* curve_object1 = context.m_doc.AddCurveObject(pline1);
-				RhinoApp().Print(L" __________________ \n");
+				//RhinoApp().Print(L" __________________ \n");
 				return true;
 				//return false;
 			};
@@ -342,13 +443,13 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 			double min[3] = { text_dots[i].first.x- tol, text_dots[i].first.y - tol, text_dots[i].first.z - tol };
 			double max[3] = { text_dots[i].first.x + tol, text_dots[i].first.y + tol, text_dots[i].first.z + tol };
 			int nhits = tree.Search(min, max, callback);//callback in this method call callback above
-			RhinoApp().Print(L" ________%i__________ \n", nhits);
+			//RhinoApp().Print(L" ________%i__________ \n", nhits);
 
 		}
 
 
 	}
-	RhinoApp().Print(L" Joint Types Collision count: %i \n", collision_count);
+	//RhinoApp().Print(L" Joint Types Collision count: %i \n", collision_count);
 	if (collision_count == 0) input_joint_types.clear();
 	//RhinoApp().Print(L" Joint Type vector count: %i \n", input_joint_types.size());
 
@@ -364,7 +465,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	division_distance = 1000;
 	shift = 0.5;
 	output_type = 4;
-
+	triangulation = 0;
 
 	CRhinoGetOption menu;
 	menu.SetCommandPrompt(L"Parameter for the Joinery Solver");
@@ -382,7 +483,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 		int division_distance_value_index = menu.AddCommandOptionNumber(RHCMDOPTNAME(L"division_distance"), &division_distance, L"connection length divided by division_distance", FALSE, 0.001, 100000.0);
 		int shift_value_index = menu.AddCommandOptionNumber(RHCMDOPTNAME(L"shift"), &shift, L"joint shift value applied for all joints", FALSE, 0.0, 1.0);
 		int output_type_value_index = menu.AddCommandOptionInteger(RHCMDOPTNAME(L"output_type"), &output_type, L"0 - joint area, 1 joint lines, 2 - joint volumes, 3 - joint geometry, 4 - joint merged with two outlines", 0, 4);
-
+		int triangulation_value_index = menu.AddCommandOptionInteger(RHCMDOPTNAME(L"triangulation"), &triangulation, L"0 - off, 1 - loft mesh polyline pairs", 0, 1);
 
 		CRhinoGet::result res = menu.GetOption();
 
@@ -409,6 +510,10 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 			continue; // nothing to do
 
 		if (option_index == output_type_value_index)
+			continue; // nothing to do
+
+
+		if (option_index == triangulation_value_index)
 			continue; // nothing to do
 
 	}
@@ -486,10 +591,10 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	}
 
 
-	for (int i = 0; i < joint_parameters.size(); i++) {
-		RhinoApp().Print(L" %f ", joint_parameters[i]);
-	}
-	RhinoApp().Print(L" \n");
+	//for (int i = 0; i < joint_parameters.size(); i++) {
+		//RhinoApp().Print(L" %f ", joint_parameters[i]);
+	//}
+	//RhinoApp().Print(L" \n");
 #pragma endregion
 
 
@@ -545,7 +650,8 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	std::vector<double> joint_parameters = { 1000, 0.5, 1,  1000, 0.5, 10 ,  1000, 0.5, 20 ,  1000, 0.5, 30 ,  1000, 0.5, 40 ,  1000, 0.5, 50 };
 	std::vector<std::vector<IK::Vector_3>> input_insertion_vectors;
 	std::vector<std::vector<int>> input_joint_types;
-	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift, output_type, joint_parameters, input_insertion_vectors, input_joint_types)) return CRhinoCommand::failure;
+	int triangulation = 1;
+	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift, output_type, joint_parameters, input_insertion_vectors, input_joint_types, triangulation)) return CRhinoCommand::failure;
 
 
 	/////////////////////////////////////////////////////////////////////
@@ -559,7 +665,8 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	std::vector<std::vector<int>> input_three_valence_element_indices_and_instruction;
 	//output
 	std::vector<std::vector<CGAL_Polyline>> output_polyline_groups;
-
+	std::vector<std::vector<int>> output_top_face_vertices;
+	
 
 
 	//__try {
@@ -569,13 +676,16 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 			input_insertion_vectors,
 			input_joint_types,
 			input_three_valence_element_indices_and_instruction,
+
 			output_polyline_groups,
+			output_top_face_vertices,
 
 			joint_parameters,
 			search_type,
 			division_distance,
 			shift,
-			output_type
+			output_type,
+			triangulation
 		);
 
 	} catch (char const* exception) {
@@ -596,6 +706,7 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	/////////////////////////////////////////////////////////////////////
 	//Output
 	/////////////////////////////////////////////////////////////////////
+
 
 	RhinoApp().Print(L"Input %d \n", input_polyline_pairs.size());
 	RhinoApp().Print(L"Output %d \n", output_polyline_groups.size());
@@ -628,6 +739,23 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 		int group_index = context.m_doc.m_group_table.AddGroup(ON_Group(), group_members);
 		if (group_index < 0) CRhinoCommand::failure;
 	}
+
+	if (triangulation == 1) {
+		for (int i = 0; i < output_top_face_vertices.size(); i++) {
+			ON_Mesh mesh;
+			Convert_top_face_triangulation_to_ON_Mesh(output_polyline_groups[i], output_top_face_vertices[i], mesh);
+	
+			//RhinoApp().Print("Triangulation %i \n", output_top_face_vertices[i].size());
+
+			if (mesh.IsValid()) {
+
+				context.m_doc.AddMeshObject(mesh, &attributes);
+				context.m_doc.Redraw();
+			}
+		}
+	}
+
+
 	context.m_doc.Redraw();
 
 

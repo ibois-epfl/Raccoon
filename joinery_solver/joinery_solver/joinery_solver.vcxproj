@@ -71,6 +71,7 @@
     <ClInclude Include="..\CGAL_BoxUtil.h" />
     <ClInclude Include="..\CGAL_IntersectionUtil.h" />
     <ClInclude Include="..\CGAL_MathUtil.h" />
+    <ClInclude Include="..\CGAL_MeshUtil.h" />
     <ClInclude Include="..\CGAL_PlaneUtil.h" />
     <ClInclude Include="..\CGAL_PolylineUtil.h" />
     <ClInclude Include="..\CGAL_Print.h" />
