@@ -1,5 +1,5 @@
 # Raccoon_Litter_Box
-<span style="color:red">some *Development code for Petras Vestartas* text</span>.
+<span style="color:red">Development code for Petras Vestartas text</span>.
 
 
 # C++ Project joinery_solver
