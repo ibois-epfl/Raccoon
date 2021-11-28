@@ -1,5 +1,6 @@
 # Raccoon_Litter_Box
-Development code for Petras Vestartas
+<span style="color:red">some *Development code for Petras Vestartas* text</span>.
+
 
 # C++ Project joinery_solver
 Build directory: https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/joinery_solver/build
