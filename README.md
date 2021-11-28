@@ -23,9 +23,9 @@ ________________________________________________________
 - [x] Menu 3 : Joint parameters per category 
 - [x] Menu 4 : Skip not needed joints, by dots 
 
-<img src="https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/rhino_interface_1.gif" width="800" height="480"/>
+![rhino_command_line](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/rhino_interface_1.gif)
 
-- [ ] Loft polyline groups with holes, like NGon :tomato:
+- [x] Loft polyline groups with holes, 2d cgal constrained delaunay triangulations
 - [ ] MAC :tomato:
 
 ### Interface Stand-alone
