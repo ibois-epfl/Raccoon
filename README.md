@@ -4,31 +4,58 @@ Development code for Petras Vestartas
 # C++ Project joinery_solver
 
 ________________________________________________________
-### Interface compas_wood
+## Interface compas_wood
 - [x] pybind11 + CGAL
 - [ ] output: polylines, polylines vertex count, polylines ids (minus are joints), cut types (milling, drilling, cut, notches)
 - [ ] simplify conversion (instead of creation of polyline vector, create directly elements)
 - [ ] compas_wood C++ repository
 - [ ] Meshing in COMPAS
 
-### Interface Rhino C++ Grasshopper
+## Interface Rhino C++ Grasshopper
 - [ ] C# (Wrapper) + CGAL
 - [ ] Grasshopper components (integration with NGon)
 
-### Interface Rhino C++ Plugin
-- [x] Rhino requires stdafx files referenced to .cpp files. If you are using another project for building this one, create stdafx.h in that project to stop complaining. And underfine following variables in rhino stdafx.h file, #define NOMINMAX #undef min #undef max. Since library files will be place else where, add in C/C++ -> General -> Additional Include Directions -> C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver	
-- [x] CGAL Builds with C++14, not 17 
-- [x] Menu 1 : Select Polylines, define | search type | division distance | shift | 
+## Interface Rhino C++ Plugin
+### Installation Steps:
+- Rhino requires stdafx files referenced to .cpp files. If you are using another project for building this one, create stdafx.h in that project to stop complaining.
+- And underfine following variables in rhino stdafx.h file, #define NOMINMAX #undef min #undef max.
+- (Headers) C/C++ -> General -> Additional Include Directions :
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(RhinoIncDir); \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\Python\Pybind11Example\externals\pybind11\include; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\Python\Pybind11Example\source\module; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\Users\petra\AppData\Local\Programs\Python\Python38\include; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\CPP\Boost\;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino6; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%(AdditionalIncludeDirectories)
+
+- (Libraries) Linker -> Input -> Additional Dependencies :
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\Users\petra\AppData\Local\Programs\Python\Python38\libs\python38.lib; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\lib\libgmp-10.lib; \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\lib\libmpfr-4.lib; 
+
+-  Also, add .cpp files clipper.cpp and connection_zones.cpp as existing items to the new project
+-  CGAL Builds with C++14, not 17 
+ 
+### Command-line interface:
+- [x] Menu 1 : Select Polylines pairs
 - [x] Menu 2 : Select Insertion vectors
-- [x] Menu 3 : Joint parameters per category 
-- [x] Menu 4 : Skip not needed joints, by dots 
+- [x] Menu 3 : Skip not needed joints, by dots 
+- [x] Menu 4 : search type | division distance | shift | 
+- [x] Menu 5 : Joint parameters per category 
+
 
 ![rhino_command_line](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/rhino_interface_1.gif)
 
 - [x] Loft polyline groups with holes, 2d cgal constrained delaunay triangulations
-- [ ] MAC :tomato:
+- [ ] MAC - only possible through NET or CPython wrappers
 
-### Interface Stand-alone
+## Interface Stand-alone
 - [ ] C++ Visualizer
 ________________________________________________________
 
