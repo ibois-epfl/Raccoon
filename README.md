@@ -40,7 +40,7 @@ ________________________________________________________
 
 -  Also, add .cpp files clipper.cpp and connection_zones.cpp as existing items to the new project
 -  CGAL Builds with C++14, not 17 
--  
+ 
 ### Command-line interface:
 - [x] Menu 1 : Select Polylines pairs
 - [x] Menu 2 : Select Insertion vectors
