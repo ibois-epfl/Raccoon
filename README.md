@@ -52,6 +52,8 @@ ________________________________________________________
 - [x] Menu 4 : search type | division distance | shift | 
 - [x] Menu 5 : Joint parameters per category 
 
+ [Video](https://vimeo.com/650968401 "Crash test")
+
 
 ![rhino_command_line](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/rhino_interface_1.gif)
 
