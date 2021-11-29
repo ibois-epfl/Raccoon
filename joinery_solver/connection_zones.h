@@ -1029,7 +1029,11 @@ inline bool face_to_face(
 						return true;
 					}
 					else {
-						return false;
+						type = 40;
+						joint_volumes_pairA_pairB[0] = joint_area;
+						joint_volumes_pairA_pairB[1] = joint_area;
+
+						return true;
 
 					}
 					return true;
@@ -1220,6 +1224,9 @@ inline void rtree_search(
 				type
 			);
 
+	
+				
+
 			//CGAL_Debug(1);
 			joints_map.emplace(CGAL_MathUtil::unique_from_two_int(result[i], result[i + 1]),jointID);
 			
@@ -1233,8 +1240,11 @@ inline void rtree_search(
 				elements[result[i + 1]].j_mf.back().push_back(std::tuple<int, bool, double>(jointID, false, 0));
 				//CGAL_Debug(4);
 			} else {
+
+
+
 				//CGAL_Debug((double)f0_0, (double)f1_0);
-				if ((f1_0 < 2 || f0_0 < 2) && type != 30) {//side-top connection weirdo, clean this up
+				if ((f1_0 < 2 || f0_0 < 2) && type != 30 && type != 40) {//side-top connection weirdo, clean this up
 					if ((f1_0 < 2 && f0_0>1)) {
 						elements[result[i + 0]].j_mf[f0_0].push_back(std::tuple<int, bool, double>(jointID, true, 0));
 						elements[result[i + 1]].j_mf[f1_0].push_back(std::tuple<int, bool, double>(jointID, false, 0));

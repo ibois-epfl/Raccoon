@@ -1,5 +1,4 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppClean.targets(77,5): warning : The process cannot access the file 'c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\x64\release\joinery_solver_rhino7.pdb' because it is being used by another process.
-  stdafx.cpp
+﻿  stdafx.cpp
    --- Rhino C++ component links with libs in "C:/Program Files/Rhino 7 SDK/Lib/Release"
   clipper.cpp
   connection_zones.cpp
@@ -76,20 +75,20 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_MathUtil.h(9,15
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(16,1): warning C4005: 'ASSERT': macro redefinition
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\atlmfc\include\afx.h(366): message : see previous definition of 'ASSERT'
   The contents of <execution> are available only with C++17 or later.
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(121,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(412,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(412,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(417,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(417,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(442,37): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(556,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(599,15): warning C4458: declaration of 'id' hides class member
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(130,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(421,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(421,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(426,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(426,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(451,37): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(565,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(608,15): warning C4458: declaration of 'id' hides class member
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(15,6): message : see declaration of 'element::id'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(600,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(701,103): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(730,42): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(758,17): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(769,17): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(609,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(710,103): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(739,42): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(767,17): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(778,17): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(189,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(451,39): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
@@ -149,7 +148,7 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(7
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(757,10): message : A non-const reference may only be bound to an lvalue
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(683,13): warning C4189: 'isQuad': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(709,13): warning C4189: 'isQuad': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1163,7): warning C4189: 'nhits': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1167,7): warning C4189: 'nhits': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.cpp(28,44): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.cpp(28,14): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\utility(193,16): warning C4244: 'initializing': conversion from 'size_t' to '_Ty1', possible loss of data
@@ -157,13 +156,13 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
           [
               _Ty1=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(803): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
           with
           [
               _Other1=size_t &,
               _Other2=size_t &
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(803): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
           with
           [
               _Other1=size_t &,
@@ -247,12 +246,12 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(455): messag
           [
               ELEMTYPE=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1133): message : see reference to function template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>::RTree(void)' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1137): message : see reference to function template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>::RTree(void)' being compiled
           with
           [
               ELEMTYPE=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1133): message : see reference to class template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1137): message : see reference to class template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>' being compiled
           with
           [
               ELEMTYPE=double
@@ -328,13 +327,13 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
               _Pr=std::less<double>,
               _Alloc=std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>>,bool> std::map<double,std::pair<std::pair<double,double>,CGAL_Polyline>,std::less<NT>,std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>::insert<std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>,0>(_Valty &&)' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(803): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>>,bool> std::map<double,std::pair<std::pair<double,double>,CGAL_Polyline>,std::less<NT>,std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>::insert<std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>,0>(_Valty &&)' being compiled
           with
           [
               NT=double,
               _Valty=std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>>,bool> std::map<double,std::pair<std::pair<double,double>,CGAL_Polyline>,std::less<NT>,std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>::insert<std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>,0>(_Valty &&)' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(803): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>>,bool> std::map<double,std::pair<std::pair<double,double>,CGAL_Polyline>,std::less<NT>,std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>::insert<std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>,0>(_Valty &&)' being compiled
           with
           [
               NT=double,
@@ -414,20 +413,20 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\CGAL_MathUtil.h(9,15
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(16,1): warning C4005: 'ASSERT': macro redefinition
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\atlmfc\include\afx.h(366): message : see previous definition of 'ASSERT'
   The contents of <execution> are available only with C++17 or later.
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(121,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(412,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(412,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(417,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(417,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(442,37): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(556,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(599,15): warning C4458: declaration of 'id' hides class member
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(130,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(421,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(421,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(426,62): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(426,44): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(451,37): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(565,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(608,15): warning C4458: declaration of 'id' hides class member
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(15,6): message : see declaration of 'element::id'
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(600,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(701,103): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(730,42): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(758,17): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(769,17): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(609,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(710,103): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(739,42): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(767,17): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(778,17): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(189,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joint_library.h(451,39): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
@@ -487,7 +486,7 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(7
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(757,10): message : A non-const reference may only be bound to an lvalue
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(683,13): warning C4189: 'isQuad': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(709,13): warning C4189: 'isQuad': local variable is initialized but not referenced
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1163,7): warning C4189: 'nhits': local variable is initialized but not referenced
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1167,7): warning C4189: 'nhits': local variable is initialized but not referenced
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(27,42): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(29,52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(51,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
@@ -510,13 +509,13 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
           [
               _Ty1=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(803): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
           with
           [
               _Other1=size_t &,
               _Other2=size_t &
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(803): message : see reference to function template instantiation 'std::pair<double,double>::pair<size_t&,size_t&,0>(_Other1,_Other2) noexcept' being compiled
           with
           [
               _Other1=size_t &,
@@ -600,12 +599,12 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\RTree.h(455): messag
           [
               ELEMTYPE=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1133): message : see reference to function template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>::RTree(void)' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1137): message : see reference to function template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>::RTree(void)' being compiled
           with
           [
               ELEMTYPE=double
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1133): message : see reference to class template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\connection_zones.h(1137): message : see reference to class template instantiation 'RTree<int,double,3,ELEMTYPE,8,4>' being compiled
           with
           [
               ELEMTYPE=double
@@ -681,13 +680,13 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
               _Pr=std::less<double>,
               _Alloc=std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>>,bool> std::map<double,std::pair<std::pair<double,double>,CGAL_Polyline>,std::less<NT>,std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>::insert<std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>,0>(_Valty &&)' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(803): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>>,bool> std::map<double,std::pair<std::pair<double,double>,CGAL_Polyline>,std::less<NT>,std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>::insert<std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>,0>(_Valty &&)' being compiled
           with
           [
               NT=double,
               _Valty=std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>
           ]
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(794): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>>,bool> std::map<double,std::pair<std::pair<double,double>,CGAL_Polyline>,std::less<NT>,std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>::insert<std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>,0>(_Valty &&)' being compiled
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\element.h(803): message : see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>>,bool> std::map<double,std::pair<std::pair<double,double>,CGAL_Polyline>,std::less<NT>,std::allocator<std::pair<const double,std::pair<std::pair<double,double>,CGAL_Polyline>>>>::insert<std::pair<unsigned __int64,std::pair<std::pair<double,double>,CGAL_Polyline>>,0>(_Valty &&)' being compiled
           with
           [
               NT=double,

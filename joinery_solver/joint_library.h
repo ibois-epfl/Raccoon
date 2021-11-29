@@ -1234,8 +1234,8 @@ namespace joint_library {
 						cr_c_ip_0(joint);
 						break;
 					case(31):
-						cr_c_ip_0(joint);
-						//cr_c_ip_1(joint, shift);
+						//cr_c_ip_0(joint);
+						cr_c_ip_1(joint, shift);
 						break;
 					default:
 						cr_c_ip_0(joint);

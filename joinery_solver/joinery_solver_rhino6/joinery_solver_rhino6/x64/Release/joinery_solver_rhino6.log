@@ -1,4 +1,7 @@
-﻿  connection_zones.cpp
+﻿  stdafx.cpp
+   --- Rhino C++ component links with libs in "C:/Program Files/Rhino 6 SDK/Lib/Release"
+  clipper.cpp
+  connection_zones.cpp
 c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\arr_dcel_base.h(44): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
 c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\boolean_set_operations_2\gps_default_dcel.h(69): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(38): warning C4005: 'ON_DBL_MIN': macro redefinition
@@ -70,18 +73,18 @@ c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_mathutil.h(9): 
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\rtree.h(16): warning C4005: 'ASSERT': macro redefinition
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\atlmfc\include\afx.h(366): note: see previous definition of 'ASSERT'
   Parallel algorithms are only available with C++17 or later.
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(121): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(412): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(417): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(442): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(556): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(599): warning C4458: declaration of 'id' hides class member
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(130): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(421): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(426): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(451): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(565): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(608): warning C4458: declaration of 'id' hides class member
   c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(15): note: see declaration of 'element::id'
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(600): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(701): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(730): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(758): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(769): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(609): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(710): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(739): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(767): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(778): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(189): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(451): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
@@ -139,7 +142,7 @@ c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(7
   c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(757): note: A non-const reference may only be bound to an lvalue
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(683): warning C4189: 'isQuad': local variable is initialized but not referenced
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(709): warning C4189: 'isQuad': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1163): warning C4189: 'nhits': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1167): warning C4189: 'nhits': local variable is initialized but not referenced
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
   command_get_polylines.cpp
@@ -214,18 +217,18 @@ c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\cgal_mathutil.h(9): 
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\rtree.h(16): warning C4005: 'ASSERT': macro redefinition
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\atlmfc\include\afx.h(366): note: see previous definition of 'ASSERT'
   Parallel algorithms are only available with C++17 or later.
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(121): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(412): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(417): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(442): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(556): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(599): warning C4458: declaration of 'id' hides class member
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(130): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(421): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(426): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(451): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(565): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(608): warning C4458: declaration of 'id' hides class member
   c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(15): note: see declaration of 'element::id'
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(600): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(701): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(730): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(758): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(769): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(609): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(710): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(739): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(767): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\element.h(778): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(189): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(451): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
@@ -283,7 +286,7 @@ c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(7
   c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(757): note: A non-const reference may only be bound to an lvalue
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(683): warning C4189: 'isQuad': local variable is initialized but not referenced
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(709): warning C4189: 'isQuad': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1163): warning C4189: 'nhits': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1167): warning C4189: 'nhits': local variable is initialized but not referenced
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(27): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(51): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
@@ -418,6 +421,8 @@ c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing
               T=double
           ]
   c:\ibois57\_code\software\cpp\boost\boost\math\special_functions\detail\bernoulli_details.hpp(88): note: see reference to function template instantiation 'double boost::math::constants::half<double>(void) noexcept' being compiled
+  joinery_solver_rhino6App.cpp
+  joinery_solver_rhino6PlugIn.cpp
   Generating Code...
 c:\ibois57\_code\software\cpp\boost\boost\iterator\function_output_iterator.hpp(38): warning C4702: unreachable code
 c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\compact_container.h(875): warning C4702: unreachable code
