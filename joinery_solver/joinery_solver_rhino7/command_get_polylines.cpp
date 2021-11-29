@@ -155,6 +155,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	CRhinoGetObject go;
 	go.SetCommandPrompt(L"Select pairs of polylines");
 	go.SetGeometryFilter(CRhinoGetObject::curve_object);
+	go.EnableGroupSelect(TRUE);
 	go.GetObjects(1, 0);
 	if (go.CommandResult() != CRhinoCommand::success) return false;
 
@@ -217,15 +218,18 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	input_insertion_vectors = std::vector<std::vector<IK::Vector_3>>(n);
 	input_joint_types = std::vector<std::vector<int>>(n);
 
-	for (int i = 0; i < input_insertion_vectors.size(); i++) {
+	for (int i = 0; i < n; i++) {
 
-		input_insertion_vectors[i].reserve(input_polyline_pairs[i * 2].size() + 1);
-		input_joint_types[i].reserve(input_polyline_pairs[i * 2].size() + 1);
-		for (int j = 0; j < input_polyline_pairs[i * 2].size() + 1; j++) {
+		input_insertion_vectors[i].reserve(input_polyline_pairs[i].size() + 1);
+		input_joint_types[i].reserve(input_polyline_pairs[i].size() + 1);
+
+		for (int j = 0; j < input_polyline_pairs[i].size() + 1; j++) {
 			input_insertion_vectors[i].emplace_back(0, 0, 0);
 			input_joint_types[i].emplace_back(-1);
 		}
 	}
+
+
 
 #pragma endregion
 
@@ -244,6 +248,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 
 	std::vector<ON_Line> insertion_lines;
+	
 	insertion_lines.reserve(go2.ObjectCount());
 	if (go2.CommandResult() == CRhinoCommand::success) {
 		for (int i = 0; i < go2.ObjectCount(); i++) {
@@ -272,9 +277,14 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 		//Create copy of a polyline and transform points
 		CGAL_Polyline twoPolylines;
-		twoPolylines.resize(input_polyline_pairs[i*2].size() + input_polyline_pairs[i*2 + 1].size());
-		std::copy(input_polyline_pairs[i*2].begin(), input_polyline_pairs[i*2].end(), twoPolylines.begin());
-		std::copy(input_polyline_pairs[i*2 + 1].begin(), input_polyline_pairs[i*2 + 1].end(), twoPolylines.begin() + input_polyline_pairs[i].size());
+		twoPolylines.reserve(input_polyline_pairs[i*2].size() + input_polyline_pairs[i*2 + 1].size());
+
+		for (auto& p : input_polyline_pairs[i * 2])
+			twoPolylines.emplace_back(p);
+
+		for (auto& p : input_polyline_pairs[i * 2+1])
+			twoPolylines.emplace_back(p);
+
 
 
 		CGAL::Bbox_3 AABB = CGAL::bbox_3(twoPolylines.begin(), twoPolylines.end(), IK());
@@ -291,9 +301,9 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 		tree.Insert(min, max, i);
 	}
 
+	//return false;
 
-
-
+	
 	collision_count = 0;
 
 	for (int i = 0; i < insertion_lines.size(); i++) {//AABB.size()
@@ -345,6 +355,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 	//RhinoApp().Print(L" found insertion vectors: %i \n", collision_count);
 	if (collision_count == 0) input_insertion_vectors.clear();
+
 #pragma endregion
 
 #pragma region JointTypes
@@ -471,7 +482,7 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	/////////////////////////////////////////////////////////////////////
 //Command Line Menu search_type | division_distance | shift
 /////////////////////////////////////////////////////////////////////
-	search_type = 2;
+	search_type = 1;
 	division_distance = 1000;
 	shift = 0.5;
 	output_type = 4;
@@ -652,7 +663,7 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	//Input
 	/////////////////////////////////////////////////////////////////////
 	std::vector<CGAL_Polyline> input_polyline_pairs;
-	int search_type = 2;
+	int search_type = 1;
 	double division_distance = 1000;
 	double shift = 0.5;
 	int output_type = 4;
@@ -676,7 +687,8 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	//output
 	std::vector<std::vector<CGAL_Polyline>> output_polyline_groups;
 	std::vector<std::vector<int>> output_top_face_vertices;
-	
+
+
 
 
 	//__try {

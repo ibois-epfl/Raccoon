@@ -1,7 +1,4 @@
-﻿  stdafx.cpp
-   --- Rhino C++ component links with libs in "C:/Program Files/Rhino 6 SDK/Lib/Release"
-  clipper.cpp
-  connection_zones.cpp
+﻿  connection_zones.cpp
 c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\arr_dcel_base.h(44): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
 c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\boolean_set_operations_2\gps_default_dcel.h(69): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\compas.h(38): warning C4005: 'ON_DBL_MIN': macro redefinition
@@ -130,19 +127,19 @@ c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1264
               _Ty=double
           ]
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(33): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(114): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(97): warning C4189: 'scale': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(208): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(213): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(747): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(124): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(107): warning C4189: 'scale': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(218): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(223): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(757): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
           with
           [
               Kernel_=CGAL::Epick
           ]
-  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(747): note: A non-const reference may only be bound to an lvalue
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(673): warning C4189: 'isQuad': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(699): warning C4189: 'isQuad': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1153): warning C4189: 'nhits': local variable is initialized but not referenced
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(757): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(683): warning C4189: 'isQuad': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(709): warning C4189: 'isQuad': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1163): warning C4189: 'nhits': local variable is initialized but not referenced
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
   command_get_polylines.cpp
@@ -274,19 +271,19 @@ c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joint_library.h(1264
               _Ty=double
           ]
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(33): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(114): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(97): warning C4189: 'scale': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(208): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(213): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(747): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(124): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(107): warning C4189: 'scale': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(218): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(223): warning C4244: 'argument': conversion from 'double' to 'ClipperLib::cInt', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(757): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
           with
           [
               Kernel_=CGAL::Epick
           ]
-  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(747): note: A non-const reference may only be bound to an lvalue
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(673): warning C4189: 'isQuad': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(699): warning C4189: 'isQuad': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1153): warning C4189: 'nhits': local variable is initialized but not referenced
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(757): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(683): warning C4189: 'isQuad': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(709): warning C4189: 'isQuad': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\connection_zones.h(1163): warning C4189: 'nhits': local variable is initialized but not referenced
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(27): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(51): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
@@ -295,15 +292,15 @@ c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(89): warning C4189: 'flag0': local variable is initialized but not referenced
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(101): warning C4189: 'flag1': local variable is initialized but not referenced
 c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(112): warning C4189: 'flag': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(202): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(203): warning C4239: nonstandard extension used: 'argument': conversion from 'CGAL::Vector_3<Kernel_>' to 'CGAL::Vector_3<Kernel_> &'
           with
           [
               Kernel_=CGAL::Epick
           ]
-  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(202): note: A non-const reference may only be bound to an lvalue
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(215): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(342): warning C4189: 'nhits': local variable is initialized but not referenced
-c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(455): warning C4189: 'nhits': local variable is initialized but not referenced
+  c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(203): note: A non-const reference may only be bound to an lvalue
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(216): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(352): warning C4189: 'nhits': local variable is initialized but not referenced
+c:\ibois57\_code\software\raccoon_litter_box\joinery_solver\joinery_solver_rhino7\command_get_polylines.cpp(466): warning C4189: 'nhits': local variable is initialized but not referenced
   command_group_loft.cpp
 c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\arr_dcel_base.h(44): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
 c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\boolean_set_operations_2\gps_default_dcel.h(69): warning C4245: 'initializing': conversion from 'int' to 'size_t', signed/unsigned mismatch
@@ -421,8 +418,6 @@ c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\polygon_mesh_processing
               T=double
           ]
   c:\ibois57\_code\software\cpp\boost\boost\math\special_functions\detail\bernoulli_details.hpp(88): note: see reference to function template instantiation 'double boost::math::constants::half<double>(void) noexcept' being compiled
-  joinery_solver_rhino6App.cpp
-  joinery_solver_rhino6PlugIn.cpp
   Generating Code...
 c:\ibois57\_code\software\cpp\boost\boost\iterator\function_output_iterator.hpp(38): warning C4702: unreachable code
 c:\ibois57\_code\software\cpp\cgal\cgal-5.3\include\cgal\compact_container.h(875): warning C4702: unreachable code

@@ -57,10 +57,20 @@ inline void get_elements(
 		//Get BoundingBox - AABB
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Create copy of a polyline and transform points
+		//CGAL_Polyline twoPolylines;
+		//twoPolylines.resize(pp[i].size() + pp[i + 1].size());
+		//std::copy(pp[i].begin(), pp[i].end(), twoPolylines.begin());
+		//std::copy(pp[i + 1].begin(), pp[i + 1].end(), twoPolylines.begin() + pp[i].size());
+
 		CGAL_Polyline twoPolylines;
-		twoPolylines.resize(pp[i].size() + pp[i + 1].size());
-		std::copy(pp[i].begin(), pp[i].end(), twoPolylines.begin());
-		std::copy(pp[i + 1].begin(), pp[i + 1].end(), twoPolylines.begin() + pp[i].size());
+		twoPolylines.reserve(pp[i].size() + pp[i + 1].size());
+
+		for (auto& p : pp[i])
+			twoPolylines.emplace_back(p);
+
+		for (auto& p : pp[i + 1])
+			twoPolylines.emplace_back(p);
+
 
 
 		CGAL::Bbox_3 AABB = CGAL::bbox_3(twoPolylines.begin(), twoPolylines.end(), IK());
