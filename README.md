@@ -84,7 +84,7 @@ ________________________________________________________
 Description: a vector on an element edge that is equal to a plane normal on an edge. 
 - [x] side-top connection insertion vector is currently defined by plane normals, not insertion direction because it is equal what is inside code
 ![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/insertion_vectors_0.jpg) 
-![Tenon-mortise Annen2](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/joint_dovumentaiton_mixed_0.png) 
+![Tenon-mortise Annen2](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/insertion_vectors_0.jpg) 
 
 - [ ] side-side connection, not finished for out of plane connections
 - [ ] side-side connection in rotaiton insertion vector not tested 
