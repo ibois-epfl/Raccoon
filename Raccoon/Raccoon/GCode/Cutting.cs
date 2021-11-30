@@ -613,5 +613,138 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
 
         }
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        ///     Returns:
+        ///     CNC-file saved to directory E:\
+        ///     generated CNC-file will be read and printed to screen(for verification)
+        ///     generated CNC-file will be read, toolpath will be added to document(for verification)
+        /// </summary>
+        /// <param name="drillingLines"></param>
+        /// <param name="previewGeometry"></param>
+        /// <param name="filename - 8 - digit filename in format P0000000"></param>
+        /// <param name="zero  - CNC Zeropoint (e.g.G54, G55, G56... )"></param>
+        /// <param name="toolr - Milling tool radius in mm"></param>
+        /// <param name="toolID -  Tool ID Number in the CNC machine"></param>
+        /// <param name="Zsec - Safe Plane over workpiece.Program begins and starts at this Z-height"></param>
+        /// <param name="XYfeed Speed"></param>
+        /// <param name="Zfeed Speed"></param>
+        /// <param name="RetreatDistance"></param>
+        /// <returns></returns>
+        public static List<string> CNC5X3DDrillLathe(GCode.ToolParameters tool, List<Line> lines, ref PreviewObject previewGeometry,
+   string filename = "P1234567", double Zsec = 650, double Speed = 20000, double RetreatDistance = 70, int zero = 54, int infeed = 1)
+        {
+
+            List<string> ncc = new List<string> {
+                "G"+zero.ToString() + " (G54 - default Maka/G55/G59_zero_in_maka)",
+                //"P4010:250 (lift_aspiration,_plastic_cover_for_ventilation)", //lift aspiration
+                "T" + tool.id.ToString() + " M6" + " (txx_-_tool_name,_m6_-_change_tool)", //get Toool
+                "S" + Utilities.GeometryProcessing.Lerp(tool.prescribedSpindleSpeed, tool.maxSpindleSpeed, 0.7).ToString() + " M3" + " (sxx_-_speed,_m3_-_clockwise)", //slow rmp "S2500 M3 M1"
+                //"G47" +Axes.DefaultRotation +" F5000" + " (g47_-_3_axis_in_plane)",//neutral position "G1 G47 A0 B0 F5000 M1"
+                //"G0 G49 G" + zero.ToString() + " X0 Y0 Z" + Zsec.ToString() + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
+                "G0 G49 Z750" + " (go_to_safe_z_position_to_avoid_collision)" ,
+                "G0 " + Axes.HomePosition + Axes.DefaultRotation + " (g49_means_5axis_toolpath_-_startpos)" ,// Tool length compenstatio cancel
+                "M08" + " (air_supply)" ,
+                 "G1 F"+Speed.ToString() ,
+                 "(ReplaceB)",
+                
+                "(____________start_cutting____________)"
+            };
+
+            // double BeforeCuttingZSecturity = 800;
+            ncc.Add("M13 S3:10");
+            Point3d p0, p1, sp;
+            Vector3d n0;
+
+            int i = 0;
+            foreach (Line l in lines)
+            {
+
+                if (!l.IsValid) continue;
+
+                List<Line> multiLines = new List<Line>();
+                double step = 1.0 / (double)infeed;
+                for (int j = 0; j < infeed; j++)
+                {
+                    double t = (step * (j + 1));
+                    Line line = new Line(l.From, l.PointAt(t));//
+                    multiLines.Add(line);
+                }
+
+                for (int j = 0; j < multiLines.Count; j++)
+                {
+
+                    //l = multiLines[j];
+
+                    p0 = multiLines[j].From;
+                    p1 = multiLines[j].To;
+                    n0 = (p0 - p1);
+                    n0.Unitize();
+                    sp = p0 + (n0 * RetreatDistance);
+                    var AB = GCode.CoordinateSystem.AB180(n0);
+
+                    //In order not to bump into high elements on the table, do movements on Zsec axis, before drilling
+                    //if (j == 0)
+                    //ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(new Point3d(sp.X, sp.Y, Zsec)) + AB.Item3);
+                    //ncc.Add("G1" + Axes.DefaultRotation + " F4000");
+
+                    if (i == 0)
+                        ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(new Point3d(sp.X, sp.Y, Zsec)) + AB.Item3);
+
+                    //Perform drilling
+                    ncc.Add("(Hole " + i++.ToString() + ")");
+                    ncc.Add(GCode.CoordinateSystem.Pt2nc(sp, 3, "") + AB.Item3);              //safety
+                    ncc.Add(GCode.CoordinateSystem.Pt2nc(p1, 3, "") + AB.Item3 + " F" + 500.ToString());        //plunge ((int)(Speed * 0.2)).ToString());
+                    ncc.Add(GCode.CoordinateSystem.Pt2nc(sp, 3, "") + AB.Item3);    //safety
+                    ncc.Add("F" + Speed.ToString());    //safety
+
+                    //In order not to bump into high elements on the table, do movements on Zsec axis, before drilling
+                    // if (i == lines.Count  )
+                    //ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(new Point3d(sp.X, sp.Y, Zsec)) + AB.Item3);
+                }
+
+
+            }
+
+
+            ncc.Add("M15");
+            ncc.Add("(____________end_drilling____________)");
+            //ncc.Add("(ReplaceB)");
+            //ncc.Add("G0 X0 Y0 Z" + Zsec.ToString() + Axes.DefaultRotation + " (endpos)");
+            ncc.Add("G0 Z" + Zsec.ToString() + " (BeforeCuttingZSecturity)");
+            ncc.Add("G0 Z" + Axes.ZCoord + " (endpos)");
+            ncc.Add("G0" + Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");
+
+            ncc.Add("P4010:250 (lift_aspiration,_plastic_cover_for_ventilation)");
+
+            //Rhino.RhinoApp.WriteLine("Writing");
+            Raccoon.GCode.Write.WriteAndCheck(ref ncc, ref previewGeometry, filename, "5x_3dcrvs", tool.ToString());
+            return ncc;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

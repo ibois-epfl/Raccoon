@@ -9,13 +9,13 @@ using Rhino.Geometry;
 
 namespace Raccoon.Components
 {
-    public class ComponentDrilling : CustomComponent
+    public class ComponentDrillingLathe : CustomComponent
     {
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                return Properties.Resources.Drill;
+                return Properties.Resources.straightdrill;
             }
         }
         public override GH_Exposure Exposure => GH_Exposure.secondary;
@@ -42,9 +42,9 @@ namespace Raccoon.Components
 
         }
 
-        public ComponentDrilling()
-          : base("Drilling", "Drill Holes",
-              "For drilling holes either 2D and 3D",
+        public ComponentDrillingLathe()
+          : base("Drilling Lathe", "Drill Holes Lathe",
+              "For drilling holes either 2D and 3D using BAxis in continuous rotation",
               "Robot/CNC")
         {
         }
@@ -100,9 +100,9 @@ namespace Raccoon.Components
 
 
             //Add sliders
-            double[] sliderValue = new double[] { 42, 20000, 650, 40, 1, };
-            double[] sliderMinValue = new double[] { 1, 1000, 0, 300, 1, };
-            double[] sliderMaxValue = new double[] { 110, 30000, 650, 0, 20 };
+            double[] sliderValue = new double[] {    42, 20000,    750, 300, 1, };
+            double[] sliderMinValue = new double[] { 1, 1000,        0, 300, 1, };
+            double[] sliderMaxValue = new double[] { 110, 30000,   750, 0, 20 };
             int[] sliderID = new int[] { 1, 2, 3, 4, 5 };
 
             for (int i = 0; i < sliderValue.Length; i++)
@@ -224,7 +224,7 @@ namespace Raccoon.Components
                         lines = linesOrdered;
 
                         //Rhino.RhinoApp.WriteLine(lines.Count.ToString());
-                        GCode = Raccoon.GCode.Cutting.CNC5X3DDrill(this.tools[(int)toolID], lines, ref preview, filename, Zsec, XYfeed, Retreat, 54, (int)base.infeed);
+                        GCode = Raccoon.GCode.Cutting.CNC5X3DDrillLathe(this.tools[(int)toolID], lines, ref preview, filename, Zsec, XYfeed, Retreat, 54, (int)base.infeed);
 
                         DA.SetData(0, preview.outputInformation);
                         DA.SetDataList(1, GCode);
@@ -243,7 +243,7 @@ namespace Raccoon.Components
 
         }
 
-        public override Guid ComponentGuid => new Guid("4ebca11f-e6c6-4179-837d-9c18d1a8456e");
+        public override Guid ComponentGuid => new Guid("4ebca11f-e6c6-4179-837d-9c18d1a5869e");
 
 
 

@@ -54,6 +54,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\CNC\ComponentDrillingLathe.cs" />
     <Compile Include="Components\CNC\ComponentMerge.cs" />
     <Compile Include="Components\CNC\ComponentCutting2Polylines.cs" />
     <Compile Include="Components\CNC\ComponentDrilling.cs" />
@@ -160,7 +161,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)$(ProjectName).gha" "C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\build\" /s /i /y
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
 Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
@@ -175,8 +176,6 @@ Erase "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
-
-
-</PreBuildEvent>
+Erase "$(TargetPath)"</PreBuildEvent>
   </PropertyGroup>
 </Project>
