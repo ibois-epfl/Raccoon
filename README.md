@@ -78,14 +78,18 @@ ________________________________________________________
 - [ ] face_to_face top_to_top | **joinery_library 40-49** |  type 40 :tomato: currently only output joint_area with 0 local search
 - [ ] face_to_face side-to-side | **joinery_library non-parallel 50-59** |  type 50
 
+
+
 ### Local Search and Insertion Vector
 Description: a vector on an element edge that is equal to a plane normal on an edge. 
 - [x] side-top connection insertion vector is currently defined by plane normals, not insertion direction because it is equal what is inside code
 ![Tenon-mortise Annen](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/insertion_vectors_0.jpg) 
+![Tenon-mortise Annen2](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/joint_dovumentaiton_mixed_0.png) 
 
 - [ ] side-side connection, not finished for out of plane connections
 - [ ] side-side connection in rotaiton insertion vector not tested 
 - [ ] top-top connection
+
 ________________________________________________________
 
 ## Element 
