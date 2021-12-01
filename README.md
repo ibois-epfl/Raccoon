@@ -11,7 +11,7 @@ ________________________________________________________
 - [x] pybind11 + CGAL
 - [ ] output: polylines, polylines vertex count, polylines ids (minus are joints), cut types (milling, drilling, cut, notches)
 - [ ] simplify conversion (instead of creation of polyline vector, create directly elements)
-- [ ] compas_wood C++ repository
+- [ ] compas_wood C++ repository :tomato: 
 - [ ] Meshing in COMPAS
 
 ## Interface Rhino C++ Grasshopper
@@ -67,7 +67,7 @@ ________________________________________________________
 ## Search Methods
 ### Global
 - [x] Closest Object Query + OOB and ABB collision
-- [ ] no search by user given index (must have input in the beginning)
+- [ ] no search by user given index (must have input in the beginning) 
 
 ### Local
 
@@ -75,8 +75,8 @@ ________________________________________________________
 - [x] face_to_face side-to-side parallel out-of-plane | **joinery_library 10-19** | type 11
 - [x] face_to_face top-to-side | **joinery_library 20-29** | type 20
 - [x] plane_to_face cross | **joinery_library 30-39** | type 30
-- [ ] face_to_face top_to_top | **joinery_library 40-49** |  type 40 :tomato: currently only output joint_area with 0 local search
-- [ ] face_to_face side-to-side | **joinery_library non-parallel 50-59** |  type 50
+- [ ] face_to_face top_to_top | **joinery_library 40-49** |  type 40  currently only output joint_area with 0 local search
+- [ ] face_to_face side-to-side | **joinery_library non-parallel 50-59** |  type 50 
 
 
 
@@ -104,7 +104,7 @@ ________________________________________________________
 - [x] mesh boolean: a) reference shapes, b) joints polygon pairs
 
 ### Element Grouping
-- [ ] introduce unordered_map to track grouping like sorted lists x;x;x
+- [ ] introduce unordered_map to track grouping like sorted lists x;x;x 
 ________________________________________________________
 
 ## Joint 
@@ -143,7 +143,7 @@ ________________________________________________________
 
 ![Conic Joint](https://github.com/ibois-epfl/Raccoon_Litter_Box/blob/main/joinery_solver/documentation/joint_documentation_6.jpg) 
 
-- [ ] snap-fit joint
+- [ ] snap-fit joint 
 - [ ] keys
 - [ ] tenon-mortise beams
 - [ ] tenon-mortise half beam
@@ -165,18 +165,28 @@ ________________________________________________________
     cut = '7',
     cut_project = '8', //project
     binary_slice_mill = '9' //project and make rectangle
+    
+________________________________________________________
+
+### Tool-path using Joint Parameters
+- [x] Flipping case :tomato: 
 
 ________________________________________________________
 
 ### Examples
-- [x] Small samples
-- [x] Annen
-- [ ] CR
-- [ ] VDA
-- [ ] Vidy
-- [ ] Students
+- [x] Small samples 
+- [x] Annen :tomato:
+- [ ] CR 
+- [ ] VDA 
+- [ ] Vidy 
+- [ ] Students 
+
+
+
+
 
 ________________________________________________________
+
 ________________________________________________________
 ________________________________________________________
 
