@@ -39,7 +39,8 @@ namespace CGAL_IntersectionUtil {
             if (const IK::Point_2* p = boost::get<IK::Point_2 >(&*result)) {
                 output = IK::Point_3(p->hx(), p->hy(),0);
                 output = xform_Inv.transform(output);
-                //CGAL_IntersectionUtil::ClosestPointTo(*p, cutter_line, t);
+                
+            
             } else {
                 return false;
             }

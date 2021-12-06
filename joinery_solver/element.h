@@ -95,8 +95,8 @@ inline void element::get_joints_geometry(std::vector<joint>& joints, std::vector
 					//output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])].joint_volumes[3]);
 					break;
 				case(3):
-					output[this->id].emplace_back(this->polylines[0]);//cut
-					output[this->id].emplace_back(this->polylines[1]);//cut
+					//output[this->id].emplace_back(this->polylines[0]);//cut
+					//output[this->id].emplace_back(this->polylines[1]);//cut
 					for (int k = 0; k < joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true).size(); k++) {
 						output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), true)[k]);//cut
 						output[this->id].emplace_back(joints[std::get<0>(j_mf[i][j])](std::get<1>(j_mf[i][j]), false)[k]);//direction

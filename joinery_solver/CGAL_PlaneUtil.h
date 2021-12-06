@@ -6,11 +6,6 @@
 namespace CGAL_PlaneUtil {
 
 
-
-
-
-
-
     inline IK::Plane_3 offset(IK::Plane_3& mainPlane, double d) {
 
         IK::Vector_3 normal = mainPlane.orthogonal_vector();

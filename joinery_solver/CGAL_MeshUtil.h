@@ -86,17 +86,12 @@ namespace CGAL_MeshUtil{
 
 
     inline void mesh_from_polylines(std::vector<CGAL_Polyline>& polylines_with_holes, IK::Plane_3& base_plane, std::vector<int>& top_face_vertices) {
-        //std::ofstream myfile;
-      // myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output4.txt");
-
+   
         //////////////////////////////////////////////////////////////////////////////
         //Create Transformation | Orient to 2D 
         //////////////////////////////////////////////////////////////////////////////
         CGAL::Aff_transformation_3<IK> xform_toXY = plane_to_XY_mesh(polylines_with_holes[0][0], base_plane);
         CGAL::Aff_transformation_3<IK> xform_toXY_Inv = xform_toXY.inverse();
-
-        //std::vector<Polygon_2> polygons_2d;
-        //polygons_2d.reserve((int)(polylines_with_holes.size() * 0.5));
 
         CDT cdt;
         for (int i = 0; i < polylines_with_holes.size(); i +=2 ) {
@@ -107,8 +102,7 @@ namespace CGAL_MeshUtil{
                 polygon_2d.push_back(Point(p.hx(), p.hy()));
                 //myfile << polylines_with_holes[i][j][0] << " " << polylines_with_holes[i][j][1] << " " << polylines_with_holes[i][j][2] << "\n";
             }
-            //polygons_2d.emplace_back(polygon_2d);
-
+     
             //////////////////////////////////////////////////////////////////////////////
             //Insert the polygons into a constrained triangulation
             //////////////////////////////////////////////////////////////////////////////
@@ -130,8 +124,7 @@ namespace CGAL_MeshUtil{
         }
        
 
-        //myfile << "There are " << count << " facets in the domain." << std::endl;
-        std::map<CDT::Vertex_handle, int> vertex_index;
+         std::map<CDT::Vertex_handle, int> vertex_index;
         int k = 0;
         for (auto it = cdt.vertices_begin(); it != cdt.vertices_end(); ++it) {
             auto p = it->point();
@@ -151,44 +144,13 @@ namespace CGAL_MeshUtil{
         top_face_vertices.reserve(number_of_faces);
         for (Face_handle f : cdt.finite_face_handles()) {
             if (f->info().in_domain()) {
-                //out_cells[k][0] = vertex_index[f->vertex(0)];
-                //out_cells[k][1] = vertex_index[f->vertex(1)];
-                //out_cells[k][2] = vertex_index[f->vertex(2)];
-              // myfile << vertex_index[f->vertex(0)] << " " << vertex_index[f->vertex(1)] << " " << vertex_index[f->vertex(2)] << "\n";
-                top_face_vertices.emplace_back(vertex_index[f->vertex(0)]);
+                  top_face_vertices.emplace_back(vertex_index[f->vertex(0)]);
                 top_face_vertices.emplace_back(vertex_index[f->vertex(1)]);
                 top_face_vertices.emplace_back(vertex_index[f->vertex(2)]);
-
-      /*          std::vector<uint32_t> indices;
-                CGAL::Vertex_around_face_circulator<CGAL::Surface_mesh<CGAL::Exact_predicates_inexact_constructions_kernel::Point_3>> vcirc(out.halfedge(face_index), out), done(vcirc);
-                do indices.push_back(*vcirc++); while (vcirc != done);
-                meshRebuilt.SetTriangle(face_index.idx(), indices[0], indices[1], indices[2]);*/
-
+  
             }
         }
    
-
-       // myfile.close();
-
-
-        //Polygon_2 polygon1;
-        //polygon1.push_back(Point(0, 0));
-        //polygon1.push_back(Point(2, 0));
-        //polygon1.push_back(Point(2, 2));
-        //polygon1.push_back(Point(0, 2));
-        //Polygon_2 polygon2;
-        //polygon2.push_back(Point(0.5, 0.5));
-        //polygon2.push_back(Point(1.5, 0.5));
-        //polygon2.push_back(Point(1.5, 1.5));
-        //polygon2.push_back(Point(0.5, 1.5));
-
-
-       
-        //cdt.insert_constraint(polygon1.vertices_begin(), polygon1.vertices_end(), true);
-        //cdt.insert_constraint(polygon2.vertices_begin(), polygon2.vertices_end(), true);
-
-
-
     }
 	
 

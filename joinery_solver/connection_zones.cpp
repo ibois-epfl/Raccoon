@@ -33,65 +33,13 @@ void get_connection_zones(
 	std::vector<element> elements;
 	get_elements(input_polyline_pairs, input_insertion_vectors, input_joint_types, elements);
 
-	//IK::Point_3 p0(0, 0, 0);
-	//IK::Point_3 p1(0, -94.581, 0);
-
-	//std::ofstream myfile;
-	//myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output4.txt");
-	//for (int i = 0; i < n; i++) {
-	//	int e = 0;
-
-	///*	for(auto& p : elements[i].polylines[0])
-	//		myfile << p.hx() << " " << p.hy() << " " << p.hz() << "\n";*/
-
-	//	IK::Point_3 cp0;
-	//	double dist0 = CGAL_PolylineUtil::closest_distance_and_point(p0, elements[i].polylines[0], e, cp0);
-	//	if (dist0 < GlobalToleranceSquare)
-	//		myfile << " Element " << i << " Edge " << e << " " << dist0 << " " << cp0.hx() << " " << cp0.hy() << " " << cp0.hz() << "\n";
-
-
-	//	//for (auto& p : elements[i].polylines[1])
-	//	//	myfile << p.hx() << " " << p.hy() << " " << p.hz() << "\n";
-
-	//	e = 0;
-	//	IK::Point_3 cp1;
-	//	double dist1 = CGAL_PolylineUtil::closest_distance_and_point(p0, elements[i].polylines[1], e, cp1);
-	//	if (dist1 < GlobalToleranceSquare)
-	//		myfile << i << " Element " << e << " Edge " << dist1 << " " << cp1.hx() << " " << cp1.hy() << " " << cp1.hz() << "\n";
-
-	//	myfile << "\n" << "_______" << "\n";
-	//}
-	//myfile << "\n" << "_______________________________________________________________" << "\n";
-	//for (int i = 0; i < n; i++) {
-	//	int e = 0;
-	//	double dist = CGAL_PolylineUtil::closest_distance(p1, elements[i].polylines[0], e);
-	//	if (dist < GlobalToleranceSquare)
-	//		myfile << i << " " << e << " " << dist << "\n";
-
-	//	e = 0;
-	//	dist = CGAL_PolylineUtil::closest_distance(p1, elements[i].polylines[1], e);
-	//	if (dist < GlobalToleranceSquare)
-	//		myfile << i << " " << e << " " << dist << "\n";
-
-	//	myfile << "\n" << "_______" << "\n";
-	//}
-	//myfile.close();
 	//////////////////////////////////////////////////////////////////////////////
 	//Create joints, Perform Joint Area Search
 	//////////////////////////////////////////////////////////////////////////////
 	auto joints = std::vector<joint>();
 	auto joints_map = std::unordered_map<uint64_t, int>();
 	rtree_search(elements, search_type, joints, joints_map);
-	//return;
-	//if (true) {
-	//	std::ofstream myfile;
-	//	myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output.txt");
-	//	myfile << (elements.size()) << "\n";
-	//	myfile << (joints.size()) << "\n";
-	//	//myfile << (input_three_valence_element_indices_and_instruction.size()) << "\n";
-	//	myfile.close();
-	//}
-	//return;
+	
 
 	//////////////////////////////////////////////////////////////////////////////
 	//3-valence joints
@@ -102,17 +50,8 @@ void get_connection_zones(
 	////////////////////////////////////////////////////////////////////////////////
 	////Create and Align Joints 1. Iterate type 2. Select joint based on not/given user joint_type
 	////////////////////////////////////////////////////////////////////////////////
-	//std::vector<double> default_parameters_for_four_types = default_parameters_for_four_types_;
 	joint_library::construct_joint_by_index(elements, joints, division_distance, shift, default_parameters_for_joint_types);
-	//std::ofstream myfile;
-	//myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output3.txt");
-	//myfile << joints.size();
-	//for (int i = 0; i < default_parameters_for_joint_types.size(); i++) {
-	//	for (int j = 0; j < default_parameters_for_joint_types[i].size(); j++) {
-
-	//	}
-	//}
-	//myfile.close();
+	
 	//////////////////////////////////////////////////////////////////////////////
 	//Iterate joint address
 	//////////////////////////////////////////////////////////////////////////////

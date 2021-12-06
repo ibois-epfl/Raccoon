@@ -11,8 +11,7 @@
 #endif
 
 
-#include "compas.h"
-#include "connection_zones.h"
+
 #include <exception>
 #include "string"
 #include <chrono>
@@ -141,7 +140,7 @@ bool CGetTextDotObject::CustomGeometryFilter(const CRhinoObject* object, const O
 
 
 
-bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, int& search_type, double& division_distance, double& shift, int& output_type,
+bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_polyline_pairs, std::vector<int>& input_polyline_pairs_indices, int& search_type, double& division_distance, double& shift, int& output_type,
 	std::vector<double>& joint_parameters, std::vector<std::vector<IK::Vector_3>>& input_insertion_vectors, std::vector<std::vector<int>>& input_joint_types, int& triangulation) {
 
 	double tol = context.m_doc.AbsoluteTolerance() * 10;
@@ -165,17 +164,27 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 	input_polyline_pairs_temp.reserve(go.ObjectCount() );
 	input_polyline_pairs.reserve(go.ObjectCount() );
 
+	ON_SimpleArray<int> indices_temp;
+	indices_temp.Reserve(go.ObjectCount());
+	input_polyline_pairs_indices.reserve(go.ObjectCount());
+
 	for (int i = 0; i < go.ObjectCount() ; i++) {
 
 		//Convert Curve to Polyline
-		const CRhinoObjRef& o = go.Object(i);
-		const  ON_Curve* crv = o.Curve();
+		const CRhinoObjRef& obj_ref = go.Object(i);
+		const CRhinoObject* obj = obj_ref.Object();
+		
+		const  ON_Curve* crv = obj_ref.Curve();
 		if (!crv) continue;
 		ON_SimpleArray<ON_3dPoint> points;
 		crv->IsPolyline(&points);
 		
 		if (points.Count() < 3) continue;
 		if (points.First()->DistanceTo(*points.Last()) > tol) continue;
+
+		if (nullptr != obj) {
+			indices_temp.Append(obj->Attributes().TopGroup());
+		}
 
 		//Construct CGAL_Polyline
 		CGAL_Polyline pline;
@@ -205,7 +214,8 @@ bool UI(const CRhinoCommandContext& context, std::vector<CGAL_Polyline>& input_p
 
 		input_polyline_pairs.emplace_back(input_polyline_pairs_temp[i]);
 		input_polyline_pairs.emplace_back(input_polyline_pairs_temp[i + 1]);
-
+		input_polyline_pairs_indices.emplace_back(indices_temp[i]);
+		input_polyline_pairs_indices.emplace_back(indices_temp[i+1]);
 	}
 
 	if (input_polyline_pairs.size() == 0 || input_polyline_pairs.size() % 2 == 1) return false;
@@ -663,6 +673,7 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	//Input
 	/////////////////////////////////////////////////////////////////////
 	std::vector<CGAL_Polyline> input_polyline_pairs;
+	std::vector<int> input_polyline_pairs_indices;
 	int search_type = 1;
 	double division_distance = 1000;
 	double shift = 0.5;
@@ -672,7 +683,8 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	std::vector<std::vector<IK::Vector_3>> input_insertion_vectors;
 	std::vector<std::vector<int>> input_joint_types;
 	int triangulation = 1;
-	if (!UI(context, input_polyline_pairs, search_type, division_distance, shift, output_type, joint_parameters, input_insertion_vectors, input_joint_types, triangulation)) return CRhinoCommand::failure;
+	if (!UI(context, input_polyline_pairs, input_polyline_pairs_indices,
+		search_type, division_distance, shift, output_type, joint_parameters, input_insertion_vectors, input_joint_types, triangulation)) return CRhinoCommand::failure;
 
 
 	/////////////////////////////////////////////////////////////////////
@@ -743,7 +755,22 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 	context.m_doc.GetDefaultObjectAttributes(attributes);
 	attributes.m_layer_index = layer_index;
 
-	for (auto& output : output_polyline_groups) {
+	int count = 0;
+
+	std::map<int, ON_SimpleArray<const CRhinoObject*>> groups;
+
+	bool grouping = output_polyline_groups.size() == (input_polyline_pairs_indices.size() *0.5);
+	RhinoApp().Print(L"Grouping %i %i %i \n", grouping, output_polyline_groups.size(), (int)(input_polyline_pairs_indices.size() * 0.5));
+	if (grouping) {
+		for (int i = 0; i < input_polyline_pairs_indices.size(); i += 2) {
+			if (!groups.count(input_polyline_pairs_indices[i])) {
+				groups.insert({ input_polyline_pairs_indices[i] , ON_SimpleArray<const CRhinoObject*> ()});
+			}
+		}
+
+	}
+	
+	for (auto& output : output_polyline_groups) {//individual pairs, but what about bigger grouping?
 
 		ON_SimpleArray<const CRhinoObject*> group_members(output.size());
 		for (int i = 0; i < output.size(); i++) {
@@ -755,13 +782,31 @@ CRhinoCommand::result command_get_polylines::RunCommand(const CRhinoCommandConte
 
 			ON_Polyline pline(points);
 			CRhinoCurveObject* curve_object = context.m_doc.AddCurveObject(pline, &attributes);
-			group_members.Append(curve_object);
+
+			if (grouping) 
+				groups[input_polyline_pairs_indices[count * 2]].Append(curve_object);
+			 else 
+				group_members.Append(curve_object);
+			
 		}
 
-		int group_index = context.m_doc.m_group_table.AddGroup(ON_Group(), group_members);
-		if (group_index < 0) CRhinoCommand::failure;
+		if (!grouping) {
+			int group_index = context.m_doc.m_group_table.AddGroup(ON_Group(), group_members);
+			if (group_index < 0) CRhinoCommand::failure;
+		}
+		
+		count++;
 	}
 
+	if (grouping) {
+		for (auto& pairs : groups) {
+			int group_index = context.m_doc.m_group_table.AddGroup(ON_Group(), pairs.second);
+		}
+	}
+
+	/////////////////////////////////////////////////////////////////////
+	//Mesh outlines only valid for plates
+	/////////////////////////////////////////////////////////////////////
 	if (triangulation == 1) {
 		for (int i = 0; i < output_top_face_vertices.size(); i++) {
 			ON_Mesh mesh;

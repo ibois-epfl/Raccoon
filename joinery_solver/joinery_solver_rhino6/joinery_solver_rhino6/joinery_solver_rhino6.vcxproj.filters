@@ -39,6 +39,9 @@
     <ClCompile Include="..\..\joinery_solver_rhino7\command_mesh_difference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\joinery_solver_rhino7\command_get_centre_lines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="joinery_solver_rhino6App.h">

@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "joinery_solver", "joinery_s
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "joinery_solver_rhino7", "joinery_solver_rhino7\joinery_solver_rhino7.vcxproj", "{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "joinery_solver_rhino6", "joinery_solver_rhino6\joinery_solver_rhino6\joinery_solver_rhino6.vcxproj", "{18BABD87-C0D0-4CE8-8076-F3F7B0457919}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}.Debug|x64.Build.0 = Debug|x64
 		{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}.Release|x64.ActiveCfg = Release|x64
 		{A7E61461-DBAD-4822-9DCC-FBEAE3E68363}.Release|x64.Build.0 = Release|x64
+		{18BABD87-C0D0-4CE8-8076-F3F7B0457919}.Debug|x64.ActiveCfg = Debug|x64
+		{18BABD87-C0D0-4CE8-8076-F3F7B0457919}.Debug|x64.Build.0 = Debug|x64
+		{18BABD87-C0D0-4CE8-8076-F3F7B0457919}.Release|x64.ActiveCfg = Release|x64
+		{18BABD87-C0D0-4CE8-8076-F3F7B0457919}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

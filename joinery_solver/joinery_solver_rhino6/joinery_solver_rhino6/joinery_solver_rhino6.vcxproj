@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\clipper.cpp" />
     <ClCompile Include="..\..\connection_zones.cpp" />
+    <ClCompile Include="..\..\joinery_solver_rhino7\command_get_centre_lines.cpp" />
     <ClCompile Include="..\..\joinery_solver_rhino7\command_get_polylines.cpp" />
     <ClCompile Include="..\..\joinery_solver_rhino7\command_group_loft.cpp" />
     <ClCompile Include="..\..\joinery_solver_rhino7\command_mesh_difference.cpp" />
@@ -43,19 +44,20 @@
   <PropertyGroup Label="Globals">
     <Keyword>MFCDLLProj</Keyword>
     <ProjectGuid>{18BABD87-C0D0-4CE8-8076-F3F7B0457919}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>

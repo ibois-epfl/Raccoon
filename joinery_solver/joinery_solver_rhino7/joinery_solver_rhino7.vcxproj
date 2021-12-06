@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\clipper.cpp" />
     <ClCompile Include="..\connection_zones.cpp" />
+    <ClCompile Include="command_get_centre_lines.cpp" />
     <ClCompile Include="command_get_polylines.cpp" />
     <ClCompile Include="command_group_loft.cpp" />
     <ClCompile Include="command_mesh_difference.cpp" />

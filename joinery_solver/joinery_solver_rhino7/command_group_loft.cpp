@@ -9,7 +9,7 @@
 #include "joinery_solver_rhino7PlugIn.h"
 #endif
 
-#include "compas.h"
+//#include "compas.h"
 #include <exception>
 
 #include <chrono>
@@ -17,7 +17,7 @@
 #pragma region command_group_loft command
 
 
-bool UI(const CRhinoCommandContext& context, std::vector<ON_Curve*>& input_polyline_pairs) {
+bool UI(const CRhinoCommandContext& context, std::vector<ON_Curve*>& input_polyline_pairs, std::vector<int>& group_indices) {
 
 	/////////////////////////////////////////////////////////////////////
 	//Polylines are grouped
@@ -33,16 +33,24 @@ bool UI(const CRhinoCommandContext& context, std::vector<ON_Curve*>& input_polyl
 
 
 	input_polyline_pairs.reserve(go.ObjectCount() - go.ObjectCount() % 2);
+	
 
+	group_indices.reserve(go.ObjectCount());
 	for (int i = 0; i < go.ObjectCount() - go.ObjectCount() % 2; i++) {
 
 		//Convert Curve to Polyline
-		const CRhinoObjRef& o = go.Object(i);
-		const  ON_Curve* crv = o.Curve();
+		const CRhinoObjRef& obj_ref = go.Object(i);
+		const CRhinoObject* obj = obj_ref.Object();
+
+		const  ON_Curve* crv = obj_ref.Curve();
 		if (!crv) continue;
 		if (!crv->IsClosed())continue;
 		ON_Curve* curve = crv->DuplicateCurve();
 		input_polyline_pairs.emplace_back(curve);
+
+		if (nullptr != obj) {
+			group_indices.emplace_back(obj->Attributes().TopGroup());
+		}
 	}
 
 	if (input_polyline_pairs.size() == 0 || input_polyline_pairs.size() % 2 == 1) return false;
@@ -86,10 +94,11 @@ CRhinoCommand::result command_group_loft::RunCommand(const CRhinoCommandContext&
 	//Input
 	/////////////////////////////////////////////////////////////////////
 	std::vector<ON_Curve*> input_polyline_pairs;
+	std::vector<int> group_indices;
 	int search_type = 2;
 	double division_distance = 1000;
 	double shift = 0.5;
-	if (!UI(context, input_polyline_pairs)) return CRhinoCommand::failure;
+	if (!UI(context, input_polyline_pairs, group_indices)) return CRhinoCommand::failure;
 
 
 	/////////////////////////////////////////////////////////////////////
@@ -97,6 +106,21 @@ CRhinoCommand::result command_group_loft::RunCommand(const CRhinoCommandContext&
 	/////////////////////////////////////////////////////////////////////
 	RhinoApp().Print("============================================================================== CPP + \n");
 	auto start = std::chrono::high_resolution_clock::now();
+
+
+	std::map<int, ON_SimpleArray<const CRhinoObject*>> groups;
+
+	bool grouping = group_indices.size() == input_polyline_pairs.size() ;
+	RhinoApp().Print(L"Grouping %i %i %i \n", grouping, group_indices.size(), (int)(input_polyline_pairs.size() * 0.5));
+	if (grouping) {
+		for (int i = 0; i < group_indices.size(); i += 2) {
+			if (!groups.count(group_indices[i])) {
+				groups.insert({ group_indices[i] , ON_SimpleArray<const CRhinoObject*>() });
+			}
+		}
+
+	}
+
 
 	for (int i = 0; i < input_polyline_pairs.size(); i+=2) {
 
@@ -163,10 +187,18 @@ CRhinoCommand::result command_group_loft::RunCommand(const CRhinoCommandContext&
 
 			brep = RhinoBrepCapPlanarHoles(brep, 0.01);
 			if (brep) {
-				context.m_doc.AddBrepObject(*brep);
+				CRhinoBrepObject* o = context.m_doc.AddBrepObject(*brep);
+
+				if (grouping)
+					groups[group_indices[i]].Append(o);
+
 				delete brep;
-			} else
-				context.m_doc.AddSurfaceObject(*srf_list[0]);
+			} else {
+				CRhinoSurfaceObject* o = context.m_doc.AddSurfaceObject(*srf_list[0]);
+
+				if (grouping)
+					groups[group_indices[i]].Append(o);
+			}
 		
 			
 
@@ -198,10 +230,16 @@ CRhinoCommand::result command_group_loft::RunCommand(const CRhinoCommandContext&
 
 			if (brep) {
 				ON_Brep* brep2 = RhinoBrepCapPlanarHoles(brep, 0.01);
-				if(brep2)
-					context.m_doc.AddBrepObject(*brep2);
-				else
-					context.m_doc.AddBrepObject(*brep);
+				if (brep2) {
+					CRhinoBrepObject* o = context.m_doc.AddBrepObject(*brep2);
+					if (grouping)
+						groups[group_indices[i]].Append(o);
+				}
+				else {
+					CRhinoBrepObject* o = context.m_doc.AddBrepObject(*brep);
+					if (grouping)
+						groups[group_indices[i]].Append(o);
+				}
 
 				// CRhinoDoc::AddBrepObject() make a copy.
 				// So, delete original so memory is not leaked.
@@ -212,8 +250,9 @@ CRhinoCommand::result command_group_loft::RunCommand(const CRhinoCommandContext&
 				for (int j = 0; j < brep_list.Count(); j++) {
 					if (brep_list[j]) {
 						//brep_list[j] = RhinoBrepCapPlanarHoles(brep_list[j], 0.01);
-						context.m_doc.AddBrepObject(*brep_list[j]);
-
+						CRhinoBrepObject* o = context.m_doc.AddBrepObject(*brep_list[j]);
+						if (grouping)
+							groups[group_indices[i]].Append(o);
 						// CRhinoDoc::AddBrepObject() make a copy.
 						// So, delete original so memory is not leaked.
 						delete brep_list[j];
@@ -239,7 +278,7 @@ CRhinoCommand::result command_group_loft::RunCommand(const CRhinoCommandContext&
 	RhinoApp().Print(L"Input %d \n", input_polyline_pairs.size());
 
 	//Create layer
-	const wchar_t* layer_name = L"joinery_solver";
+	const wchar_t* layer_name = L"joinery_solver_cuts";
 	int layer_index = RhinoFindOrCreateLayer(context.m_doc, layer_name);
 	if (layer_index == ON_UNSET_INT_INDEX)
 		return CRhinoCommand::failure;
@@ -247,6 +286,13 @@ CRhinoCommand::result command_group_loft::RunCommand(const CRhinoCommandContext&
 	ON_3dmObjectAttributes attributes;
 	context.m_doc.GetDefaultObjectAttributes(attributes);
 	attributes.m_layer_index = layer_index;
+
+
+	if (grouping) {
+		for (auto& pairs : groups) {
+			int group_index = context.m_doc.m_group_table.AddGroup(ON_Group(), pairs.second);
+		}
+	}
 
 	context.m_doc.Redraw();
 

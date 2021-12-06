@@ -99,3 +99,5 @@
 // Rhino SDK linking pragmas
 #include "rhinoSdkPlugInLinkingPragmas.h"
 
+#include "compas.h"
+#include "connection_zones.h"
