@@ -223,9 +223,9 @@ Windows 7 does not find C++ file resulting in HResult error. Install x64 VCRunti
 
 ### Debugging Notes
 
-"""
+```cpp
 std::ofstream myfile;
 myfile.open("C:\\IBOIS57\\_Code\\Software\\Python\\Pybind11Example\\vsstudio\\Release\\output.txt");
 myfile.close();
 return;
-"""
+```
