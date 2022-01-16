@@ -24,5 +24,6 @@ Important: add all tools parameters from the current CNC machine to Tools.txt fi
 - [ ] rotation limits in 5 axis (did not popped yet)
 - [x] collision detection model for the Cardan 5-Axis CNC machine [Video](https://vimeo.com/647108247 "Cardan Axis Approximation - Click to Watch!")
 - [ ] simulation update in Visual Studio 
-
-
+- [ ] air supply
+- [ ] text
+- [ ] too deep angle cut
