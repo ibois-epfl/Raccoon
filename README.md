@@ -1,4 +1,5 @@
-
+Author: Petras Vestartas
+Previous developments: Christopher Robeller, Benjamin Hahn
 
 # CSharp Project Raccoon (CNC G-Code)
 To run CNC G-Code download the Build folder and place in Grasshopper Libraries folder: 
