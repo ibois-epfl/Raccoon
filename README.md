@@ -3,6 +3,11 @@ Author: Petras Vestartas
 # Install
 Download latest build from the release directory of github.
 
+To run CNC G-Code download the Build folder and place in Grasshopper Libraries folder.
+
+Important: add all tools parameters from the current CNC machine to Tools.txt file.
+
+
 # Interface
 For security reasons all tools are defined in Tools.txt file.
 Follow the same order to define new tools.
@@ -15,12 +20,6 @@ In order to use custom user defined tools from Tools.txt add Tools Component to 
 https://user-images.githubusercontent.com/18013985/164996235-c1af4799-1e8e-488e-8755-79c49566c315.mp4
 
 
-
-# CSharp Project Raccoon (CNC G-Code)
-To run CNC G-Code download the Build folder and place in Grasshopper Libraries folder: 
-https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
-
-Important: add all tools parameters from the current CNC machine to Tools.txt file.
 
 ### Physical Work
 - [x] Fabricate table [Video](https://vimeo.com/645880001 "Fabricate table - Click to Watch!")
