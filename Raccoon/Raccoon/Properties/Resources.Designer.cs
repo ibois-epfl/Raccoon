@@ -123,6 +123,16 @@ namespace Raccoon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap open_path {
+            get {
+                object obj = ResourceManager.GetObject("open_path", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap openCut {
             get {
                 object obj = ResourceManager.GetObject("openCut", resourceCulture);
@@ -173,6 +183,26 @@ namespace Raccoon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap simulation {
+            get {
+                object obj = ResourceManager.GetObject("simulation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap simulation2 {
+            get {
+                object obj = ResourceManager.GetObject("simulation2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap spiralDrill {
             get {
                 object obj = ResourceManager.GetObject("spiralDrill", resourceCulture);
@@ -186,6 +216,16 @@ namespace Raccoon.Properties {
         internal static System.Drawing.Bitmap straightdrill {
             get {
                 object obj = ResourceManager.GetObject("straightdrill", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tools {
+            get {
+                object obj = ResourceManager.GetObject("tools", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

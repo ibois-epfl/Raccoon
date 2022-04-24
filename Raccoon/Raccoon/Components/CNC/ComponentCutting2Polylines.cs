@@ -14,7 +14,7 @@ namespace Raccoon.Components.CNC
         /// Initializes a new instance of the Cutting2Polylines class.
         /// </summary>
         public ComponentCutting2Polylines()
-          : base("Two Polys", "Two Polys", "Cutting Two Polylines",  "Robot/CNC")
+          : base("Two Polys", "Two Polys", "Cutting Two Polylines", "Robot/CNC")
         {
         }
 
@@ -46,7 +46,6 @@ namespace Raccoon.Components.CNC
         //Inputs
         public override void AddedToDocument(GH_Document document)
         {
-
             base.AddedToDocument(document);
 
             //Add Curve
@@ -73,12 +72,9 @@ namespace Raccoon.Components.CNC
                 rect.Attributes.ExpireLayout();
                 document.AddObject(rect, false);
                 ri.AddSource(rect);
-
             }
 
-
             //Add sliders
-
 
             double[] sliderValue = new double[] { 0, 42, 400, 17000, 70, 2, 60, 80 };
             double[] sliderMinValue = new double[] { 0, 10, 50, 2000, 50, 1, 30, 80 };
@@ -119,10 +115,7 @@ namespace Raccoon.Components.CNC
                 document.AddObject(booleanToggle, false);
                 bi.AddSource(booleanToggle);
             }
-
-
         }
-
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
@@ -133,7 +126,6 @@ namespace Raccoon.Components.CNC
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
             List<Curve> curves = new List<Curve>();
 
             //DA.GetData(1, ref base.filename);
@@ -153,30 +145,22 @@ namespace Raccoon.Components.CNC
             bool pairing = false;
             DA.GetData("Pairs", ref pairing);
 
-
-
             GCode = new List<string>();
             if (DA.GetDataList(0, curves))
             {
-
                 try
                 {
-
-
                     //Check if curves below zero
                     var belowZero = Utilities.GeometryProcessing.IsCurvesBelowZero(curves);
 
                     if (belowZero.Count > 0)
                         this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Geometry is below Zero");
 
-
-
-                    this.tools = Raccoon.GCode.Tool.ToolsFromAssembly();
-                    if (this.tools.ContainsKey((int)toolID))
+                    //tools = Raccoon.GCode.Tool.ToolsFromAssembly();
+                    if (Raccoon.GCode.Tool.tools.ContainsKey((int)toolID))
                     {
-                        this.toolr = (this.toolr == 0) ? this.tools[(int)toolID].radius : this.toolr;
+                        this.toolr = (this.toolr == 0) ? Raccoon.GCode.Tool.tools[(int)toolID].radius : this.toolr;
                         //Rhino.RhinoApp.WriteLine(toolr.ToString());
-
 
                         this.preview = new PreviewObject();
                         preview.PreviewLines0 = new List<Line>();
@@ -185,8 +169,7 @@ namespace Raccoon.Components.CNC
 
                         List<Curve> sharpPolylines = new List<Curve>();
 
-
-                        GCode = Raccoon.GCode.Cutting.CNC5XCut2Polylines(this.tools[(int)toolID], curves, ref preview, ref sharpPolylines,
+                        GCode = Raccoon.GCode.Cutting.CNC5XCut2Polylines(Raccoon.GCode.Tool.tools[(int)toolID], curves, ref preview, ref sharpPolylines,
                              toolr, Zsec, XYfeed, Retreat, (int)infeed, notch, pairing, angleTol, maxAngle, 54, filename);
                         Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview);
 
@@ -194,29 +177,23 @@ namespace Raccoon.Components.CNC
                         this.preview.badCurves.AddRange(belowZero);
                         this.preview.badCurves.AddRange(sharpPolylines);
 
-
                         //output
                         DA.SetData(0, preview.outputInformation);
                         DA.SetDataList(1, GCode);
                         DA.SetDataList(2, sharpPolylines);
                     }
-
                 }
                 catch (Exception ex)
                 {
                     Rhino.RhinoApp.WriteLine(ex.ToString());
-
                 }
-
             }
         }
-
-
 
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
-        /// 
+        ///
 
         protected override System.Drawing.Bitmap Icon
         {
@@ -225,11 +202,11 @@ namespace Raccoon.Components.CNC
                 return Properties.Resources.pair;
             }
         }
+
         public override Guid ComponentGuid => new Guid("1a2be114-fe1f-4d3b-b01f-49a78c487256");
 
         protected override void AfterSolveInstance()
         {
-
             GH_Document ghdoc = base.OnPingDocument();
             for (int i = 0; i < ghdoc.ObjectCount; i++)
             {
@@ -240,9 +217,7 @@ namespace Raccoon.Components.CNC
                     if (groupp.ObjectIDs.Contains(this.InstanceGuid))
                         return;
                 }
-
             }
-
 
             List<Guid> guids = new List<Guid>() { this.InstanceGuid };
 
@@ -253,15 +228,12 @@ namespace Raccoon.Components.CNC
             Grasshopper.Kernel.Special.GH_Group g = new Grasshopper.Kernel.Special.GH_Group();
             g.NickName = base.Name.ToString();
 
-
-
             g.Colour = System.Drawing.Color.FromArgb(255, 255, 0, 150);
 
             ghdoc.AddObject(g, false, ghdoc.ObjectCount);
             for (int i = 0; i < guids.Count; i++)
                 g.AddObject(guids[i]);
             g.ExpireCaches();
-
         }
     }
 }

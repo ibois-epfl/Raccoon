@@ -9,20 +9,21 @@ namespace Raccoon.Components.View
 {
     public class ComponentSimulate : GH_Component
     {
-        bool run_once = true;
+        private bool run_once = true;
+
         public ComponentSimulate()
           : base("Simulate", "Simulate",
               "Convert GCode to simulation", "Raccoon", "View")
         {
         }
 
-        List<Mesh> maka3D = new List<Mesh>();
+        private List<Mesh> maka3D = new List<Mesh>();
         public Raccoon.PreviewObject preview;
         public BoundingBox bbox = Utilities.MakaDimensions.MakaBBox();
         public Rhino.Display.DisplayMaterial m = new Rhino.Display.DisplayMaterial(Color.White);
         public Rhino.Display.DisplayMaterial m_red = new Rhino.Display.DisplayMaterial(Color.Red);
         public override BoundingBox ClippingBox => bbox;
-        bool collision = false;
+        private bool collision = false;
 
         public override void DrawViewportMeshes(IGH_PreviewArgs args)
         {
@@ -33,7 +34,6 @@ namespace Raccoon.Components.View
                     args.Display.DrawMeshShaded(b, this.m);
                 else
                     args.Display.DrawMeshShaded(b, this.m_red);
-
             }
         }
 
@@ -53,15 +53,10 @@ namespace Raccoon.Components.View
             if (preview.PreviewLines2 != null)
                 args.Display.DrawLines(preview.PreviewLines2, Color.Black, 3);
 
-
-
             if (preview.PreviewPolyline != null)
 
                 args.Display.DrawPolyline(preview.PreviewPolyline, Color.MediumVioletRed, 2);
-
-
         }
-
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
@@ -84,13 +79,11 @@ namespace Raccoon.Components.View
             pManager[2].Optional = true;
             pManager[3].Optional = true;
             pManager[4].Optional = true;
-
         }
 
         //Inputs
         public override void AddedToDocument(GH_Document document)
         {
-
             base.AddedToDocument(document);
 
             //Add String
@@ -108,8 +101,6 @@ namespace Raccoon.Components.View
             //text.Attributes.ExpireLayout();
             //document.AddObject(text, false);
             //si.AddSource(text);
-
-
 
             //Add sliders
             double[] sliderValue = new double[] { 0.500001 };
@@ -133,12 +124,6 @@ namespace Raccoon.Components.View
                 document.AddObject(slider, false);
                 ni.AddSource(slider);
             }
-
-
-
-
-
-
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -149,7 +134,6 @@ namespace Raccoon.Components.View
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
             List<string> GCode = new List<string>();
             double position = Math.Min(1, Math.Max(0, DA.Fetch<double>("Position")));
             List<Mesh> meshes = DA.FetchList<Mesh>("Mesh");
@@ -161,14 +145,10 @@ namespace Raccoon.Components.View
             Box table = new Box(new Plane(tablecenter, Plane.WorldXY.Normal, Plane.WorldXY.XAxis), new Interval(-25, 25), new Interval(-750, 750), new Interval(-1250, 1250));
             meshes.Add(Mesh.CreateFromBox(table, 1, 1, 1));
 
-
             //try
             //{
             if (DA.GetDataList(0, GCode))
             {
-
-
-
             }
 
             //Animation
@@ -190,7 +170,6 @@ namespace Raccoon.Components.View
             int id = (int)Math.Ceiling(position * (GCode.Count - 1));
             Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview, position);
 
-
             //Message
             string[] messages = previewGCode.Item3.Split(new char[] { ' ' });
             base.Message = "";
@@ -198,12 +177,6 @@ namespace Raccoon.Components.View
             foreach (string s in messages)
                 message += (s + "\n ");
             base.Message = message;
-
-
-
-
-
-
 
             //Collision detection
             collision = false;
@@ -229,24 +202,9 @@ namespace Raccoon.Components.View
                 }
             }
 
-
             //Output
             DA.SetData(1, previewGCode.Item3);
             DA.SetDataList(0, maka3D);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             for (int k = 0; k < it; k++)
             {
@@ -257,7 +215,6 @@ namespace Raccoon.Components.View
                 var previewGCode_ = Raccoon.GCode.GCodeToGeometry.FromValuesToGeometry(animationValues_);
 
                 ///Rhino.RhinoApp.WriteLine(t.ToString());
-
 
                 //Collision detection
                 bool collision_ = false;
@@ -281,9 +238,6 @@ namespace Raccoon.Components.View
                 }
                 if (collision_)
                     break;
-
-
-
             }
             //} catch (Exception e) {
             // Rhino.RhinoApp.WriteLine(e.ToString());
@@ -294,7 +248,7 @@ namespace Raccoon.Components.View
         {
             get
             {
-                return Properties.Resources.RaccoonLogo;
+                return Properties.Resources.simulation;
             }
         }
 
@@ -314,7 +268,6 @@ namespace Raccoon.Components.View
 
         protected override void AfterSolveInstance()
         {
-
             GH_Document ghdoc = base.OnPingDocument();
             for (int i = 0; i < ghdoc.ObjectCount; i++)
             {
@@ -325,9 +278,7 @@ namespace Raccoon.Components.View
                     if (groupp.ObjectIDs.Contains(this.InstanceGuid))
                         return;
                 }
-
             }
-
 
             List<Guid> guids = new List<Guid>() { this.InstanceGuid };
 
@@ -335,10 +286,8 @@ namespace Raccoon.Components.View
                 foreach (IGH_Param source in param.Sources)
                     guids.Add(source.InstanceGuid);
 
-
             Grasshopper.Kernel.Special.GH_Group g = new Grasshopper.Kernel.Special.GH_Group();
             g.NickName = base.Name.ToString();
-
 
             g.Colour = System.Drawing.Color.FromArgb(255, 255, 255, 255);
 
@@ -346,7 +295,6 @@ namespace Raccoon.Components.View
             for (int i = 0; i < guids.Count; i++)
                 g.AddObject(guids[i]);
             g.ExpireCaches();
-
         }
     }
 }

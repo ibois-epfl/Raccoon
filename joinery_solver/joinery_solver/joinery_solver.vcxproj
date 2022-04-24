@@ -11,13 +11,13 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{a5f8fdb5-c3a6-47e0-9337-7fb67444f513}</ProjectGuid>
     <RootNamespace>joinerysolver</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
@@ -49,7 +49,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\IBOIS57\_Code\Software\Python\Pybind11Example\source\module;C:\IBOIS57\_Code\Software\Python\Pybind11Example\externals\pybind11\include;C:\Users\petra\AppData\Local\Programs\Python\Python38\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\petra\AppData\Local\Programs\Python\Python38\include;C:\IBOIS57\_Code\Software\CPP\pybind11-2.9.0\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\lib64-msvc-14.2;C:\IBOIS57\_Code\Software\CPP\Boost\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
@@ -68,29 +68,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\CGAL_BoxUtil.h" />
-    <ClInclude Include="..\CGAL_IntersectionUtil.h" />
-    <ClInclude Include="..\CGAL_MathUtil.h" />
-    <ClInclude Include="..\CGAL_MeshUtil.h" />
-    <ClInclude Include="..\CGAL_PlaneUtil.h" />
-    <ClInclude Include="..\CGAL_PolylineUtil.h" />
-    <ClInclude Include="..\CGAL_Print.h" />
-    <ClInclude Include="..\CGAL_VectorUtil.h" />
-    <ClInclude Include="..\CGAL_XFormUtil.h" />
-    <ClInclude Include="..\clipper.h" />
-    <ClInclude Include="..\compas.h" />
-    <ClInclude Include="..\connection_zones.h" />
-    <ClInclude Include="..\element.h" />
-    <ClInclude Include="..\joint.h" />
-    <ClInclude Include="..\joint_library.h" />
-    <ClInclude Include="..\RTree.h" />
-    <ClInclude Include="..\stdafx.h" />
-    <ClInclude Include="..\xxx_interop_python.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_box_search.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_box_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_data_set.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_intersection_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_math_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_mesh_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_plane_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_polyline_snapping.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_polyline_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_print.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_vector_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_xform_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\clipper.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\clipper_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\joinery_solver_main.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\joinery_solver_element.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\joinery_solver_joint.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\joinery_solver_joint_library.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\rtree.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\rtree_util.h" />
+    <ClInclude Include="..\..\..\Python\compas_wood\src\wrapper_pybind11_joinery_solver.h" />
+    <ClInclude Include="D:\IBOIS57\_Software_back_up\Python\compas_wood_220114\compas_wood\src\cgal_mesh_pipe.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\clipper.cpp" />
-    <ClCompile Include="..\connection_zones.cpp" />
-    <ClCompile Include="..\xxx_interop_python.cpp" />
+    <ClCompile Include="..\..\..\Python\compas_wood\src\clipper.cpp" />
+    <ClCompile Include="..\..\..\Python\compas_wood\src\wrapper_pybind11_joinery_solver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,9 +4,8 @@
 
 #pragma once
 
-
 //#if defined(_M_X64) && defined(WIN32) && defined(WIN64)
-////  The afxwin.h includes afx.h, which includes afxver_.h, 
+////  The afxwin.h includes afx.h, which includes afxver_.h,
 ////  which unconditionally defines WIN32  This is a bug.
 ////  Note, all Windows builds (32 and 64 bit) define _WIN32.
 ////  Only 64-bit builds define _WIN64. Never define/undefine
@@ -27,7 +26,7 @@
 #define RHINO_V6_READY
 
 // If you want to use Rhino's MFC UI classes, then
-// uncomment the #define RHINO_SDK_MFC statement below. 
+// uncomment the #define RHINO_SDK_MFC statement below.
 // Note, doing so will require that your plug-in is
 // built with the same version of Visual Studio as was
 // used to build Rhino.
@@ -37,7 +36,7 @@
 // Plug-ins that require debugging information need to be built with
 // RHINO_DEBUG_PLUGIN defined.
 #if defined(RHINO_DEBUG_PLUGIN) && defined(_DEBUG)
-//  Rhino 6 Debug plug-ins should define RHINO_DEBUG_PLUGIN, 
+//  Rhino 6 Debug plug-ins should define RHINO_DEBUG_PLUGIN,
 //  but not define _DEBUG in the .vcxproj file.
 #error Do not define _DEBUG - use RHINO_DEBUG_PLUGIN instead
 #endif
@@ -72,7 +71,7 @@
 // TODO: include additional commonly used header files here
 
 #if defined(_M_X64) && defined(WIN32) && defined(WIN64)
-//  The afxwin.h includes afx.h, which includes afxver_.h, 
+//  The afxwin.h includes afx.h, which includes afxver_.h,
 //  which unconditionally defines WIN32  This is a bug.
 //  Note, all Windows builds (32 and 64 bit) define _WIN32.
 //  Only 64-bit builds define _WIN64. Never define/undefine
@@ -82,10 +81,10 @@
 #endif
 
 // Rhino SDK classes
-#include "RhinoSdk.h" 
+#include "RhinoSdk.h"
 
 // Rhino Render Development Kit (RDK) classes
-#include "RhRdkHeaders.h" 
+#include "RhRdkHeaders.h"
 
 // TODO: include additional Rhino-related header files here
 
@@ -99,5 +98,5 @@
 // Rhino SDK linking pragmas
 #include "rhinoSdkPlugInLinkingPragmas.h"
 
-#include "compas.h"
-#include "connection_zones.h"
+//#include "compas.h"
+#include "joinery_solver_main.h"

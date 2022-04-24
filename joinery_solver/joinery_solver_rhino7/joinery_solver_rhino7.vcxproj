@@ -11,12 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\clipper.cpp" />
-    <ClCompile Include="..\connection_zones.cpp" />
-    <ClCompile Include="command_get_centre_lines.cpp" />
-    <ClCompile Include="command_get_polylines.cpp" />
-    <ClCompile Include="command_group_loft.cpp" />
-    <ClCompile Include="command_mesh_difference.cpp" />
+    <ClCompile Include="..\..\..\Python\compas_wood\src\clipper.cpp" />
+    <ClCompile Include="..\..\..\Python\compas_wood\src\cpp_rhino\command_get_centre_lines.cpp" />
+    <ClCompile Include="..\..\..\Python\compas_wood\src\cpp_rhino\command_get_polylines.cpp" />
+    <ClCompile Include="..\..\..\Python\compas_wood\src\cpp_rhino\command_group_loft.cpp" />
+    <ClCompile Include="..\..\..\Python\compas_wood\src\cpp_rhino\command_mesh_difference.cpp" />
     <ClCompile Include="joinery_solver_rhino7App.cpp" />
     <ClCompile Include="joinery_solver_rhino7PlugIn.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -27,7 +26,6 @@
   <ItemGroup>
     <ClInclude Include="joinery_solver_rhino7App.h" />
     <ClInclude Include="joinery_solver_rhino7PlugIn.h" />
-    <ClInclude Include="RhinoUI.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -93,7 +91,7 @@
       <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpp14</LanguageStandard>
-      <AdditionalIncludeDirectories>$(RhinoIncDir);C:\IBOIS57\_Code\Software\Python\Pybind11Example\externals\pybind11\include;C:\Users\petra\AppData\Local\Programs\Python\Python38\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver;C:\IBOIS57\_Code\Software\Python\Pybind11Example\source\module;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\IBOIS57\_Code\Software\CPP\pybind11-2.9.0\include;C:\IBOIS57\_Code\Software\Python\compas_wood\src;$(RhinoIncDir);C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7;C:\IBOIS57\_Code\Software\Python\compas_wood\src\cpp_rhino;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,7 +118,7 @@
       <PreprocessorDefinitions>WIN64;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpp14</LanguageStandard>
-      <AdditionalIncludeDirectories>$(RhinoIncDir);C:\IBOIS57\_Code\Software\Python\Pybind11Example\externals\pybind11\include;C:\Users\petra\AppData\Local\Programs\Python\Python38\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver;C:\IBOIS57\_Code\Software\Python\Pybind11Example\source\module;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\IBOIS57\_Code\Software\CPP\pybind11-2.9.0\include;C:\IBOIS57\_Code\Software\Python\compas_wood\src;$(RhinoIncDir);C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\include;C:\IBOIS57\_Code\Software\CPP\CGAL\CGAL-5.3\auxiliary\gmp\include;C:\IBOIS57\_Code\Software\CPP\Eigen\eigen-3.3.9;C:\IBOIS57\_Code\Software\CPP\Boost\;C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_rhino7;C:\IBOIS57\_Code\Software\Python\compas_wood\src\cpp_rhino;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

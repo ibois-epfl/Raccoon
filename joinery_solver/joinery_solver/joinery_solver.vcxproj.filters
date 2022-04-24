@@ -15,69 +15,81 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\clipper.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_box_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\compas.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_intersection_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_BoxUtil.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_math_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_IntersectionUtil.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_mesh_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_PlaneUtil.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_plane_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_PolylineUtil.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_polyline_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_Print.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_XFormUtil.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_vector_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\RTree.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_xform_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\joint_library.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\clipper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_VectorUtil.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\joinery_solver_main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\connection_zones.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\joinery_solver_element.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\element.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\joinery_solver_joint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\joint.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\joinery_solver_joint_library.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_MathUtil.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\rtree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\stdafx.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\xxx_interop_python.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_data_set.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\CGAL_MeshUtil.h">
+    <ClInclude Include="..\..\..\Python\compas_wood\src\wrapper_pybind11_joinery_solver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_polyline_snapping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Python\compas_wood\src\cgal_box_search.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Python\compas_wood\src\clipper_util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\IBOIS57\_Software_back_up\Python\compas_wood_220114\compas_wood\src\cgal_mesh_pipe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Python\compas_wood\src\rtree_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\clipper.cpp">
+    <ClCompile Include="..\..\..\Python\compas_wood\src\clipper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\connection_zones.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\xxx_interop_python.cpp">
+    <ClCompile Include="..\..\..\Python\compas_wood\src\wrapper_pybind11_joinery_solver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

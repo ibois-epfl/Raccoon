@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace Raccoon.GCode
 {
-
     public struct AnimationValues
     {
         public List<XYZAB> values;
@@ -21,7 +20,6 @@ namespace Raccoon.GCode
 
     public struct XYZAB
     {
-
         public double X;
         public double Y;
         public double Z;
@@ -37,14 +35,9 @@ namespace Raccoon.GCode
 
     public static class GCodeToGeometry
     {
-
-
-
         public static List<string> GCodeManual()
         {
-
             return new List<string>() {
-
                 "P1234567 - Filename - Maximum seven number name",
                 "P4010:250 - Plastic Cover for ventilation - covered - 0, lifted - 250",
                 "T42 - Tool Name",
@@ -119,12 +112,8 @@ namespace Raccoon.GCode
                 "G95 - Feed per rev mode",
                 "G98 - Initial level return after canned cycles",
                 "G99 - R-point level return after canned cycles",
-
             };
-
         }
-
-
 
         public static List<string> defaultToolPath = new List<string>() {
             "P0000000",
@@ -184,7 +173,6 @@ namespace Raccoon.GCode
             {
                 //RhinoApp.WriteLine(breakVaue.ToString());
 
-
                 //RhinoApp.WriteLine(preview.PreviewLines0.Count.ToString());
                 //RhinoApp.WriteLine(preview.PreviewLines1.Count.ToString());
                 //RhinoApp.WriteLine(preview.PreviewLines2.Count.ToString());
@@ -201,7 +189,6 @@ namespace Raccoon.GCode
                     if (obj.Length == 0) continue;
                     if (obj[0] != '(')
                     {
-
                         if (obj[0] == 'G')
                         {
                             if (obj[1] == '1') boolG1 = true; //col=col1 lay=layer_index1
@@ -285,7 +272,6 @@ namespace Raccoon.GCode
                     //Line line1 = new Line(p3,p4);
                     Line line1 = new Line(p3, p4 + (p4 - p3) * 5);
 
-
                     preview.PreviewLines2.Add(line1);
 
                     //Rhino.RhinoApp.WriteLine(line1.Length.ToString());
@@ -296,7 +282,6 @@ namespace Raccoon.GCode
 
                 int id = (int)Math.Ceiling((position / (1.0 / (GCode.Count - 1))));
                 if (i == id) break;
-
             }//end of all lines looping
 
             string strZ = (minZ.Count != 0) ? "Z Positions: " + minZ.Min().ToString() + " to " + minZ.Max().ToString() : "Z Positions: None";
@@ -309,12 +294,10 @@ namespace Raccoon.GCode
             preview.outputInformation = "\n\n" + strZ + "\n" + strA + "\n" + strB + "\n\n" + strG0 + "\n" + strG1;
             //IBOIS.UI.RhinoUI.MessageBox( "\n\n" + strZ + "\n" + strA + "\n" + strB + "\n\n" + strG0 + "\n" + strG1,  64, "Analyzing GCode");
 
-
             //} catch (Exception e) {
             //Rhino.RhinoApp.WriteLine(e.ToString());
             //}
         }
-
 
         /// <summary>
         /// Animate 3D Maka
@@ -326,7 +309,6 @@ namespace Raccoon.GCode
         /// <returns></returns>
         public static AnimationValues CNCAnim(List<string> lines = null, double t = 0.5)
         {
-
             //IF NOTHING IS SUPPLIED ASSIGN DEFAULT TOOLPATH
             if (lines == null)
                 lines = defaultToolPath;
@@ -372,7 +354,6 @@ namespace Raccoon.GCode
             return new AnimationValues() { values = values, linesCleaned = linesCleaned, tool = tool, t = t, tools = tools };
         }
 
-
         public static XYZAB Value(this string gcodeLine)
         {
             //XYZAB c = new XYZAB() { boolX = last.boolX, boolY = last.boolY, boolZ = last.boolZ, boolA = last.boolA, boolB = last.boolB, X = last.X, Y = last.Y, Z = last.Z, A = last.A, B = last.B };
@@ -394,12 +375,8 @@ namespace Raccoon.GCode
             string[] words = gcodeLine.Split(new Char[] { ' ' });
             string currentString = " ";
 
-
-
-
             foreach (string word in words)
             {
-
                 currentString += (" " + word);
 
                 if ((word.Length > 1))
@@ -407,7 +384,6 @@ namespace Raccoon.GCode
                     if (word[0] == Axes.X)
                     {
                         c.boolX = double.TryParse(word.Remove(0, 1), out c.X);
-
                     }
                     if (word[0] == Axes.Y)
                     {
@@ -456,10 +432,8 @@ namespace Raccoon.GCode
                 }
             }
 
-
             if (curr >= 0 && animationValues.t <= animationValues.values.Count - 1)
             {
-
                 var currentTool = animationValues.tools[toolID];
 
                 currentString = lines[curr];
@@ -468,12 +442,9 @@ namespace Raccoon.GCode
                 XYZAB valuesPrev = animationValues.values[prev];
                 XYZAB v = LerpXYZAB(valuesPrev, valuesCurr, T % 1);//interpolate current and previous positions
 
-
                 Point3d pt = new Point3d(v.X, v.Y, v.Z);
                 Mesh pipe = GeometryProcessing.MeshPipe(Plane.WorldXY);
                 Mesh pipe1 = GeometryProcessing.MeshPipe(Plane.WorldXY, 20);
-
-
 
                 //Point3d tablecenter = new Point3d(750, 1250, -25);// table
                 //Box table = new Box(new Plane(tablecenter, Plane.WorldXY.Normal, Plane.WorldXY.XAxis), new Interval(-25, 25), new Interval(-750, 750), new Interval(-1250, 1250));
@@ -489,7 +460,6 @@ namespace Raccoon.GCode
                 f1.Rotate((Math.PI / 180) * v.A, f1.ZAxis);
                 f1.Rotate((Math.PI / 180) * (v.B * -1), f1.XAxis);
 
-
                 ////////////////////  SPINDLE
                 //////         ______________
                 //////        |             |
@@ -501,11 +471,8 @@ namespace Raccoon.GCode
                 else
                     geo.Add(pipe.TransformMesh(f1, currentTool.holderRadius, currentTool.length));//holder 2
 
-
-
                 if (currentTool.saw == 1)
                     meshLast.Append(pipe1.TransformMesh(f1, currentTool.radius, 5));//saw
-
 
                 //Change frame normal by tool length
                 f1.Origin += f1.Normal * currentTool.length;
@@ -515,21 +482,19 @@ namespace Raccoon.GCode
                 Box spbox = new Box(new Plane(f1.Origin + f1.Normal * 266.30, f1.XAxis, f1.YAxis), new Interval(-71.25, 71.25), new Interval(-70.50, 70.50), new Interval(-160.30, 160.30));
                 geo.Add(Mesh.CreateFromBox(spbox, 1, 1, 1));
 
-
                 // Tool Holder Axis A
                 //  _____
-                // |     |           
-                // |     | 
-                // |     |    
-                // |     |    
-                // |     |   
+                // |     |
+                // |     |
+                // |     |
+                // |     |
+                // |     |
                 // |  A  |
                 // \    /
                 //  \__/
 
                 Point3d pt1 = new Point3d((f1.Origin + (f1.Normal * 190)) + (f1.XAxis * -121));
                 geo.Add(pipe.TransformMesh(new Plane(pt1, f1.XAxis), 92, -268.85));//cylinder3
-
 
                 Point3d pt2 = new Point3d((pt1 + (f1.XAxis * -134.42)) + (f0.ZAxis * 199.5));
                 Box box2 = new Box(new Plane(pt2, f0.XAxis, f0.YAxis), new Interval(-134.425, 134.425), new Interval(-92, 92), new Interval(-199.5, 199.5));
@@ -545,13 +510,9 @@ namespace Raccoon.GCode
                 geo.Clear();
                 geo.Add(joined);
                 geo.Add(meshLast);
-
             }
 
-
-
             return new Tuple<List<Mesh>, int, string>(geo, tInt, currentString);
-
         }
 
         public static XYZAB LerpXYZAB(XYZAB t0, XYZAB t1, double t)
@@ -566,9 +527,118 @@ namespace Raccoon.GCode
             };
         }
 
+        public static Tuple<List<Mesh>, int, string> FromValuesToGeometryCardan(AnimationValues animationValues)
+        {
+            var lines = animationValues.linesCleaned; //strings only used for maka movement
+            string currentString = ""; //current string
+            int tInt = 0; //current line
+            //List<Brep> breps = new List<Brep>();//Output geometry
+            List<Mesh> geo = new List<Mesh>();//Output geometry
 
+            double T = animationValues.t * (animationValues.values.Count - 1);//current position + interpolation
+            int curr = (int)Math.Ceiling(T);//next position
+            int prev = (int)Math.Floor(T);//prev position
+
+            int toolID = 0;
+            foreach (var keyValue in animationValues.tools)
+            {
+                if (keyValue.Key <= curr)
+                {
+                    toolID = keyValue.Key;
+                }
+            }
+
+            if (curr >= 0 && animationValues.t <= animationValues.values.Count - 1)
+            {
+                var currentTool = animationValues.tools[toolID];
+
+                currentString = lines[curr];
+                tInt = curr;
+                XYZAB valuesCurr = animationValues.values[curr];
+                XYZAB valuesPrev = animationValues.values[prev];
+                XYZAB v = LerpXYZAB(valuesPrev, valuesCurr, T % 1);//interpolate current and previous positions
+
+                Point3d pt = new Point3d(v.X, v.Y, v.Z);
+                Mesh pipe = GeometryProcessing.MeshPipe(Plane.WorldXY);
+                Mesh pipe1 = GeometryProcessing.MeshPipe(Plane.WorldXY, 20);
+
+                //Point3d tablecenter = new Point3d(750, 1250, -25);// table
+                //Box table = new Box(new Plane(tablecenter, Plane.WorldXY.Normal, Plane.WorldXY.XAxis), new Interval(-25, 25), new Interval(-750, 750), new Interval(-1250, 1250));
+                //geo.Add(Mesh.CreateFromBox(table,1,1,1));
+                //breps.Add(table.ToBrep());
+
+                Mesh meshLast = new Mesh();
+
+                Plane f0 = new Plane(pt, pt + new Vector3d(-1, 0, 0), pt + new Vector3d(0, -1, 0));
+                Plane f1 = new Plane(pt, pt + new Vector3d(-1, 0, 0), pt + new Vector3d(0, -1, 0)); //horizontal plane of machine
+
+                f0.Rotate((Math.PI / 180) * v.A, f1.ZAxis);
+                f1.Rotate((Math.PI / 180) * v.A, f1.ZAxis);
+                f1.Rotate((Math.PI / 180) * (v.B * -1), f1.XAxis);
+
+                geo = Raccoon.Components.View.CardanAngle.Perform_Cardan_Simulation(
+                    f1.Origin,
+                    f1.Normal,
+                    currentTool.length * 0.1,
+                    currentTool.radius * 0.1,
+                    currentTool.cutLength * 0.1,
+                    currentTool.holderRadius * 0.1,
+                    currentTool.saw == 1
+                    ).ToList();
+
+                //////////////////////  SPINDLE
+                ////////         ______________
+                ////////        |             |
+                ////////--------|      B      |
+                ////////        |_____________|
+
+                //if (currentTool.saw != 1)
+                //    meshLast.Append(pipe1.TransformMesh(f1, currentTool.radius, currentTool.length));//toolCutting
+                //else
+                //    geo.Add(pipe.TransformMesh(f1, currentTool.holderRadius, currentTool.length));//holder 2
+
+                //if (currentTool.saw == 1)
+                //    meshLast.Append(pipe1.TransformMesh(f1, currentTool.radius, 5));//saw
+
+                ////Change frame normal by tool length
+                //f1.Origin += f1.Normal * currentTool.length;
+                //geo.Add(pipe.TransformMesh(f1, 55, 106));//toolHolderFixed
+                //geo.Add(pipe.TransformMesh(f1, currentTool.holderRadius, currentTool.cutLength - currentTool.length));//toolHolder2
+
+                //Box spbox = new Box(new Plane(f1.Origin + f1.Normal * 266.30, f1.XAxis, f1.YAxis), new Interval(-71.25, 71.25), new Interval(-70.50, 70.50), new Interval(-160.30, 160.30));
+                //geo.Add(Mesh.CreateFromBox(spbox, 1, 1, 1));
+
+                //// Tool Holder Axis A
+                ////  _____
+                //// |     |
+                //// |     |
+                //// |     |
+                //// |     |
+                //// |     |
+                //// |  A  |
+                //// \    /
+                ////  \__/
+
+                //Point3d pt1 = new Point3d((f1.Origin + (f1.Normal * 190)) + (f1.XAxis * -121));
+                //geo.Add(pipe.TransformMesh(new Plane(pt1, f1.XAxis), 92, -268.85));//cylinder3
+
+                //Point3d pt2 = new Point3d((pt1 + (f1.XAxis * -134.42)) + (f0.ZAxis * 199.5));
+                //Box box2 = new Box(new Plane(pt2, f0.XAxis, f0.YAxis), new Interval(-134.425, 134.425), new Interval(-92, 92), new Interval(-199.5, 199.5));
+                //geo.Add(Mesh.CreateFromBox(box2, 1, 1, 1));
+
+                //Point3d pt3 = new Point3d((pt2 + (f0.ZAxis * 120.5)) - (f0.XAxis * -215.92));
+                //geo.Add(pipe.TransformMesh(new Plane(pt3, f0.ZAxis), 90, 105));//cylinder4
+
+                //Mesh joined = new Mesh();
+                //foreach (Mesh m in geo)
+                //    joined.Append(m);
+
+                //geo.Clear();
+                //geo.Add(joined);
+                //geo.Add(meshLast);
+            }
+
+            return new Tuple<List<Mesh>, int, string>(geo, tInt, currentString);
+        }
     }
-
-
-
 }

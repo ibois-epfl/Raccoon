@@ -14,7 +14,7 @@ namespace Raccoon.Components.CNC
         /// Initializes a new instance of the Cutting2Polylines class.
         /// </summary>
         public ComponentOpenPolyline()
-          : base("Open Polys", "Open Polys", "One curve is cutting line, other curve is followed as normal (takes only control points of polyline)")
+          : base("Open Polys", "Open Polys", "One curve is cutting line, other curve is followed as normal (takes only control points of polyline)","Robot/CNC")
         {
         }
 
@@ -25,7 +25,6 @@ namespace Raccoon.Components.CNC
             pManager.AddCurveParameter("Polyline", "Polyline", "Polyline", GH_ParamAccess.list);
             pManager.AddCurveParameter("PolylineNormal", "PolylineNormal", "PolylineNormal", GH_ParamAccess.list);
             //pManager.AddTextParameter("Filename", "Filename", "filename - 8 - digit filename in format P0000000 you do not need to specify path, just right click and save to directory", GH_ParamAccess.item);// "P1234567"
-
 
             pManager.AddNumberParameter("ToolID", "ToolID", "Tool ID Number in the CNC machine", GH_ParamAccess.item);//0
 
@@ -44,7 +43,6 @@ namespace Raccoon.Components.CNC
         //Inputs
         public override void AddedToDocument(GH_Document document)
         {
-
             base.AddedToDocument(document);
 
             //Add Curve
@@ -70,7 +68,6 @@ namespace Raccoon.Components.CNC
                 rect.Attributes.ExpireLayout();
                 document.AddObject(rect, false);
                 ri.AddSource(rect);
-
             }
 
             ////Add String
@@ -88,10 +85,7 @@ namespace Raccoon.Components.CNC
             //document.AddObject(panel, false);
             //ti.AddSource(panel);
 
-
-
             //Add sliders
-
 
             double[] sliderValue = new double[] { 42, 20000, 650, 40, 1, 80 };
             double[] sliderMinValue = new double[] { 1, 1000, 0, 300, 1, 79 };
@@ -113,10 +107,6 @@ namespace Raccoon.Components.CNC
                 document.AddObject(slider, false);
                 ni.AddSource(slider);
             }
-
-
-
-
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -127,12 +117,9 @@ namespace Raccoon.Components.CNC
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
-
             List<Curve> crv = new List<Curve>();
             List<Curve> crvN = DA.FetchList<Curve>("PolylineNormal");
             double angle = DA.Fetch<double>("Angle");
-
 
             DA.GetData("ToolID", ref base.toolID);
             DA.GetData("Zsec", ref base.Zsec);
@@ -142,21 +129,16 @@ namespace Raccoon.Components.CNC
 
             //Rhino.RhinoApp.WriteLine(angle.ToString());
 
-
-
             GCode = new List<string>();
             if (DA.GetDataList(0, crv))
             {
-
                 try
                 {
-
                     List<Polyline> polylines = new List<Polyline>();
                     List<Polyline> normals = new List<Polyline>();
 
                     if (crv.Count == crvN.Count)
                     {
-
                         for (int i = 0; i < crv.Count; i++)
                         {
                             crv[i].TryGetPolyline(out Polyline path);
@@ -167,30 +149,24 @@ namespace Raccoon.Components.CNC
                             polylines.Add(interpolatedPolylines[0]);
                             normals.Add(interpolatedPolylines[1]);
                         }
-
                     }
 
-                    this.tools = Raccoon.GCode.Tool.ToolsFromAssembly();
-                    if (this.tools.ContainsKey((int)toolID))
+                    if (Raccoon.GCode.Tool.tools.ContainsKey((int)toolID))
                     {
-
                         preview.PreviewLines0 = new List<Line>();
                         preview.PreviewLines1 = new List<Line>();
                         preview.PreviewLines2 = new List<Line>();
-                        GCode = Raccoon.GCode.Cutting.PolylineCutSimple(this.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, (int)angle);
+                        GCode = Raccoon.GCode.Cutting.PolylineCutSimple(Raccoon.GCode.Tool.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, (int)angle);
                         Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview);
-                 
+
                         DA.SetData(0, preview.outputInformation);
                         DA.SetDataList(1, GCode);
                     }
-
                 }
                 catch (Exception ex)
                 {
                     Rhino.RhinoApp.WriteLine(ex.ToString());
-
                 }
-
             }
         }
 
@@ -198,7 +174,7 @@ namespace Raccoon.Components.CNC
         {
             get
             {
-                return Properties.Resources.openCut;
+                return Properties.Resources.open_path;
             }
         }
 
@@ -209,7 +185,6 @@ namespace Raccoon.Components.CNC
 
         protected override void AfterSolveInstance()
         {
-
             GH_Document ghdoc = base.OnPingDocument();
             for (int i = 0; i < ghdoc.ObjectCount; i++)
             {
@@ -220,9 +195,7 @@ namespace Raccoon.Components.CNC
                     if (groupp.ObjectIDs.Contains(this.InstanceGuid))
                         return;
                 }
-
             }
-
 
             List<Guid> guids = new List<Guid>() { this.InstanceGuid };
 
@@ -230,10 +203,8 @@ namespace Raccoon.Components.CNC
                 foreach (IGH_Param source in param.Sources)
                     guids.Add(source.InstanceGuid);
 
-
             Grasshopper.Kernel.Special.GH_Group g = new Grasshopper.Kernel.Special.GH_Group();
             g.NickName = base.Name.ToString();
-
 
             g.Colour = System.Drawing.Color.FromArgb(255, 255, 0, 255);
 
@@ -241,7 +212,6 @@ namespace Raccoon.Components.CNC
             for (int i = 0; i < guids.Count; i++)
                 g.AddObject(guids[i]);
             g.ExpireCaches();
-
         }
     }
 }

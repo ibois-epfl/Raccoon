@@ -18,6 +18,7 @@ namespace Raccoon.Components
                 return Properties.Resources.straightdrill;
             }
         }
+
         public override GH_Exposure Exposure => GH_Exposure.secondary;
 
         public override void DrawViewportWires(IGH_PreviewArgs args)
@@ -39,7 +40,6 @@ namespace Raccoon.Components
 
         public override void DrawViewportMeshes(IGH_PreviewArgs args)
         {
-
         }
 
         public ComponentDrillingLathe()
@@ -48,7 +48,6 @@ namespace Raccoon.Components
               "Robot/CNC")
         {
         }
-
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
@@ -64,13 +63,11 @@ namespace Raccoon.Components
 
             for (int i = 0; i < pManager.ParamCount; i++)
                 pManager[i].Optional = true;
-
         }
 
         //Inputs
         public override void AddedToDocument(GH_Document document)
         {
-
             base.AddedToDocument(document);
 
             //Add Curve
@@ -95,14 +92,12 @@ namespace Raccoon.Components
                 lineParam.Attributes.ExpireLayout();
                 document.AddObject(lineParam, false);
                 ri.AddSource(lineParam);
-
             }
 
-
             //Add sliders
-            double[] sliderValue = new double[] {    42, 20000,    750, 300, 1, };
-            double[] sliderMinValue = new double[] { 1, 1000,        0, 300, 1, };
-            double[] sliderMaxValue = new double[] { 110, 30000,   750, 0, 20 };
+            double[] sliderValue = new double[] { 42, 20000, 750, 300, 1, };
+            double[] sliderMinValue = new double[] { 1, 1000, 0, 300, 1, };
+            double[] sliderMaxValue = new double[] { 110, 30000, 750, 0, 20 };
             int[] sliderID = new int[] { 1, 2, 3, 4, 5 };
 
             for (int i = 0; i < sliderValue.Length; i++)
@@ -140,25 +135,16 @@ namespace Raccoon.Components
                 document.AddObject(booleanToggle, false);
                 bi.AddSource(booleanToggle);
             }
-
-
-
-
         }
-
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddTextParameter("Info", "Info", "Info", GH_ParamAccess.item);
             pManager.AddTextParameter("GCode", "GCode", "GCode", GH_ParamAccess.list);
-
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
-
-
             lines = new List<Line>();
             List<Curve> curves = new List<Curve>();
 
@@ -170,12 +156,9 @@ namespace Raccoon.Components
 
             bool vertical = DA.Fetch<bool>("Vertical");
 
-
-
             GCode = new List<string>();
             if (DA.GetDataList(0, curves))
             {
-
                 foreach (Curve c in curves)
                 {
                     if (c.IsValid)
@@ -184,13 +167,11 @@ namespace Raccoon.Components
 
                 try
                 {
-
                     //Check if curves below zero
                     this.badCurves = Utilities.GeometryProcessing.IsCurvesBelowZero(lines);
 
                     if (badCurves.Count > 0)
                         this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Geometry is below Zero");
-
 
                     lines = lines.OrderByDescending(l => l.From.X).Reverse().ToList();
                     List<Line> linesOrdered = new List<Line>();
@@ -212,10 +193,8 @@ namespace Raccoon.Components
                         linesOrdered = new List<Line>(lines);
                     }
 
-
-
-                    this.tools = Raccoon.GCode.Tool.ToolsFromAssembly();
-                    if (this.tools.ContainsKey((int)toolID))
+                    //tools = Raccoon.GCode.Tool.ToolsFromAssembly();
+                    if (Raccoon.GCode.Tool.tools.ContainsKey((int)toolID))
                     {
                         this.preview = new PreviewObject();
                         preview.PreviewLines0 = new List<Line>();
@@ -224,37 +203,25 @@ namespace Raccoon.Components
                         lines = linesOrdered;
 
                         //Rhino.RhinoApp.WriteLine(lines.Count.ToString());
-                        GCode = Raccoon.GCode.Cutting.CNC5X3DDrillLathe(this.tools[(int)toolID], lines, ref preview, filename, Zsec, XYfeed, Retreat, 54, (int)base.infeed);
+                        GCode = Raccoon.GCode.Cutting.CNC5X3DDrillLathe(Raccoon.GCode.Tool.tools[(int)toolID], lines, ref preview, filename, Zsec, XYfeed, Retreat, 54, (int)base.infeed);
 
                         DA.SetData(0, preview.outputInformation);
                         DA.SetDataList(1, GCode);
                     }
-
                 }
                 catch (Exception ex)
                 {
                     Rhino.RhinoApp.WriteLine(ex.ToString());
-
                 }
-
             }
 
-           // GUID = guids;
-
+            // GUID = guids;
         }
 
         public override Guid ComponentGuid => new Guid("4ebca11f-e6c6-4179-837d-9c18d1a5869e");
 
-
-
-
-
-
         protected override void AfterSolveInstance()
         {
-
-
-
             GH_Document ghdoc = base.OnPingDocument();
             for (int i = 0; i < ghdoc.ObjectCount; i++)
             {
@@ -265,9 +232,7 @@ namespace Raccoon.Components
                     if (groupp.ObjectIDs.Contains(this.InstanceGuid))
                         return;
                 }
-
             }
-
 
             List<Guid> guids = new List<Guid>() { this.InstanceGuid };
 
@@ -278,18 +243,12 @@ namespace Raccoon.Components
             Grasshopper.Kernel.Special.GH_Group g = new Grasshopper.Kernel.Special.GH_Group();
             g.NickName = base.Name.ToString();
 
-
             g.Colour = System.Drawing.Color.FromArgb(255, 255, 255, 0);
 
             ghdoc.AddObject(g, false, ghdoc.ObjectCount);
             for (int i = 0; i < guids.Count; i++)
                 g.AddObject(guids[i]);
             g.ExpireCaches();
-
         }
-
-
     }
-
-
 }

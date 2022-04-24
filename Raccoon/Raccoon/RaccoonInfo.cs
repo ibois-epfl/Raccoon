@@ -13,14 +13,16 @@ namespace Raccoon
                 return "Raccoon";
             }
         }
+
         public override Bitmap Icon
         {
             get
             {
                 //Return a 24x24 pixel bitmap to represent this GHA library.
-                return Properties.Resources.RaccoonLogo;
+                return Properties.Resources.simulation;
             }
         }
+
         public override string Description
         {
             get
@@ -29,6 +31,7 @@ namespace Raccoon
                 return "Grasshopper plug-in for IBOIS CNC machine";
             }
         }
+
         public override Guid Id
         {
             get
@@ -45,6 +48,7 @@ namespace Raccoon
                 return "Petras Vestartas";
             }
         }
+
         public override string AuthorContact
         {
             get

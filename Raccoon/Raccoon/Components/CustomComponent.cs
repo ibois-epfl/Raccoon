@@ -11,10 +11,8 @@ using System.Windows.Forms;
 
 namespace Raccoon
 {
-
     public struct PreviewObject
     {
-
         public List<Line> PreviewLines0;
         public List<Line> PreviewLines1;
         public List<Line> PreviewLines2;
@@ -48,21 +46,19 @@ namespace Raccoon
         public double infeed = 2;
         public bool notch = true;
 
-        public Dictionary<int, Raccoon.GCode.ToolParameters> tools = Raccoon.GCode.Tool.ToolsFromAssembly();
+        //public static Dictionary<int, Raccoon.GCode.ToolParameters> tools = Raccoon.GCode.Tool.ToolsFromAssembly();
 
+        public CustomComponent(string Name, string Nick, string Desc) : base(Name, Nick, Desc, "Raccoon", "CNC")
+        {
+        }
 
-
-          
-    
-
-        public CustomComponent(string Name, string Nick, string Desc) : base(Name, Nick, Desc, "Raccoon", "CNC") { }
-
-        public CustomComponent(string Name, string Nick, string Desc, string subCategory) : base(Name, Nick, Desc, "Raccoon", subCategory) { }
-
+        public CustomComponent(string Name, string Nick, string Desc, string subCategory) : base(Name, Nick, Desc, "Raccoon", subCategory)
+        {
+            Raccoon.GCode.Tool.SetDefaultTools();
+        }
 
         public override void DrawViewportWires(IGH_PreviewArgs args)
         {
-
             if (this.Hidden || this.Locked) return;
 
             //Travelling path
@@ -78,8 +74,6 @@ namespace Raccoon
             if (preview.PreviewLines2 != null)
                 args.Display.DrawLines(preview.PreviewLines2, Color.Black, 3);
 
-
-
             if (preview.PreviewPolyline != null)
                 args.Display.DrawPolyline(preview.PreviewPolyline, Color.Orange, 2);
 
@@ -89,14 +83,10 @@ namespace Raccoon
                 {
                     args.Display.DrawCurve(c, Color.Red, 5);
                 }
-
         }
-
-
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-
             for (int i = 0; i < pManager.ParamCount; i++)
                 pManager.HideParameter(i);
         }
@@ -109,11 +99,7 @@ namespace Raccoon
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
-
         }
-
-
 
         public override Guid ComponentGuid => new Guid("e6eda5fb-6967-425f-8cee-15eade0f26f1");
 
@@ -122,10 +108,8 @@ namespace Raccoon
         //https://discourse.mcneel.com/t/save-file-directory/62784/2
         protected override void AppendAdditionalComponentMenuItems(ToolStripDropDown menu)
         {
-
             Menu_AppendItem(menu, "Select Directory with Address...", (_, __) =>
             {
-
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
                 saveFileDialog1.FileName = filename;
@@ -135,7 +119,6 @@ namespace Raccoon
 
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-
                     using (System.IO.StreamWriter sw = new System.IO.StreamWriter(saveFileDialog1.FileName))
                     {
                         int i = 0;
@@ -155,16 +138,11 @@ namespace Raccoon
                     }
 
                     ExpireSolution(true);
-
                 }
-
             });
-
-
 
             Menu_AppendItem(menu, "Select Directory...", (_, __) =>
             {
-
                 var folderDialog = new FolderBrowserDialog();
                 var run = folderDialog.ShowDialog();
 
@@ -176,12 +154,8 @@ namespace Raccoon
                     Rhino.RhinoApp.WriteLine((GCode.Count > 0).ToString());
                     ExpireSolution(true);
                 }
-
             });
-
         }
-
-
 
         //protected override System.Drawing.Bitmap Icon
         //{
@@ -190,7 +164,6 @@ namespace Raccoon
         //        return CustomComponent.GetIcon(this);
         //    }
         //}
-
 
         internal static Bitmap GetIcon(GH_ActiveObject comp)
         {
@@ -203,9 +176,5 @@ namespace Raccoon
             }
             return bitmap;
         }
-
-
-
-
     }
 }

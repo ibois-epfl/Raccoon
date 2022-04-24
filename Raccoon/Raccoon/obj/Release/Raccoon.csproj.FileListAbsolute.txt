@@ -1,0 +1,7 @@
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\bin\Raccoon.dll
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\bin\Raccoon.pdb
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.Properties.Resources.resources
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.csproj.GenerateResource.cache
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.csproj.CoreCompileInputs.cache
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.dll
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.pdb

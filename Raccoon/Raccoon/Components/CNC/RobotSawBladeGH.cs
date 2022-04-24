@@ -8,19 +8,21 @@ using Grasshopper.Kernel.Data;
 using Rhino.Geometry;
 using Raccoon;
 
-namespace Raccoon {
+namespace Raccoon
+{
     public class SawBladeGH : CustomComponent
     {
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
+
         public SawBladeGH()
           : base("SawBlade", "SawBlade",
               "SawBlade",
-              "Robot/CNC") {
+              "Robot/CNC")
+        {
         }
 
-
-        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager) {
-
+        protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
+        {
             //pManager.AddGenericParameter("Element", "Element", "Element", GH_ParamAccess.item);
             pManager.AddCurveParameter("cut_polyline", " cut_polyline", "cut_polyline", GH_ParamAccess.list);
             pManager.AddCurveParameter("dir_polyline", " dir_polyline", "dir_polyline", GH_ParamAccess.list);
@@ -43,7 +45,6 @@ namespace Raccoon {
             pManager.AddNumberParameter("Zsec", "Zsec", "Safe Plane over workpiece.Program begins and starts at this Z-height", GH_ParamAccess.item);//700
             pManager.AddNumberParameter("Retreate", "Retreate", "Height of the XY Plane for tool retreat", GH_ParamAccess.item);//70
 
-
             //pManager.AddTextParameter("Path", "Path", "Path", GH_ParamAccess.item, @"C:\Unity\20200715\ColabEPFL\ImaxProUnity\Assets\StreamingAssets\MachiningEPFL\test.txt");
 
             //pManager.AddNumberParameter("Speed", "Speed", "Speed", GH_ParamAccess.item, 100);
@@ -65,14 +66,10 @@ namespace Raccoon {
             pManager[11].Optional = true;
             pManager[12].Optional = true;
             pManager[13].Optional = true;
-
-
         }
 
         public override void AddedToDocument(GH_Document document)
         {
-
-
             base.AddedToDocument(document);
 
             //Add Curve
@@ -99,18 +96,15 @@ namespace Raccoon {
                 rect.Attributes.ExpireLayout();
                 document.AddObject(rect, false);
                 ri.AddSource(rect);
-
             }
-
 
             //    //Add sliders
 
+            double[] sliderValue = new double[] { 3, 0, 200, 0, 1, 80, 650, 1.00, 103, 7000, 700, 200 };
+            double[] sliderMinValue = new double[] { 0, 0, 0, 0, 0, 0, 0, 0.00, 0, 5000, 0, 0 };
+            double[] sliderMaxValue = new double[] { 12, 200, 400, 10, 1, 800, 800, 2.00, 200, 20000, 800, 800 };
 
-            double[] sliderValue = new double[] {    3, 0,    200,  0, 1, 80,  650, 1.00,  103, 7000, 700, 200 };
-            double[] sliderMinValue = new double[] { 0, 0,      0,  0, 0,  0,    0, 0.00,    0,  5000, 0, 0 };
-            double[] sliderMaxValue = new double[] { 12, 200, 400, 10, 1, 800, 800, 2.00 , 200, 20000, 800, 800};
-
-            int[] sliderID = new int[] { 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13 };
+            int[] sliderID = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
             for (int i = 0; i < sliderValue.Length; i++)
             {
                 Grasshopper.Kernel.Parameters.Param_Number ni = Params.Input[sliderID[i]] as Grasshopper.Kernel.Parameters.Param_Number;
@@ -126,13 +120,10 @@ namespace Raccoon {
                 document.AddObject(slider, false);
                 ni.AddSource(slider);
             }
-
-
-
         }
 
-
-        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager) {
+        protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
+        {
             pManager.AddCurveParameter("C0", "C0", "Polylines connecting planes ", GH_ParamAccess.tree);
             pManager.AddCurveParameter("C1", "C1", "Polylines connecting planes ", GH_ParamAccess.tree);
             pManager.AddPlaneParameter("P", "Planes", "Planes", GH_ParamAccess.tree);
@@ -142,13 +133,10 @@ namespace Raccoon {
             //pManager.AddTextParameter("MoveTypes", "M", "Move Types ", GH_ParamAccess.tree);
         }
 
-
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
             try
             {
-
                 #region
                 var cutPolyline = new List<Polyline>();
                 var cutPolyline_ = new List<Curve>();
@@ -162,34 +150,29 @@ namespace Raccoon {
                     o.TryGetPolyline(out Polyline o_);
 
                     Plane orientationPlane = o_.plane();
-                    
-                    if ( o_.ClosestPoint((orientationPlane.Origin + orientationPlane.Normal)).DistanceToSquared((orientationPlane.Origin + orientationPlane.Normal))>
+
+                    if (o_.ClosestPoint((orientationPlane.Origin + orientationPlane.Normal)).DistanceToSquared((orientationPlane.Origin + orientationPlane.Normal)) >
                          o_.ClosestPoint((orientationPlane.Origin - orientationPlane.Normal)).DistanceToSquared((orientationPlane.Origin - orientationPlane.Normal))
                         )
                     {
                         flags.Add(true);
                         o_.Reverse();
-                       //o_= o_.ShiftPline(2);
+                        //o_= o_.ShiftPline(2);
                     }
                     else
                     {
                         flags.Add(false);
                     }
-                       
-
-                    
 
                     cutPolyline.Add(o_);
                     nn++;
                 }
 
-
-
                 var normal = new List<Polyline>();
                 var normal_ = new List<Curve>();
                 DA.GetDataList(1, normal_);
 
-                 nn = 0;
+                nn = 0;
                 foreach (var o in normal_)
                 {
                     o.TryGetPolyline(out Polyline o_);
@@ -199,12 +182,10 @@ namespace Raccoon {
                         o_.Reverse();
                         //o_ = o_.ShiftPline(2);
                     }
-                 
 
                     normal.Add(o_);
                     nn++;
                 }
-
 
                 var cutType_ = new List<double>();
                 DA.GetDataList(2, cutType_);
@@ -212,15 +193,12 @@ namespace Raccoon {
                 foreach (var o in cutType_)
                     cutType.Add((CutType)o);
 
-
-
                 Plane refPlane = Plane.WorldXY;
                 // DA.GetData(1, ref refPlane);
 
                 List<double> angles = new List<double>();
                 //DA.GetDataList(2, angles);
 
-             
                 DA.GetData(3, ref this.toolr);
 
                 DA.GetData("Zsec", ref base.Zsec);
@@ -229,7 +207,7 @@ namespace Raccoon {
 
                 DA.GetData("ToolID", ref base.toolID);
 
-                this.toolr = (this.toolr == 0) ? this.tools[(int)toolID].radius : this.toolr;
+                this.toolr = (this.toolr == 0) ? Raccoon.GCode.Tool.tools[(int)toolID].radius : this.toolr;
 
                 double heightDivisions = 9;
                 DA.GetData(4, ref heightDivisions);
@@ -237,7 +215,6 @@ namespace Raccoon {
                 double ThicknessDivisions = 1;
                 DA.GetData(5, ref ThicknessDivisions);
                 ThicknessDivisions += ThicknessDivisions % 2;
-
 
                 double cut90Degrees = 0;
                 DA.GetData(6, ref cut90Degrees);
@@ -251,12 +228,6 @@ namespace Raccoon {
                 double extendSides = 1;
                 DA.GetData(9, ref extendSides);
 
-
-
-
-
-
-
                 string path = @"C:\Unity\20200715\ColabEPFL\ImaxProUnity\Assets\StreamingAssets\MachiningEPFL\test.txt";
                 //DA.GetData(10, ref path);
 
@@ -269,7 +240,6 @@ namespace Raccoon {
                 double rotationDeg = 0;
                 //DA.GetData(10, ref rotationDeg);
 
-
                 Mesh mesh = null;
                 //DA.GetData(14, ref mesh);
 
@@ -277,15 +247,13 @@ namespace Raccoon {
 
                 for (int i = 0; i < cutPolyline.Count; i++)
                 {
-                    Cut cut = new Cut(i, cutPolyline[i], normal[i], cutType[i % cutType.Count], false, new byte[] { 0 }, this.toolr, true, false, false, false, cut90Degrees>0);
+                    Cut cut = new Cut(i, cutPolyline[i], normal[i], cutType[i % cutType.Count], false, new byte[] { 0 }, this.toolr, true, false, false, false, cut90Degrees > 0);
                     c.Add(cut);
                 }
-
 
                 #endregion
 
                 if (c.Count == 0) return;
-
 
                 List<Cut> cCopy = new List<Cut>(c.Count);
                 for (int i = 0; i < c.Count; i++)
@@ -296,18 +264,13 @@ namespace Raccoon {
                     cCopy.Add(cutCopy);
                 }
 
-
-
                 DataTree<string> commands = new DataTree<string>();
                 DataTree<string> MoveTypes = new DataTree<string>();
                 var planestree = GetSawBladeToolPath(
                     cCopy, refPlane, angles,
-                    this.toolr, heightDivisions, retreate, retreateZ, extendSides,(int) ThicknessDivisions, (int)cut90Degrees,
+                    this.toolr, heightDivisions, retreate, retreateZ, extendSides, (int)ThicknessDivisions, (int)cut90Degrees,
                     speed, WObj, rotationDeg, mesh,
                     ref commands, ref MoveTypes);
-
-
-
 
                 var plinesTree0 = new Grasshopper.DataTree<Polyline>();
                 var plinesTree1 = new Grasshopper.DataTree<Polyline>();
@@ -315,10 +278,7 @@ namespace Raccoon {
                 {
                     plinesTree0.Add(planestree.Branch(planestree.Paths[i]).ToPolyline(), planestree.Paths[i]);
                     plinesTree1.Add(planestree.Branch(planestree.Paths[i]).ToPolyline(-1), planestree.Paths[i]);
-
                 }
-
-
 
                 DA.SetDataTree(0, plinesTree0);
                 DA.SetDataTree(1, plinesTree1);
@@ -326,25 +286,20 @@ namespace Raccoon {
                 //DA.SetDataTree(2, commands);
                 //DA.SetDataTree(3, MoveTypes);
 
-
                 /////////////////////////////////////////////////////////////////////////////////////////////////////
                 List<Polyline> polylines = plinesTree0.AllData();
                 List<Polyline> normals = plinesTree1.AllData();
 
-
-                this.tools = Raccoon.GCode.Tool.ToolsFromAssembly();
-                if (this.tools.ContainsKey((int)toolID))
+                //tools = Raccoon.GCode.Tool.ToolsFromAssembly();
+                if (Raccoon.GCode.Tool.tools.ContainsKey((int)toolID))
                 {
-
                     preview.PreviewLines0 = new List<Line>();
                     preview.PreviewLines1 = new List<Line>();
                     preview.PreviewLines2 = new List<Line>();
-                    GCode = Raccoon.GCode.Cutting.PolylineCutSimple(this.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, 80);
+                    GCode = Raccoon.GCode.Cutting.PolylineCutSimple(Raccoon.GCode.Tool.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, 80);
                     Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview);
                     DA.SetDataList(3, GCode);
                 }
-
-
             }
             catch (Exception e)
             {
@@ -352,21 +307,17 @@ namespace Raccoon {
             }
         }
 
-
-
         public DataTree<Plane> GetSawBladeToolPath(
             List<Cut> cuts, Plane refPlane, List<double> angles,
             double doubleRadius, double heightDivisions, double retreate, double retreateZ, double extendSides, int ThicknessDivisions, int cut90Degrees,
             double speed, string WObj, double rotation90Deg, Mesh mesh,
-            ref DataTree<string> commands, ref DataTree<string> MoveTypes) {
-
-
+            ref DataTree<string> commands, ref DataTree<string> MoveTypes)
+        {
             var tree = new DataTree<Plane>();
             commands = new DataTree<string>();
             MoveTypes = new DataTree<string>();
             int rotations = 8;
             double step = 360.0 / rotations;
-
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ///Rotation angles, instead of one angle, give always two to rotate the 90 degrees one 0 - 7 and 0 - 7
@@ -375,12 +326,10 @@ namespace Raccoon {
             //Plane homePlane = new Plane(new Point3d(1693.93, 65.95, 1749.00), new Vector3d(0.00, 0.00, -1.00));
             //homePlane.Rotate(Math.PI * 0.0, homePlane.ZAxis);
 
-
-            for (int j = 0; j < cuts.Count; j++) {
-
-
-                if (cuts[j].cutType == CutType.SawBlade || cuts[j].cutType == CutType.Cut || cuts[j].cutType == CutType.SawBladeSlice) {
-
+            for (int j = 0; j < cuts.Count; j++)
+            {
+                if (cuts[j].cutType == CutType.SawBlade || cuts[j].cutType == CutType.Cut || cuts[j].cutType == CutType.SawBladeSlice)
+                {
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     ///Create tool-path for milling
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -404,43 +353,44 @@ namespace Raccoon {
                     //listID.Add(new int[] { 0, 0 });
                     //listID.Add(new int[] { 0, 1 });
 
-                    for (int k = 0; k < planes.Count; k++) {
-
-                        if (cutSawBlade.SawFlip90Cut) {
-
-                            if (k % 2 == 0) {
-
-                                foreach (var p in planes[k]) {
+                    for (int k = 0; k < planes.Count; k++)
+                    {
+                        if (cutSawBlade.SawFlip90Cut)
+                        {
+                            if (k % 2 == 0)
+                            {
+                                foreach (var p in planes[k])
+                                {
                                     planes0.Add(new Plane(p));
                                     listID.Add(new int[] { 0, count0 });
                                     count0++;
                                 }
-                            } else {
-
-                                foreach (var p in planes[k]) {
+                            }
+                            else
+                            {
+                                foreach (var p in planes[k])
+                                {
                                     planes1.Add(new Plane(p));
                                     listID.Add(new int[] { 1, count1 });
                                     count1++;
                                 }
-
                             }
-
-                        } else {
-
+                        }
+                        else
+                        {
                             //if (planes0.Count == 0) {
                             //    planes0.Add(new Plane(homePlane));
                             //    listID.Add(new int[] { 0, 0 });
                             //}
 
-                            foreach (var p in planes[k]) {
+                            foreach (var p in planes[k])
+                            {
                                 planes0.Add(new Plane(p));
                                 listID.Add(new int[] { 0, count0 });
                                 count0++;
                             }
                         }
                     }
-
-
 
                     //planes0.Add(new Plane(homePlane));
                     //planes1.Add(new Plane(homePlane));
@@ -453,45 +403,40 @@ namespace Raccoon {
 
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     ///Rotate Tool-path incrementally
-                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     #region first rotation
                     int rotation0 = 0;
 
-
                     double z0 = -100;//Most top
-
-
 
                     bool success0 = false;
 
-
-                    for (int i = 0; i < rotations; i++) {
-
-
+                    for (int i = 0; i < rotations; i++)
+                    {
                         if (i > 0)
-                            for (int k = 1; k < planes0.Count - 1; k++) {
+                            for (int k = 1; k < planes0.Count - 1; k++)
+                            {
                                 planes0[k] = planes0[k].XForm(Rhino.Geometry.Transform.Rotation(Rhino.RhinoMath.ToRadians(step), planes0[k].ZAxis, planes0[k].Origin));//Error
                             }
-                       
+
                         //var commandsUnity0 = GetCommandsAndMoveTypes(refPlane, planes0, speed, 10, false, WObj, true);
-                   
 
                         //bool success0_ = RS.RobControllerToolPath.TestToolPath(commandsUnity0.Item1, RS.RobControllerToolPath.SawBladePlane);
                         bool success0_ = true;
 
-
-                        if (success0_) {
-
+                        if (success0_)
+                        {
                             double value = planes0[3].XAxis.Z;
 
-                            if (mesh != null) {
+                            if (mesh != null)
+                            {
                                 Point3d cp = mesh.ClosestPoint(planes0[3].Origin);
                                 double distance = cp.DistanceTo(planes0[3].Origin + planes0[3].XAxis);
                                 value = distance;
                             }
 
-                            if (value > z0) {
-
+                            if (value > z0)
+                            {
                                 //Rhino.RhinoApp.WriteLine("RotationA_" + i.ToString() + " Mesh " + (mesh != null).ToString() + " " + value.ToString());
                                 z0 = value;
                                 success0 = true;
@@ -499,7 +444,6 @@ namespace Raccoon {
                                 planes0Successful.Clear();
                                 foreach (var pl in planes0)
                                     planes0Successful.Add(new Plane(pl));
-
                             }
                             //break;
                         }
@@ -514,51 +458,50 @@ namespace Raccoon {
                     bool success1 = true;
                     int rotation1 = 0;
 
-                    if (cutSawBlade.SawFlip90Cut) {
+                    if (cutSawBlade.SawFlip90Cut)
+                    {
                         //Rhino.RhinoApp.WriteLine("RotationB_Enabled");
                         success1 = false;
-               
-                        for (int i = 0; i < rotations; i++) {
 
+                        for (int i = 0; i < rotations; i++)
+                        {
                             if (i > 0)
                                 for (int k = 1; k < planes1.Count - 1; k++)
                                     planes1[k] = planes1[k].XForm(Rhino.Geometry.Transform.Rotation(Rhino.RhinoMath.ToRadians(step), planes1[k].ZAxis, planes1[k].Origin));//Error
 
-                           
-
                             //var commandsUnity1 = GetCommandsAndMoveTypes(refPlane, planes1, speed, 10, false, WObj, true);
-                        
+
                             bool success1_ = true;
                             //bool success1_ = RS.RobControllerToolPath.TestToolPath(commandsUnity1.Item1, RS.RobControllerToolPath.SawBladePlane);
 
-
-                            if (success1_) {
-
+                            if (success1_)
+                            {
                                 double value = planes0[3].XAxis.Z;
 
-                                if (mesh != null) {
+                                if (mesh != null)
+                                {
                                     Point3d cp = mesh.ClosestPoint(planes1[3].Origin);
                                     double distance = cp.DistanceTo(planes1[3].Origin + planes1[3].XAxis);
                                     value = distance;
                                 }
 
-                                if (value > z1) {
-
-                                   // Rhino.RhinoApp.WriteLine("RotationB_" + i.ToString() + " Mesh " + (mesh != null).ToString() + " " + value.ToString());
+                                if (value > z1)
+                                {
+                                    // Rhino.RhinoApp.WriteLine("RotationB_" + i.ToString() + " Mesh " + (mesh != null).ToString() + " " + value.ToString());
                                     z1 = value;
                                     success1 = true;
 
                                     planes1Successful.Clear();
                                     foreach (var pl in planes1)
                                         planes1Successful.Add(new Plane(pl));
-
                                 }
                             }
 
                             break;
-
                         }
-                    } else {
+                    }
+                    else
+                    {
                         success1 = true;
                     }
                     #endregion
@@ -567,33 +510,40 @@ namespace Raccoon {
 
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     ///Take correct rotation
-                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     #region  Take correct rotation
-                    if (success0 && success1) {
-
+                    if (success0 && success1)
+                    {
                         var planesRemapped = new List<List<Plane>>();
                         var planesRemappedTemp = new List<Plane>();
 
-                        for (int k = 0; k < listID.Count; k++) {
-
-                            if (k > 0 && listID[k - 1][0] != listID[k][0]) {
+                        for (int k = 0; k < listID.Count; k++)
+                        {
+                            if (k > 0 && listID[k - 1][0] != listID[k][0])
+                            {
                                 List<Plane> planeList = new List<Plane>();
-                                for (int m = 0; m < planesRemappedTemp.Count; m++) 
+                                for (int m = 0; m < planesRemappedTemp.Count; m++)
                                     planeList.Add(new Plane(planesRemappedTemp[m]));
                                 planesRemapped.Add(planeList);
                                 planesRemappedTemp.Clear();
                             }
 
-                            if (listID[k][0] == 0) {
+                            if (listID[k][0] == 0)
+                            {
                                 planesRemappedTemp.Add(planes0Successful[listID[k][1]]);
-                            } else {
+                            }
+                            else
+                            {
                                 planesRemappedTemp.Add(planes1Successful[listID[k][1]]);
                             }
                         }
 
-                        if (planesRemapped.Count > 0) {
+                        if (planesRemapped.Count > 0)
+                        {
                             planesRemapped.Last().AddRange(planesRemappedTemp);
-                        } else {
+                        }
+                        else
+                        {
                             planesRemapped.Add(planesRemappedTemp);
                         }
 
@@ -602,42 +552,34 @@ namespace Raccoon {
                         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         GH_Path path = new GH_Path(j);
 
-                        foreach (var pr in planesRemapped) {                          
+                        foreach (var pr in planesRemapped)
+                        {
                             //var commandsUnity = GetCommandsAndMoveTypes(refPlane, pr, speed, 10, false, WObj, true);
                             //commands.AddRange(commandsUnity.Item1, path);
                             //MoveTypes.AddRange(commandsUnity.Item2, path);
                             tree.AddRange(pr, path);
-                       
                         }
-
                     }
                     #endregion
                 }
             }
 
-
             return tree;
-
         }
 
-
-
-        private Tuple<List<string>, List<string>> GetCommandsAndMoveTypes(Plane refPlane, List<Plane> planes, double speed, double smooth, bool AbsJ_L, object WObj, bool Mill) {
-
-
+        private Tuple<List<string>, List<string>> GetCommandsAndMoveTypes(Plane refPlane, List<Plane> planes, double speed, double smooth, bool AbsJ_L, object WObj, bool Mill)
+        {
             var commands = new List<string>(planes.Count());
             var moveTypes = new List<string>(planes.Count());
 
             Plane planeLast = Plane.Unset;
 
-            for (int i = 0; i < planes.Count(); i++) {
-
+            for (int i = 0; i < planes.Count(); i++)
+            {
                 //if(
                 bool isEqual = planeLast == planes[i];
                 if (isEqual)
                     continue;
-
-
 
                 Plane plane = new Plane(planes[i]);
 
@@ -652,22 +594,19 @@ namespace Raccoon {
                 commands.Add(output);
                 //Add to last
                 planeLast = new Plane(plane);
-
             }
 
-
-            if (planes.Count() > 2) {
+            if (planes.Count() > 2)
+            {
                 commands.Insert(1, "Mill 6500");
                 commands.Insert(commands.Count() - 2, "Mill 0");
             }
 
             return Tuple.Create(commands, moveTypes);
-
         }
 
-
-        public double[] InitPlane(Plane refPlane, Plane p) {
-
+        public double[] InitPlane(Plane refPlane, Plane p)
+        {
             Rhino.Geometry.Quaternion quaternion = new Quaternion();
             quaternion.SetRotation(refPlane, p);
 
@@ -678,31 +617,16 @@ namespace Raccoon {
       quaternion.A,quaternion.B,quaternion.C,quaternion.D
       };
 
-
-            for (int i = 0; i < transformation.Length; i++) {
+            for (int i = 0; i < transformation.Length; i++)
+            {
                 if (Math.Abs(transformation[i]) < 0.0001)
                     transformation[i] = 0;
             }
             return transformation;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         protected override void AfterSolveInstance()
         {
-
             GH_Document ghdoc = base.OnPingDocument();
             for (int i = 0; i < ghdoc.ObjectCount; i++)
             {
@@ -713,9 +637,7 @@ namespace Raccoon {
                     if (groupp.ObjectIDs.Contains(this.InstanceGuid))
                         return;
                 }
-
             }
-
 
             List<Guid> guids = new List<Guid>() { this.InstanceGuid };
 
@@ -723,10 +645,8 @@ namespace Raccoon {
                 foreach (IGH_Param source in param.Sources)
                     guids.Add(source.InstanceGuid);
 
-
             Grasshopper.Kernel.Special.GH_Group g = new Grasshopper.Kernel.Special.GH_Group();
             g.NickName = base.Name.ToString();
-
 
             g.Colour = System.Drawing.Color.FromArgb(255, 0, 255, 150);
 
@@ -734,29 +654,18 @@ namespace Raccoon {
             for (int i = 0; i < guids.Count; i++)
                 g.AddObject(guids[i]);
             g.ExpireCaches();
-
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-        protected override System.Drawing.Bitmap Icon {
-            get {
+        protected override System.Drawing.Bitmap Icon
+        {
+            get
+            {
                 return Properties.Resources.Saw;
             }
-       }
+        }
 
-  
-        public override Guid ComponentGuid {
+        public override Guid ComponentGuid
+        {
             get { return new Guid("73d2e86f-e1a5-4cd9-82c1-60e2f6bcf151"); }
         }
     }

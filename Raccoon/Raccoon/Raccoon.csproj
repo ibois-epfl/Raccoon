@@ -59,12 +59,16 @@
     <Compile Include="Components\CNC\ComponentCutting2Polylines.cs" />
     <Compile Include="Components\CNC\ComponentDrilling.cs" />
     <Compile Include="Components\CNC\ComponentCirclesHoles.cs" />
+    <Compile Include="Components\CNC\ComponentOpenPolylines.cs" />
     <Compile Include="Components\CNC\CutComponent.cs" />
     <Compile Include="Components\CustomComponent.cs" />
     <Compile Include="Components\GHData.cs" />
     <Compile Include="Components\CNC\RobotMillingGH.cs" />
     <Compile Include="Components\CNC\RobotSawBladeGH.cs" />
+    <Compile Include="Components\Tool\Component_Set_Tools.cs" />
+    <Compile Include="Components\View\CardanAngle.cs" />
     <Compile Include="Components\View\ComponentSimulate.cs" />
+    <Compile Include="Components\View\ComponentSimulateCardan.cs" />
     <Compile Include="Cut\clipper642.cs" />
     <Compile Include="Cut\CurveUtil.cs" />
     <Compile Include="Cut\Cut.cs" />
@@ -108,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\Geo\" />
-    <Folder Include="Components\Tool\" />
     <Folder Include="Components\Util\" />
     <Folder Include="Text\" />
     <Folder Include="UI\" />
@@ -151,6 +154,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\spiralDrill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\simulation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\simulation2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open_path.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
