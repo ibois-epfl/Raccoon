@@ -13,6 +13,8 @@ In order to use custom user defined tools from Tools.txt add Tools Component to 
 
 # Example Files
 ![CNC_Plugin](https://user-images.githubusercontent.com/18013985/164996185-eb7d612d-bc5b-4e32-94a5-09fef6dd9750.png)
+https://user-images.githubusercontent.com/18013985/164996235-c1af4799-1e8e-488e-8755-79c49566c315.mp4
+
 
 
 # CSharp Project Raccoon (CNC G-Code)
