@@ -1,5 +1,4 @@
 Author: Petras Vestartas
-Previous developments: Christopher Robeller, Benjamin Hahn
 
 # Install
 Download latest build from the release directory of github.
