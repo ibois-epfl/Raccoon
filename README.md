@@ -1,6 +1,9 @@
 Author: Petras Vestartas
 Previous developments: Christopher Robeller, Benjamin Hahn
 
+# Install
+Download latest build from the release directory of github.
+
 # Interface
 For security reasons all tools are defined in Tools.txt file.
 Follow the same order to define new tools.
