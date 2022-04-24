@@ -1,6 +1,16 @@
 Author: Petras Vestartas
 Previous developments: Christopher Robeller, Benjamin Hahn
 
+# Interface
+For security reasons all tools are defined in Tools.txt file.
+Follow the same order to define new tools.
+In order to use custom user defined tools from Tools.txt add Tools Component to Grasshopper canvas and assign the correct tool-path. After this all components will know about the set of tools, because we set a static dictionary.
+
+<img width="1440" alt="Screenshot 2022-04-24 at 18 45 45" src="https://user-images.githubusercontent.com/18013985/164987154-4a0c4a6b-b400-4037-ac68-a8d8b56c3e66.png">
+
+
+
+
 # CSharp Project Raccoon (CNC G-Code)
 To run CNC G-Code download the Build folder and place in Grasshopper Libraries folder: 
 https://github.com/ibois-epfl/Raccoon_Litter_Box/tree/main/Raccoon/build
