@@ -42,3 +42,9 @@ https://user-images.githubusercontent.com/18013985/164996235-c1af4799-1e8e-488e-
 - [ ] air supply
 - [x] text use OpenNest 
 - [ ] too deep angle cut
+
+### What do you need to know when using Cardar Axis
+
+Do not interpolate between two different angles, because you will get a curve cut:
+![image](https://user-images.githubusercontent.com/18013985/166113018-1f805a70-3f01-4619-b8f8-f2089a739883.png)
+
