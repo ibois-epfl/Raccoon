@@ -1,2 +1,0 @@
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_gh\obj\Release\joinery_solver_gh.csproj.AssemblyReference.cache
-C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\joinery_solver\joinery_solver_gh\obj\Release\joinery_solver_gh.csproj.CoreCompileInputs.cache
