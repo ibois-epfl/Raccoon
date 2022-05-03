@@ -9,14 +9,9 @@ namespace Raccoon.GCode
 {
     public static class Cutting
     {
-
-        
-
         public static List<string> PolylineCutSimple(GCode.ToolParameters tool, List<Polyline> polylines, ref PreviewObject previewGeometry, List<Polyline> normals = null,
  string filename = "P1234567", double Zsec = 650, double Speed = 20000, double RetreatDistance = 70, double angles = 80, int zero = 54)
         {
-
-
             List<string> ncc = new List<string> {
                 "G"+zero.ToString() + " (G54/G55/G56_zero_in_maka)",
                 //"P4010:250 (lift_aspiration,_plastic_cover_for_ventilation)", //lift aspiration
@@ -34,9 +29,35 @@ namespace Raccoon.GCode
                 //"G0 X0 Y0 Z" + Zsec.ToString() + Axes.DefaultRotation+ " (startpos)"
             };
 
-
             for (int i = 0; i < polylines.Count; i++)
             {
+                //Polyline polyline = new Polyline(polylines[i].Count);
+                //Polyline normal = new Polyline(polylines[i].Count);
+                Polyline polyline = polylines[i];
+                Polyline normal = normals[i];
+
+                //for (int j = 0; j < polylines[i].Count - 1; j++)
+                //{
+                //    Vector3d v0 = polylines[i][j] - normals[i][j];
+                //    Vector3d v1 = polylines[i][j + 1] - normals[i][j + 1];
+                //    if (v0.IsParallelTo(v1, 0.01) == 1)
+                //    {
+                //        polyline.Add(polylines[i][j]);
+                //        normal.Add(normals[i][j]);
+                //    }
+                //    else
+                //    {
+                //        polyline.Add(polylines[i][j]);
+                //        normal.Add(normals[i][j]);
+                //        double dist = Math.Max(polylines[i][j].DistanceTo(polylines[i][j + 1]), normals[i][j].DistanceTo(normals[i][j + 1]));
+                //        int divisions = (int)Math.Ceiling(dist / 10000000.0);
+                //        Point3d[] interpolated_segment_polyline = Raccoon.PointUtil.InterpolatePoints(polylines[i][j], polylines[i][j + 1], divisions, false);
+                //        Point3d[] interpolated_segment_normal = Raccoon.PointUtil.InterpolatePoints(normals[i][j], normals[i][j + 1], divisions, false);
+
+                //        polyline.AddRange(interpolated_segment_polyline);
+                //        normal.AddRange(interpolated_segment_normal);
+                //    }
+                //}
 
                 ncc.Add("(____________polyline " + i.ToString() + "____________)");
 
@@ -50,25 +71,23 @@ namespace Raccoon.GCode
                 Point3d safety = Point3d.Unset;
                 Tuple<double, double, string> AB = null;
                 Tuple<double, double, string> AB_last = null;
-                string speed = " F" + (Speed).ToString() ;
+                string speed = " F" + (Speed).ToString();
 
-                for (int j = 0; j < polylines[i].Count; j++)
+                for (int j = 0; j < polyline.Count; j++)
                 {
-
                     //get normal
-                    p = polylines[i][j];
-                    n = normals[i][j] - polylines[i][j];
+                    p = polyline[j];
+                    n = normal[j] - polyline[j];
                     n.Unitize();
                     if (n.IsParallelTo(n_last) != 1)
                         AB = GCode.CoordinateSystem.AB180(n);
 
                     if (j == 0)
                     {
-
                         safety = p + (n * RetreatDistance);
                         double z_first = i == 0 ? Axes.ZCoord : Zsec;
                         ncc.Add("G0" + GCode.CoordinateSystem.Pt2nc(new Point3d(safety.X, safety.Y, z_first)) + " (first_point)");
-                        ncc.Add("G1" + " F" + Speed.ToString()+"." + " (first_point)");
+                        ncc.Add("G1" + " F" + Speed.ToString() + "." + " (first_point)");
                         ncc.Add(GCode.CoordinateSystem.Pt2nc(new Point3d(safety.X, safety.Y, Zsec), 3, "") + AB.Item3 + " (first_point rotate)");//G1
                         ncc.Add(GCode.CoordinateSystem.Pt2nc(safety, 3, "") + AB.Item3 + " (safety_first_retreated)");//G1
                         ncc.Add(GCode.CoordinateSystem.Pt2nc(p, 3, "") + AB.Item3 + " (first_point_into_rotation)");//G1
@@ -77,69 +96,54 @@ namespace Raccoon.GCode
                     {
                         if (AB.Item1 > AB_last.Item1 + angles || AB.Item1 < AB_last.Item1 - angles)
                         {
-
-
-
-
                             ncc.Add("(**********************_turn_*************************)");
 
                             //Move until middle to the next point
                             Point3d mid = (p + p_last) * 0.5;
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(mid, 3, ""));
-
-
+                            ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(mid, 3, ""));
 
                             //retreate, change position
                             Point3d retreatPoint = p_last + n_last * RetreatDistance;
-                            Point3d retreatPointMid = mid + (n+n_last).Unit() * RetreatDistance;
+                            Point3d retreatPointMid = mid + (n + n_last).Unit() * RetreatDistance;
                             Point3d retreatPointSafety = new Point3d(retreatPoint.X, retreatPoint.Y, Zsec);
 
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointMid, 3, "") + AB_last.Item3 + " (retreat)");
-                            //ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointSafety, 3, "") + " (retreat_To_Safety)");
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPointMid, 3, "") + AB.Item3 + " (rotate_In_Safety)");
-                            //ncc.Add(GCode.CoordinateSystem.Pt2nc(retreatPoint, 3, "") + " (return_to_retreate_point)");
-                            ncc.Add("F" + (Speed).ToString());
+                            //ncc.Add("G0 " + GCode.CoordinateSystem.Pt2nc(retreatPointMid, 3, "") + AB_last.Item3 + " (retreat)");
+                            //ncc.Add("G0 " + GCode.CoordinateSystem.Pt2nc(retreatPointMid, 3, "") + AB.Item3 + " (rotate_In_Safety)");
+
+                            ncc.Add("G0 " + GCode.CoordinateSystem.Pt2nc(retreatPointMid, 3, "") + " (retreat)");
+                            ncc.Add("G0" + AB.Item3 + " (rotate_in_retreat)");
 
                             //Back to middle - finish edge with another direction
-                            ncc.Add(GCode.CoordinateSystem.Pt2nc(mid, 3, "") + " (return)");
+                            ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(mid, 3, "") + " F" + (Speed).ToString() + " (return)");
+                            //ncc.Add("G1 F" + (Speed).ToString());
                             ncc.Add("(********************_end_turn_**********************)");
                         }
 
                         //then add current position
                         string angle = AB == AB_last ? " " : AB.Item3;
                         ncc.Add(GCode.CoordinateSystem.Pt2nc(p, 3, "") + angle);
-
-
                     } //if first
 
-
-
-                    if (j == polylines[i].Count - 1)
+                    if (j == polyline.Count - 1)
                     {
                         safety = p + (n * RetreatDistance);
                         ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety, 3, "") + speed + " (safety_point_end)");
                     }
 
-
-
                     n_last = n;
                     p_last = p;
                     AB_last = AB;
                 }//for j
-                double z_last = i == polylines.Count-1 ? Axes.ZCoord : Zsec;
-                ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety.X, safety.Y, z_last) + AB.Item3 + speed +  " (last_point)");
+                double z_last = i == polylines.Count - 1 ? Axes.ZCoord : Zsec;
+                ncc.Add("G1 " + GCode.CoordinateSystem.Pt2nc(safety.X, safety.Y, z_last) + AB.Item3 + speed + " (last_point)");
 
                 //Zsec
-
-
-
             }//for i
-
 
             ncc.Add("(____________end_cutting____________)");
             //ncc.Add("(ReplaceB)");
             ncc.Add("G0 Z" + Axes.ZCoord + " (endpos)");
-            ncc.Add("G0" +Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");
+            ncc.Add("G0" + Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");
             GCode.Write.WriteAndCheck(ref ncc, ref previewGeometry, filename, "5x_normal", tool.ToString());
             return ncc;
         }
@@ -147,7 +151,6 @@ namespace Raccoon.GCode
         public static List<string> CNC5XCut2Polylines(GCode.ToolParameters tool, List<Curve> crvs, ref PreviewObject previewGeometry, ref List<Curve> sharpPolylines,
 double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistance = 70, int infeed = 2, bool Notch = true, bool pairing = false, double angleTol = 60, double maxAngle = 80, int zero = 54, string filename = "P1234567")
         {
-
             List<string> ncc = new List<string> {
                 "G"+zero.ToString() + " (G54/G55/G56_zero_in_maka)",
                 //"P4010:250 (lift_aspiration,_plastic_cover_for_ventilation)", //lift aspiration
@@ -164,15 +167,11 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                 //"G0 X0 Y0 Z" + Zsec.ToString() + Axes.DefaultRotation+ " (startpos)"
             };
 
-
-
             List<List<Curve>> pairs = Utilities.GeometryProcessing.FindPairs(crvs, pairing);
             //Rhino.RhinoApp.WriteLine(pairs.Count.ToString());
 
-
             for (int p = 0; p != pairs.Count; p++)
             {
-
                 Polyline ply0;
                 Polyline ply1;
 
@@ -185,8 +184,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                     ply0 = check.Item1;
                     ply1 = check.Item2;
 
-
-
                     sharpPolylines.AddRange(check.Item3);
                 }
 
@@ -194,11 +191,8 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
                 ncc.Add("(start " + orient + " pair no" + p.ToString() + ")");
 
-
-
                 if (ply0.IsValid && ply1.IsValid)
                 {
-
                     Point3d[] vrts = ply0.ToArray();
                     Point3d[] uvrts = ply1.ToArray();
 
@@ -270,8 +264,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                             n1.Unitize();
                             n1 *= toolr;
 
-
-
                             Plane pl0 = new Plane(p0, (n1b + n0) / 2);                         //# ext bisector plane last/current
                             Plane pl1 = new Plane(p1, ((n0 + n1) / 2));                        //# ext bisector plane current/next
 
@@ -284,11 +276,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                             Point3d pt0 = ln0.PointAt(pm0);                                                 //# intersection with Plane 0
                             Point3d pt1 = ln0.PointAt(pm1);                                                 //# intersection with Plane 1
 
-
-
-
-
-
                             Point3d pt6 = new Point3d();
                             bool boolN = false;
 
@@ -299,7 +286,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                             Line XXA = new Line(p1, p1u);
 
                             Point3d ptC = XXA.ClosestPoint(pt1, false);
-                            double l0 = ptC.DistanceTo(pt1) - toolr;                                        //# offset dist 
+                            double l0 = ptC.DistanceTo(pt1) - toolr;                                        //# offset dist
                             Vector3d nnn = ptC - pt1;
                             nnn.Unitize();
                             Point3d pt3 = pt1 + nnn * l0;
@@ -324,7 +311,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                             Vector3d cp0 = Vector3d.CrossProduct(al, an);                              //# +- look current
                             Vector3d cp1 = Vector3d.CrossProduct(bl, bn);                              //# +- look 1 ahead
 
-
                             if (orient == "Clockwise")
                             {
                                 if (cpr1.Z < 0 && cp0.Z < 0 && cp1.Z > 0)     //# --+
@@ -340,8 +326,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                                     boolN = true;
                             }
 
-
-
                             Point3d[] pts = { pt0, pt1, pt1 + (p1u - p1), pt0 + (p0u - p0) };
 
                             Vector3d nh0 = ((pts[3] - pts[0]) / infeed) * (k - 1);
@@ -349,8 +333,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
                             Point3d p21 = pts[1] + nh1;  // infeed pts
                             Point3d p30 = pts[0] + nh0;
-
-
 
                             if (Notch == true)
                             {
@@ -388,8 +370,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                                 }
                             }
 
-
-
                             int IPDtemp = 3;                                                                        // division for sim mach
                             if (Math.Abs(pts[0].DistanceTo(pts[1])) <= Math.Abs(pts[3].DistanceTo(pts[2])) + 0.5 && Math.Abs(pts[0].DistanceTo(pts[1])) >= Math.Abs(pts[3].DistanceTo(pts[2])) - 0.5)
                             {
@@ -399,8 +379,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                             List<Point3d> ptsl = Utilities.GeometryProcessing.DividePoints(pts[0], pts[1], IPDtemp);
                             List<Point3d> ptsm = Utilities.GeometryProcessing.DividePoints(p30, p21, IPDtemp);
                             List<Point3d> ptsu = Utilities.GeometryProcessing.DividePoints(pts[3], pts[2], IPDtemp);
-
-
 
                             Point3d TCP2 = new Point3d();
                             Point3d TCP3 = new Point3d();
@@ -416,19 +394,16 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
                             for (int m = 0; m != ptsl.Count; m++)
                             {
-
                                 if (k == 0)
-                                    TCP = ptsl[m];                                                                  // use base pts              
-
+                                    TCP = ptsl[m];                                                                  // use base pts
                                 else
-                                    TCP = ptsm[m];                  // use infeed pts                         
+                                    TCP = ptsm[m];                  // use infeed pts
 
                                 Point3d ORP = ptsu[m];
                                 Vector3d n = ORP - TCP;
                                 n.Unitize();
                                 AB = GCode.CoordinateSystem.AB180(n);
                                 nX = n;
-
 
                                 TCP2 = Utilities.GeometryProcessing.VecPlnInt(TCP, n, RetreatDistance);              //#retreat pt
                                 TCP3 = Utilities.GeometryProcessing.VecPlnInt(TCP, n, Zsec);             //#safe pt
@@ -437,14 +412,13 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
                                 if (m == 0 && i == 0 && k == infeed)                                                                         //# 1.Infeed to 1.point in 1.segment: additional safe point !!! k must be set to 1 when only 1 infeed !!!
                                 {
-                                    ncc.Add("G0" + GCode.CoordinateSystem.Pt2nc(new Point3d(TCP3.X, TCP3.Y, Zsec)) + Axes.DefaultRotation+ " (first security)");
+                                    ncc.Add("G0" + GCode.CoordinateSystem.Pt2nc(new Point3d(TCP3.X, TCP3.Y, Zsec)) + Axes.DefaultRotation + " (first security)");
                                     ncc.Add("G0" + GCode.CoordinateSystem.Pt2nc(TCP3) + strAB + " (first security)");
                                 }
                                 else
                                 {
                                     if (AB_last.Item1 != double.NaN)//(m != 0)
                                     {
-
                                         if (AB.Item1 > AB_last.Item1 + maxAngle || AB.Item1 < AB_last.Item1 - maxAngle)                                  //# check for turn
                                         {
                                             ncc.Add("(********************** turn *************************)");
@@ -453,7 +427,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                                             ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(TCP_last) + strAB + " F" + ((int)(Speed * 0.1)).ToString() + " (return)");
                                             ncc.Add("(******************** end turn **********************)");
                                         }
-
                                     }
                                 }
 
@@ -466,8 +439,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                                 TCP2_last = TCP2;
                                 AB_last = AB;
                             }
-
-
 
                             if (Notch == true)
                             {
@@ -482,11 +453,8 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                                 }
                             }
 
-
-
                             if (i == vrts.Length - 2 && k == 1)
                             {
-
                                 ncc.Add("G0" + GCode.CoordinateSystem.Pt2nc(TCP3) + " (last security)");
                                 ncc.Add("G0" + GCode.CoordinateSystem.Pt2nc(new Point3d(TCP3.X, TCP3.Y, Zsec)) + strAB + " (last security)");
                             }
@@ -494,15 +462,12 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                     }
                 }
             }
-            ncc.Add("G0 Z" +Axes.ZCoord + " (endpos)");
+            ncc.Add("G0 Z" + Axes.ZCoord + " (endpos)");
             ncc.Add("G0" + Axes.HomePosition2 + Axes.DefaultRotation + " (end pos)");
- 
-
 
             GCode.Write.WriteAndCheck(ref ncc, ref previewGeometry, filename, "5x_3dcrvs", tool.ToString());
             //ncc.Add("(ReplaceB)");
             return ncc;
-
         }
 
         /// <summary>
@@ -525,7 +490,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
         public static List<string> CNC5X3DDrill(GCode.ToolParameters tool, List<Line> lines, ref PreviewObject previewGeometry,
    string filename = "P1234567", double Zsec = 650, double Speed = 20000, double RetreatDistance = 70, int zero = 54, int infeed = 1)
         {
-
             List<string> ncc = new List<string> {
                 "G"+zero.ToString() + " (G54 - default Maka/G55/G59_zero_in_maka)",
                 //"P4010:250 (lift_aspiration,_plastic_cover_for_ventilation)", //lift aspiration
@@ -541,7 +505,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                 "(____________start_cutting____________)"
             };
 
-           // double BeforeCuttingZSecturity = 800;
+            // double BeforeCuttingZSecturity = 800;
 
             Point3d p0, p1, sp;
             Vector3d n0;
@@ -549,7 +513,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
             int i = 0;
             foreach (Line l in lines)
             {
-
                 if (!l.IsValid) continue;
 
                 List<Line> multiLines = new List<Line>();
@@ -563,7 +526,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
                 for (int j = 0; j < multiLines.Count; j++)
                 {
-
                     //l = multiLines[j];
 
                     p0 = multiLines[j].From;
@@ -578,7 +540,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                     //ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(new Point3d(sp.X, sp.Y, Zsec)) + AB.Item3);
                     //ncc.Add("G1" + Axes.DefaultRotation + " F4000");
 
-                    if ( i == 0)
+                    if (i == 0)
                         ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(new Point3d(sp.X, sp.Y, Zsec)) + AB.Item3);
 
                     //Perform drilling
@@ -589,38 +551,24 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                     ncc.Add("F" + Speed.ToString());    //safety
 
                     //In order not to bump into high elements on the table, do movements on Zsec axis, before drilling
-                   // if (i == lines.Count  )
-                        //ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(new Point3d(sp.X, sp.Y, Zsec)) + AB.Item3);
+                    // if (i == lines.Count  )
+                    //ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(new Point3d(sp.X, sp.Y, Zsec)) + AB.Item3);
                 }
-
-
             }
-
-
 
             ncc.Add("(____________end_drilling____________)");
             //ncc.Add("(ReplaceB)");
             //ncc.Add("G0 X0 Y0 Z" + Zsec.ToString() + Axes.DefaultRotation + " (endpos)");
             ncc.Add("G0 Z" + Zsec.ToString() + " (BeforeCuttingZSecturity)");
             ncc.Add("G0 Z" + Axes.ZCoord + " (endpos)");
-            ncc.Add("G0"  + Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");
-            
+            ncc.Add("G0" + Axes.HomePosition2 + Axes.DefaultRotation + " (endpos)");
+
             ncc.Add("P4010:250 (lift_aspiration,_plastic_cover_for_ventilation)");
 
             //Rhino.RhinoApp.WriteLine("Writing");
             Raccoon.GCode.Write.WriteAndCheck(ref ncc, ref previewGeometry, filename, "5x_3dcrvs", tool.ToString());
             return ncc;
-
-
         }
-
-
-
-
-
-
-
-
 
         /// <summary>
         ///     Returns:
@@ -642,7 +590,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
         public static List<string> CNC5X3DDrillLathe(GCode.ToolParameters tool, List<Line> lines, ref PreviewObject previewGeometry,
    string filename = "P1234567", double Zsec = 650, double Speed = 20000, double RetreatDistance = 70, int zero = 54, int infeed = 1)
         {
-
             List<string> ncc = new List<string> {
                 "G"+zero.ToString() + " (G54 - default Maka/G55/G59_zero_in_maka)",
                 //"P4010:250 (lift_aspiration,_plastic_cover_for_ventilation)", //lift aspiration
@@ -655,7 +602,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                 "M08" + " (air_supply)" ,
                  "G1 F"+Speed.ToString() ,
                  "(ReplaceB)",
-                
+
                 "(____________start_cutting____________)"
             };
 
@@ -667,7 +614,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
             int i = 0;
             foreach (Line l in lines)
             {
-
                 if (!l.IsValid) continue;
 
                 List<Line> multiLines = new List<Line>();
@@ -681,7 +627,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
 
                 for (int j = 0; j < multiLines.Count; j++)
                 {
-
                     //l = multiLines[j];
 
                     p0 = multiLines[j].From;
@@ -710,10 +655,7 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
                     // if (i == lines.Count  )
                     //ncc.Add("G1" + GCode.CoordinateSystem.Pt2nc(new Point3d(sp.X, sp.Y, Zsec)) + AB.Item3);
                 }
-
-
             }
-
 
             ncc.Add("M15");
             ncc.Add("(____________end_drilling____________)");
@@ -728,23 +670,6 @@ double toolr = 10, double Zsec = 650, double Speed = 20000, double RetreatDistan
             //Rhino.RhinoApp.WriteLine("Writing");
             Raccoon.GCode.Write.WriteAndCheck(ref ncc, ref previewGeometry, filename, "5x_3dcrvs", tool.ToString());
             return ncc;
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

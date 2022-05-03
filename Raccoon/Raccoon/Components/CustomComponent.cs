@@ -13,6 +13,7 @@ namespace Raccoon
 {
     public struct PreviewObject
     {
+        public PointCloud vertices;
         public List<Line> PreviewLines0;
         public List<Line> PreviewLines1;
         public List<Line> PreviewLines2;
@@ -83,6 +84,13 @@ namespace Raccoon
                 {
                     args.Display.DrawCurve(c, Color.Red, 5);
                 }
+
+            //Vertices
+            if (preview.vertices != null)
+            {
+                args.Display.DrawPointCloud(preview.vertices, 3, Color.Blue);
+                //args.Display.DrawArrows(lines, Color.MediumVioletRed);
+            }
         }
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)

@@ -265,6 +265,7 @@ namespace Raccoon.Components.CNC
                         preview.PreviewLines0 = new List<Line>();
                         preview.PreviewLines1 = new List<Line>();
                         preview.PreviewLines2 = new List<Line>();
+                        preview.vertices = new PointCloud();
                         double angle = 80;
                         GCode = Raccoon.GCode.Cutting.PolylineCutSimple(Raccoon.GCode.Tool.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, (int)angle);
                         Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview);

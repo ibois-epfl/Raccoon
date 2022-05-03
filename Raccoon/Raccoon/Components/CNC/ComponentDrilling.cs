@@ -201,7 +201,7 @@ namespace Raccoon.Components
                         preview.PreviewLines1 = new List<Line>();
                         preview.PreviewLines2 = new List<Line>();
                         lines = linesOrdered;
-
+                        preview.vertices = new PointCloud();
                         //Rhino.RhinoApp.WriteLine(lines.Count.ToString());
                         GCode = Raccoon.GCode.Cutting.CNC5X3DDrill(Raccoon.GCode.Tool.tools[(int)toolID], lines, ref preview, filename, Zsec, XYfeed, Retreat, 54, (int)base.infeed);
 

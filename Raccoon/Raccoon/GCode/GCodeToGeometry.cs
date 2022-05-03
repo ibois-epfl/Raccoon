@@ -220,8 +220,11 @@ namespace Raccoon.GCode
                     }
                 }//foreach
 
-                if (boolAP == true) //only if a point is defined in NC-Code, point will be created
+                if (boolAP == true)
+                {//only if a point is defined in NC-Code, point will be created
                     pt = new Point3d(X, Y, Z);
+                    preview.vertices.Add(pt);
+                }
 
                 //Bake lines
                 if (pt.Z != defaultVal & lastPt.Z != defaultVal)
@@ -272,7 +275,7 @@ namespace Raccoon.GCode
                     //Line line1 = new Line(p3,p4);
                     Line line1 = new Line(p3, p4 + (p4 - p3) * 5);
 
-                    preview.PreviewLines2.Add(line1);
+                    // preview.PreviewLines2.Add(line1);
 
                     //Rhino.RhinoApp.WriteLine(line1.Length.ToString());
 

@@ -166,7 +166,7 @@ namespace Raccoon.Components.View
             preview.PreviewLines1 = new List<Line>();
             preview.PreviewLines2 = new List<Line>();
             preview.PreviewPolyline = new Polyline();
-
+            preview.vertices = new PointCloud();
             int id = (int)Math.Ceiling(position * (GCode.Count - 1));
             Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview, position);
 

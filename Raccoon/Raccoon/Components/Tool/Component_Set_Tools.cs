@@ -18,6 +18,7 @@ namespace Raccoon.Components.Tool
         {
             pManager.AddTextParameter("Folder_and_File_Name_of_Tools", "Folder_and_File_Name_of_Tools", "Path with the set of tools \n Each line in the Tools.txt must contain such code: \n ID_140 Radius_7.098 Length_215.03 MaxSpindleSpeed_24000 PrescribedSpindleSpeed_18000 Turn_3 CutLength_5.000 Saw_0 HolderRadius_30.000", GH_ParamAccess.item,
                 @"C:\Users\petra\AppData\Roaming\Grasshopper\Libraries\Raccoon\Tools.txt");
+            pManager.AddNumberParameter("Tolerance", "Tolerance", "This parameter increase/decrease tool radius", GH_ParamAccess.item, 0.0);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -29,6 +30,10 @@ namespace Raccoon.Components.Tool
             string filename = "";
             DA.GetData(0, ref filename);
 
+            double tolerance = 0.0;
+
+            DA.GetData(1, ref tolerance);
+
             //Raccoon.GCode.Tool.ToolsFromAssembly();
             //string assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
             //string assemblyPath = System.IO.Path.GetDirectoryName(assemblyLocation);
@@ -37,7 +42,15 @@ namespace Raccoon.Components.Tool
             string[] lines = System.IO.File.ReadAllLines(filename);
 
             Raccoon.GCode.Tool.tools = Raccoon.GCode.Tool.ToolsFromText(lines);
-            string message = "";
+
+            foreach (var t in System.Linq.Enumerable.ToList(Raccoon.GCode.Tool.tools))
+            {
+                var parameters = Raccoon.GCode.Tool.tools[t.Key];
+                parameters.radius += tolerance;
+                Raccoon.GCode.Tool.tools[t.Key] = parameters;
+            }
+
+            string message = "\nLATER REFRESH GRASSHOPPER\nSOLUTION -> RECOMPUTE\n\n";
             foreach (var t in Raccoon.GCode.Tool.tools)
             {
                 int n = Math.Abs(4 - t.Key.ToString().Length);
@@ -54,6 +67,8 @@ namespace Raccoon.Components.Tool
             base.Message = message;
 
             Raccoon.GCode.Tool.SetDefaultTools();
+            //GH_Document doc = OnPingDocument();
+            //doc.NewSolution(true);
         }
 
         protected override System.Drawing.Bitmap Icon

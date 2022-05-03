@@ -166,7 +166,7 @@ namespace Raccoon.Components.CNC
                         preview.PreviewLines0 = new List<Line>();
                         preview.PreviewLines1 = new List<Line>();
                         preview.PreviewLines2 = new List<Line>();
-
+                        preview.vertices = new PointCloud();
                         List<Curve> sharpPolylines = new List<Curve>();
 
                         GCode = Raccoon.GCode.Cutting.CNC5XCut2Polylines(Raccoon.GCode.Tool.tools[(int)toolID], curves, ref preview, ref sharpPolylines,

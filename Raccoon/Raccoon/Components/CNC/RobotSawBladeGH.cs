@@ -296,6 +296,7 @@ namespace Raccoon
                     preview.PreviewLines0 = new List<Line>();
                     preview.PreviewLines1 = new List<Line>();
                     preview.PreviewLines2 = new List<Line>();
+                    preview.vertices = new PointCloud();
                     GCode = Raccoon.GCode.Cutting.PolylineCutSimple(Raccoon.GCode.Tool.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, 80);
                     Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview);
                     DA.SetDataList(3, GCode);

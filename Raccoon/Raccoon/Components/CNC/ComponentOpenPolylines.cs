@@ -14,7 +14,7 @@ namespace Raccoon.Components.CNC
         /// Initializes a new instance of the Cutting2Polylines class.
         /// </summary>
         public ComponentOpenPolyline()
-          : base("Open Polys", "Open Polys", "One curve is cutting line, other curve is followed as normal (takes only control points of polyline)","Robot/CNC")
+          : base("Open Polys", "Open Polys", "One curve is cutting line, other curve is followed as normal (takes only control points of polyline)", "Robot/CNC")
         {
         }
 
@@ -156,6 +156,7 @@ namespace Raccoon.Components.CNC
                         preview.PreviewLines0 = new List<Line>();
                         preview.PreviewLines1 = new List<Line>();
                         preview.PreviewLines2 = new List<Line>();
+                        preview.vertices = new PointCloud();
                         GCode = Raccoon.GCode.Cutting.PolylineCutSimple(Raccoon.GCode.Tool.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, (int)angle);
                         Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview);
 

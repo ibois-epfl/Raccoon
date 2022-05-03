@@ -69,7 +69,7 @@ namespace Raccoon
 
             //    //Add sliders
 
-            double[] sliderValue = new double[] { 12, 2, 0, 10, 42, 20000, 750, 50, 5 };
+            double[] sliderValue = new double[] { 12, 2, 0, 10, 42, 20000, 750, 50, 80 };
             double[] sliderMinValue = new double[] { 0, 0, 0, 1, 0, 10000, 0, 0, 0 };
             double[] sliderMaxValue = new double[] { 12, 4, 100, 10, 150, 40000, 800, 800, 360 };
             int[] sliderID = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -315,6 +315,7 @@ namespace Raccoon
                     preview.PreviewLines0 = new List<Line>();
                     preview.PreviewLines1 = new List<Line>();
                     preview.PreviewLines2 = new List<Line>();
+                    preview.vertices = new PointCloud();
                     GCode = Raccoon.GCode.Cutting.PolylineCutSimple(Raccoon.GCode.Tool.tools[(int)toolID], polylines, ref preview, normals, filename, Zsec, XYfeed, Retreat, angle);
                     Raccoon.GCode.GCodeToGeometry.DrawToolpath(GCode, ref preview);
 

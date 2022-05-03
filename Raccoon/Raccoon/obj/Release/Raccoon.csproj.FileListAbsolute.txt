@@ -5,3 +5,6 @@ C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.csproj.CoreCompileInputs.cache
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.dll
 C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.pdb
+C:\Users\petra\AppData\Roaming\Grasshopper\Libraries\Raccoon\Raccoon.dll
+C:\Users\petra\AppData\Roaming\Grasshopper\Libraries\Raccoon\Raccoon.pdb
+C:\IBOIS57\_Code\Software\Raccoon_Litter_Box\Raccoon\Raccoon\obj\Release\Raccoon.csproj.AssemblyReference.cache
